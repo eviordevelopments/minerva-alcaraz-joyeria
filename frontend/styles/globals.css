@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 @font-face {
   font-family: 'Butler Stencil';
   src: url('/fonts/Butler-Stencil.woff2') format('woff2');
@@ -20,6 +22,18 @@
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
+}
+
+@theme {
+  --color-hueso-seda: #E5DBD6;
+  --color-verde-ebano: #2C3729;
+  --color-oro-antiguo: #CBB67B;
+  --color-plata-niebla: #C3C9C0;
+  --color-bosque-profundo: #294127;
+  
+  --font-display: 'Butler Stencil', serif;
+  --font-identity: 'Butler', serif;
+  --font-primary: 'Raleway', sans-serif;
 }
 
 :root {
