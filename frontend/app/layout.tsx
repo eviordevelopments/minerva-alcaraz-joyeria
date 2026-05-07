@@ -4,9 +4,9 @@ import { DesignSystemProvider } from "../components/DesignSystemProvider";
 import { WhatsAppFAB } from "../components/WhatsAppFAB";
 
 export const metadata: Metadata = {
-  title: "Minerva Alcaraz Joyería | Diseño Eterno Digital",
-  description: "Artesanía ancestral en oro y plata. Piezas únicas y exclusivas diseñadas para trascender el tiempo.",
-  keywords: ["joyería de lujo", "artesanía", "oro", "plata", "piezas únicas", "Minerva Alcaraz"],
+  title: "El Ritual de las Manos que Custodian la Eternidad",
+  description: "La preservación del arte joyero a través de técnicas ancestrales. Cada pieza es un testimonio de devoción y maestría, forjada para habitar en la eternidad.",
+  keywords: ["joyería artesanal", "herencia", "oro", "plata", "piezas únicas", "Minerva Alcaraz", "maestría joyera"],
 };
 
 export default function RootLayout({
