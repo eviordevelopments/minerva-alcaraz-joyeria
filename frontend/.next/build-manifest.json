@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/4XqXMNO8RyBMiu9Pr0q-Q/_buildManifest.js",
-    "static/4XqXMNO8RyBMiu9Pr0q-Q/_ssgManifest.js"
+    "static/-8ndkOBSdWodmB0uJkJS5/_buildManifest.js",
+    "static/-8ndkOBSdWodmB0uJkJS5/_ssgManifest.js"
   ],
   "rootMainFiles": [
     "static/chunks/webpack-19a7c5cd25719328.js",
