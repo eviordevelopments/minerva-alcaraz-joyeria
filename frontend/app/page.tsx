@@ -37,7 +37,7 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.5, ease: "easeOut" }}
           >
-            <h1 className="text-4xl md:text-6xl mb-12 font-display tracking-widest text-hueso-seda leading-tight drop-shadow-2xl max-w-5xl mx-auto uppercase">
+            <h1 className="text-4xl md:text-6xl mb-12 font-display tracking-[0.2em] text-oro-antiguo leading-tight drop-shadow-2xl max-w-5xl mx-auto uppercase">
               Donde el arte encuentra su esencia y la eternidad su presencia.
             </h1>
             <LuxuryButton variant="primary" className="!bg-hueso-seda/10 !text-hueso-seda !border-hueso-seda hover:!bg-hueso-seda hover:!text-verde-ebano">
