@@ -2,8 +2,8 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Header } from "../components/Header";
-import { LuxuryButton } from "../components/DesignSystem";
+import { Header } from "../../components/Header";
+import { LuxuryButton } from "../../components/DesignSystem";
 import { Award, Package, Heart, Settings, MessageCircle, Star, PenTool } from "lucide-react";
 
 export default function CircleDashboard() {

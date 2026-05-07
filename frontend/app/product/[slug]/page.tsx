@@ -2,12 +2,13 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Header } from "../../components/Header";
-import { FAQSection } from "../../components/FAQSection";
-import { LuxuryButton } from "../../components/DesignSystem";
+import { Header } from "../../../components/Header";
+import { FAQSection } from "../../../components/FAQSection";
+import { LuxuryButton } from "../../../components/DesignSystem";
 import { ShoppingBag, Heart, Ruler, Info, Gift, Box, MessageCircle } from "lucide-react";
 
-export default function ProductPage({ params }: { params: { slug: string } }) {
+export default function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = React.use(params);
   const [selectedSize, setSelectedSize] = useState("");
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
 

@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { Header } from "../components/Header";
-import { FAQSection } from "../components/FAQSection";
-import { ProductCard } from "../components/DesignSystem";
+import { Header } from "../../components/Header";
+import { FAQSection } from "../../components/FAQSection";
+import { ProductCard } from "../../components/DesignSystem";
 import { Heart } from "lucide-react";
 
 export default function FavoritesPage() {

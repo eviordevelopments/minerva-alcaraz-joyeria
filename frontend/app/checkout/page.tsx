@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Header } from "../components/Header";
-import { LuxuryButton } from "../components/DesignSystem";
+import { Header } from "../../components/Header";
+import { LuxuryButton } from "../../components/DesignSystem";
 import { ShieldCheck, Lock, Globe, ArrowRight, CheckCircle } from "lucide-react";
 
 export default function CheckoutPage() {

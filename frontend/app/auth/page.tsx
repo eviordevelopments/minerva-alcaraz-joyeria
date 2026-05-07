@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Header } from "../components/Header";
-import { LuxuryButton } from "../components/DesignSystem";
+import { Header } from "../../components/Header";
+import { LuxuryButton } from "../../components/DesignSystem";
 import { User, Mail, Lock, ArrowRight, ShieldCheck, Sparkles, Star } from "lucide-react";
 import Image from "next/image";
 

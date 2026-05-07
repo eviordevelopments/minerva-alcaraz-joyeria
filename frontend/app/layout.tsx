@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import "../styles/globals.css";
 import { DesignSystemProvider } from "../components/DesignSystemProvider";
 import { WhatsAppFAB } from "../components/WhatsAppFAB";

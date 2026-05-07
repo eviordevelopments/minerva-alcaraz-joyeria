@@ -2,9 +2,9 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Header } from "../components/Header";
-import { FAQSection } from "../components/FAQSection";
-import { LuxuryButton } from "../components/DesignSystem";
+import { Header } from "../../components/Header";
+import { FAQSection } from "../../components/FAQSection";
+import { LuxuryButton } from "../../components/DesignSystem";
 import { Trash2, ShoppingBag, ShieldCheck, CreditCard, Lock, ArrowRight } from "lucide-react";
 
 export default function CartPage() {
