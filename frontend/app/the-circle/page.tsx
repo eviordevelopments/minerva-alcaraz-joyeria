@@ -82,11 +82,11 @@ const benefits = [
    Gallery Pieces
 ───────────────────────────────────────── */
 const galleryPieces = [
-  { src: "/assets/products/individuales/MINE-51.JPG", label: "Diseño de Autor" },
-  { src: "/assets/products/escencia/joyería-2.JPG", label: "Escencia" },
-  { src: "/assets/products/serpientes/SMA_MINERVA-100.JPG", label: "Serpientes" },
-  { src: "/assets/products/eterea/Minerva2-3.JPG", label: "Etérea" },
-  { src: "/assets/products/individuales/MINE-52.jpg", label: "Pieza Única" },
+  { src: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/individuales/MINE-51.JPG", label: "Diseño de Autor" },
+  { src: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/escencia/joyería-2.JPG", label: "Escencia" },
+  { src: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/serpientes/SMA_MINERVA-100.JPG", label: "Serpientes" },
+  { src: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva2-3.JPG", label: "Etérea" },
+  { src: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/individuales/MINE-52.jpg", label: "Pieza Única" },
 ];
 
 /* ─────────────────────────────────────────
@@ -284,7 +284,7 @@ export default function TheCirclePage() {
           {/* Image side */}
           <div className="relative w-full md:w-1/2 h-[400px] md:h-[700px] overflow-hidden group">
             <Image
-              src="/assets/products/escencia/Minerva_Joyeria_1_-10.JPG"
+              src="https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/escencia/Minerva_Joyeria_1_-10.JPG"
               alt="Concierge Minerva Alcaraz"
               fill
               className="object-cover transition-transform duration-1000 group-hover:scale-105 brightness-75"

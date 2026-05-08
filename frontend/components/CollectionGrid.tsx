@@ -89,28 +89,28 @@ export const CollectionGrid = () => {
     {
       title: "Anillos de Piedras",
       narrative: "Donde la tierra susurra secretos de eternidad a través del cristal.",
-      imagePath: "/assets/products/anillos-piedras/SMA_MINERVA-7.JPG",
+      imagePath: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/anillos-piedras/SMA_MINERVA-7.JPG",
       size: "large",
       theme: "bone"
     },
     {
       title: "Chai",
       narrative: "La vitalidad del metal enlazada en el ciclo infinito de la vida.",
-      imagePath: "/assets/products/chai/CHAI-18.JPG",
+      imagePath: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/chai/CHAI-18.JPG",
       size: "small",
       theme: "green"
     },
     {
       title: "Etérea",
       narrative: "Formas que desafían la gravedad, capturando la esencia del viento.",
-      imagePath: "/assets/products/eterea/Minerva2-3.JPG",
+      imagePath: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva2-3.JPG",
       size: "small",
       theme: "gold"
     },
     {
       title: "Floral",
       narrative: "La belleza efímera de la naturaleza inmortalizada en oro.",
-      imagePath: "/assets/products/floral/Colección 3_3.jpg",
+      imagePath: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/floral/Colección 3_3.jpg",
       size: "large",
       theme: "silver"
     }

@@ -68,52 +68,52 @@ export default function CollectionsPage() {
     {
       title: "Diseños de Autor",
       description: "La cumbre de la expresión artística de Minerva Alcaraz. Piezas escultóricas que desafían la joyería convencional, nacidas de una visión pura y sin compromisos.",
-      image: "/assets/products/individuales/MINE-51.JPG",
+      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/individuales/MINE-51.JPG",
       theme: "bone" as const
     },
     {
       title: "Escencia",
       description: "Un viaje al corazón del misticismo mexicano. Los Milagritos transformados en reliquias de oro y plata, portadores de fe, esperanza y devoción eterna.",
-      image: "/assets/products/escencia/joyería-2.JPG",
+      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/escencia/joyería-2.JPG",
       align: "right" as const,
       theme: "green" as const
     },
     {
       title: "Chai",
       description: "Celebración de la vitalidad y el número 18. Líneas fluidas y grabados ancestrales que honran el flujo constante de la vida en todas sus formas.",
-      image: "/assets/products/chai/CHAI-21.JPG",
+      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/chai/CHAI-21.JPG",
       theme: "gold" as const
     },
     {
       title: "Serpientes",
       description: "Símbolo de renovación perpetua. La serpiente que muda su piel es el eco de nuestra propia capacidad de transformación y sabiduría interior.",
-      image: "/assets/products/serpientes/SMA_MINERVA-102.JPG",
+      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/serpientes/SMA_MINERVA-102.JPG",
       align: "right" as const,
       theme: "bone" as const
     },
     {
       title: "Piezas Únicas",
       description: "Objetos de deseo irrepetibles. Piedras seleccionadas por su alma y monturas forjadas para jamás ser replicadas. Una joya que solo pertenece a un portador.",
-      image: "/assets/products/individuales/MINE-52.jpg",
+      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/individuales/MINE-52.jpg",
       theme: "green" as const
     },
     {
       title: "Etérea",
       description: "Minimalismo que roza lo divino. Formas que parecen levitar y capturar la luz del viento, diseñadas para elevar la esencia de quien las porta.",
-      image: "/assets/products/eterea/Minerva2-3.JPG",
+      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva2-3.JPG",
       align: "right" as const,
       theme: "gold" as const
     },
     {
       title: "Ecos de la Tierra",
       description: "La geología convertida en arte táctil. Texturas brutales y formas orgánicas que resuenan con la fuerza primordial de nuestro planeta.",
-      image: "/assets/products/ecos-tierra/DSCF4318.JPG",
+      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/ecos-tierra/DSCF4318.JPG",
       theme: "bone" as const
     },
     {
       title: "Floral",
       description: "La botánica mexicana preservada en metales preciosos. Un jardín eterno donde la fragilidad de la naturaleza se vuelve inmortalidad.",
-      image: "/assets/products/floral/Colección 3_3.jpg",
+      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/floral/Colección 3_3.jpg",
       align: "right" as const,
       theme: "green" as const
     }

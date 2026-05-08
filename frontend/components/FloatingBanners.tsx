@@ -70,7 +70,7 @@ export const NewsletterBanner = () => {
               {/* LEFT — Jewelry Image */}
               <div className="relative w-full md:w-[45%] h-[220px] md:h-auto min-h-[280px] bg-plata-niebla/20 flex-shrink-0 overflow-hidden group">
                 <Image
-                  src="/assets/products/escencia/joyería-2.JPG"
+                  src="https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/escencia/joyería-2.JPG"
                   alt="Joyería Minerva Alcaraz"
                   fill
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"

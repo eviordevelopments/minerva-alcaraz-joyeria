@@ -35,10 +35,10 @@ export const PRODUCTS: Product[] = [
     category: "Anillos",
     collection: "Amatista",
     images: [
-      "/assets/products/amatista/Colección 1_4.jpg",
-      "/assets/products/amatista/Colección 1_5.jpg",
-      "/assets/products/amatista/Colección 1_1.jpg",
-      "/assets/products/amatista/Colección 1_2.jpg"
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/amatista/Colección 1_4.jpg",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/amatista/Colección 1_5.jpg",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/amatista/Colección 1_1.jpg",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/amatista/Colección 1_2.jpg"
     ],
     materials: ["Plata .925", "Amatista Natural"],
     stock: 5,
@@ -59,10 +59,10 @@ export const PRODUCTS: Product[] = [
     category: "Collares",
     collection: "Chai",
     images: [
-      "/assets/products/chai/CHAI.JPG",
-      "/assets/products/chai/CHAI-2.JPG",
-      "/assets/products/chai/CHAI-21.JPG",
-      "/assets/products/chai/CHAI-18.JPG"
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/chai/CHAI.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/chai/CHAI-2.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/chai/CHAI-21.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/chai/CHAI-18.JPG"
     ],
     materials: ["Plata .925", "Baño de Oro 24k"],
     stock: 3,
@@ -81,9 +81,9 @@ export const PRODUCTS: Product[] = [
     category: "Anillos",
     collection: "Chai",
     images: [
-      "/assets/products/chai/CHAI-4.JPG",
-      "/assets/products/chai/CHAI-5.JPG",
-      "/assets/products/chai/CHAI-6.JPG"
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/chai/CHAI-4.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/chai/CHAI-5.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/chai/CHAI-6.JPG"
     ],
     materials: ["Plata .925"],
     stock: 8,
@@ -103,9 +103,9 @@ export const PRODUCTS: Product[] = [
     category: "Collares",
     collection: "Escencia",
     images: [
-      "/assets/products/escencia/SMA_MINERVA-54.JPG",
-      "/assets/products/escencia/joyería-2.JPG",
-      "/assets/products/escencia/Minerva_Joyeria_1_-10.JPG"
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/escencia/SMA_MINERVA-54.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/escencia/joyería-2.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/escencia/Minerva_Joyeria_1_-10.JPG"
     ],
     materials: ["Oro 14k", "Rubíes"],
     stock: 2,
@@ -124,8 +124,8 @@ export const PRODUCTS: Product[] = [
     category: "Pendientes",
     collection: "Escencia",
     images: [
-      "/assets/products/escencia/SMA_MINERVA-59.JPG",
-      "/assets/products/escencia/SMA_MINERVA-62.JPG"
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/escencia/SMA_MINERVA-59.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/escencia/SMA_MINERVA-62.JPG"
     ],
     materials: ["Plata .925", "Detalles en Oro 14k"],
     stock: 4,
@@ -145,10 +145,10 @@ export const PRODUCTS: Product[] = [
     category: "Pendientes",
     collection: "Diseños de Autor",
     images: [
-      "/assets/products/individuales/MINE-30.JPG",
-      "/assets/products/individuales/MINE-51.JPG",
-      "/assets/products/individuales/MINE-32.JPG",
-      "/assets/products/individuales/MINE-36.JPG"
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/individuales/MINE-30.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/individuales/MINE-51.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/individuales/MINE-32.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/individuales/MINE-36.JPG"
     ],
     materials: ["Oro Amarillo 18k", "Texturizado a mano"],
     stock: 1,
@@ -166,8 +166,8 @@ export const PRODUCTS: Product[] = [
     category: "Piezas Únicas",
     collection: "Piezas Únicas",
     images: [
-      "/assets/products/individuales/MINE-52.jpg",
-      "/assets/products/individuales/Minerva2-25.jpg"
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/individuales/MINE-52.jpg",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/individuales/Minerva2-25.jpg"
     ],
     materials: ["Plata Ley .950", "Perla Negra de Tahití"],
     stock: 1,
@@ -187,10 +187,10 @@ export const PRODUCTS: Product[] = [
     category: "Sets",
     collection: "Etérea",
     images: [
-      "/assets/products/eterea/Minerva2-2.JPG",
-      "/assets/products/eterea/Minerva2-6.JPG",
-      "/assets/products/eterea/Minerva2-10.JPG",
-      "/assets/products/eterea/Minerva2-11.JPG"
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva2-2.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva2-6.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva2-10.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva2-11.JPG"
     ],
     materials: ["Oro Blanco 14k", "Zafiros Blancos"],
     stock: 1,
@@ -207,9 +207,9 @@ export const PRODUCTS: Product[] = [
     category: "Pulseras",
     collection: "Etérea",
     images: [
-      "/assets/products/eterea/Minerva 2-15.jpg",
-      "/assets/products/eterea/Minerva 2-16.jpg",
-      "/assets/products/eterea/Minerva 2-17.jpg"
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva 2-15.jpg",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva 2-16.jpg",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva 2-17.jpg"
     ],
     materials: ["Oro 14k"],
     stock: 3,
@@ -227,9 +227,9 @@ export const PRODUCTS: Product[] = [
     category: "Anillos",
     collection: "Serpientes",
     images: [
-      "/assets/products/serpientes/SMA_MINERVA-100.JPG",
-      "/assets/products/serpientes/DSCF5064.JPG",
-      "/assets/products/serpientes/SMA_MINERVA-101 (1).JPG"
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/serpientes/SMA_MINERVA-100.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/serpientes/DSCF5064.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/serpientes/SMA_MINERVA-101 (1).JPG"
     ],
     materials: ["Oro 14k", "Ojos de Esmeralda"],
     stock: 2,
@@ -248,9 +248,9 @@ export const PRODUCTS: Product[] = [
     category: "Anillos",
     collection: "Floral",
     images: [
-      "/assets/products/floral/FLORES 1.jpg",
-      "/assets/products/floral/Colección 3_1.jpg",
-      "/assets/products/floral/FLORES 2.jpg"
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/floral/FLORES 1.jpg",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/floral/Colección 3_1.jpg",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/floral/FLORES 2.jpg"
     ],
     materials: ["Plata .925", "Centro de Citrino"],
     stock: 5,
@@ -268,9 +268,9 @@ export const PRODUCTS: Product[] = [
     category: "Anillos",
     collection: "Ecos de la Tierra",
     images: [
-      "/assets/products/ecos-tierra/ANILLO 1.jpg",
-      "/assets/products/ecos-tierra/DSCF4196 (1).JPG",
-      "/assets/products/ecos-tierra/ANILLO 2.jpg"
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/ecos-tierra/ANILLO 1.jpg",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/ecos-tierra/DSCF4196 (1).JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/ecos-tierra/ANILLO 2.jpg"
     ],
     materials: ["Plata .950 Envejecida"],
     stock: 4,
@@ -286,8 +286,8 @@ export const PRODUCTS: Product[] = [
     category: "Pulseras",
     collection: "Ecos de la Tierra",
     images: [
-      "/assets/products/ecos-tierra/DSCF4318.JPG",
-      "/assets/products/ecos-tierra/DSCF4317.JPG"
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/ecos-tierra/DSCF4318.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/ecos-tierra/DSCF4317.JPG"
     ],
     materials: ["Plata Ley .950"],
     stock: 2,
@@ -305,9 +305,9 @@ export const PRODUCTS: Product[] = [
     category: "Piezas Únicas",
     collection: "Anillos de Piedras",
     images: [
-      "/assets/products/anillos-piedras/SMA_MINERVA-4.JPG",
-      "/assets/products/anillos-piedras/SMA_MINERVA-7.JPG",
-      "/assets/products/anillos-piedras/SMA_MINERVA-5.JPG"
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/anillos-piedras/SMA_MINERVA-4.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/anillos-piedras/SMA_MINERVA-7.JPG",
+      "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/anillos-piedras/SMA_MINERVA-5.JPG"
     ],
     materials: ["Plata .925", "Cuarzo Hialino"],
     stock: 1,
