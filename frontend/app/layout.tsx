@@ -5,6 +5,7 @@ import { ArousalOverlay } from "../components/ArousalOverlay";
 import { WhatsAppFAB } from "../components/WhatsAppFAB";
 import { CookieBanner } from "../components/CookieBanner";
 import { AIConcierge } from "../components/AIConcierge";
+import { NewsletterBanner, TheCircleBanner } from "../components/FloatingBanners";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://minervaalcarazjoyeria.mx'),
@@ -54,6 +55,8 @@ export default function RootLayout({
           <WhatsAppFAB />
           <CookieBanner />
           <AIConcierge />
+          <NewsletterBanner />
+          <TheCircleBanner />
         </DesignSystemProvider>
       </body>
     </html>
