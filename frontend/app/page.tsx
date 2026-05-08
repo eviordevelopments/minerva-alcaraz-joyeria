@@ -5,8 +5,11 @@ import { motion } from "framer-motion";
 import { Header } from "../components/Header";
 import { CollectionGrid } from "../components/CollectionGrid";
 import { FAQSection } from "../components/FAQSection";
-import { LuxuryButton } from "../components/DesignSystem";
+import { LuxuryButton, ProductCard } from "../components/DesignSystem";
+import { Footer } from "../components/Footer";
 import { useDesignSystem } from "../components/DesignSystemProvider";
+import Link from "next/link";
+import { PRODUCTS } from "../constants/products";
 
 export default function Home() {
   const { mentalState } = useDesignSystem();
@@ -18,7 +21,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
         {/* Hero Image Background */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 overflow-hidden" style={{ position: 'absolute' }}>
           <Image 
             src="/hero-section_image.JPG" 
             alt="Minerva Alcaraz Hero" 
@@ -26,24 +29,24 @@ export default function Home() {
             className="object-cover transition-transform duration-[20s] ease-linear group-hover:scale-110"
             priority
           />
-          {/* Subtle Overlay to ensure text readability */}
-          <div className="absolute inset-0 bg-verde-ebano/10" />
+          {/* Darker Overlay to ensure text pops */}
+          <div className="absolute inset-0 bg-verde-ebano/50" />
         </div>
 
-        {/* Hero Content */}
-        <div className="relative z-10 text-center px-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
+        {/* Narrative Overlay with Contrast Fix */}
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-8 hero-gradient">
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            className="text-4xl md:text-7xl font-display text-oro-antiguo max-w-5xl leading-tight mb-8"
+            style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
           >
-            <h1 className="text-4xl md:text-6xl mb-12 font-display tracking-[0.2em] text-oro-antiguo leading-tight drop-shadow-2xl max-w-5xl mx-auto uppercase">
-              Donde el arte encuentra su esencia y la eternidad su presencia.
-            </h1>
-            <LuxuryButton variant="primary" className="!bg-hueso-seda/10 !text-hueso-seda !border-hueso-seda hover:!bg-hueso-seda hover:!text-verde-ebano">
-              Comenzar Experiencia
-            </LuxuryButton>
-          </motion.div>
+            Donde el <span className="text-hueso-seda">arte</span> encuentra su <span className="text-hueso-seda">esencia</span> y la <span className="text-hueso-seda">eternidad</span> su <span className="text-hueso-seda">presencia</span>.
+          </motion.h1>
+          <LuxuryButton variant="primary" className="!bg-hueso-seda/10 !text-hueso-seda !border-hueso-seda hover:!bg-hueso-seda hover:!text-verde-ebano">
+            Comenzar Experiencia
+          </LuxuryButton>
         </div>
 
         {/* Scroll Indicator */}
@@ -58,21 +61,50 @@ export default function Home() {
       </section>
 
       {/* Narrative Section */}
-      <section className="py-32 px-8 text-center max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <h2 className="text-xs uppercase tracking-[0.6em] text-plata-niebla mb-8">Nuestra Filosofía</h2>
-          <p className="text-2xl md:text-3xl text-verde-ebano font-light leading-relaxed">
-            "No vendemos objetos, vendemos herencia y simbolismo. Cada pieza es una obra de arte con una ficha técnica emocional."
-          </p>
-        </motion.div>
+      <section className="w-full px-4 md:px-12 lg:px-24 py-24 md:py-32">
+        <div className="border border-verde-ebano p-8 md:p-20 lg:p-32 text-center max-w-[1440px] mx-auto">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-display text-verde-ebano mb-16 tracking-[0.1em]">Nuestra Filosofía</h2>
+            <p className="text-2xl md:text-4xl lg:text-5xl text-verde-ebano font-sans font-light leading-relaxed max-w-5xl mx-auto uppercase tracking-[0.1em]">
+              "TRANSFORMAMOS LA MATERIA EN MEMORIA. CADA CREACIÓN ES UNA OBRA IRREPETIBLE, UN VÍNCULO ANCESTRAL QUE TRASCIENDE EL OBJETO PARA CONVERTIRSE EN UN LEGADO DE VALOR ETERNO."
+            </p>
+            <span className="block mt-12 text-[10px] md:text-xs tracking-[0.5em] text-oro-antiguo font-sans uppercase">
+              - Minerva Alcaraz
+            </span>
+            <div className="mt-20">
+              <Link href="/nuestra-historia">
+                <LuxuryButton variant="primary">
+                  Descubrir Nuestra Historia
+                </LuxuryButton>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       {/* Collection Grid */}
       <CollectionGrid />
+
+      {/* Catalog Section */}
+      <section className="w-full px-4 md:px-12 lg:px-24 py-24 bg-hueso-seda">
+        <div className="flex flex-col items-center mb-16 text-center">
+          <span className="text-sm md:text-base uppercase tracking-[0.6em] text-verde-ebano/60 mb-4">Catálogo Exclusivo</span>
+          <h2 className="text-5xl md:text-7xl font-display text-verde-ebano mb-6">Piezas Únicas & Sets</h2>
+          <p className="text-lg md:text-xl text-verde-ebano/80 italic font-light max-w-2xl">
+            "Descubra nuestra curaduría de objetos preciosos. Cada joya es una obra irrepetible. Adquiérala como pieza individual o complete su legado con nuestros sets completos diseñados en perfecta armonía."
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+          {PRODUCTS.slice(0, 4).map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
 
       {/* Floating Action Button (WhatsApp - Mobile First) */}
       <div className="fixed bottom-8 right-8 z-[60] flex flex-col gap-4">
@@ -91,35 +123,7 @@ export default function Home() {
 
       <FAQSection />
 
-      <footer className="bg-authority py-32 px-8">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16">
-          <div className="col-span-1 md:col-span-2">
-            <div className="text-2xl tracking-[0.3em] font-display mb-8">THE CIRCLE</div>
-            <p className="opacity-70 text-sm max-w-sm leading-loose">
-              Únase a nuestra comunidad exclusiva para recibir acceso anticipado a colecciones cápsula y servicios de preservación de tesoros.
-            </p>
-          </div>
-          <div>
-            <h4 className="text-xs uppercase tracking-widest mb-6 text-oro-antiguo">Explorar</h4>
-            <ul className="flex flex-col gap-4 text-xs opacity-50 tracking-widest">
-              <li><a href="#" className="hover:text-oro-antiguo transition-colors nav-link">Colecciones</a></li>
-              <li><a href="#" className="hover:text-oro-antiguo transition-colors nav-link">Atelier</a></li>
-              <li><a href="#" className="hover:text-oro-antiguo transition-colors nav-link">Personalizados</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-xs uppercase tracking-widest mb-6 text-oro-antiguo">Soporte</h4>
-            <ul className="flex flex-col gap-4 text-xs opacity-50 tracking-widest">
-              <li><a href="#" className="hover:text-oro-antiguo transition-colors nav-link">Guía de Tallas</a></li>
-              <li><a href="#" className="hover:text-oro-antiguo transition-colors nav-link">Ritual de Cuidado</a></li>
-              <li><a href="#" className="hover:text-oro-antiguo transition-colors nav-link">Contacto</a></li>
-            </ul>
-          </div>
-        </div>
-        <div className="mt-32 pt-8 border-t border-hueso-seda/10 text-center text-[8px] uppercase tracking-[0.4em] opacity-30">
-          Minerva Alcaraz Joyería &copy; 2026 | Desarrollado por E-vior Developments
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }

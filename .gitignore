@@ -1,4 +1,41 @@
-node_modules
-.next
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js Build
+.next/
+out/
+
+# Production Build
+build/
+
+# Testing
+coverage/
+
+# Environment Variables
+.env*.local
+.env
+
+# OS Files
 .DS_Store
+Thumbs.db
+
+# Build Info
+tsconfig.tsbuildinfo
+
+# Temporary Files
 *.log
+*.tmp
+*.temp
+
+# Source assets outside frontend (keeping clean)
+AMATISTA/
+"ANILLOS DE PIEDRAS/"
+CHAI/
+"ECOS DE LA TIERRA/"
+ESCENCIA/
+"ETÉREA/"
+FLORAL/
+"INDIVIDUALES 2/"
+SERPIENTES/

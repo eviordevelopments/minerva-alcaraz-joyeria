@@ -17,10 +17,10 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
     <div className="border-b border-plata-niebla/10">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-6 flex justify-between items-center text-left hover:text-oro-antiguo transition-colors"
+        className="w-full py-8 flex justify-between items-center text-left hover:text-oro-antiguo transition-colors"
       >
-        <span className="text-sm uppercase tracking-widest font-light">{question}</span>
-        {isOpen ? <Minus size={16} strokeWidth={1} /> : <Plus size={16} strokeWidth={1} />}
+        <span className="text-base md:text-xl uppercase tracking-widest font-light">{question}</span>
+        {isOpen ? <Minus size={24} strokeWidth={1} /> : <Plus size={24} strokeWidth={1} />}
       </button>
       <AnimatePresence>
         {isOpen && (
@@ -30,7 +30,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            <p className="pb-6 text-xs text-plata-niebla leading-loose max-w-2xl">
+            <p className="pb-8 text-sm md:text-base text-verde-ebano/80 leading-loose max-w-4xl">
               {answer}
             </p>
           </motion.div>
@@ -93,17 +93,19 @@ export const FAQSection = () => {
   ];
 
   return (
-    <section className="py-32 px-8 md:px-16 bg-hueso-seda border-t border-plata-niebla/10">
-      <div className="max-w-4xl mx-auto flex flex-col gap-16">
-        <div className="flex flex-col gap-4 text-center">
-          <h2 className="text-3xl font-display text-verde-ebano">Preguntas Frecuentes</h2>
-          <p className="text-[10px] uppercase tracking-[0.4em] text-plata-niebla">Claridad y Confianza en su Experiencia</p>
-        </div>
+    <section className="py-24 md:py-48 bg-hueso-seda border-t border-plata-niebla/10">
+      <div className="luxury-container w-full">
+        <div className="border border-verde-ebano p-6 md:p-16 lg:p-24 flex flex-col gap-16 md:gap-24">
+          
+          <div className="flex flex-col gap-6 text-center">
+            <h2 className="text-5xl md:text-7xl font-display text-verde-ebano">Preguntas Frecuentes</h2>
+            <p className="text-xs md:text-sm uppercase tracking-[0.6em] text-verde-ebano/60">Claridad y Confianza en su Experiencia</p>
+          </div>
 
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-16">
           {faqData.map((section, idx) => (
-            <div key={idx} className="flex flex-col gap-6">
-              <h3 className="text-[10px] uppercase tracking-[0.2em] text-oro-antiguo border-l-2 border-oro-antiguo pl-4">
+            <div key={idx} className="flex flex-col gap-8">
+              <h3 className="text-sm md:text-base uppercase tracking-[0.2em] text-oro-antiguo border-l-2 border-oro-antiguo pl-6">
                 {section.category}
               </h3>
               <div className="flex flex-col">
@@ -115,14 +117,16 @@ export const FAQSection = () => {
           ))}
         </div>
 
-        <div className="mt-16 bg-authority p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
-          <div className="flex flex-col gap-2 text-center md:text-left">
-            <h4 className="text-xl font-display text-oro-antiguo">¿Aún tiene dudas?</h4>
-            <p className="text-[10px] uppercase tracking-widest text-hueso-seda/60">Nuestro Concierge Digital está a su disposición</p>
+        <div className="mt-8 bg-authority p-12 md:p-20 flex flex-col lg:flex-row items-center justify-between gap-12 shadow-2xl">
+          <div className="flex flex-col gap-4 text-center lg:text-left">
+            <h4 className="text-3xl md:text-4xl font-display text-oro-antiguo">¿Aún tiene dudas?</h4>
+            <p className="text-xs md:text-sm uppercase tracking-widest text-hueso-seda opacity-80">Nuestro Concierge Digital está a su disposición</p>
           </div>
-          <LuxuryButton variant="secondary" className="flex items-center gap-3">
-            <MessageCircle size={16} /> Contactar a Concierge
+          <LuxuryButton variant="gold" className="flex items-center justify-center gap-4 py-4 px-8 text-sm md:text-base w-fit mx-auto lg:mx-0">
+            <MessageCircle size={20} className="flex-shrink-0" /> Contactar a Concierge
           </LuxuryButton>
+        </div>
+
         </div>
       </div>
     </section>

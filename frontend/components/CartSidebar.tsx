@@ -90,10 +90,14 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({ isOpen, onClose }) => 
                 </div>
               </div>
 
-              <Link href="/checkout" onClick={onClose}>
-                <LuxuryButton variant="secondary" className="w-full flex items-center justify-center gap-2">
-                  Proceder al Pago <ArrowRight size={14} />
-                </LuxuryButton>
+              <Link href="/checkout" onClick={onClose} className="group">
+                <button className="w-full bg-hueso-seda text-verde-ebano py-5 px-8 flex items-center justify-between border border-verde-ebano/20 hover:bg-verde-ebano hover:text-hueso-seda transition-all duration-500 relative overflow-hidden">
+                  <span className="text-[11px] uppercase tracking-[0.5em] font-medium">Proceder al Pago</span>
+                  <div className="flex items-center gap-4">
+                    <div className="w-8 h-[1px] bg-current" />
+                    <ArrowRight size={16} strokeWidth={1} />
+                  </div>
+                </button>
               </Link>
             </div>
           </motion.div>

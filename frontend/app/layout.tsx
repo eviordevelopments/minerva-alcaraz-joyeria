@@ -1,12 +1,43 @@
 import type { Metadata } from "next";
-import "../styles/globals.css";
+import "./globals.css";
 import { DesignSystemProvider } from "../components/DesignSystemProvider";
+import { ArousalOverlay } from "../components/ArousalOverlay";
 import { WhatsAppFAB } from "../components/WhatsAppFAB";
+import { CookieBanner } from "../components/CookieBanner";
+import { AIConcierge } from "../components/AIConcierge";
 
 export const metadata: Metadata = {
-  title: "El Ritual de las Manos que Custodian la Eternidad",
-  description: "La preservación del arte joyero a través de técnicas ancestrales. Cada pieza es un testimonio de devoción y maestría, forjada para habitar en la eternidad.",
-  keywords: ["joyería artesanal", "herencia", "oro", "plata", "piezas únicas", "Minerva Alcaraz", "maestría joyera"],
+  metadataBase: new URL('https://minervaalcarazjoyeria.mx'),
+  title: {
+    default: "Minerva Alcaraz Joyería | El Arte de Habitar en la Eternidad",
+    template: "Minerva Alcaraz | %s"
+  },
+  description: "La preservación del arte joyero a través de técnicas ancestrales. Joyería de autor, piezas únicas y colecciones de legado forjadas con maestría en México.",
+  keywords: ["joyería artesanal", "diseño de autor", "oro 18k", "plata .925", "piezas únicas", "Minerva Alcaraz", "lujo mexicano"],
+  authors: [{ name: "Minerva Alcaraz" }],
+  openGraph: {
+    type: 'website',
+    locale: 'es_MX',
+    url: 'https://minervaalcarazjoyeria.mx',
+    siteName: 'Minerva Alcaraz Joyería',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Minerva Alcaraz Joyería - Legado y Maestría'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Minerva Alcaraz Joyería',
+    description: 'El arte de la joyería ancestral y contemporánea.',
+    images: ['/og-image.jpg'],
+  },
+  alternates: {
+    canonical: '/',
+  }
 };
 
 export default function RootLayout({
@@ -16,15 +47,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
-      </head>
       <body>
         <DesignSystemProvider>
           {children}
+          <ArousalOverlay />
           <WhatsAppFAB />
+          <CookieBanner />
+          <AIConcierge />
         </DesignSystemProvider>
       </body>
     </html>

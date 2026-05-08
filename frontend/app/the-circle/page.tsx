@@ -44,7 +44,7 @@ export default function CircleDashboard() {
             </div>
 
             <div className="flex gap-4 z-10">
-               <LuxuryButton variant="secondary" className="flex items-center gap-2">
+               <LuxuryButton variant="gold" className="flex items-center gap-2">
                  <MessageCircle size={14} /> Concierge
                </LuxuryButton>
                <button className="p-3 border border-hueso-seda/10 text-hueso-seda hover:bg-hueso-seda/5 transition-all">

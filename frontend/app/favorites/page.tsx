@@ -5,17 +5,10 @@ import { Header } from "../../components/Header";
 import { FAQSection } from "../../components/FAQSection";
 import { ProductCard } from "../../components/DesignSystem";
 import { Heart } from "lucide-react";
+import { PRODUCTS } from "../../constants/products";
 
 export default function FavoritesPage() {
-  const favorites = [
-    {
-      id: 1,
-      name: "Anillo Luna de Plata",
-      price: "$1,200 USD",
-      category: "Plata .925",
-      slug: "anillo-luna-plata"
-    }
-  ];
+  const favorites = [PRODUCTS[0]]; // Mock favorites with real product
 
   return (
     <main className="min-h-screen bg-hueso-seda">
@@ -31,14 +24,10 @@ export default function FavoritesPage() {
 
           {favorites.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {favorites.map((item) => (
+              {favorites.map((product) => (
                 <ProductCard 
-                  key={item.id}
-                  title={item.name}
-                  price={item.price}
-                  category={item.category}
-                  imageFront=""
-                  imageBack=""
+                  key={product.id}
+                  product={product}
                 />
               ))}
             </div>

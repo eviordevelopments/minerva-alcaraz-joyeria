@@ -42,108 +42,170 @@ export default function CheckoutPage() {
     <main className="min-h-screen bg-hueso-seda">
       <Header />
       
-      <div className="pt-32 px-8 md:px-16 pb-32 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+      <div className="pt-40 px-6 md:px-12 lg:px-20 pb-32 max-w-[1800px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 xl:gap-40">
           
           {/* Checkout Form (Minimalist) */}
-          <div className="lg:col-span-7 flex flex-col gap-12">
-            <div className="flex flex-col gap-2">
-              <h1 className="text-3xl font-display text-verde-ebano">Finalizar Adquisición</h1>
-              <p className="text-[10px] uppercase tracking-[0.4em] text-plata-niebla">Flujo de Prestancia y Seguridad</p>
+          <div className="flex flex-col gap-16">
+            <div className="flex flex-col gap-4">
+              <h1 className="text-5xl md:text-6xl font-display text-verde-ebano leading-none">Finalizar Adquisición</h1>
+              <p className="text-xs uppercase tracking-[0.5em] text-oro-antiguo mt-4">Protocolo de Alta Seguridad & Herencia</p>
             </div>
 
-            <div className="flex flex-col gap-16">
+            <div className="flex flex-col gap-20">
               {/* Shipping Information */}
-              <section className="flex flex-col gap-8">
-                <div className="flex items-center gap-4">
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-oro-antiguo">01. Envío Premium</span>
-                  <div className="h-[1px] flex-1 bg-plata-niebla/10" />
+              <section className="flex flex-col gap-10">
+                <div className="flex items-center gap-6">
+                  <span className="text-xs uppercase tracking-[0.3em] text-oro-antiguo font-medium">01. Destino del Legado</span>
+                  <div className="h-[1px] flex-1 bg-verde-ebano/10" />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <input type="text" placeholder="Correo Electrónico" className="checkout-input col-span-full" />
-                  <input type="text" placeholder="Nombre Completo" className="checkout-input" />
-                  <input type="text" placeholder="Teléfono / WhatsApp" className="checkout-input" />
-                  <input type="text" placeholder="Dirección (Auto-completado)" className="checkout-input col-span-full" />
-                  <input type="text" placeholder="Ciudad" className="checkout-input" />
-                  <input type="text" placeholder="Código Postal" className="checkout-input" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+                  <div className="col-span-full group">
+                    <label className="text-[10px] uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">Estancia Digital (Email)</label>
+                    <input type="text" placeholder="correo@ejemplo.com" className="checkout-input w-full" />
+                  </div>
+                  <div className="group">
+                    <label className="text-[10px] uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">Nombre del Custodio</label>
+                    <input type="text" placeholder="Como aparece en su identificación" className="checkout-input w-full" />
+                  </div>
+                  <div className="group">
+                    <label className="text-[10px] uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">Contacto Directo</label>
+                    <input type="text" placeholder="+52 ..." className="checkout-input w-full" />
+                  </div>
+                  <div className="col-span-full group">
+                    <label className="text-[10px] uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">Dirección de Entrega</label>
+                    <input type="text" placeholder="Calle, Número, Colonia..." className="checkout-input w-full" />
+                  </div>
+                  <div className="group">
+                    <label className="text-[10px] uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">Ciudad / Estado</label>
+                    <input type="text" placeholder="Ciudad de México" className="checkout-input w-full" />
+                  </div>
+                  <div className="group">
+                    <label className="text-[10px] uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">Código Postal</label>
+                    <input type="text" placeholder="00000" className="checkout-input w-full" />
+                  </div>
                 </div>
               </section>
 
               {/* Payment Method */}
-              <section className="flex flex-col gap-8">
-                <div className="flex items-center gap-4">
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-oro-antiguo">02. Método de Pago</span>
-                  <div className="h-[1px] flex-1 bg-plata-niebla/10" />
+              <section className="flex flex-col gap-10">
+                <div className="flex items-center gap-6">
+                  <span className="text-xs uppercase tracking-[0.3em] text-oro-antiguo font-medium">02. Transferencia de Valor</span>
+                  <div className="h-[1px] flex-1 bg-verde-ebano/10" />
                 </div>
-                <div className="flex flex-col gap-4">
-                  <div className="p-6 border border-verde-ebano flex justify-between items-center cursor-pointer bg-plata-niebla/5">
-                    <span className="text-xs uppercase tracking-widest">Tarjeta de Crédito / Débito</span>
-                    <div className="flex gap-2">
-                      <div className="w-8 h-5 bg-plata-niebla/20 rounded-sm" />
-                      <div className="w-8 h-5 bg-plata-niebla/20 rounded-sm" />
+                <div className="flex flex-col gap-6">
+                  <div className="p-8 border border-verde-ebano flex justify-between items-center cursor-pointer bg-verde-ebano text-hueso-seda">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-xs uppercase tracking-widest font-medium">Tarjeta de Crédito / Débito</span>
+                      <span className="text-[9px] opacity-60 uppercase tracking-widest">Encriptación de Grado Militar</span>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="w-10 h-6 bg-hueso-seda/20 rounded-sm" />
+                      <div className="w-10 h-6 bg-hueso-seda/20 rounded-sm" />
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 border-x border-b border-verde-ebano/10">
-                    <input type="text" placeholder="Número de Tarjeta" className="checkout-input col-span-full" />
-                    <input type="text" placeholder="MM / YY" className="checkout-input" />
-                    <input type="text" placeholder="CVV" className="checkout-input" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 p-10 border border-verde-ebano/10 bg-plata-niebla/5">
+                    <div className="col-span-full group">
+                      <label className="text-[10px] uppercase tracking-widest text-plata-niebla mb-2 block">Número de Tarjeta</label>
+                      <input type="text" placeholder="0000 0000 0000 0000" className="checkout-input w-full" />
+                    </div>
+                    <div className="group">
+                      <label className="text-[10px] uppercase tracking-widest text-plata-niebla mb-2 block">Vencimiento</label>
+                      <input type="text" placeholder="MM / YY" className="checkout-input w-full" />
+                    </div>
+                    <div className="group">
+                      <label className="text-[10px] uppercase tracking-widest text-plata-niebla mb-2 block">CVV</label>
+                      <input type="text" placeholder="000" className="checkout-input w-full" />
+                    </div>
                   </div>
                 </div>
               </section>
 
-              <div className="flex flex-col gap-6 items-center">
-                <LuxuryButton className="w-full py-6" onClick={handleComplete}>
-                  Confirmar Adquisición <ArrowRight size={16} />
-                </LuxuryButton>
-                <div className="flex items-center gap-6 opacity-40">
-                  <ShieldCheck size={20} strokeWidth={1} />
-                  <Lock size={20} strokeWidth={1} />
-                  <Globe size={20} strokeWidth={1} />
+              <div className="flex flex-col gap-8">
+                <button 
+                  onClick={handleComplete}
+                  className="w-full bg-verde-ebano text-hueso-seda py-8 px-12 flex items-center justify-between border border-verde-ebano hover:bg-hueso-seda hover:text-verde-ebano transition-all duration-700 group overflow-hidden relative"
+                >
+                  <span className="text-sm uppercase tracking-[0.6em] font-medium z-10">Confirmar Adquisición</span>
+                  <div className="flex items-center gap-6 z-10">
+                    <div className="w-12 h-[1px] bg-current transition-all duration-700 group-hover:w-20" />
+                    <ArrowRight size={20} strokeWidth={1} />
+                  </div>
+                  {/* Hover Background Accent */}
+                  <div className="absolute inset-0 bg-oro-antiguo/5 translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
+                </button>
+                
+                <div className="flex justify-center items-center gap-10 opacity-30 mt-4">
+                  <div className="flex flex-col items-center gap-2">
+                    <ShieldCheck size={24} strokeWidth={1} />
+                    <span className="text-[8px] uppercase tracking-widest">Protección GIA</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-2">
+                    <Lock size={24} strokeWidth={1} />
+                    <span className="text-[8px] uppercase tracking-widest">SSL 256-bit</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-2">
+                    <Globe size={24} strokeWidth={1} />
+                    <span className="text-[8px] uppercase tracking-widest">Envío Global</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Sidebar Summary (Persistent) */}
-          <div className="lg:col-span-5">
-            <div className="bg-authority p-12 sticky top-32 flex flex-col gap-12 shadow-2xl">
-              <h2 className="text-2xl font-display text-oro-antiguo">Resumen de Piezas</h2>
+          <div className="relative">
+            <div className="bg-authority p-16 md:p-24 sticky top-32 flex flex-col gap-16 shadow-[-40px_40px_80px_rgba(0,0,0,0.1)]">
+              <div className="flex flex-col gap-4">
+                <h2 className="text-4xl font-display text-oro-antiguo italic">Detalle de la Obra</h2>
+                <div className="h-[1px] w-20 bg-oro-antiguo/30" />
+              </div>
               
-              <div className="flex flex-col gap-8">
-                <div className="flex gap-6">
-                  <div className="w-16 aspect-[3/4] bg-hueso-seda/5" />
-                  <div className="flex-1 flex flex-col justify-center">
-                    <h4 className="text-sm font-display text-hueso-seda">Anillo Luna de Plata</h4>
-                    <span className="text-[10px] uppercase tracking-widest text-hueso-seda/40">1 unidad</span>
+              <div className="flex flex-col gap-12">
+                <div className="flex gap-10">
+                  <div className="w-32 aspect-[3/4] bg-hueso-seda/5 relative overflow-hidden group">
+                    {/* Placeholder for image */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-verde-ebano/20 to-transparent" />
                   </div>
-                  <span className="text-sm text-oro-antiguo">$1,200 USD</span>
+                  <div className="flex-1 flex flex-col justify-center gap-3">
+                    <span className="text-[10px] uppercase tracking-[0.4em] text-oro-antiguo">Categoría: Herencia</span>
+                    <h4 className="text-2xl font-display text-hueso-seda leading-tight">Anillo Luna de Plata</h4>
+                    <span className="text-[10px] uppercase tracking-widest text-hueso-seda/40">Cantidad: 01 Unidad</span>
+                    <div className="text-xl text-hueso-seda mt-4">$1,200.00 USD</div>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4 pt-8 border-t border-hueso-seda/10">
-                <div className="flex justify-between text-[10px] uppercase tracking-widest text-hueso-seda/60">
-                  <span>Subtotal</span>
-                  <span>$1,034 USD</span>
+              <div className="flex flex-col gap-6 pt-12 border-t border-hueso-seda/10">
+                <div className="flex justify-between text-xs uppercase tracking-widest text-hueso-seda/40">
+                  <span>Valor de la Obra</span>
+                  <span>$1,034.48</span>
                 </div>
-                <div className="flex justify-between text-[10px] uppercase tracking-widest text-hueso-seda/60">
-                  <span>IVA (16%)</span>
-                  <span>$166 USD</span>
+                <div className="flex justify-between text-xs uppercase tracking-widest text-hueso-seda/40">
+                  <span>Impuestos Legales (16%)</span>
+                  <span>$165.52</span>
                 </div>
-                <div className="flex justify-between text-[10px] uppercase tracking-widest text-oro-antiguo">
-                  <span>Envío de Cortesía</span>
-                  <span>Gratis</span>
+                <div className="flex justify-between text-xs uppercase tracking-widest text-oro-antiguo font-medium">
+                  <span>Gestión de Envío Asegurado</span>
+                  <span>Cortesia</span>
                 </div>
-                <div className="h-[1px] bg-hueso-seda/10 my-4" />
-                <div className="flex justify-between text-lg uppercase tracking-widest text-hueso-seda">
-                  <span>Total</span>
-                  <span className="text-oro-antiguo">$1,200 USD</span>
+                <div className="h-[1px] bg-hueso-seda/10 my-6" />
+                <div className="flex justify-between items-end">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] uppercase tracking-[0.4em] text-hueso-seda/30">Total Final</span>
+                    <span className="text-4xl text-hueso-seda tracking-tighter">$1,200.00</span>
+                  </div>
+                  <span className="text-[10px] uppercase tracking-widest text-oro-antiguo pb-2">USD</span>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4 p-6 border border-oro-antiguo/20 text-center">
-                <span className="text-[8px] uppercase tracking-[0.3em] text-oro-antiguo">Certificación GIA Incluida</span>
-                <p className="text-[10px] text-hueso-seda/40 font-light italic leading-loose">
-                  "Su pieza ha sido verificada bajo los estándares más estrictos de gemología y artesanía."
+              <div className="flex flex-col gap-6 p-10 border border-oro-antiguo/10 bg-hueso-seda/[0.02] text-center">
+                <div className="flex justify-center mb-2">
+                  <div className="w-12 h-[1px] bg-oro-antiguo/40" />
+                </div>
+                <span className="text-[9px] uppercase tracking-[0.4em] text-oro-antiguo">Certificación de Autenticidad Minerva Alcaraz</span>
+                <p className="text-xs text-hueso-seda/40 font-light italic leading-loose">
+                  &quot;Cada pieza es un testimonio de devoción y maestría, forjada para habitar en la eternidad bajo la custodia de su nuevo dueño.&quot;
                 </p>
               </div>
             </div>
