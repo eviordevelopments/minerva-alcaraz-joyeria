@@ -74,20 +74,20 @@ export default function CollectionsPage() {
     {
       title: "Escencia",
       description: "Un viaje al corazón del misticismo mexicano. Los Milagritos transformados en reliquias de oro y plata, portadores de fe, esperanza y devoción eterna.",
-      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/escencia/joyería-2.JPG",
+      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778279752/minerva_joyeria/products/escencia/s5lcje72gpht7y1eh2nw.jpg",
       align: "right" as const,
       theme: "green" as const
     },
     {
       title: "Chai",
       description: "Celebración de la vitalidad y el número 18. Líneas fluidas y grabados ancestrales que honran el flujo constante de la vida en todas sus formas.",
-      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/chai/CHAI-21.JPG",
+      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778275631/minerva_joyeria/products/chai/CHAI-21.jpg",
       theme: "gold" as const
     },
     {
       title: "Serpientes",
       description: "Símbolo de renovación perpetua. La serpiente que muda su piel es el eco de nuestra propia capacidad de transformación y sabiduría interior.",
-      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/serpientes/SMA_MINERVA-102.JPG",
+      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778275755/minerva_joyeria/products/serpientes/SMA_MINERVA-102.jpg",
       align: "right" as const,
       theme: "bone" as const
     },
@@ -113,7 +113,7 @@ export default function CollectionsPage() {
     {
       title: "Floral",
       description: "La botánica mexicana preservada en metales preciosos. Un jardín eterno donde la fragilidad de la naturaleza se vuelve inmortalidad.",
-      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/floral/Colección 3_3.jpg",
+      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778280270/minerva_joyeria/products/floral/Coleccio_n_3_3.jpg",
       align: "right" as const,
       theme: "green" as const
     }

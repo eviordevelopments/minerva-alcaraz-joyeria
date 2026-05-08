@@ -96,7 +96,7 @@ export const CollectionGrid = () => {
     {
       title: "Chai",
       narrative: "La vitalidad del metal enlazada en el ciclo infinito de la vida.",
-      imagePath: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/chai/CHAI-18.JPG",
+      imagePath: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778275627/minerva_joyeria/products/chai/CHAI-18.jpg",
       size: "small",
       theme: "green"
     },
@@ -110,7 +110,7 @@ export const CollectionGrid = () => {
     {
       title: "Floral",
       narrative: "La belleza efímera de la naturaleza inmortalizada en oro.",
-      imagePath: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/floral/Colección 3_3.jpg",
+      imagePath: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778280270/minerva_joyeria/products/floral/Coleccio_n_3_3.jpg",
       size: "large",
       theme: "silver"
     }
