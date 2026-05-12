@@ -10,6 +10,8 @@ import { Footer } from "../components/Footer";
 import { useDesignSystem } from "../components/DesignSystemProvider";
 import Link from "next/link";
 import { PRODUCTS } from "../constants/products";
+// [TEMP] Selector de tipografía — solo para revisión del cliente
+import { FontSelectorPanel } from "../components/FontSelectorPanel";
 
 export default function Home() {
   const { mentalState } = useDesignSystem();
@@ -105,6 +107,9 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* [TEMP] Font Selector Panel — Revisión tipográfica para cliente */}
+      <FontSelectorPanel />
 
       {/* Floating Action Button (WhatsApp - Mobile First) */}
       <div className="fixed bottom-8 right-8 z-[60] flex flex-col gap-4">
