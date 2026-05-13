@@ -72,12 +72,12 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ title, narrative, image
         </div>
 
         {/* Narrative Overlay */}
-        <div className={`absolute inset-0 ${themeStyles.overlay} opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center p-12 text-center transition-all duration-700`}>
-          <h3 className={`${themeStyles.textMain} text-4xl md:text-5xl lg:text-7xl mb-8 font-display tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700`}>{title}</h3>
-          <p className={`${themeStyles.textSub} text-lg md:text-xl lg:text-2xl italic font-light tracking-wide leading-relaxed max-w-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700 delay-100`}>
+        <div className={`absolute inset-0 ${themeStyles.overlay} opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center p-6 sm:p-10 md:p-12 text-center transition-all duration-700`}>
+          <h3 className={`${themeStyles.textMain} text-2xl sm:text-3xl md:text-5xl lg:text-7xl mb-4 md:mb-8 font-display tracking-[0.05em] md:tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700`}>{title}</h3>
+          <p className={`${themeStyles.textSub} text-sm md:text-xl lg:text-2xl italic font-light tracking-wide leading-relaxed max-w-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700 delay-100`}>
             &quot;{narrative}&quot;
           </p>
-          <div className={`mt-10 w-24 h-[2px] ${themeStyles.line} transition-transform duration-1000 origin-left scale-x-0 group-hover:scale-x-100 delay-200`} />
+          <div className={`mt-6 md:mt-10 w-16 md:w-24 h-[2px] ${themeStyles.line} transition-transform duration-1000 origin-left scale-x-0 group-hover:scale-x-100 delay-200`} />
         </div>
       </motion.div>
     </Link>

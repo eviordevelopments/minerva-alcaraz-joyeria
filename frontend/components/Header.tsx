@@ -56,7 +56,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
         {/* THE CIRCLE Announcement Bar */}
         <div className="w-full bg-verde-ebano py-2 border-b border-oro-antiguo/10 text-center relative z-10 px-4">
           <Link href="/the-circle" className="group inline-flex items-center gap-2 md:gap-4">
-            <span className="text-oro-antiguo text-[9px] uppercase tracking-[0.6em] font-medium whitespace-nowrap">The Circle</span>
+            <span className="text-oro-antiguo text-[8px] sm:text-[9px] uppercase tracking-[0.3em] sm:tracking-[0.6em] font-medium whitespace-nowrap">The Circle</span>
             <p className="hidden sm:block text-hueso-seda text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-light italic opacity-80 group-hover:opacity-100 transition-opacity">
               &ldquo;Únase a la cofradía del lujo eterno. Privilegios exclusivos y acceso prioritario.&rdquo;
             </p>
@@ -134,8 +134,8 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
             <Link href="/">
               <div className={`relative transition-all duration-700 ease-in-out ${
                 isScrolled
-                  ? 'h-[28px] w-[90px] md:h-[50px] md:w-[155px]'
-                  : 'h-[38px] w-[110px] md:h-[64px] md:w-[180px]'
+                  ? 'h-[24px] w-[80px] sm:h-[28px] sm:w-[90px] md:h-[50px] md:w-[155px]'
+                  : 'h-[32px] w-[95px] sm:h-[38px] sm:w-[110px] md:h-[64px] md:w-[180px]'
               }`}>
                 <Image 
                   src="/logo.png" 

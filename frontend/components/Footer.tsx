@@ -33,18 +33,18 @@ export const Footer = () => {
                 
                 {/* Legacy Inline Newsletter */}
                 <div className="flex flex-col gap-5 mt-4">
-                  <h4 className="text-[10px] uppercase tracking-[0.4em] text-oro-antiguo">Únete a la Herencia</h4>
-                  <p className="text-[11px] opacity-50 font-light leading-relaxed max-w-xs">
+                  <h4 className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.4em] text-oro-antiguo">Únete a la Herencia</h4>
+                  <p className="text-[10px] sm:text-[11px] opacity-50 font-light leading-relaxed max-w-xs">
                     Reciba invitaciones exclusivas a lanzamientos y rituales privados.
                   </p>
                   <div className="flex border-b border-hueso-seda/20 pb-3 group max-w-xs transition-colors focus-within:border-oro-antiguo">
                     <input 
                       type="email" 
                       placeholder="SU CORREO ELECTRÓNICO" 
-                      className="bg-transparent flex-1 text-[10px] uppercase tracking-widest outline-none placeholder:opacity-20"
+                      className="bg-transparent flex-1 text-[9px] sm:text-[10px] uppercase tracking-[0.1em] sm:tracking-widest outline-none placeholder:opacity-20"
                     />
                     <button className="text-oro-antiguo hover:translate-x-2 transition-transform">
-                      <ArrowRight size={16} strokeWidth={1} />
+                      <ArrowRight size={14} sm-size={16} strokeWidth={1} />
                     </button>
                   </div>
                 </div>
@@ -52,9 +52,9 @@ export const Footer = () => {
             </div>
 
             <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-4 gap-12">
-              <div className="flex flex-col gap-8">
-                <h4 className="text-[11px] uppercase tracking-[0.4em] text-oro-antiguo font-medium">Joyas</h4>
-                <ul className="flex flex-col gap-5 text-xs opacity-60 tracking-[0.15em] font-light uppercase">
+              <div className="flex flex-col gap-6 sm:gap-8">
+                <h4 className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.4em] text-oro-antiguo font-medium">Joyas</h4>
+                <ul className="flex flex-col gap-4 sm:gap-5 text-[10px] sm:text-xs opacity-60 tracking-[0.1em] sm:tracking-[0.15em] font-light uppercase">
                   <li><Link href="/shop" className="hover:text-oro-antiguo animated-underline transition-colors">Todas las Joyas</Link></li>
                   <li><Link href="/shop/anillos" className="hover:text-oro-antiguo animated-underline transition-colors">Anillos</Link></li>
                   <li><Link href="/shop/collares" className="hover:text-oro-antiguo animated-underline transition-colors">Collares</Link></li>
@@ -80,9 +80,9 @@ export const Footer = () => {
                   <li><Link href="/the-circle" className="hover:text-oro-antiguo animated-underline transition-colors">The Circle</Link></li>
                 </ul>
               </div>
-              <div className="flex flex-col gap-8">
-                <h4 className="text-[11px] uppercase tracking-[0.4em] text-oro-antiguo font-medium">Legado</h4>
-                <ul className="flex flex-col gap-5 text-xs opacity-60 tracking-[0.15em] font-light uppercase">
+              <div className="flex flex-col gap-6 sm:gap-8">
+                <h4 className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.4em] text-oro-antiguo font-medium">Legado</h4>
+                <ul className="flex flex-col gap-4 sm:gap-5 text-[10px] sm:text-xs opacity-60 tracking-[0.1em] sm:tracking-[0.15em] font-light uppercase">
                   <li><Link href="/shop?collection=herencia" className="hover:text-oro-antiguo animated-underline transition-colors">Colecciones</Link></li>
                   <li><Link href="/privacy" className="hover:text-oro-antiguo animated-underline transition-colors">Privacidad</Link></li>
                   <li><Link href="/terms" className="hover:text-oro-antiguo animated-underline transition-colors">Términos</Link></li>

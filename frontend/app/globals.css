@@ -103,7 +103,17 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display uppercase tracking-widest;
+    @apply font-display uppercase;
+    /* Fluid letter-spacing: tighter on mobile, wider on desktop */
+    letter-spacing: 0.05em;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  @media (min-width: 768px) {
+    h1, h2, h3, h4, h5, h6 {
+      letter-spacing: 0.12em;
+    }
   }
 }
 
@@ -112,7 +122,7 @@
 ───────────────────────────────────────── */
 @layer components {
   .luxury-container {
-    @apply max-w-[1440px] mx-auto px-8 md:px-16 lg:px-24;
+    @apply max-w-[1440px] mx-auto px-4 sm:px-6 md:px-16 lg:px-24;
   }
 
   /* High contrast muted text utility */
@@ -191,15 +201,15 @@
   }
 
   .grid-item-large {
-    @apply lg:col-span-8 h-[500px] md:h-[700px] lg:h-[800px];
+    @apply lg:col-span-8 h-[380px] sm:h-[480px] md:h-[600px] lg:h-[800px];
   }
 
   .grid-item-small {
-    @apply lg:col-span-4 h-[500px] md:h-[700px] lg:h-[800px];
+    @apply lg:col-span-4 h-[380px] sm:h-[480px] md:h-[600px] lg:h-[800px];
   }
 
   .grid-item-full {
-    @apply lg:col-span-12 h-[500px] md:h-[700px] lg:h-[800px];
+    @apply lg:col-span-12 h-[380px] sm:h-[480px] md:h-[600px] lg:h-[800px];
   }
 
   /* Typography Balance */

@@ -31,10 +31,10 @@ export const Newsletter = () => {
             whileInView={{ opacity: 1, y: 0 }}
             className="flex flex-col items-center gap-6"
           >
-            <Mail className="text-oro-antiguo" size={32} strokeWidth={1} />
-            <span className="text-[10px] uppercase tracking-[0.8em] text-oro-antiguo">La Cofradía</span>
-            <h2 className="text-5xl md:text-7xl font-display text-hueso-seda italic">Únase a Nuestra Herencia</h2>
-            <p className="text-sm md:text-base text-hueso-seda/60 font-light leading-relaxed max-w-2xl uppercase tracking-[0.2em]">
+            <Mail className="text-oro-antiguo" size={28} md-size={32} strokeWidth={1} />
+            <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.4em] sm:tracking-[0.8em] text-oro-antiguo">La Cofradía</span>
+            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-display text-hueso-seda italic px-4">Únase a Nuestra Herencia</h2>
+            <p className="text-xs sm:text-sm md:text-base text-hueso-seda/60 font-light leading-relaxed max-w-2xl uppercase tracking-[0.1em] sm:tracking-[0.2em] px-4">
               Reciba invitaciones exclusivas a rituales de diseño privado y sea el primero en descubrir nuestras piezas únicas de edición limitada.
             </p>
           </motion.div>
@@ -47,18 +47,18 @@ export const Newsletter = () => {
               transition={{ delay: 0.2 }}
               className="w-full max-w-lg mt-8 group"
             >
-              <div className="flex flex-col md:flex-row gap-6 items-end border-b border-hueso-seda/20 pb-4 group-focus-within:border-oro-antiguo transition-colors">
+              <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-end border-b border-hueso-seda/20 pb-4 group-focus-within:border-oro-antiguo transition-colors px-4">
                 <input 
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="SU CORREO ELECTRÓNICO" 
-                  className="bg-transparent flex-1 text-xs uppercase tracking-[0.4em] text-hueso-seda outline-none placeholder:opacity-20 py-2"
+                  className="bg-transparent w-full sm:flex-1 text-[10px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.4em] text-hueso-seda outline-none placeholder:opacity-20 py-2 text-center sm:text-left"
                   required
                 />
                 <button 
                   type="submit"
-                  className="flex items-center gap-4 text-[10px] uppercase tracking-[0.5em] text-oro-antiguo hover:text-hueso-seda transition-colors pb-2"
+                  className="flex items-center gap-4 text-[9px] sm:text-[10px] uppercase tracking-[0.3em] sm:tracking-[0.5em] text-oro-antiguo hover:text-hueso-seda transition-colors pb-2 whitespace-nowrap"
                 >
                   Suscribirse <ArrowRight size={16} strokeWidth={1} />
                 </button>

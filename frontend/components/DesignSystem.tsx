@@ -23,8 +23,8 @@ export const LuxuryButton: React.FC<LuxuryButtonProps> = ({
       whileTap={{ scale: 0.99 }}
       onClick={onClick}
       className={`
-        px-10 py-4 
-        text-[10px] uppercase tracking-[0.3em] 
+        px-6 sm:px-10 py-3 sm:py-4
+        text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.3em]
         transition-all duration-700
         ${variant === "gold" ? "border border-oro-antiguo" : "border border-verde-ebano"} rounded-none
         ${variant === "primary" 
@@ -119,8 +119,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div className="flex flex-col gap-2">
           <span className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/50">{category}</span>
           <div className="flex flex-col gap-1">
-            <h3 className="text-xs tracking-[0.2em] font-display text-verde-ebano uppercase leading-relaxed">{name}</h3>
-            <span className="text-[10px] text-oro-profundo tracking-[0.2em] font-medium">
+            <h3 className="text-[10px] sm:text-xs tracking-[0.1em] sm:tracking-[0.2em] font-display text-verde-ebano uppercase leading-relaxed">{name}</h3>
+            <span className="text-[9px] sm:text-[10px] text-oro-profundo tracking-[0.1em] sm:tracking-[0.2em] font-medium">
               ${price.toLocaleString()} {currency}
             </span>
           </div>

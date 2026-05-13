@@ -41,8 +41,8 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="text-4xl md:text-7xl font-display text-oro-antiguo max-w-5xl leading-tight mb-8"
-            style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
+            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-display text-oro-antiguo max-w-5xl leading-tight mb-8 px-2"
+            style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)', wordBreak: 'break-word' }}
           >
             Donde el <span className="text-hueso-seda">arte</span> encuentra su <span className="text-hueso-seda">esencia</span> y la <span className="text-hueso-seda">eternidad</span> su <span className="text-hueso-seda">presencia</span>.
           </motion.h1>
@@ -62,22 +62,21 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Narrative Section */}
-      <section className="w-full px-4 md:px-12 lg:px-24 py-24 md:py-32">
-        <div className="border border-verde-ebano p-8 md:p-20 lg:p-32 text-center max-w-[1440px] mx-auto">
+      <section className="w-full px-4 md:px-12 lg:px-24 py-16 md:py-32">
+        <div className="border border-verde-ebano p-5 sm:p-8 md:p-20 lg:p-32 text-center max-w-[1440px] mx-auto">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1 }}
           >
-            <h2 className="text-3xl md:text-4xl font-display text-verde-ebano mb-16 tracking-[0.1em]">Nuestra Filosofía</h2>
-            <p className="text-2xl md:text-4xl lg:text-5xl text-verde-ebano font-sans font-light leading-relaxed max-w-5xl mx-auto uppercase tracking-[0.1em]">
-              "TRANSFORMAMOS LA MATERIA EN MEMORIA. CADA CREACIÓN ES UNA OBRA IRREPETIBLE, UN VÍNCULO ANCESTRAL QUE TRASCIENDE EL OBJETO PARA CONVERTIRSE EN UN LEGADO DE VALOR ETERNO."
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display text-verde-ebano mb-8 md:mb-16">Nuestra Filosofía</h2>
+            <p className="text-base sm:text-xl md:text-3xl lg:text-5xl text-verde-ebano font-sans font-light leading-relaxed max-w-5xl mx-auto uppercase tracking-[0.05em] md:tracking-[0.1em]">
+              &ldquo;TRANSFORMAMOS LA MATERIA EN MEMORIA. CADA CREACIÓN ES UNA OBRA IRREPETIBLE, UN VÍNCULO ANCESTRAL QUE TRASCIENDE EL OBJETO PARA CONVERTIRSE EN UN LEGADO DE VALOR ETERNO.&rdquo;
             </p>
-            <span className="block mt-12 text-[10px] md:text-xs tracking-[0.5em] text-oro-antiguo font-sans uppercase">
+            <span className="block mt-8 md:mt-12 text-[10px] md:text-xs tracking-[0.3em] md:tracking-[0.5em] text-oro-antiguo font-sans uppercase">
               - Minerva Alcaraz
             </span>
-            <div className="mt-20">
+            <div className="mt-10 md:mt-20">
               <Link href="/nuestra-historia">
                 <LuxuryButton variant="primary">
                   Descubrir Nuestra Historia
@@ -92,12 +91,12 @@ export default function Home() {
       <CollectionGrid />
 
       {/* Catalog Section */}
-      <section className="w-full px-4 md:px-12 lg:px-24 py-24 bg-hueso-seda">
-        <div className="flex flex-col items-center mb-16 text-center">
-          <span className="text-sm md:text-base uppercase tracking-[0.6em] text-verde-ebano/60 mb-4">Catálogo Exclusivo</span>
-          <h2 className="text-5xl md:text-7xl font-display text-verde-ebano mb-6">Piezas Únicas & Sets</h2>
-          <p className="text-lg md:text-xl text-verde-ebano/80 italic font-light max-w-2xl">
-            "Descubra nuestra curaduría de objetos preciosos. Cada joya es una obra irrepetible. Adquiérala como pieza individual o complete su legado con nuestros sets completos diseñados en perfecta armonía."
+      <section className="w-full px-4 md:px-12 lg:px-24 py-16 md:py-24 bg-hueso-seda">
+        <div className="flex flex-col items-center mb-10 md:mb-16 text-center">
+          <span className="text-[10px] sm:text-sm md:text-base uppercase tracking-[0.3em] sm:tracking-[0.6em] text-verde-ebano/60 mb-3 md:mb-4">Catálogo Exclusivo</span>
+          <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-display text-verde-ebano mb-4 md:mb-6">Piezas Únicas &amp; Sets</h2>
+          <p className="text-sm md:text-lg lg:text-xl text-verde-ebano/80 italic font-light max-w-2xl px-2">
+            &ldquo;Descubra nuestra curaduría de objetos preciosos. Cada joya es una obra irrepetible. Adquiérala como pieza individual o complete su legado con nuestros sets completos diseñados en perfecta armonía.&rdquo;
           </p>
         </div>
         

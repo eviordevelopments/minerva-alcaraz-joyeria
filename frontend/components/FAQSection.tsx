@@ -93,13 +93,13 @@ export const FAQSection = () => {
   ];
 
   return (
-    <section className="py-24 md:py-48 bg-hueso-seda border-t border-plata-niebla/10">
+    <section className="py-16 md:py-48 bg-hueso-seda border-t border-plata-niebla/10">
       <div className="luxury-container w-full">
-        <div className="border border-verde-ebano p-6 md:p-16 lg:p-24 flex flex-col gap-16 md:gap-24">
+        <div className="border border-verde-ebano p-5 sm:p-8 md:p-16 lg:p-24 flex flex-col gap-10 md:gap-24">
           
-          <div className="flex flex-col gap-6 text-center">
-            <h2 className="text-5xl md:text-7xl font-display text-verde-ebano">Preguntas Frecuentes</h2>
-            <p className="text-xs md:text-sm uppercase tracking-[0.6em] text-verde-ebano/60">Claridad y Confianza en su Experiencia</p>
+          <div className="flex flex-col gap-4 md:gap-6 text-center">
+            <h2 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-display text-verde-ebano">Preguntas Frecuentes</h2>
+            <p className="text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.3em] md:tracking-[0.6em] text-verde-ebano/60">Claridad y Confianza en su Experiencia</p>
           </div>
 
         <div className="flex flex-col gap-16">
@@ -117,13 +117,13 @@ export const FAQSection = () => {
           ))}
         </div>
 
-        <div className="mt-8 bg-authority p-12 md:p-20 flex flex-col lg:flex-row items-center justify-between gap-12 shadow-2xl">
-          <div className="flex flex-col gap-4 text-center lg:text-left">
-            <h4 className="text-3xl md:text-4xl font-display text-oro-antiguo">¿Aún tiene dudas?</h4>
-            <p className="text-xs md:text-sm uppercase tracking-widest text-hueso-seda opacity-80">Nuestro Concierge Digital está a su disposición</p>
+        <div className="mt-6 md:mt-8 bg-authority p-6 sm:p-10 md:p-20 flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-12 shadow-2xl">
+          <div className="flex flex-col gap-3 md:gap-4 text-center lg:text-left">
+            <h4 className="text-2xl sm:text-3xl md:text-4xl font-display text-oro-antiguo">¿Aún tiene dudas?</h4>
+            <p className="text-[10px] sm:text-xs md:text-sm uppercase tracking-widest text-hueso-seda opacity-80">Nuestro Concierge Digital está a su disposición</p>
           </div>
-          <LuxuryButton variant="gold" className="flex items-center justify-center gap-4 py-4 px-8 text-sm md:text-base w-fit mx-auto lg:mx-0">
-            <MessageCircle size={20} className="flex-shrink-0" /> Contactar a Concierge
+          <LuxuryButton variant="gold" className="flex items-center justify-center gap-3 md:gap-4 w-full sm:w-fit mx-auto lg:mx-0">
+            <MessageCircle size={18} className="flex-shrink-0" /> Contactar a Concierge
           </LuxuryButton>
         </div>
 
