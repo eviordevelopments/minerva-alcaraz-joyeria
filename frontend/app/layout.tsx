@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { DesignSystemProvider } from "../components/DesignSystemProvider";
+import { AuthProvider } from "../components/AuthProvider";
 import { ArousalOverlay } from "../components/ArousalOverlay";
 import { WhatsAppFAB } from "../components/WhatsAppFAB";
 import { CookieBanner } from "../components/CookieBanner";
@@ -50,13 +51,15 @@ export default function RootLayout({
     <html lang="es">
       <body>
         <DesignSystemProvider>
-          {children}
-          <ArousalOverlay />
-          <WhatsAppFAB />
-          <CookieBanner />
-          <AIConcierge />
-          <NewsletterBanner />
-          <TheCircleBanner />
+          <AuthProvider>
+            {children}
+            <ArousalOverlay />
+            <WhatsAppFAB />
+            <CookieBanner />
+            <AIConcierge />
+            <NewsletterBanner />
+            <TheCircleBanner />
+          </AuthProvider>
         </DesignSystemProvider>
       </body>
     </html>

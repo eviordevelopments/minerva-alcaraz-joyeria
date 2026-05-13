@@ -83,8 +83,8 @@ const benefits = [
 ───────────────────────────────────────── */
 const galleryPieces = [
   { src: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/individuales/MINE-51.JPG", label: "Diseño de Autor" },
-  { src: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/escencia/joyería-2.JPG", label: "Escencia" },
-  { src: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/serpientes/SMA_MINERVA-100.JPG", label: "Serpientes" },
+  { src: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778279752/minerva_joyeria/products/escencia/s5lcje72gpht7y1eh2nw.jpg", label: "Escencia" },
+  { src: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778275754/minerva_joyeria/products/serpientes/SMA_MINERVA-100.jpg", label: "Serpientes" },
   { src: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva2-3.JPG", label: "Etérea" },
   { src: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/individuales/MINE-52.jpg", label: "Pieza Única" },
 ];
@@ -284,7 +284,7 @@ export default function TheCirclePage() {
           {/* Image side */}
           <div className="relative w-full md:w-1/2 h-[400px] md:h-[700px] overflow-hidden group">
             <Image
-              src="https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/escencia/Minerva_Joyeria_1_-10.JPG"
+              src="https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778275666/minerva_joyeria/products/escencia/Minerva_Joyeria_1_-10.jpg"
               alt="Concierge Minerva Alcaraz"
               fill
               className="object-cover transition-transform duration-1000 group-hover:scale-105 brightness-75"

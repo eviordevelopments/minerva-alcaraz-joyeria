@@ -157,9 +157,25 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
               <Search size={22} strokeWidth={1} />
             </button>
             {isAuthenticated ? (
-              <Link href="/the-circle/dashboard" className={`${hoverColor} transition-colors flex items-center gap-2`}>
-                <ShieldCheck size={22} strokeWidth={1} className="text-current" />
-                {user?.isCircleMember && <span className="hidden xl:inline text-xs uppercase tracking-widest font-light">Miembro</span>}
+              <Link href="/perfil" className={`${hoverColor} transition-colors flex items-center gap-2 relative`}>
+                <div className="relative">
+                  {user?.isCircleMember && (
+                    <div className="absolute -inset-1 border border-oro-antiguo/50 pointer-events-none z-10" />
+                  )}
+                  <div className={`w-8 h-8 flex items-center justify-center text-[11px] font-medium uppercase ${
+                    isScrolled || theme === 'dark' ? 'bg-oro-antiguo/15 text-oro-antiguo' : 'bg-white/15 text-current'
+                  }`}>
+                    {user?.fullName?.charAt(0) || <User size={14} strokeWidth={1.5} />}
+                  </div>
+                  {user?.isCircleMember && (
+                    <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-oro-antiguo flex items-center justify-center z-20">
+                      <ShieldCheck size={7} strokeWidth={2} className="text-verde-ebano" />
+                    </div>
+                  )}
+                </div>
+                <span className="hidden xl:inline text-[9px] uppercase tracking-widest font-light">
+                  {user?.displayName || user?.fullName?.split(' ')[0]}
+                </span>
               </Link>
             ) : (
               <Link href="/auth" className={`${hoverColor} transition-colors hidden sm:block`}>
@@ -222,9 +238,20 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
               </div>
 
               <div className="flex flex-col gap-4 mt-8 pt-8 border-t border-verde-ebano/10">
+              {isAuthenticated ? (
+                <Link onClick={() => setIsMobileMenuOpen(false)} href="/perfil" className="flex items-center gap-4 text-xs uppercase tracking-widest text-verde-ebano">
+                  <div className="relative w-5 h-5 flex items-center justify-center border border-verde-ebano/20">
+                    {user?.isCircleMember && <div className="absolute -inset-0.5 border border-oro-antiguo/40" />}
+                    <span className="text-[10px] font-medium">{user?.fullName?.charAt(0)}</span>
+                  </div>
+                  {user?.displayName || user?.fullName?.split(' ')[0] || 'Mi Perfil'}
+                  {user?.isCircleMember && <span className="text-[7px] text-oro-antiguo border border-oro-antiguo/30 px-1 py-0.5 uppercase tracking-widest">Circle</span>}
+                </Link>
+              ) : (
                 <Link onClick={() => setIsMobileMenuOpen(false)} href="/auth" className="flex items-center gap-4 text-xs uppercase tracking-widest text-verde-ebano">
                   <User size={16} strokeWidth={1} /> Mi Cuenta
                 </Link>
+              )}
                 <Link onClick={() => setIsMobileMenuOpen(false)} href="/favorites" className="flex items-center gap-4 text-xs uppercase tracking-widest text-verde-ebano">
                   <Heart size={16} strokeWidth={1} /> Mis Favoritos
                 </Link>
