@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { DesignSystemProvider } from "../components/DesignSystemProvider";
 import { AuthProvider } from "../components/AuthProvider";
-import { ArousalOverlay } from "../components/ArousalOverlay";
+import { MentalStateOverlay } from "../components/MentalStateOverlay";
 import { WhatsAppFAB } from "../components/WhatsAppFAB";
 import { CookieBanner } from "../components/CookieBanner";
 import { AIConcierge } from "../components/AIConcierge";
@@ -53,7 +53,7 @@ export default function RootLayout({
         <DesignSystemProvider>
           <AuthProvider>
             {children}
-            <ArousalOverlay />
+            <MentalStateOverlay />
             <WhatsAppFAB />
             <CookieBanner />
             <AIConcierge />

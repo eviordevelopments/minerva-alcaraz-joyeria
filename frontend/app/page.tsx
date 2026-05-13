@@ -17,7 +17,7 @@ export default function Home() {
   const { mentalState } = useDesignSystem();
 
   return (
-    <main className="min-h-screen bg-hueso-seda arousal-low">
+    <main className="min-h-screen bg-hueso-seda">
       <Header />
 
       {/* Hero Section */}

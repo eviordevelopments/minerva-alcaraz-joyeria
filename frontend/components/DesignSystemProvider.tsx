@@ -17,7 +17,7 @@ export const DesignSystemProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <DesignSystemContext.Provider value={{ mentalState, isCartOpen, setIsCartOpen }}>
-      <div className={mentalState === "LOW_AROUSAL" ? "arousal-low" : "arousal-high"}>
+      <div className={`arousal-wrapper ${mentalState === "LOW_AROUSAL" ? "arousal-low" : "arousal-high"}`}>
         {children}
       </div>
     </DesignSystemContext.Provider>

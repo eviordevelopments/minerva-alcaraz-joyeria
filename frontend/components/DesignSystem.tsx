@@ -41,6 +41,7 @@ export const LuxuryButton: React.FC<LuxuryButtonProps> = ({
 };
 
 import Link from "next/link";
+import { useDesignSystem } from "./DesignSystemProvider";
 import { Heart } from "lucide-react";
 
 import { Product } from "../constants/products";
@@ -50,6 +51,8 @@ interface ProductCardProps {
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const { mentalState } = useDesignSystem();
+  const isLowArousal = mentalState === "LOW_AROUSAL";
   if (!product) return null;
   const [isFavorite, setIsFavorite] = React.useState(false);
   const [isFlipped, setIsFlipped] = React.useState(false);
@@ -60,7 +63,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div 
-      className="flex flex-col gap-4 arousal-low rounded-none relative group"
+      className={`flex flex-col gap-4 rounded-none relative group transition-all duration-700 ${isLowArousal ? "arousal-low" : "arousal-high"}`}
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
       onClick={() => setIsFlipped(!isFlipped)}

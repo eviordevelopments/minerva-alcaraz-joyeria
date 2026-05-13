@@ -17,7 +17,8 @@ interface HeaderProps {
 import { PRODUCTS } from "../constants/products";
 
 export const Header = ({ theme = "light" }: HeaderProps) => {
-  const { isCartOpen, setIsCartOpen } = useDesignSystem();
+  const { isCartOpen, setIsCartOpen, mentalState } = useDesignSystem();
+  const isHighArousal = mentalState === "HIGH_AROUSAL";
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -79,7 +80,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
           </div>
 
           {/* Main Navigation - Left (Desktop) */}
-          <nav className={`hidden lg:flex gap-10 items-center ${textColor}`}>
+          <nav className={`hidden lg:flex gap-10 items-center ${textColor} transition-all duration-700 ${isHighArousal ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
             <div className="relative group">
               <Link href="/shop" className="nav-link flex items-center gap-2">
                 Joyas <ChevronDown size={10} className="group-hover:rotate-180 transition-transform" />
@@ -152,9 +153,13 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
           <div className={`flex gap-4 md:gap-10 items-center ${textColor}`}>
             <button 
               onClick={() => setIsSearchOpen(true)}
-              className={`${hoverColor} transition-colors hidden sm:block`}
+              className={`${hoverColor} transition-colors hidden sm:block relative group`}
             >
-              <Search size={22} strokeWidth={1} />
+              <Search 
+                size={22} 
+                strokeWidth={isHighArousal ? 1.5 : 1} 
+                className={isHighArousal ? "icon-tangible" : ""}
+              />
             </button>
             {isAuthenticated ? (
               <Link href="/perfil" className={`${hoverColor} transition-colors flex items-center gap-2 relative`}>
@@ -179,18 +184,30 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
               </Link>
             ) : (
               <Link href="/auth" className={`${hoverColor} transition-colors hidden sm:block`}>
-                <User size={22} strokeWidth={1} />
+                <User 
+                  size={22} 
+                  strokeWidth={isHighArousal ? 1.5 : 1} 
+                  className={isHighArousal ? "icon-tangible" : ""}
+                />
               </Link>
             )}
             <Link href="/favorites" className={`${hoverColor} transition-colors relative hidden sm:block`}>
-              <Heart size={22} strokeWidth={1} />
+              <Heart 
+                size={22} 
+                strokeWidth={isHighArousal ? 1.5 : 1} 
+                className={isHighArousal ? "icon-tangible" : ""}
+              />
             </Link>
             <button 
               onClick={() => setIsCartOpen(true)}
               className={`${hoverColor} transition-colors relative`}
             >
-              <ShoppingBag size={22} strokeWidth={1} />
-              <span className="absolute -top-1 -right-2 bg-oro-antiguo text-verde-ebano text-[8px] font-bold w-4 h-4 flex items-center justify-center rounded-full shadow-sm">
+              <ShoppingBag 
+                size={22} 
+                strokeWidth={isHighArousal ? 1.5 : 1} 
+                className={isHighArousal ? "icon-tangible" : ""}
+              />
+              <span className={`absolute -top-1 -right-2 bg-oro-antiguo text-verde-ebano text-[8px] font-bold w-4 h-4 flex items-center justify-center rounded-full shadow-sm transition-transform duration-300 ${isHighArousal ? 'scale-110' : 'scale-100'}`}>
                 1
               </span>
             </button>

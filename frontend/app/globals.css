@@ -103,7 +103,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display uppercase;
+    @apply font-display uppercase transition-all duration-700;
     /* Fluid letter-spacing: tighter on mobile, wider on desktop */
     letter-spacing: 0.05em;
     word-break: break-word;
@@ -224,5 +224,40 @@
       -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
       backdrop-filter: blur(20px) saturate(180%) !important;
     }
+  }
+
+  /* ─────────────────────────────────────────
+     MENTAL STATE SYSTEM — Arousal States
+  ───────────────────────────────────────── */
+  .arousal-wrapper {
+    @apply transition-all duration-1000 ease-in-out min-h-screen;
+  }
+
+  /* LOW AROUSAL: Calm, cinematic, slow */
+  .arousal-low {
+    --transition-speed: 1000ms;
+    --interaction-scale: 1;
+    filter: contrast(0.98) saturate(0.95);
+    box-shadow: inset 0 0 150px rgba(44, 55, 41, 0.05);
+  }
+
+  .arousal-low .luxury-container {
+    @apply opacity-90 transition-opacity duration-1000;
+  }
+
+  /* HIGH AROUSAL: Direct, sharp, fast */
+  .arousal-high {
+    --transition-speed: 300ms;
+    --interaction-scale: 1.02;
+    filter: contrast(1) saturate(1);
+  }
+
+  .arousal-high .luxury-container {
+    @apply opacity-100 transition-opacity duration-300;
+  }
+
+  /* Tangible Icons Utility */
+  .icon-tangible {
+    @apply fill-current transition-all duration-300;
   }
 }
