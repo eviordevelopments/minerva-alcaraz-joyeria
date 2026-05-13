@@ -44,23 +44,64 @@ const FONTS = [
     preview: "Minerva",
     description: "Clásico — Elegancia variable",
   },
+  {
+    id: "manrope",
+    label: "Manrope",
+    value: "'Manrope', sans-serif",
+    preview: "Minerva",
+    description: "Moderno — Minimalismo técnico",
+  },
+  {
+    id: "montserrat",
+    label: "Montserrat",
+    value: "'Montserrat', sans-serif",
+    preview: "Minerva",
+    description: "Urbano — Claridad geométrica",
+  },
+  {
+    id: "outfit",
+    label: "Outfit",
+    value: "'Outfit', sans-serif",
+    preview: "Minerva",
+    description: "Premium — Lujo contemporáneo",
+  },
+] as const;
+
+const LOGO_COLORS = [
+  { id: "default", label: "Default", filter: "none" },
+  { id: "verde", label: "Verde", filter: "brightness(0) saturate(100%) invert(18%) sepia(14%) saturate(762%) hue-rotate(58deg) brightness(95%) contrast(91%)" },
+  { id: "dorado", label: "Dorado", filter: "brightness(0) saturate(100%) invert(80%) sepia(21%) saturate(740%) hue-rotate(351deg) brightness(90%) contrast(85%)" },
+  { id: "blanco", label: "Blanco", filter: "invert(100%)" },
 ] as const;
 
 type FontId = (typeof FONTS)[number]["id"];
+type LogoColorId = (typeof LOGO_COLORS)[number]["id"];
 
 const STORAGE_KEY = "minerva_font_selector_active";
+const LOGO_STORAGE_KEY = "minerva_logo_color_active";
 
 export function FontSelectorPanel() {
+  const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [activeFont, setActiveFont] = useState<FontId>("butler-stencil");
+  const [activeLogoColor, setActiveLogoColor] = useState<LogoColorId>("default");
   const [copied, setCopied] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Restore from session
   useEffect(() => {
-    const saved = sessionStorage.getItem(STORAGE_KEY) as FontId | null;
-    if (saved) applyFont(saved);
-  }, []);
+    if (!mounted) return;
+    const savedFont = sessionStorage.getItem(STORAGE_KEY) as FontId | null;
+    const savedLogo = sessionStorage.getItem(LOGO_STORAGE_KEY) as LogoColorId | null;
+    if (savedFont) applyFont(savedFont);
+    if (savedLogo) applyLogoColor(savedLogo);
+  }, [mounted]);
+
+
 
   // Close on outside click
   useEffect(() => {
@@ -86,6 +127,7 @@ export function FontSelectorPanel() {
     }
     style.textContent = `
       h1, h2, h3, h4, h5, h6,
+      p, span, a, button, input, textarea,
       [class*="font-display"],
       .font-display {
         font-family: ${font.value} !important;
@@ -95,11 +137,23 @@ export function FontSelectorPanel() {
     sessionStorage.setItem(STORAGE_KEY, id);
   }
 
+  function applyLogoColor(id: LogoColorId) {
+    const color = LOGO_COLORS.find(c => c.id === id);
+    if (!color) return;
+    
+    document.documentElement.style.setProperty('--logo-filter-override', color.filter);
+    setActiveLogoColor(id);
+    sessionStorage.setItem(LOGO_STORAGE_KEY, id);
+  }
+
   function resetFont() {
     const styleEl = document.getElementById("font-selector-override");
     if (styleEl) styleEl.remove();
+    document.documentElement.style.setProperty('--logo-filter-override', 'none');
     setActiveFont("butler-stencil");
+    setActiveLogoColor("default");
     sessionStorage.removeItem(STORAGE_KEY);
+    sessionStorage.removeItem(LOGO_STORAGE_KEY);
   }
 
   function copySelection() {
@@ -113,14 +167,16 @@ export function FontSelectorPanel() {
 
   const activeFontData = FONTS.find((f) => f.id === activeFont)!;
 
+  if (!mounted) return null;
+
   return (
     <div
       ref={panelRef}
       style={{
         position: "fixed",
-        left: "1.25rem",
+        left: "5rem",
         bottom: "1.5rem",
-        zIndex: 9999,
+        zIndex: 10000,
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
@@ -291,6 +347,44 @@ export function FontSelectorPanel() {
                 </button>
               );
             })}
+          </div>
+
+          {/* Logo Color Selection */}
+          <div style={{ marginTop: "1.25rem" }}>
+            <p
+              style={{
+                fontSize: "8px",
+                letterSpacing: "0.2em",
+                color: "rgba(203,182,123,0.5)",
+                textTransform: "uppercase",
+                marginBottom: "0.75rem",
+                borderBottom: "1px solid rgba(203,182,123,0.1)",
+                paddingBottom: "4px"
+              }}
+            >
+              Logo Color (Scroll)
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "6px" }}>
+              {LOGO_COLORS.map((color) => (
+                <button
+                  key={color.id}
+                  onClick={() => applyLogoColor(color.id)}
+                  style={{
+                    background: activeLogoColor === color.id ? "#CBB67B" : "rgba(229,219,214,0.05)",
+                    border: "1px solid rgba(229,219,214,0.1)",
+                    color: activeLogoColor === color.id ? "#2C3729" : "#E5DBD6",
+                    fontSize: "8px",
+                    padding: "6px 0",
+                    cursor: "pointer",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
+                    transition: "all 0.2s"
+                  }}
+                >
+                  {color.label}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Footer Actions */}

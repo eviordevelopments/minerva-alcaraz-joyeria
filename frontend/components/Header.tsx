@@ -142,7 +142,12 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
                   src="/logo.png" 
                   alt="Minerva Alcaraz" 
                   fill
-                  className={`object-contain transition-all duration-700 ${logoFilter}`}
+                  className={`object-contain transition-all duration-700`}
+                  style={{ 
+                    filter: isScrolled 
+                      ? 'var(--logo-filter-override)' 
+                      : (logoFilter === "brightness-0 invert opacity-90" ? "brightness(0) invert(0.9)" : "none") 
+                  }}
                   priority
                 />
               </div>
