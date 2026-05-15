@@ -70,8 +70,8 @@ export default function AlbumesPage() {
       .order("created_at", { ascending: false });
 
     setAlbums(
-      (data || []).map((a: Record<string, unknown>) => ({
-        ...(a as Album),
+      (data || []).map((a: any) => ({
+        ...(a as unknown as Album),
         item_count: (a.album_items as {count: number}[])?.[0]?.count ?? 0,
       }))
     );
