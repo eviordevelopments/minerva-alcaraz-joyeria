@@ -166,21 +166,11 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
             </button>
             {isAuthenticated ? (
               <Link href="/perfil" className={`${hoverColor} transition-colors flex items-center gap-2 relative`}>
-                <div className="relative">
-                  {user?.isCircleMember && (
-                    <div className="absolute -inset-1 border border-oro-antiguo/50 pointer-events-none z-10" />
-                  )}
-                  <div className={`w-8 h-8 flex items-center justify-center text-[11px] font-medium uppercase ${
-                    isScrolled || theme === 'dark' ? 'bg-oro-antiguo/15 text-oro-antiguo' : 'bg-white/15 text-current'
-                  }`}>
-                    {user?.fullName?.charAt(0) || <User size={14} strokeWidth={1.5} />}
-                  </div>
-                  {user?.isCircleMember && (
-                    <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-oro-antiguo flex items-center justify-center z-20">
-                      <ShieldCheck size={7} strokeWidth={2} className="text-verde-ebano" />
-                    </div>
-                  )}
-                </div>
+                {user?.isCircleMember ? (
+                  <ShieldCheck size={22} strokeWidth={1} className="text-oro-antiguo" />
+                ) : (
+                  <User size={22} strokeWidth={1} />
+                )}
                 <span className="hidden xl:inline text-[9px] uppercase tracking-widest font-light">
                   {user?.displayName || user?.fullName?.split(' ')[0]}
                 </span>

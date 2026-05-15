@@ -95,7 +95,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-display text-oro-antiguo max-w-5xl leading-tight mb-8 px-2"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display text-oro-antiguo max-w-5xl leading-tight mb-8 px-4 text-center"
             style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)', wordBreak: 'break-word' }}
           >
             Donde el <span className="text-hueso-seda">arte</span> encuentra su <span className="text-hueso-seda">esencia</span> y la <span className="text-hueso-seda">eternidad</span> su <span className="text-hueso-seda">presencia</span>.
@@ -122,7 +122,7 @@ export default function Home() {
       <CollectionGrid />
 
       {/* Catalog Section */}
-      <section className="w-full px-4 md:px-12 lg:px-24 py-16 md:py-24 bg-hueso-seda">
+      <section className="w-full px-4 md:px-12 lg:px-24 pt-24 md:pt-32 pb-16 md:pb-24 bg-hueso-seda">
         <div className="flex flex-col items-center mb-10 md:mb-16 text-center">
           <span className="text-[10px] sm:text-sm md:text-base uppercase tracking-[0.3em] sm:tracking-[0.6em] text-verde-ebano/60 mb-3 md:mb-4">Catálogo Exclusivo</span>
           <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-display text-verde-ebano mb-4 md:mb-6">Piezas Únicas &amp; Sets</h2>
