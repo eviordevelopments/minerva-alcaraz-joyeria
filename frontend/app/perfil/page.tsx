@@ -65,7 +65,7 @@ export default function PerfilPage() {
                 {isCircle ? "The Circle — Panel Privado" : "Mi Espacio"}
               </p>
               <h1 className="text-3xl md:text-4xl font-display text-verde-ebano">
-                Bienvenida, {user.displayName || user.fullName.split(" ")[0]}
+                Bienvenido, {user.displayName || user.fullName.split(" ")[0]}
               </h1>
               {isCircle && (
                 <p className="text-xs text-verde-ebano/40 uppercase tracking-[0.3em] font-light italic">

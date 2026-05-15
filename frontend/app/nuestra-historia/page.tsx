@@ -16,7 +16,7 @@ export default function StoryPage() {
         <div className="absolute inset-0 opacity-40">
           <div className="w-full h-full bg-[url('/story_hero.jpg')] bg-cover bg-center grayscale mix-blend-overlay scale-105 animate-slow-zoom" />
         </div>
-        <div className="relative z-10 text-center px-8">
+        <div className="relative z-10 text-center px-8 pt-32">
           <motion.span 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

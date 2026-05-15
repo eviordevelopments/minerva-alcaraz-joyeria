@@ -17,8 +17,7 @@ interface HeaderProps {
 import { PRODUCTS } from "../constants/products";
 
 export const Header = ({ theme = "light" }: HeaderProps) => {
-  const { isCartOpen, setIsCartOpen, mentalState } = useDesignSystem();
-  const isHighArousal = mentalState === "HIGH_AROUSAL";
+  const { isCartOpen, setIsCartOpen } = useDesignSystem();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -80,7 +79,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
           </div>
 
           {/* Main Navigation - Left (Desktop) */}
-          <nav className={`hidden lg:flex gap-10 items-center ${textColor} transition-all duration-700 ${isHighArousal ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+          <nav className={`hidden lg:flex gap-10 items-center ${textColor} transition-all duration-700`}>
             <div className="relative group">
               <Link href="/shop" className="nav-link flex items-center gap-2">
                 Joyas <ChevronDown size={10} className="group-hover:rotate-180 transition-transform" />
@@ -162,8 +161,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
             >
               <Search 
                 size={22} 
-                strokeWidth={isHighArousal ? 1.5 : 1} 
-                className={isHighArousal ? "icon-tangible" : ""}
+                strokeWidth={1} 
               />
             </button>
             {isAuthenticated ? (
@@ -188,19 +186,17 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
                 </span>
               </Link>
             ) : (
-              <Link href="/auth" className={`${hoverColor} transition-colors hidden sm:block`}>
+              <Link href="/auth" className={`${hoverColor} transition-colors`}>
                 <User 
                   size={22} 
-                  strokeWidth={isHighArousal ? 1.5 : 1} 
-                  className={isHighArousal ? "icon-tangible" : ""}
+                  strokeWidth={1} 
                 />
               </Link>
             )}
             <Link href="/favorites" className={`${hoverColor} transition-colors relative hidden sm:block`}>
               <Heart 
                 size={22} 
-                strokeWidth={isHighArousal ? 1.5 : 1} 
-                className={isHighArousal ? "icon-tangible" : ""}
+                strokeWidth={1} 
               />
             </Link>
             <button 
@@ -209,10 +205,9 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
             >
               <ShoppingBag 
                 size={22} 
-                strokeWidth={isHighArousal ? 1.5 : 1} 
-                className={isHighArousal ? "icon-tangible" : ""}
+                strokeWidth={1} 
               />
-              <span className={`absolute -top-1 -right-2 bg-oro-antiguo text-verde-ebano text-[8px] font-bold w-4 h-4 flex items-center justify-center rounded-full shadow-sm transition-transform duration-300 ${isHighArousal ? 'scale-110' : 'scale-100'}`}>
+              <span className="absolute -top-1 -right-2 bg-oro-antiguo text-verde-ebano text-[8px] font-bold w-4 h-4 flex items-center justify-center rounded-full shadow-sm">
                 1
               </span>
             </button>
@@ -244,8 +239,19 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
                 <span className="text-[10px] uppercase tracking-[0.4em] text-oro-antiguo">Menú Principal</span>
                 <Link onClick={() => setIsMobileMenuOpen(false)} href="/shop" className="text-2xl font-display text-verde-ebano italic">Explorar Joyas</Link>
                 <Link onClick={() => setIsMobileMenuOpen(false)} href="/collections" className="text-2xl font-display text-verde-ebano italic">Colecciones</Link>
-                <Link onClick={() => setIsMobileMenuOpen(false)} href="/atelier" className="text-2xl font-display text-verde-ebano italic">El Atelier</Link>
+                <Link onClick={() => setIsMobileMenuOpen(false)} href="/atelier" className="text-2xl font-display text-verde-ebano italic">Atelier</Link>
                 <Link onClick={() => setIsMobileMenuOpen(false)} href="/personalized" className="text-2xl font-display text-verde-ebano italic">Concierge</Link>
+              </div>
+
+              <div className="flex flex-col gap-4 mt-4">
+                <span className="text-[10px] uppercase tracking-[0.4em] text-oro-antiguo">Categorías</span>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                  {categories.map(cat => (
+                    <Link key={cat} onClick={() => setIsMobileMenuOpen(false)} href={`/shop?category=${encodeURIComponent(cat)}`} className="text-[10px] uppercase tracking-widest text-verde-ebano/70">
+                      {cat}
+                    </Link>
+                  ))}
+                </div>
               </div>
 
               <div className="flex flex-col gap-4 mt-4">

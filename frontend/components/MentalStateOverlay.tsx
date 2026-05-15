@@ -7,8 +7,13 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export const MentalStateOverlay = () => {
-  const { mentalState } = useDesignSystem();
+  const { mentalState, setMentalState, handleInteraction } = useDesignSystem();
   const isLowArousal = mentalState === "LOW_AROUSAL";
+
+  const handleDismiss = () => {
+    handleInteraction(); // Reset timer
+    setMentalState("HIGH_AROUSAL");
+  };
 
   return (
     <AnimatePresence>
@@ -18,8 +23,16 @@ export const MentalStateOverlay = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1.5, ease: "easeInOut" }}
-          className="fixed inset-0 z-[60] bg-verde-ebano/95 flex flex-col items-center justify-center p-6 text-center"
+          className="fixed inset-0 z-[60] bg-verde-ebano/98 flex flex-col items-center justify-center p-6 text-center"
         >
+          {/* Close button */}
+          <button 
+            onClick={handleDismiss}
+            className="absolute top-10 right-10 text-hueso-seda/40 hover:text-oro-antiguo transition-colors uppercase tracking-[0.3em] text-[10px] flex items-center gap-2"
+          >
+            Cerrar [esc]
+          </button>
+
           {/* Subtle background texture or element */}
           <div className="absolute inset-0 opacity-10 pointer-events-none overflow-hidden">
              <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] border border-hueso-seda/20 rounded-full blur-3xl" />
@@ -37,31 +50,30 @@ export const MentalStateOverlay = () => {
             </span>
             
             <h2 className="text-hueso-seda text-4xl md:text-6xl font-display italic mb-12 leading-tight">
-              ¿Qué historia buscas hoy?
+              ¿Deseas continuar tu viaje a través del arte?
             </h2>
             
             <p className="text-hueso-seda/60 text-sm md:text-base font-light tracking-widest mb-16 italic max-w-md mx-auto leading-relaxed">
-              Permita que la artesanía le guíe a través de una herencia de oro y significado.
+              Permite que la herencia de Minerva Alcaraz guíe tu búsqueda de la pieza perfecta.
             </p>
 
-            <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <Link 
                 href="/shop"
-                className="group flex items-center gap-4 text-hueso-seda text-[11px] uppercase tracking-[0.3em] hover:text-oro-antiguo transition-colors"
+                onClick={handleDismiss}
+                className="group flex items-center justify-center gap-3 px-8 py-4 border border-oro-antiguo text-oro-antiguo text-[10px] uppercase tracking-[0.3em] hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-500 w-full sm:w-auto"
               >
-                Explorar la colección
-                <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
+                Explorar el Catálogo
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </Link>
               
-              <div className="w-[1px] h-8 bg-hueso-seda/10 hidden md:block" />
-
-              <Link 
-                href="/personalized"
-                className="group flex items-center gap-4 text-hueso-seda text-[11px] uppercase tracking-[0.3em] hover:text-oro-antiguo transition-colors"
+              <button 
+                onClick={handleDismiss}
+                className="group flex items-center justify-center gap-3 px-8 py-4 border border-hueso-seda/20 text-hueso-seda/70 text-[10px] uppercase tracking-[0.3em] hover:border-hueso-seda hover:text-hueso-seda transition-all duration-500 w-full sm:w-auto"
               >
-                Comenzar un diseño personalizado
-                <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
-              </Link>
+                Continuar Navegando
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </button>
             </div>
           </motion.div>
 

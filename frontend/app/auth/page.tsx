@@ -64,8 +64,8 @@ export default function AuthPage() {
     <main className="min-h-screen bg-hueso-seda flex flex-col">
       <Header />
 
-      <div className="flex-1 flex items-center justify-center pt-32 pb-20 px-4">
-        <div className="w-full max-w-md">
+      <div className="flex-1 flex flex-col items-center justify-start pt-48 md:pt-56 pb-20 px-4">
+        <div className="w-full max-w-md mt-8">
 
           {/* Brand mark */}
           <motion.div
@@ -79,7 +79,7 @@ export default function AuthPage() {
             <div className="text-center">
               <p className="text-[9px] uppercase tracking-[0.8em] text-oro-antiguo">Minerva Alcaraz</p>
               <h1 className="text-2xl font-display text-verde-ebano uppercase tracking-widest mt-1">
-                {mode === "login" ? "Bienvenida" : "Crear Cuenta"}
+                {mode === "login" ? "Bienvenido" : "Crear Cuenta"}
               </h1>
             </div>
           </motion.div>

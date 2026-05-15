@@ -43,7 +43,7 @@ export const CookieBanner = () => {
             <div className="flex flex-col gap-3">
               <h3 className="text-[10px] uppercase tracking-[0.4em] text-verde-ebano font-medium">Privacidad & Legado</h3>
               <p className="text-[10px] md:text-xs text-verde-ebano/70 leading-relaxed font-light italic">
-                "Nuestra curaduría digital utiliza cookies para asegurar que su experiencia sea tan impecable como nuestras piezas. Al continuar, usted acepta nuestro <Link href="/privacy" className="underline decoration-oro-antiguo/30 hover:text-oro-antiguo transition-colors">Aviso de Privacidad</Link> y el uso de tecnologías de personalización."
+                "Nuestra curaduría digital utiliza cookies para asegurar que tu experiencia sea tan impecable como nuestras piezas. Al continuar, aceptas nuestro <Link href="/privacy" className="underline decoration-oro-antiguo/30 hover:text-oro-antiguo transition-colors">Aviso de Privacidad</Link> y el uso de tecnologías de personalización."
               </p>
             </div>
 

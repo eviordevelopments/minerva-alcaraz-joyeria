@@ -8,7 +8,7 @@ import { Footer } from "../../components/Footer";
 import Image from "next/image";
 import Link from "next/link";
 
-const CollectionCard = ({ title, description, image, align = "left", theme = "bone" }: { title: string, description: string, image: string, align?: "left" | "right", theme?: "bone" | "green" | "gold" }) => {
+const CollectionCard = ({ title, subtitle, description, image, align = "left", theme = "bone" }: { title: string, subtitle: string, description: string, image: string, align?: "left" | "right", theme?: "bone" | "green" | "gold" }) => {
   const themeStyles = {
     bone: {
       bg: "bg-hueso-seda",
@@ -46,7 +46,7 @@ const CollectionCard = ({ title, description, image, align = "left", theme = "bo
         
         {/* Contenido Narrativo */}
         <div className={`w-full md:w-1/2 flex flex-col justify-center gap-8 p-12 md:p-24 lg:p-32 ${themeStyles.textMain}`}>
-          <span className="text-[10px] md:text-xs uppercase tracking-[0.8em] opacity-60">Narrativa de Marca</span>
+          <span className="text-[10px] md:text-xs uppercase tracking-[0.8em] opacity-60">{subtitle}</span>
           <h2 className="text-5xl md:text-7xl lg:text-8xl font-display leading-tight italic uppercase">{title}</h2>
           <p className={`text-base md:text-xl lg:text-2xl leading-loose font-light max-w-xl italic ${themeStyles.textSub}`}>
             &quot;{description}&quot;
@@ -67,12 +67,14 @@ export default function CollectionsPage() {
   const collections = [
     {
       title: "Diseños de Autor",
+      subtitle: "Escultura Portable",
       description: "La cumbre de la expresión artística de Minerva Alcaraz. Piezas escultóricas que desafían la joyería convencional, nacidas de una visión pura y sin compromisos.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/individuales/MINE-51.JPG",
       theme: "bone" as const
     },
     {
       title: "Escencia",
+      subtitle: "Misticismo Metálico",
       description: "Un viaje al corazón del misticismo mexicano. Los Milagritos transformados en reliquias de oro y plata, portadores de fe, esperanza y devoción eterna.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778279752/minerva_joyeria/products/escencia/s5lcje72gpht7y1eh2nw.jpg",
       align: "right" as const,
@@ -80,12 +82,14 @@ export default function CollectionsPage() {
     },
     {
       title: "Chai",
+      subtitle: "El Flujo Vital",
       description: "Celebración de la vitalidad y el número 18. Líneas fluidas y grabados ancestrales que honran el flujo constante de la vida en todas sus formas.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778275631/minerva_joyeria/products/chai/CHAI-21.jpg",
       theme: "gold" as const
     },
     {
       title: "Serpientes",
+      subtitle: "Transformación Eterna",
       description: "Símbolo de renovación perpetua. La serpiente que muda su piel es el eco de nuestra propia capacidad de transformación y sabiduría interior.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778275755/minerva_joyeria/products/serpientes/SMA_MINERVA-102.jpg",
       align: "right" as const,
@@ -93,12 +97,14 @@ export default function CollectionsPage() {
     },
     {
       title: "Piezas Únicas",
+      subtitle: "Alma Irrepetible",
       description: "Objetos de deseo irrepetibles. Piedras seleccionadas por su alma y monturas forjadas para jamás ser replicadas. Una joya que solo pertenece a un portador.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/individuales/MINE-52.jpg",
       theme: "green" as const
     },
     {
       title: "Etérea",
+      subtitle: "Suspiro de Luz",
       description: "Minimalismo que roza lo divino. Formas que parecen levitar y capturar la luz del viento, diseñadas para elevar la esencia de quien las porta.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva2-3.JPG",
       align: "right" as const,
@@ -106,12 +112,14 @@ export default function CollectionsPage() {
     },
     {
       title: "Ecos de la Tierra",
+      subtitle: "Geometría Orgánica",
       description: "La geología convertida en arte táctil. Texturas brutales y formas orgánicas que resuenan con la fuerza primordial de nuestro planeta.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/ecos-tierra/DSCF4318.JPG",
       theme: "bone" as const
     },
     {
       title: "Floral",
+      subtitle: "Naturaleza Inmortal",
       description: "La botánica mexicana preservada en metales preciosos. Un jardín eterno donde la fragilidad de la naturaleza se vuelve inmortalidad.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778280270/minerva_joyeria/products/floral/Coleccio_n_3_3.jpg",
       align: "right" as const,

@@ -12,7 +12,7 @@ export const AIConcierge = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   return (
-    <div className={`fixed z-[100] transition-all duration-700 ${isFullScreen ? 'inset-0' : 'bottom-8 right-28'}`}>
+    <div className={`fixed z-[100] transition-all duration-700 ${isFullScreen ? 'inset-0' : 'bottom-24 right-4 md:bottom-8 md:right-28'}`}>
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -20,7 +20,11 @@ export const AIConcierge = () => {
             initial={isFullScreen ? { opacity: 0 } : { opacity: 0, scale: 0.9, y: 20, transformOrigin: "bottom right" }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className={`bg-hueso-seda shadow-2xl border border-verde-ebano/10 flex flex-col overflow-hidden transition-all duration-700 ${isFullScreen ? 'w-full h-full' : 'absolute bottom-20 right-0 w-[550px] md:w-[700px] h-[850px] max-h-[85vh]'}`}
+            className={`bg-hueso-seda shadow-2xl border border-verde-ebano/10 flex flex-col overflow-hidden transition-all duration-700 ${
+              isFullScreen 
+                ? 'w-full h-full' 
+                : 'absolute bottom-20 right-[-1rem] md:right-0 w-[calc(100vw-2rem)] md:w-[700px] h-[70vh] md:h-[850px] max-h-[85vh]'
+            }`}
           >
             {/* Header */}
             <div className="p-5 bg-verde-ebano text-hueso-seda flex justify-between items-center relative overflow-hidden">
@@ -55,14 +59,14 @@ export const AIConcierge = () => {
             </div>
 
             {/* Chat Content / Iframe */}
-            <div className={`flex-1 bg-white/50 relative flex ${isFullScreen ? 'flex-row' : 'flex-col'}`}>
+            <div className={`flex-1 bg-white/50 relative flex ${isFullScreen ? 'flex-col md:flex-row' : 'flex-col'}`}>
               <div className={`flex-1 flex flex-col border-r border-verde-ebano/5 bg-hueso-seda/30`}>
                 <div className="p-8 flex-1 flex flex-col gap-6 overflow-y-auto custom-scrollbar">
                   <div className="flex flex-col gap-2 max-w-[85%]">
                     <div className="bg-verde-ebano text-hueso-seda p-4 text-[11px] md:text-xs leading-relaxed font-light italic border-l-2 border-oro-antiguo">
                       {isFullScreen 
-                        ? "He expandido mi consciencia para brindarle una asesoría total. Basado en sus preferencias, he curado una selección de piezas que resuenan con su legado personal."
-                        : "Bienvenido a la cofradía de Minerva Alcaraz. Soy su guía en este viaje a través de la materia y el símbolo. ¿En qué puedo asesorarle hoy?"}
+                        ? "He expandido mi consciencia para brindarte una asesoría total. Basado en tus preferencias, he curado una selección de piezas que resuenan con tu legado personal."
+                        : "Bienvenido a la cofradía de Minerva Alcaraz. Soy tu guía en este viaje a través de la materia y el símbolo. ¿En qué puedo asesorarte hoy?"}
                     </div>
                   </div>
                   
@@ -87,7 +91,7 @@ export const AIConcierge = () => {
                 <motion.div 
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="w-1/3 bg-verde-ebano text-hueso-seda p-12 overflow-y-auto"
+                  className={`${isFullScreen ? 'w-full md:w-1/3' : 'hidden md:block w-1/3'} bg-verde-ebano text-hueso-seda p-8 md:p-12 overflow-y-auto`}
                 >
                   <span className="text-[10px] uppercase tracking-[0.5em] text-oro-antiguo mb-8 block">Selección Curada por IA</span>
                   <h3 className="text-3xl font-display italic mb-12">Sugerencias del Oráculo</h3>
@@ -119,9 +123,10 @@ export const AIConcierge = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 border border-oro-antiguo/20 ${
+        className={`w-12 h-12 md:w-14 md:h-14 flex items-center justify-center shadow-2xl transition-all duration-500 border border-oro-antiguo/20 ${
           isOpen ? "bg-oro-antiguo text-verde-ebano" : "bg-verde-ebano text-oro-antiguo"
         }`}
+        style={{ borderRadius: '50%' }}
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
@@ -131,7 +136,7 @@ export const AIConcierge = () => {
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: 90, opacity: 0 }}
             >
-              <X size={24} strokeWidth={1.5} />
+              <X className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />
             </motion.div>
           ) : (
             <motion.div
@@ -141,7 +146,7 @@ export const AIConcierge = () => {
               exit={{ rotate: -90, opacity: 0 }}
               className="flex flex-col items-center"
             >
-              <Sparkles size={24} strokeWidth={1.5} />
+              <Sparkles className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />
             </motion.div>
           )}
         </AnimatePresence>

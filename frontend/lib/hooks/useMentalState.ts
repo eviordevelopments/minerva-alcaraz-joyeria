@@ -30,8 +30,8 @@ export const useMentalState = () => {
     const handleIdle = () => {
       const timeSinceLastInteraction = Date.now() - lastInteractionTime;
       
-      // Low Intent detection: Idle for > 8s or slow movement
-      if (timeSinceLastInteraction > 8000) {
+      // Low Intent detection: Idle for > 30s
+      if (timeSinceLastInteraction > 30000) {
         setMentalState("LOW_AROUSAL");
       }
     };
@@ -40,15 +40,16 @@ export const useMentalState = () => {
     window.addEventListener("mousemove", handleInteraction);
     window.addEventListener("click", handleInteraction);
     
-    const idleInterval = setInterval(handleIdle, 2000);
+    const idleInterval = setInterval(handleIdle, 1000);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("mousemove", handleInteraction);
       window.removeEventListener("click", handleInteraction);
+      window.removeEventListener("touchstart", handleInteraction);
       clearInterval(idleInterval);
     };
   }, [lastScrollPos, lastInteractionTime, handleInteraction]);
 
-  return { mentalState };
+  return { mentalState, setMentalState, handleInteraction };
 };

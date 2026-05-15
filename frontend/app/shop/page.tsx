@@ -16,6 +16,7 @@ function ShopContent() {
 
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [sortBy, setSortBy] = useState("Relevancia");
 
   useEffect(() => {
@@ -64,14 +65,20 @@ function ShopContent() {
         {/* Page Header */}
         <div className="flex flex-col gap-6 mb-16 border-b border-verde-ebano/10 pb-12">
           <span className="text-[10px] uppercase tracking-[0.8em] text-oro-antiguo">El Catálogo</span>
-          <h1 className="text-5xl md:text-7xl font-display italic text-verde-ebano">Todas las Joyas</h1>
+          <h1 className="text-4xl md:text-7xl font-display italic text-verde-ebano">Todas las Joyas</h1>
         </div>
 
         {/* Top Controls */}
         <div className="flex flex-wrap justify-between items-center gap-8 mb-12 py-6 border-y border-verde-ebano/5">
           <div className="flex items-center gap-8">
             <button 
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              onClick={() => {
+                if (window.innerWidth < 1024) {
+                  setIsMobileFiltersOpen(true);
+                } else {
+                  setIsSidebarOpen(!isSidebarOpen);
+                }
+              }}
               className="flex items-center gap-3 text-[10px] uppercase tracking-widest text-verde-ebano hover:text-oro-antiguo transition-colors"
             >
               <SlidersHorizontal size={14} /> {isSidebarOpen ? "Ocultar Filtros" : "Mostrar Filtros"}
@@ -165,8 +172,102 @@ function ShopContent() {
         </div>
       </section>
 
+      <MobileFilterDrawer 
+        isOpen={isMobileFiltersOpen} 
+        onClose={() => setIsMobileFiltersOpen(false)} 
+        categories={categories}
+        collections={collections}
+        materials={materials}
+        activeFilters={activeFilters}
+        toggleFilter={toggleFilter}
+        clearFilters={() => setActiveFilters([])}
+      />
       <Footer />
     </main>
+  );
+}
+
+function MobileFilterDrawer({ 
+  isOpen, 
+  onClose, 
+  categories, 
+  collections, 
+  materials, 
+  activeFilters, 
+  toggleFilter,
+  clearFilters
+}: { 
+  isOpen: boolean, 
+  onClose: () => void, 
+  categories: string[], 
+  collections: string[], 
+  materials: string[], 
+  activeFilters: string[], 
+  toggleFilter: (f: string) => void,
+  clearFilters: () => void
+}) {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-verde-ebano/40 backdrop-blur-sm z-[110]"
+          />
+          <motion.div 
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-y-0 right-0 w-[85%] max-w-sm bg-hueso-seda z-[120] flex flex-col shadow-2xl"
+          >
+            <div className="flex justify-between items-center p-6 border-b border-verde-ebano/10">
+              <h3 className="text-xs uppercase tracking-[0.4em] font-medium text-verde-ebano">Filtros</h3>
+              <button onClick={onClose} className="text-verde-ebano p-2">
+                <X size={20} strokeWidth={1} />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-10 custom-scrollbar">
+              <FilterGroup title="Tipo de Joya" items={categories} active={activeFilters} onToggle={toggleFilter} />
+              <FilterGroup title="Colecciones" items={collections} active={activeFilters} onToggle={toggleFilter} />
+              <FilterGroup title="Materiales" items={materials} active={activeFilters} onToggle={toggleFilter} />
+              
+              <div className="flex flex-col gap-4">
+                <h3 className="text-[11px] uppercase tracking-[0.2em] font-medium text-verde-ebano">Categoría Especial</h3>
+                <div className="flex flex-col gap-2">
+                  {["Piezas Únicas", "Edición Limitada", "Diseño de Autor"].map(p => (
+                    <label key={p} className="flex items-center gap-3 cursor-pointer group">
+                      <input type="checkbox" className="hidden" checked={activeFilters.includes(p)} onChange={() => toggleFilter(p)} />
+                      <div className={`w-3 h-3 border border-verde-ebano/30 transition-all ${activeFilters.includes(p) ? 'bg-oro-antiguo border-oro-antiguo' : 'group-hover:border-verde-ebano'}`} />
+                      <span className={`text-[10px] uppercase tracking-widest transition-colors ${activeFilters.includes(p) ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{p}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="p-6 border-t border-verde-ebano/10 grid grid-cols-2 gap-4 bg-hueso-seda">
+              <button 
+                onClick={clearFilters}
+                className="py-3 text-[9px] uppercase tracking-widest text-verde-ebano border border-verde-ebano/20 hover:bg-verde-ebano hover:text-hueso-seda transition-colors"
+              >
+                Limpiar
+              </button>
+              <button 
+                onClick={onClose}
+                className="py-3 text-[9px] uppercase tracking-widest bg-verde-ebano text-hueso-seda hover:bg-oro-antiguo transition-colors"
+              >
+                Aplicar
+              </button>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
   );
 }
 

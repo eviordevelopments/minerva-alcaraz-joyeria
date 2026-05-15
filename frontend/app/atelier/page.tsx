@@ -16,7 +16,7 @@ export default function AtelierPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           <div className="lg:col-span-5 flex flex-col gap-10">
             <span className="text-[10px] uppercase tracking-[0.8em] text-oro-antiguo">El Origen</span>
-            <h1 className="text-5xl md:text-7xl font-display text-verde-ebano leading-tight">Manos que Custodian la Eternidad</h1>
+            <h1 className="text-4xl md:text-7xl font-display text-verde-ebano leading-tight">Manos que Custodian la Eternidad</h1>
             <p className="text-sm md:text-base leading-loose text-verde-ebano/80 font-light">
               Minerva Alcaraz nace de la convicción de que una joya no es un objeto, sino un testimonio. En nuestro atelier, el tiempo no se mide en minutos, sino en la precisión de un martilleo o la pureza de una soldadura.
             </p>

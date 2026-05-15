@@ -31,7 +31,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
     <main className="min-h-screen bg-hueso-seda arousal-low">
       <Header />
       
-      <div className="pt-32 px-8 md:px-16 pb-32">
+      <div className="pt-40 md:pt-56 px-8 md:px-16 pb-32">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           
           {/* 1. Carousel & Images (Dynamic Gallery) */}

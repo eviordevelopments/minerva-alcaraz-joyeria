@@ -33,9 +33,9 @@ export const Newsletter = () => {
           >
             <Mail className="text-oro-antiguo" size={28} md-size={32} strokeWidth={1} />
             <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.4em] sm:tracking-[0.8em] text-oro-antiguo">La Cofradía</span>
-            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-display text-hueso-seda italic px-4">Únase a Nuestra Herencia</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-display text-hueso-seda italic px-4">Únete a Nuestra Herencia</h2>
             <p className="text-xs sm:text-sm md:text-base text-hueso-seda/60 font-light leading-relaxed max-w-2xl uppercase tracking-[0.1em] sm:tracking-[0.2em] px-4">
-              Reciba invitaciones exclusivas a rituales de diseño privado y sea el primero en descubrir nuestras piezas únicas de edición limitada.
+              Recibe invitaciones exclusivas a rituales de diseño privado y sé el primero en descubrir nuestras piezas únicas de edición limitada.
             </p>
           </motion.div>
 
@@ -52,7 +52,7 @@ export const Newsletter = () => {
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="SU CORREO ELECTRÓNICO" 
+                  placeholder="TU CORREO ELECTRÓNICO" 
                   className="bg-transparent w-full sm:flex-1 text-[10px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.4em] text-hueso-seda outline-none placeholder:opacity-20 py-2 text-center sm:text-left"
                   required
                 />
@@ -64,7 +64,7 @@ export const Newsletter = () => {
                 </button>
               </div>
               <p className="text-[9px] text-hueso-seda/30 uppercase tracking-widest mt-6 text-left">
-                Al suscribirse, acepta nuestra política de privacidad y el tratamiento de sus datos para fines exclusivos de la marca.
+                Al suscribirte, aceptas nuestra política de privacidad y el tratamiento de tus datos para fines exclusivos de la marca.
               </p>
             </motion.form>
           ) : (
@@ -75,7 +75,7 @@ export const Newsletter = () => {
             >
               <h3 className="text-xl font-display text-oro-antiguo mb-4 italic">Bienvenido a la Herencia</h3>
               <p className="text-xs text-hueso-seda/70 uppercase tracking-[0.2em]">
-                Un correo de confirmación ha sido enviado a su estancia digital.
+                Un correo de confirmación ha sido enviado a tu estancia digital.
               </p>
             </motion.div>
           )}

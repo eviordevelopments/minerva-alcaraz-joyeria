@@ -154,7 +154,7 @@ export const NewsletterBanner = () => {
                       </button>
 
                       <p className="text-[8px] uppercase tracking-[0.2em] text-hueso-seda/30 text-center">
-                        Sin spam. Solo lo que merece su atención.
+                        Sin spam. Solo lo que merece tu atención.
                       </p>
                     </form>
                   </>
@@ -169,9 +169,9 @@ export const NewsletterBanner = () => {
                       <Gem size={32} className="text-oro-antiguo mx-auto" strokeWidth={1} />
                     </motion.div>
                     <div className="flex flex-col gap-2">
-                      <h3 className="font-display text-hueso-seda text-2xl uppercase">Bienvenida al Legado</h3>
+                      <h3 className="font-display text-hueso-seda text-2xl uppercase">Bienvenido al Legado</h3>
                       <p className="text-hueso-seda/60 text-xs italic font-light">
-                        "Será la primera en conocer cada historia antes que el mundo."
+                        "Serás el primero en conocer cada historia antes que el mundo."
                       </p>
                     </div>
                   </div>

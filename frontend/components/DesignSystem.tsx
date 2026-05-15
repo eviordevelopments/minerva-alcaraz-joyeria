@@ -52,7 +52,6 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { mentalState } = useDesignSystem();
-  const isLowArousal = mentalState === "LOW_AROUSAL";
   if (!product) return null;
   const [isFavorite, setIsFavorite] = React.useState(false);
   const [isFlipped, setIsFlipped] = React.useState(false);
@@ -63,7 +62,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div 
-      className={`flex flex-col gap-4 rounded-none relative group transition-all duration-700 ${isLowArousal ? "arousal-low" : "arousal-high"}`}
+      className="group relative bg-white/5 border border-verde-ebano/5 hover:border-oro-antiguo/20 transition-all duration-700"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
       onClick={() => setIsFlipped(!isFlipped)}

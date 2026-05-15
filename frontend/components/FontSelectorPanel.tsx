@@ -59,6 +59,13 @@ const FONTS = [
     description: "Urbano — Claridad geométrica",
   },
   {
+    id: "raleway",
+    label: "Raleway",
+    value: "'Raleway', sans-serif",
+    preview: "Minerva",
+    description: "Elegante — Neogrotesco fino",
+  },
+  {
     id: "outfit",
     label: "Outfit",
     value: "'Outfit', sans-serif",
@@ -77,13 +84,16 @@ const LOGO_COLORS = [
 type FontId = (typeof FONTS)[number]["id"];
 type LogoColorId = (typeof LOGO_COLORS)[number]["id"];
 
-const STORAGE_KEY = "minerva_font_selector_active";
+const TITLE_FONT_KEY = "minerva_title_font_active";
+const TEXT_FONT_KEY = "minerva_text_font_active";
 const LOGO_STORAGE_KEY = "minerva_logo_color_active";
 
 export function FontSelectorPanel() {
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [activeFont, setActiveFont] = useState<FontId>("butler-stencil");
+  const [target, setTarget] = useState<"both" | "titles" | "texts">("both");
+  const [activeTitleFont, setActiveTitleFont] = useState<FontId>("butler-stencil");
+  const [activeTextFont, setActiveTextFont] = useState<FontId>("butler-stencil");
   const [activeLogoColor, setActiveLogoColor] = useState<LogoColorId>("default");
   const [copied, setCopied] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -95,9 +105,13 @@ export function FontSelectorPanel() {
   // Restore from session
   useEffect(() => {
     if (!mounted) return;
-    const savedFont = sessionStorage.getItem(STORAGE_KEY) as FontId | null;
+    const savedTitleFont = sessionStorage.getItem(TITLE_FONT_KEY) as FontId | null;
+    const savedTextFont = sessionStorage.getItem(TEXT_FONT_KEY) as FontId | null;
     const savedLogo = sessionStorage.getItem(LOGO_STORAGE_KEY) as LogoColorId | null;
-    if (savedFont) applyFont(savedFont);
+    
+    if (savedTitleFont || savedTextFont) {
+      applyFonts(savedTitleFont || "butler-stencil", savedTextFont || "butler-stencil");
+    }
     if (savedLogo) applyLogoColor(savedLogo);
   }, [mounted]);
 
@@ -114,10 +128,11 @@ export function FontSelectorPanel() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, [isOpen]);
 
-  function applyFont(id: FontId) {
-    const font = FONTS.find((f) => f.id === id);
-    if (!font) return;
-    // Inject / update a <style> tag in <head>
+  function applyFonts(titleId: FontId, textId: FontId) {
+    const titleFont = FONTS.find((f) => f.id === titleId);
+    const textFont = FONTS.find((f) => f.id === textId);
+    if (!titleFont || !textFont) return;
+
     const styleId = "font-selector-override";
     let style = document.getElementById(styleId) as HTMLStyleElement | null;
     if (!style) {
@@ -126,15 +141,32 @@ export function FontSelectorPanel() {
       document.head.appendChild(style);
     }
     style.textContent = `
+      body, p, span, a, button, input, textarea, li, label {
+        font-family: ${textFont.value} !important;
+      }
+      
       h1, h2, h3, h4, h5, h6,
-      p, span, a, button, input, textarea,
+      .font-display,
       [class*="font-display"],
-      .font-display {
-        font-family: ${font.value} !important;
+      h1 *, h2 *, h3 *, h4 *, h5 *, h6 *,
+      .font-display * {
+        font-family: ${titleFont.value} !important;
       }
     `;
-    setActiveFont(id);
-    sessionStorage.setItem(STORAGE_KEY, id);
+    setActiveTitleFont(titleId);
+    setActiveTextFont(textId);
+    sessionStorage.setItem(TITLE_FONT_KEY, titleId);
+    sessionStorage.setItem(TEXT_FONT_KEY, textId);
+  }
+
+  function handleFontClick(id: FontId) {
+    if (target === "both") {
+      applyFonts(id, id);
+    } else if (target === "titles") {
+      applyFonts(id, activeTextFont);
+    } else {
+      applyFonts(activeTitleFont, id);
+    }
   }
 
   function applyLogoColor(id: LogoColorId) {
@@ -150,43 +182,40 @@ export function FontSelectorPanel() {
     const styleEl = document.getElementById("font-selector-override");
     if (styleEl) styleEl.remove();
     document.documentElement.style.setProperty('--logo-filter-override', 'none');
-    setActiveFont("butler-stencil");
+    setActiveTitleFont("butler-stencil");
+    setActiveTextFont("butler-stencil");
     setActiveLogoColor("default");
-    sessionStorage.removeItem(STORAGE_KEY);
+    sessionStorage.removeItem(TITLE_FONT_KEY);
+    sessionStorage.removeItem(TEXT_FONT_KEY);
     sessionStorage.removeItem(LOGO_STORAGE_KEY);
   }
 
   function copySelection() {
-    const font = FONTS.find((f) => f.id === activeFont);
-    if (!font) return;
-    navigator.clipboard.writeText(`${font.label} — ${font.value}`).then(() => {
+    const titleFont = FONTS.find((f) => f.id === activeTitleFont);
+    const textFont = FONTS.find((f) => f.id === activeTextFont);
+    if (!titleFont || !textFont) return;
+    navigator.clipboard.writeText(`Títulos: ${titleFont.label} — ${titleFont.value}\nTextos: ${textFont.label} — ${textFont.value}`).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
   }
 
-  const activeFontData = FONTS.find((f) => f.id === activeFont)!;
+  const activeFontData = FONTS.find((f) => f.id === activeTitleFont)!;
 
   if (!mounted) return null;
 
   return (
     <div
       ref={panelRef}
+      className="fixed z-[10000] flex flex-col items-start gap-2 bottom-4 left-4 md:bottom-6 md:left-20"
       style={{
-        position: "fixed",
-        left: "5rem",
-        bottom: "1.5rem",
-        zIndex: 10000,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        gap: "0.5rem",
         fontFamily: "'Raleway', sans-serif",
       }}
     >
       {/* Floating Panel */}
       {isOpen && (
         <div
+          className="overflow-y-auto"
           style={{
             background: "rgba(44, 55, 41, 0.97)",
             border: "1px solid rgba(203, 182, 123, 0.3)",
@@ -194,6 +223,7 @@ export function FontSelectorPanel() {
             WebkitBackdropFilter: "blur(20px)",
             boxShadow: "0 24px 60px rgba(0,0,0,0.4)",
             width: "280px",
+            maxHeight: "75vh",
             padding: "1.25rem",
             animation: "fontPanelIn 0.25s cubic-bezier(0.4,0,0.2,1)",
           }}
@@ -250,14 +280,45 @@ export function FontSelectorPanel() {
             </button>
           </div>
 
+          {/* Target Selector */}
+          <div style={{ display: "flex", gap: "4px", marginBottom: "16px", background: "rgba(0,0,0,0.2)", padding: "4px", borderRadius: "4px" }}>
+            {[
+              { id: "both", label: "Ambos" },
+              { id: "titles", label: "Títulos" },
+              { id: "texts", label: "Textos" }
+            ].map(t => (
+              <button
+                key={t.id}
+                onClick={() => setTarget(t.id as any)}
+                style={{
+                  flex: 1,
+                  padding: "6px",
+                  fontSize: "9px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.15em",
+                  border: "none",
+                  borderRadius: "2px",
+                  cursor: "pointer",
+                  background: target === t.id ? "rgba(203,182,123,0.2)" : "transparent",
+                  color: target === t.id ? "#CBB67B" : "rgba(229,219,214,0.5)",
+                  transition: "all 0.2s"
+                }}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+
           {/* Font Options */}
           <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
             {FONTS.map((font) => {
-              const isActive = activeFont === font.id;
+              const isActive = (target === "titles" && activeTitleFont === font.id) ||
+                               (target === "texts" && activeTextFont === font.id) ||
+                               (target === "both" && activeTitleFont === font.id && activeTextFont === font.id);
               return (
                 <button
                   key={font.id}
-                  onClick={() => applyFont(font.id)}
+                  onClick={() => handleFontClick(font.id)}
                   style={{
                     background: isActive
                       ? "rgba(203,182,123,0.12)"

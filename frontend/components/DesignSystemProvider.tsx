@@ -5,6 +5,8 @@ import { useMentalState, MentalState } from "../lib/hooks/useMentalState";
 
 interface DesignSystemContextType {
   mentalState: MentalState;
+  setMentalState: (state: MentalState) => void;
+  handleInteraction: () => void;
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
 }
@@ -12,12 +14,18 @@ interface DesignSystemContextType {
 const DesignSystemContext = createContext<DesignSystemContextType | undefined>(undefined);
 
 export const DesignSystemProvider = ({ children }: { children: ReactNode }) => {
-  const { mentalState } = useMentalState();
+  const { mentalState, setMentalState, handleInteraction } = useMentalState();
   const [isCartOpen, setIsCartOpen] = React.useState(false);
 
   return (
-    <DesignSystemContext.Provider value={{ mentalState, isCartOpen, setIsCartOpen }}>
-      <div className={`arousal-wrapper ${mentalState === "LOW_AROUSAL" ? "arousal-low" : "arousal-high"}`}>
+    <DesignSystemContext.Provider value={{ 
+      mentalState, 
+      setMentalState, 
+      handleInteraction,
+      isCartOpen, 
+      setIsCartOpen 
+    }}>
+      <div className="min-h-screen bg-hueso-seda">
         {children}
       </div>
     </DesignSystemContext.Provider>
