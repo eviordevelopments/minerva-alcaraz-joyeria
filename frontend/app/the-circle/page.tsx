@@ -19,13 +19,13 @@ const benefits = [
   {
     icon: Crown,
     title: "Concierge Dedicado",
-    description: "Un artesano asignado a ti. Responde en menos de 4 horas. Disponible por WhatsApp, correo y cita presencial en el atelier.",
+    description: "Un artesano asignado a usted. Responde en menos de 4 horas. Disponible por WhatsApp, correo y cita presencial en el atelier.",
     accent: "Exclusivo para Miembros"
   },
   {
     icon: Star,
     title: "Acceso Prioritario",
-    description: "Cada nueva colección llega a ti 72 horas antes de su presentación pública. Las piezas de edición limitada son reservadas con tu nombre.",
+    description: "Cada nueva colección llega a usted 72 horas antes de su presentación pública. Las piezas de edición limitada son reservadas con su nombre.",
     accent: "72h de ventaja"
   },
   {
@@ -37,13 +37,13 @@ const benefits = [
   {
     icon: Album,
     title: "Álbumes de Legado",
-    description: "Tu colección personal documentada fotográficamente. Historia, cuidado y certificado de autenticidad de cada pieza que has custodiado.",
+    description: "Su colección personal documentada fotográficamente. Historia, cuidado y certificado de autenticidad de cada pieza que ha custodiado.",
     accent: "Memoria eterna"
   },
   {
     icon: Heart,
     title: "Listas de Deseos Curadas",
-    description: "Tu lista de deseos es analizada por nuestro equipo. Recibe alertas personalizadas cuando una pieza afín a tu gusto está disponible.",
+    description: "Su lista de deseos es analizada por nuestro equipo. Recibe alertas personalizadas cuando una pieza afín a su gusto está disponible.",
     accent: "Curaduría humana"
   },
   {
@@ -55,19 +55,19 @@ const benefits = [
   {
     icon: RotateCcw,
     title: "Devoluciones Extendidas",
-    description: "90 días para reflexionar. Si una pieza no vibra con tu esencia, la devuelves sin preguntas. Garantía vitalicia contra defectos.",
+    description: "90 días para reflexionar. Si una pieza no vibra con su esencia, la devuelve sin preguntas. Garantía vitalicia contra defectos.",
     accent: "90 días + vitalicia"
   },
   {
     icon: Palette,
     title: "Personalización Total",
-    description: "Modifica cualquier pieza del catálogo: piedras, metales, grabados, dimensiones. Tu visión, materializada por manos maestras.",
+    description: "Modifique cualquier pieza del catálogo: piedras, metales, grabados, dimensiones. Su visión, materializada por manos maestras.",
     accent: "Sin límite creativo"
   },
   {
     icon: Layers,
     title: "Co-Creación",
-    description: "Diseña desde cero con Minerva Alcaraz. Un proceso íntimo de cuatro sesiones de diseño para crear la pieza que solo tú existirás.",
+    description: "Diseñe desde cero con Minerva Alcaraz. Un proceso íntimo de cuatro sesiones de diseño para crear la pieza que solo usted existirá.",
     accent: "Una pieza en el mundo"
   },
   {
@@ -95,7 +95,7 @@ const galleryPieces = [
 const faqs = [
   {
     q: "¿Cuál es el costo de la membresía The Circle?",
-    a: "La membresía The Circle es completamente gratuita. Está disponible por invitación o al realizar tu primera adquisición. Los privilegios se activan de forma inmediata."
+    a: "La membresía The Circle es completamente gratuita. Está disponible por invitación o al realizar su primera adquisición. Los privilegios se activan de forma inmediata."
   },
   {
     q: "¿Cómo funciona el servicio de Co-Creación?",
@@ -107,7 +107,7 @@ const faqs = [
   },
   {
     q: "¿Cómo accedo a las Colecciones Reservadas?",
-    a: "Una vez dentro de The Circle, encontrarás una sección exclusiva en tu panel de miembro. También recibes notificaciones directas de tu Concierge cuando llegan nuevas piezas."
+    a: "Una vez dentro de The Circle, encontrará una sección exclusiva en su panel de miembro. También recibe notificaciones directas de su Concierge cuando llegan nuevas piezas."
   },
 ];
 
@@ -164,7 +164,7 @@ export default function TheCirclePage() {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 luxury-container pt-32 md:pt-48 pb-24 md:pb-32 flex flex-col gap-8">
+        <div className="relative z-10 luxury-container pb-24 md:pb-32 flex flex-col gap-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -180,7 +180,7 @@ export default function TheCirclePage() {
               </div>
             </div>
 
-            <h1 className="font-display text-hueso-seda text-4xl sm:text-5xl md:text-8xl lg:text-[100px] leading-none uppercase tracking-wider">
+            <h1 className="font-display text-hueso-seda text-6xl md:text-8xl lg:text-[120px] leading-none uppercase tracking-wider">
               The<br />Circle
             </h1>
 
@@ -192,7 +192,7 @@ export default function TheCirclePage() {
             </div>
 
             <p className="text-hueso-seda/60 text-sm md:text-base font-light leading-loose max-w-xl">
-              Una membresía que no se solicita, se concede. Acceso a un universo paralelo donde cada joya tiene nombre y cada experiencia se diseña exclusivamente para ti.
+              Una membresía que no se solicita, se concede. Acceso a un universo paralelo donde cada joya tiene nombre y cada experiencia se diseña exclusivamente para usted.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
@@ -242,8 +242,8 @@ export default function TheCirclePage() {
               <div className="w-8 h-[1px] bg-oro-antiguo/50" />
               <span className="text-[9px] uppercase tracking-[0.8em] text-oro-antiguo">Privilegios</span>
             </div>
-            <h2 className="font-display text-hueso-seda text-2xl sm:text-3xl md:text-6xl uppercase leading-tight">
-              Lo Que Recibes<br />Como Miembro
+            <h2 className="font-display text-hueso-seda text-4xl md:text-6xl uppercase leading-tight">
+              Lo Que Recibe<br />Como Miembro
             </h2>
             <p className="text-hueso-seda/50 text-sm font-light leading-loose italic">
               "Cada privilegio fue diseñado para honrar la relación entre quienes crean belleza y quienes la custodian."
@@ -298,11 +298,11 @@ export default function TheCirclePage() {
               <div className="w-8 h-[1px] bg-oro-antiguo/50" />
               <span className="text-[9px] uppercase tracking-[0.8em] text-oro-antiguo">Servicio</span>
             </div>
-            <h2 className="font-display text-hueso-seda text-2xl sm:text-3xl md:text-5xl uppercase leading-tight">
-              Tu Concierge<br />Dedicado
+            <h2 className="font-display text-hueso-seda text-3xl md:text-5xl uppercase leading-tight">
+              Su Concierge<br />Dedicado
             </h2>
             <p className="text-hueso-seda/60 text-sm font-light leading-loose">
-              No un bot. No una línea de atención. Una persona que conoce tus preferencias, tu historial y tu visión estética. Disponible para resolver consultas, organizar visitas al atelier, agendar co-creaciones y coordinar cada detalle de tu experiencia.
+              No un bot. No una línea de atención. Una persona que conoce sus preferencias, su historial y su visión estética. Disponible para resolver consultas, organizar visitas al atelier, agendar co-creaciones y coordinar cada detalle de su experiencia.
             </p>
             <div className="flex flex-col gap-4">
               {[
@@ -370,8 +370,8 @@ export default function TheCirclePage() {
               <div className="w-8 h-[1px] bg-oro-antiguo/50" />
               <span className="text-[9px] uppercase tracking-[0.8em] text-oro-antiguo">Preguntas</span>
             </div>
-            <h2 className="font-display text-hueso-seda text-2xl sm:text-3xl md:text-4xl uppercase leading-tight">
-              Lo Que Deseas<br />Saber
+            <h2 className="font-display text-hueso-seda text-3xl md:text-4xl uppercase leading-tight">
+              Lo Que Desea<br />Saber
             </h2>
           </div>
           <div className="md:col-span-8 flex flex-col">
@@ -385,8 +385,8 @@ export default function TheCirclePage() {
         <div className="luxury-container flex flex-col items-center text-center gap-10">
           <Sparkles size={28} className="text-oro-antiguo" strokeWidth={1} />
           <div className="flex flex-col gap-4 max-w-2xl">
-            <h2 className="font-display text-hueso-seda text-3xl sm:text-4xl md:text-6xl uppercase leading-tight">
-              Tu Lugar Está<br />Guardado
+            <h2 className="font-display text-hueso-seda text-4xl md:text-6xl uppercase leading-tight">
+              Su Lugar Está<br />Guardado
             </h2>
             <p className="text-hueso-seda/50 text-sm font-light leading-loose italic">
               "La pertenencia no se compra. Se cultiva con el tiempo, la belleza y la fe en lo que dura."
