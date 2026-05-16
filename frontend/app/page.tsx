@@ -90,12 +90,12 @@ export default function Home() {
         </div>
 
         {/* Narrative Overlay with Contrast Fix */}
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-8 pt-24 md:pt-32 hero-gradient">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-start md:justify-center text-center px-6 pt-36 md:pt-40 hero-gradient">
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display text-oro-antiguo max-w-5xl leading-tight mb-8 px-4 text-center"
+            className="text-4xl sm:text-4xl md:text-5xl lg:text-7xl font-display text-oro-antiguo max-w-5xl leading-tight mb-8 px-4 text-center"
             style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)', wordBreak: 'break-word' }}
           >
             Donde el <span className="text-hueso-seda">arte</span> encuentra su <span className="text-hueso-seda">esencia</span> y la <span className="text-hueso-seda">eternidad</span> su <span className="text-hueso-seda">presencia</span>.
@@ -121,8 +121,8 @@ export default function Home() {
       {/* Collection Grid */}
       <CollectionGrid />
 
-      {/* Catalog Section */}
-      <section className="w-full px-4 md:px-12 lg:px-24 pt-24 md:pt-32 pb-16 md:pb-24 bg-hueso-seda">
+      {/* Catalog Section — top padding ensures clear separation from CollectionGrid on all screens */}
+      <section className="w-full px-4 md:px-12 lg:px-24 pt-16 md:pt-24 pb-16 md:pb-24 bg-hueso-seda relative z-10">
         <div className="flex flex-col items-center mb-10 md:mb-16 text-center">
           <span className="text-[10px] sm:text-sm md:text-base uppercase tracking-[0.3em] sm:tracking-[0.6em] text-verde-ebano/60 mb-3 md:mb-4">Catálogo Exclusivo</span>
           <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-display text-verde-ebano mb-4 md:mb-6">Piezas Únicas &amp; Sets</h2>

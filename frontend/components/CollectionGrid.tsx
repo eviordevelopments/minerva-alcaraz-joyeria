@@ -59,7 +59,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ title, narrative, image
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         viewport={{ once: true }}
-        className={`relative h-[600px] md:h-[700px] lg:h-[800px] overflow-hidden group cursor-pointer rounded-none border border-verde-ebano/10 w-full ${themeStyles.bg}`}
+        className={`relative h-[320px] sm:h-[480px] md:h-[600px] lg:h-[800px] overflow-hidden group cursor-pointer rounded-none border border-verde-ebano/10 w-full ${themeStyles.bg}`}
       >
         {/* Background Image */}
         <div className="absolute inset-0 transition-transform duration-1000 group-hover:scale-105">
@@ -117,7 +117,7 @@ export const CollectionGrid = () => {
   ];
 
   return (
-    <section className="w-full">
+    <section className="w-full overflow-hidden">
       <div className="w-full">
         <div className="asymmetric-grid">
           {collections.map((col, idx) => (

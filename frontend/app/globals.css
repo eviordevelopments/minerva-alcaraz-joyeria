@@ -269,15 +269,15 @@ h1, h2, h3, h4, h5, h6, .font-display {
   }
 
   .grid-item-large {
-    @apply lg:col-span-8 h-[380px] sm:h-[480px] md:h-[600px] lg:h-[800px];
+    @apply lg:col-span-8 h-[320px] sm:h-[480px] md:h-[600px] lg:h-[800px] overflow-hidden;
   }
 
   .grid-item-small {
-    @apply lg:col-span-4 h-[380px] sm:h-[480px] md:h-[600px] lg:h-[800px];
+    @apply lg:col-span-4 h-[320px] sm:h-[480px] md:h-[600px] lg:h-[800px] overflow-hidden;
   }
 
   .grid-item-full {
-    @apply lg:col-span-12 h-[380px] sm:h-[480px] md:h-[600px] lg:h-[800px];
+    @apply lg:col-span-12 h-[320px] sm:h-[480px] md:h-[600px] lg:h-[800px] overflow-hidden;
   }
 
   /* Typography Balance */
