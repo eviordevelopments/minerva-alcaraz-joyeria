@@ -16,6 +16,13 @@ h1, h2, h3, h4, h5, h6, .font-display {
   max-width: 100%;
 }
 
+/* Hero title: never hyphenate — let words wrap naturally */
+.hero-title-no-hyphens {
+  hyphens: none !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+}
+
 /* ─────────────────────────────────────────
    BRAND FONTS — Official Artisanal System
 ───────────────────────────────────────── */

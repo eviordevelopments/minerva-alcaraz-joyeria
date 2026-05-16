@@ -90,13 +90,13 @@ export default function Home() {
         </div>
 
         {/* Narrative Overlay with Contrast Fix */}
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-start md:justify-center text-center px-6 pt-36 md:pt-40 hero-gradient">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 hero-gradient">
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="text-4xl sm:text-4xl md:text-5xl lg:text-7xl font-display text-oro-antiguo max-w-5xl leading-tight mb-8 px-4 text-center"
-            style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)', wordBreak: 'break-word' }}
+            className="hero-title-no-hyphens mt-20 md:mt-0 text-5xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-oro-antiguo max-w-5xl leading-tight mb-8 px-2 text-center"
+            style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
           >
             Donde el <span className="text-hueso-seda">arte</span> encuentra su <span className="text-hueso-seda">esencia</span> y la <span className="text-hueso-seda">eternidad</span> su <span className="text-hueso-seda">presencia</span>.
           </motion.h1>
