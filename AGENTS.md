@@ -18,15 +18,16 @@ This document defines the roles and roadmap for the Minerva Alcaraz Joyería pro
 
 ## 2. Project Roadmap (NASA SE Lifecycle)
 
-### Phase 1: Requirements & Design (Current)
-- [ ] **Step 1-2 (ReqAgent)**: Create PRFAQ and Technical Requirements.
-- [ ] **Step 3-4 (ArchAgent)**: Define System Architecture and ADRs.
-- [ ] **Step 5-6 (Magentic)**: Setup project structure (`frontend/`, `backend/`, `skills/`).
+### Phase 1: Requirements & Design (Complete)
+- [x] **Step 1-2 (ReqAgent)**: Create PRFAQ and Technical Requirements for ERP ([prfaq_erp.md](file:///Users/emilianocastillo/.gemini/antigravity/brain/15be499a-dd36-427d-9317-5b58572234f6/prfaq_erp.md)).
+- [x] **Step 3-4 (ArchAgent)**: Define System Architecture and ADRs for ERP ([adr_erp.md](file:///Users/emilianocastillo/.gemini/antigravity/brain/15be499a-dd36-427d-9317-5b58572234f6/adr_erp.md)).
+- [x] **Step 5-6 (Magentic)**: Setup project structure for ERP (`frontend/app/admin/*`, `backend/supabase/09_*.sql`).
 
-### Phase 2: Implementation
-- [ ] **Frontend (CodeAgent)**: Build "Hueso Seda" Design System.
+### Phase 2: Implementation (In Progress)
+- [x] **ERP System Core (CodeAgent)**: Build layout and middleware perimetral ([middleware.ts](file:///Users/emilianocastillo/minerva-alcaraz-joyeria/frontend/middleware.ts)).
+- [x] **ERP Modules (CodeAgent)**: Built Dashboard, Ingesta de Inventario with Public Live Preview, Showroom overlaps protection, Concierge logs, and CRM directory.
 - [ ] **Frontend (CodeAgent)**: Implement "Mental State System" (High/Low Arousal).
-- [ ] **Backend/Integration (CodeAgent)**: Supabase integration for "THE CIRCLE".
+- [ ] **Backend/Integration (CodeAgent)**: Supabase integration for "THE CIRCLE" RLS in production.
 
 ### Phase 3: Verification & Validation
 - [ ] **QA (TestAgent)**: Performance and Accessibility audits.
@@ -39,3 +40,5 @@ This document defines the roles and roadmap for the Minerva Alcaraz Joyería pro
 - **"Eternal Digital Design"**: Minimalist luxury, organic contrast, and timeless storytelling.
 - **Hueso Seda (#E5DBD6)** as the primary canvas.
 - **Verde Ébano (#2C3729)** for authority and depth.
+- **Bosque Profundo (#2C3729) & Oro Antiguo (#CBB67B)** for the internal ERP administrative canvas.
+

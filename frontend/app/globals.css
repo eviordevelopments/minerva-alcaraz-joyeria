@@ -326,3 +326,42 @@ h1, h2, h3, h4, h5, h6, .font-display {
 
 /* Cache Bust: 2026-05-15-T01:08 */
 
+/* ─────────────────────────────────────────
+   ERP STYLE SYSTEM — ADMINISTRATIVE PALETTE
+   ───────────────────────────────────────── */
+.font-display-erp {
+  font-family: 'Butler Stencil', 'Playfair Display', serif !important;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Luxury Dark Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #1F271D;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBB67B;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E4D5A4;
+}
+
+
