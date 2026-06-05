@@ -26,8 +26,8 @@ This document defines the roles and roadmap for the Minerva Alcaraz Joyería pro
 ### Phase 2: Implementation (In Progress)
 - [x] **ERP System Core (CodeAgent)**: Build layout and middleware perimetral ([middleware.ts](file:///Users/emilianocastillo/minerva-alcaraz-joyeria/frontend/middleware.ts)).
 - [x] **ERP Modules (CodeAgent)**: Built Dashboard, Ingesta de Inventario with Public Live Preview, Showroom overlaps protection, Concierge logs, and CRM directory.
-- [ ] **Frontend (CodeAgent)**: Implement "Mental State System" (High/Low Arousal).
-- [ ] **Backend/Integration (CodeAgent)**: Supabase integration for "THE CIRCLE" RLS in production.
+- [x] **Frontend (CodeAgent)**: Implement "Mental State System" (High/Low Arousal).
+- [x] **Backend/Integration (CodeAgent)**: Supabase integration for "THE CIRCLE" RLS in production.
 
 ### Phase 3: Verification & Validation
 - [ ] **QA (TestAgent)**: Performance and Accessibility audits.

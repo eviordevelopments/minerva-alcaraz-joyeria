@@ -121,7 +121,7 @@ BEGIN
     NEW.email,
     COALESCE(NEW.raw_user_meta_data->>'full_name', split_part(NEW.email, '@', 1)),
     NEW.raw_user_meta_data->>'avatar_url',
-    upper(substring(encode(gen_random_bytes(4), 'hex'), 1, 8))
+    upper(substring(md5(random()::text), 1, 8))
   )
   ON CONFLICT (id) DO NOTHING;
   RETURN NEW;

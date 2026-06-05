@@ -24,7 +24,7 @@ const ShortPhilosophySection = () => (
       >
         <h2 className="text-xl sm:text-2xl md:text-3xl font-display text-verde-ebano mb-6 md:mb-10">Nuestra Filosofía</h2>
         <p className="text-sm sm:text-lg md:text-2xl lg:text-3xl text-verde-ebano font-sans font-light leading-relaxed max-w-4xl mx-auto uppercase tracking-[0.05em] md:tracking-[0.1em]">
-          &ldquo;TRANSFORMAMOS LA MATERIA EN MEMORIA. CADA JOYA ES UN VÍNCULO ANCESTRAL Y UN LEGADO ETERNO.&rdquo;
+          &ldquo;CREAMOS PARA QUE PUEDAS EXPRESAR LO QUE SIENTES. CADA PIEZA ES UNA FORMA DE AMOR, IDENTIDAD Y CONEXIÓN CON QUIENES MÁS IMPORTAN.&rdquo;
         </p>
         <span className="block mt-6 md:mt-10 text-[9px] md:text-xs tracking-[0.3em] md:tracking-[0.5em] text-oro-antiguo font-sans uppercase">
           - Minerva Alcaraz
@@ -52,7 +52,7 @@ const LongPhilosophySection = () => (
       >
         <h2 className="text-xl sm:text-2xl md:text-3xl font-display text-verde-ebano mb-8 md:mb-16">Nuestra Filosofía</h2>
         <p className="text-base sm:text-lg md:text-2xl lg:text-4xl text-verde-ebano font-sans font-light leading-relaxed max-w-5xl mx-auto uppercase tracking-[0.05em] md:tracking-[0.1em]">
-          &ldquo;TRANSFORMAMOS LA MATERIA EN MEMORIA. CADA CREACIÓN ES UNA OBRA IRREPETIBLE, UN VÍNCULO ANCESTRAL QUE TRASCIENDE EL OBJETO PARA CONVERTIRSE EN UN LEGADO DE VALOR ETERNO.&rdquo;
+          &ldquo;CREEMOS QUE LA JOYERÍA ES UNA FORMA ESENCIAL DE CONEXIÓN Y EXPRESIÓN PERSONAL. CADA PIEZA QUE CREAMOS NACE DE UN PROCESO ARTESANAL COMPARTIDO, ELABORADA ENTRE NOSOTROS Y TÚ.&rdquo;
         </p>
         <span className="block mt-8 md:mt-12 text-[10px] md:text-xs tracking-[0.3em] md:tracking-[0.5em] text-oro-antiguo font-sans uppercase">
           - Minerva Alcaraz
@@ -98,7 +98,9 @@ export default function Home() {
             className="hero-title-no-hyphens mt-20 md:mt-0 text-5xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-oro-antiguo max-w-5xl leading-tight mb-8 px-2 text-center"
             style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
           >
-            Donde el <span className="text-hueso-seda">arte</span> encuentra su <span className="text-hueso-seda">esencia</span> y la <span className="text-hueso-seda">eternidad</span> su <span className="text-hueso-seda">presencia</span>.
+            Donde el <span className="text-hueso-seda">arte</span> encuentra su <span className="text-hueso-seda">esencia</span><br />
+            y la <span className="text-hueso-seda">eternidad</span><br />
+            su <span className="text-hueso-seda">presencia</span>.
           </motion.h1>
           <LuxuryButton variant="primary" className="!bg-hueso-seda/10 !text-hueso-seda !border-hueso-seda hover:!bg-hueso-seda hover:!text-verde-ebano">
             Comenzar Experiencia
@@ -109,7 +111,7 @@ export default function Home() {
         <motion.div 
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-4"
         >
           <div className="w-[1px] h-16 bg-hueso-seda/50" />
           <span className="text-[8px] text-hueso-seda uppercase tracking-[0.3em] opacity-50">Explorar</span>

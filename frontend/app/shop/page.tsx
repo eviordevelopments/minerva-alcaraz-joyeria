@@ -5,9 +5,21 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { ProductCard } from "../../components/DesignSystem";
-import { Filter, ChevronDown, X, SlidersHorizontal, Sparkles } from "lucide-react";
+import { ChevronDown, X, SlidersHorizontal, Sparkles, RefreshCw } from "lucide-react";
 import { PRODUCTS, Product } from "../../constants/products";
 import { useSearchParams } from "next/navigation";
+
+/** Fetch DB products and normalize to Product shape */
+async function fetchDbProducts(): Promise<Product[]> {
+  try {
+    const res = await fetch("/api/products", { cache: "no-store" });
+    if (!res.ok) return [];
+    const { products } = await res.json();
+    return (products ?? []) as Product[];
+  } catch {
+    return [];
+  }
+}
 
 function ShopContent() {
   const searchParams = useSearchParams();
@@ -18,6 +30,17 @@ function ShopContent() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [sortBy, setSortBy] = useState("Relevancia");
+
+  // DB products loaded at runtime
+  const [dbProducts, setDbProducts] = useState<Product[]>([]);
+  const [isLoadingDb, setIsLoadingDb] = useState(true);
+
+  useEffect(() => {
+    fetchDbProducts().then((products) => {
+      setDbProducts(products);
+      setIsLoadingDb(false);
+    });
+  }, []);
 
   useEffect(() => {
     const filters: string[] = [];
@@ -32,30 +55,54 @@ function ShopContent() {
   }, [initialCollection, initialCategory]);
 
   const toggleFilter = (filter: string) => {
-    setActiveFilters(prev => 
+    setActiveFilters(prev =>
       prev.includes(filter) ? prev.filter(f => f !== filter) : [...prev, filter]
     );
   };
 
-  // Dynamic filter lists
-  const collections = Array.from(new Set(PRODUCTS.map(p => p.collection)));
-  const categories = Array.from(new Set(PRODUCTS.map(p => p.category)));
-  const materials = Array.from(new Set(PRODUCTS.flatMap(p => p.materials)));
+  // Merge DB products first (newest), then static — dedupe by SKU
+  const staticSkus = new Set(PRODUCTS.map(p => p.sku));
+  const freshDbProducts = dbProducts.filter(p => !staticSkus.has(p.sku));
+  const allProducts: Product[] = [...freshDbProducts, ...PRODUCTS];
+
+  // Dynamic filter lists derived from merged catalog
+  const collections = Array.from(new Set(allProducts.map(p => p.collection)));
+  const categories  = Array.from(new Set(allProducts.map(p => p.category)));
+  const materials   = Array.from(new Set(allProducts.flatMap(p => p.materials)));
 
   // Filter logic
-  let filteredProducts = PRODUCTS.filter(p => {
+  let filteredProducts = allProducts.filter(p => {
     if (activeFilters.length === 0) return true;
-    
-    return activeFilters.includes(p.collection) || 
-           activeFilters.includes(p.category) || 
-           p.materials.some(m => activeFilters.includes(m));
+    return (
+      activeFilters.includes(p.collection) ||
+      activeFilters.includes(p.category) ||
+      p.materials.some(m => activeFilters.includes(m))
+    );
   });
 
   if (sortBy === "Precio: Mayor a Menor") {
     filteredProducts = [...filteredProducts].sort((a, b) => b.price - a.price);
   } else if (sortBy === "Precio: Menor a Mayor") {
     filteredProducts = [...filteredProducts].sort((a, b) => a.price - b.price);
+  } else if (sortBy === "Nuevas Adquisiciones") {
+    // DB products (fresh) already at front — no extra sort needed
+    filteredProducts = [...freshDbProducts.filter(p => {
+      if (activeFilters.length === 0) return true;
+      return (
+        activeFilters.includes(p.collection) ||
+        activeFilters.includes(p.category) ||
+        p.materials.some(m => activeFilters.includes(m))
+      );
+    }), ...PRODUCTS.filter(p => {
+      if (activeFilters.length === 0) return true;
+      return (
+        activeFilters.includes(p.collection) ||
+        activeFilters.includes(p.category) ||
+        p.materials.some(m => activeFilters.includes(m))
+      );
+    })];
   }
+
 
   return (
     <main className="min-h-screen bg-hueso-seda">
@@ -64,7 +111,19 @@ function ShopContent() {
       <section className="pt-48 pb-32 luxury-container">
         {/* Page Header */}
         <div className="flex flex-col gap-6 mb-16 border-b border-verde-ebano/10 pb-12">
-          <span className="text-[10px] uppercase tracking-[0.8em] text-oro-antiguo">El Catálogo</span>
+          <div className="flex items-center gap-4">
+            <span className="text-[10px] uppercase tracking-[0.8em] text-oro-antiguo">El Catálogo</span>
+            {isLoadingDb && (
+              <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-widest text-verde-ebano/40">
+                <RefreshCw size={10} className="animate-spin" /> Actualizando...
+              </span>
+            )}
+            {!isLoadingDb && freshDbProducts.length > 0 && (
+              <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-widest text-oro-antiguo bg-oro-antiguo/10 border border-oro-antiguo/30 px-2 py-0.5">
+                + {freshDbProducts.length} Nueva{freshDbProducts.length > 1 ? "s" : ""}
+              </span>
+            )}
+          </div>
           <h1 className="text-4xl md:text-7xl font-display italic text-verde-ebano">Todas las Joyas</h1>
         </div>
 
@@ -166,7 +225,9 @@ function ShopContent() {
             </div>
 
             <div className="mt-24 flex flex-col items-center gap-8 border-t border-verde-ebano/5 pt-16">
-               <span className="text-[10px] uppercase tracking-widest text-verde-ebano/40">Mostrando {filteredProducts.length} de {PRODUCTS.length} piezas</span>
+              <span className="text-[10px] uppercase tracking-widest text-verde-ebano/40">
+                Mostrando {filteredProducts.length} de {allProducts.length} piezas
+              </span>
             </div>
           </div>
         </div>

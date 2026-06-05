@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS public.albums (
   description     TEXT,
   cover_image_url TEXT,
   visibility      album_visibility DEFAULT 'private',
-  share_token     TEXT          UNIQUE DEFAULT encode(gen_random_bytes(12), 'hex'),
+  share_token     TEXT          UNIQUE DEFAULT substring(md5(random()::text) || md5(random()::text), 1, 24),
   sort_order      INTEGER DEFAULT 0,
   is_default      BOOLEAN DEFAULT FALSE,  -- "Mi Wishlist" default album
 

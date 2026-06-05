@@ -110,7 +110,7 @@ export default function StoryPage() {
              "Crear objetos que el tiempo no pueda borrar, sino enriquecer."
            </h2>
            <p className="text-base md:text-lg text-verde-ebano/70 font-sans leading-loose max-w-2xl mx-auto">
-             En un mundo que celebra lo efímero, Minerva Alcaraz apuesta por la permanencia. No diseñamos para temporadas; diseñamos para generaciones. Cada pieza es una promesa de eternidad, un vínculo que une el pasado con el futuro a través de la belleza absoluta de la artesanía mexicana de alto nivel.
+             En Minerva Alcaraz no diseñamos para temporadas. Cada pieza nace de un proceso artesanal cuidadoso, elaborada para acompañarte generación tras generación. Trabajamos de la mano con cada cliente para co-crear diseños que reflejen quién eres y conecten con lo que más te importa.
            </p>
            <div className="mt-8 flex justify-center">
              <div className="w-32 h-[1px] bg-oro-antiguo" />

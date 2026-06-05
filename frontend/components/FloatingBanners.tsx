@@ -17,7 +17,7 @@ export const NewsletterBanner = () => {
   useEffect(() => {
     const dismissed = localStorage.getItem("ma_newsletter_dismissed");
     if (!dismissed) {
-      const timer = setTimeout(() => setIsVisible(true), 2500);
+      const timer = setTimeout(() => setIsVisible(true), 60000); // 1 minute
       return () => clearTimeout(timer);
     }
   }, []);
@@ -200,8 +200,8 @@ export const TheCircleBanner = () => {
 
     if (dismissed) return;
 
-    // Show on 3rd+ visit after 30s, or on any visit after 60s
-    const delay = visits >= 3 ? 30000 : 60000;
+    // Show on any visit after 60s
+    const delay = 60000;
 
     const timer = setTimeout(() => setIsVisible(true), delay);
     return () => clearTimeout(timer);

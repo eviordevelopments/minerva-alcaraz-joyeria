@@ -20,6 +20,7 @@ export interface Product {
   significado?: string;
   occasions?: string[];
   outfits?: string[];
+  tags?: string[];
   metadata?: {
     stone?: string;
     occasion?: string[];
@@ -134,6 +135,7 @@ export const PRODUCTS: Product[] = [
     significado: "La amatista es la piedra de la sabiduría y la transmutación, permitiendo que el portador conecte con su paz interior.",
     occasions: ["Gala", "Ritual", "Meditación"],
     outfits: ["Seda Cruda", "Lino Blanco"],
+    tags: ["Atelier"],
   },
 
   // ── CHAI ───────────────────────────────────────────────────
@@ -158,6 +160,7 @@ export const PRODUCTS: Product[] = [
     significado: "El Chai representa el número 18, el valor numérico de la 'Vida'. Portarlo es celebrar el flujo constante del ser.",
     occasions: ["Celebración", "Legado"],
     outfits: ["Vestido de Gala", "Cuello Alto"],
+    tags: ["Atelier"],
   },
   {
     id: "chai-anillo-fluidez",
@@ -242,6 +245,7 @@ export const PRODUCTS: Product[] = [
     stock: 1,
     featured: true,
     significado: "La semilla como origen de la vida, protegida por el mar. Una pieza que celebra la fertilidad creativa.",
+    tags: ["Atelier"],
     metadata: { isAuthorDesign: true, style: "Escultórico" },
   },
   {
@@ -261,6 +265,7 @@ export const PRODUCTS: Product[] = [
     stock: 1,
     featured: true,
     significado: "La belleza que nace del caos. La perla perfecta custodiada por la imperfección de la roca.",
+    tags: ["Atelier"],
     metadata: { style: "Orgánico Brutalista" },
   },
 
@@ -284,6 +289,7 @@ export const PRODUCTS: Product[] = [
     stock: 1,
     featured: true,
     significado: "Lo etéreo es aquello que pertenece al cielo. Estas piezas buscan elevar la vibración de quien las porta.",
+    tags: ["Atelier"],
   },
   {
     id: "ete-pulsera-brisa",
@@ -323,6 +329,7 @@ export const PRODUCTS: Product[] = [
     stock: 2,
     featured: true,
     significado: "La serpiente es renovación constante. La dualidad es la aceptación de nuestra totalidad.",
+    tags: ["Atelier"],
   },
 
   // ── FLORAL ─────────────────────────────────────────────────

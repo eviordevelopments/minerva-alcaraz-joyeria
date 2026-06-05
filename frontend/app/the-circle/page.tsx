@@ -55,7 +55,7 @@ const benefits = [
   {
     icon: RotateCcw,
     title: "Devoluciones Extendidas",
-    description: "90 días para reflexionar. Si una pieza no vibra con su esencia, la devuelve sin preguntas. Garantía vitalicia contra defectos.",
+    description: "90 días para reflexionar. Si una pieza no es lo que esperabas, la devuelves sin preguntas. Garantía vitalicia contra defectos.",
     accent: "90 días + vitalicia"
   },
   {
@@ -187,12 +187,12 @@ export default function TheCirclePage() {
             <div className="flex items-center gap-4">
               <div className="w-12 h-[1px] bg-oro-antiguo/40" />
               <p className="text-hueso-seda/70 text-xs md:text-sm uppercase tracking-[0.4em] font-light italic">
-                "La cofradía de quienes habitan en la eternidad"
+                "Para quienes valoran la joyería como una expresión personal"
               </p>
             </div>
 
             <p className="text-hueso-seda/60 text-sm md:text-base font-light leading-loose max-w-xl">
-              Una membresía que no se solicita, se concede. Acceso a un universo paralelo donde cada joya tiene nombre y cada experiencia se diseña exclusivamente para usted.
+              Una comunidad para quienes aprecian la joyería artesanal y la experiencia personalizada. Acceso a piezas exclusivas, trato cercano y diseños elaborados pensando en usted.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-4">

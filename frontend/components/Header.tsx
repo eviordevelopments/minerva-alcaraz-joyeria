@@ -15,8 +15,12 @@ interface HeaderProps {
 }
 
 import { PRODUCTS } from "../constants/products";
+import { useCircleTheme } from "../lib/context/CircleThemeContext";
 
 export const Header = ({ theme = "light" }: HeaderProps) => {
+  const { isCircleActive } = useCircleTheme();
+  const activeTheme = isCircleActive ? "dark" : theme;
+
   const { isCartOpen, setIsCartOpen } = useDesignSystem();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -38,21 +42,29 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
   let hoverColor = "hover:text-oro-profundo";
   let logoFilter = "";
 
-  if (!isScrolled) {
-    if (theme === "dark") {
-      textColor = "text-oro-antiguo";
-      hoverColor = "hover:text-hueso-seda";
-      logoFilter = "brightness-0 invert sepia hue-rotate-[10deg] saturate-[2]";
-    } else {
+  if (activeTheme === "dark") {
+    textColor = "text-oro-antiguo";
+    hoverColor = "hover:text-hueso-seda";
+    logoFilter = "brightness-0 invert sepia hue-rotate-[10deg] saturate-[2]";
+  } else {
+    if (!isScrolled) {
       textColor = "text-hueso-seda";
       hoverColor = "hover:text-oro-antiguo";
       logoFilter = "brightness-0 invert opacity-90";
+    } else {
+      textColor = "text-verde-ebano";
+      hoverColor = "hover:text-oro-profundo";
+      logoFilter = "";
     }
   }
 
   return (
     <>
-      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-700 ${isScrolled ? 'header-glass py-0' : 'py-0 bg-transparent'}`}>
+      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-700 ${
+        isScrolled 
+          ? activeTheme === "dark" ? "header-glass-dark py-0" : "header-glass py-0" 
+          : "py-0 bg-transparent"
+      }`}>
         {/* THE CIRCLE Announcement Bar */}
         <div className="w-full bg-verde-ebano py-2 border-b border-oro-antiguo/10 text-center relative z-10 px-4">
           <Link href="/the-circle" className="group inline-flex items-center gap-2 md:gap-4">

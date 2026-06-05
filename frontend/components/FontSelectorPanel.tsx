@@ -209,7 +209,7 @@ export function FontSelectorPanel() {
       ref={panelRef}
       className="fixed z-[10000] flex flex-col items-start gap-2 bottom-4 left-4 md:bottom-6 md:left-20"
       style={{
-        fontFamily: "'Raleway', sans-serif",
+        fontFamily: "'Outfit', sans-serif",
       }}
     >
       {/* Floating Panel */}

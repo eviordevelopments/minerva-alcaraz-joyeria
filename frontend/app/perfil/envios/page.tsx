@@ -21,10 +21,10 @@ export default function EnviosPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#F8F5F2]">
+    <main className="min-h-screen bg-transparent">
       <Header />
-      <div className="pt-28 pb-24 luxury-container">
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
+      <div className="pt-48 sm:pt-52 md:pt-56 lg:pt-64 pb-24 max-w-[1920px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 xl:gap-16">
           <ProfileSidebar />
           <div className="flex-1 flex flex-col gap-6">
             <div className="flex flex-col gap-1">

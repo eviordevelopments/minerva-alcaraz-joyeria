@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS public.circle_reward_redemptions (
   user_id         UUID     NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
   reward_id       UUID     NOT NULL REFERENCES public.circle_rewards(id),
   points_spent    INTEGER  NOT NULL,
-  redemption_code TEXT     UNIQUE DEFAULT upper(encode(gen_random_bytes(6), 'hex')),
+  redemption_code TEXT     UNIQUE DEFAULT upper(substring(md5(random()::text), 1, 12)),
   status          TEXT DEFAULT 'active',  -- 'active', 'used', 'expired'
   used_at         TIMESTAMPTZ,
   order_id        UUID     REFERENCES public.orders(id),

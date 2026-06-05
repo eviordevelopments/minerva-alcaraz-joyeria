@@ -10,7 +10,7 @@
 -- ============================================================
 CREATE TABLE IF NOT EXISTS public.customization_requests (
   id                  UUID    PRIMARY KEY DEFAULT uuid_generate_v4(),
-  request_number      TEXT    UNIQUE NOT NULL DEFAULT 'ATL-' || upper(encode(gen_random_bytes(4), 'hex')),
+  request_number      TEXT    UNIQUE NOT NULL DEFAULT 'ATL-' || upper(substring(md5(random()::text), 1, 8)),
   user_id             UUID    REFERENCES public.profiles(id) ON DELETE SET NULL,
   base_product_id     UUID    REFERENCES public.products(id),
 
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS public.newsletter_subscriptions (
   email           TEXT    UNIQUE NOT NULL,
   user_id         UUID    REFERENCES public.profiles(id) ON DELETE SET NULL,
   status          newsletter_status DEFAULT 'pending_confirmation',
-  confirmation_token TEXT DEFAULT encode(gen_random_bytes(32), 'hex'),
+  confirmation_token TEXT DEFAULT md5(random()::text) || md5(random()::text),
   confirmed_at    TIMESTAMPTZ,
   unsubscribed_at TIMESTAMPTZ,
 

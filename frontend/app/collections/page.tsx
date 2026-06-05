@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Header } from "../../components/Header";
 import { FAQSection } from "../../components/FAQSection";
 import { Footer } from "../../components/Footer";
+import { EmpaqueCarousel } from "../../components/EmpaqueCarousel";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -159,6 +160,44 @@ export default function CollectionsPage() {
           <CollectionCard key={idx} {...col} />
         ))}
       </div>
+
+      {/* ── Empaque Section ──────────────────────────────────────────────── */}
+      <section className="w-full bg-verde-ebano py-24 md:py-32 px-8 md:px-16 lg:px-24">
+        <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Copy */}
+          <div className="flex flex-col gap-8 order-2 lg:order-1">
+            <span className="text-[10px] uppercase tracking-[0.8em] text-oro-antiguo">
+              El Rito del Desempaque
+            </span>
+            <h2 className="text-5xl md:text-6xl font-display text-hueso-seda italic leading-tight">
+              Dentro<br />de la Caja
+            </h2>
+            <p className="text-base md:text-lg font-light text-hueso-seda/70 leading-relaxed max-w-md">
+              Cada pieza de Minerva Alcaraz llega en un ecosistema diseñado para proteger su alma y exaltar su belleza. El empaque es el primer acto del ritual.
+            </p>
+            <ul className="flex flex-col gap-3">
+              {[
+                "Estuche rígido forrado en seda hueso",
+                "Interiores de terciopelo verde ébano",
+                "Certificado de autenticidad seriado",
+                "Cinta de cierre con sello lacrado",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-hueso-seda/60">
+                  <span className="w-4 h-[1px] bg-oro-antiguo flex-shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* Carousel */}
+          <div className="order-1 lg:order-2">
+            <EmpaqueCarousel
+              aspectClass="aspect-[3/4]"
+              className="border border-hueso-seda/10"
+            />
+          </div>
+        </div>
+      </section>
 
       <FAQSection />
       <Footer />

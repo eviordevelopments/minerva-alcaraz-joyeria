@@ -144,9 +144,9 @@ h1, h2, h3, h4, h5, h6, .font-display {
   --color-plata-niebla: #C3C9C0;
   --color-bosque-profundo: #294127;
 
-  --font-display: 'Butler Stencil', serif;
+  --font-display: 'DM Serif Display', serif;
   --font-identity: 'Butler', serif;
-  --font-sans: 'Raleway', sans-serif;
+  --font-sans: 'Outfit', sans-serif;
 
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
@@ -172,7 +172,7 @@ h1, h2, h3, h4, h5, h6, .font-display {
   html, body {
     background-color: #E5DBD6;
     color: #2C3729;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Outfit', sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
@@ -364,4 +364,114 @@ h1, h2, h3, h4, h5, h6, .font-display {
   background: #E4D5A4;
 }
 
+/* No scrollbar utility */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Concierge panel — thinner inner scrollbar */
+.concierge-scroll::-webkit-scrollbar { width: 3px; }
+.concierge-scroll::-webkit-scrollbar-track { background: transparent; }
+.concierge-scroll::-webkit-scrollbar-thumb { background: rgba(203,182,123,0.25); }
+.concierge-scroll::-webkit-scrollbar-thumb:hover { background: rgba(203,182,123,0.5); }
+
+/* ─────────────────────────────────────────
+   THE CIRCLE THEME OVERRIDES FOR SUB-PAGES
+   ───────────────────────────────────────── */
+.circle-theme-active h1,
+.circle-theme-active h2,
+.circle-theme-active h3,
+.circle-theme-active h4,
+.circle-theme-active h5,
+.circle-theme-active h6,
+.circle-theme-active .text-verde-ebano {
+  color: #E5DBD6 !important;
+}
+
+.circle-theme-active .text-verde-ebano\/50 {
+  color: rgba(229, 219, 214, 0.5) !important;
+}
+
+.circle-theme-active .text-verde-ebano\/40 {
+  color: rgba(229, 219, 214, 0.4) !important;
+}
+
+.circle-theme-active .text-verde-ebano\/30 {
+  color: rgba(229, 219, 214, 0.3) !important;
+}
+
+.circle-theme-active .text-verde-ebano\/20 {
+  color: rgba(229, 219, 214, 0.2) !important;
+}
+
+.circle-theme-active .text-verde-ebano\/12 {
+  color: rgba(229, 219, 214, 0.12) !important;
+}
+
+.circle-theme-active .border-verde-ebano\/12 {
+  border-color: rgba(203, 182, 123, 0.2) !important;
+}
+
+.circle-theme-active .text-verde-ebano\/25 {
+  color: rgba(229, 219, 214, 0.25) !important;
+}
+
+.circle-theme-active .text-verde-ebano\/10 {
+  color: rgba(229, 219, 214, 0.1) !important;
+}
+
+.circle-theme-active .bg-white {
+  background-color: #1E261C !important;
+}
+
+.circle-theme-active .border-verde-ebano\/8,
+.circle-theme-active .border-verde-ebano\/10,
+.circle-theme-active .border-verde-ebano\/6 {
+  border-color: rgba(203, 182, 123, 0.15) !important;
+}
+
+.circle-theme-active .border-verde-ebano\/15 {
+  border-color: rgba(203, 182, 123, 0.25) !important;
+}
+
+.circle-theme-active .bg-verde-ebano\/5 {
+  background-color: rgba(203, 182, 123, 0.05) !important;
+}
+
+.circle-theme-active .bg-verde-ebano\/4 {
+  background-color: rgba(203, 182, 123, 0.04) !important;
+}
+
+.circle-theme-active .bg-verde-ebano\/1 {
+  background-color: rgba(203, 182, 123, 0.02) !important;
+}
+
+.circle-theme-active .hover\:bg-verde-ebano\/1:hover {
+  background-color: rgba(203, 182, 123, 0.05) !important;
+}
+
+/* Override standard buttons with bg-verde-ebano when inside active Circle theme */
+.circle-theme-active button.bg-verde-ebano,
+.circle-theme-active .bg-verde-ebano {
+  background-color: #CBB67B !important;
+  color: #2C3729 !important;
+  border-color: #CBB67B !important;
+}
+
+.circle-theme-active button.bg-verde-ebano:hover {
+  background-color: #E4D5A4 !important;
+  color: #2C3729 !important;
+}
+
+.circle-theme-active select option {
+  background-color: #1E261C !important;
+  color: #E5DBD6 !important;
+}
+
+.header-glass-dark {
+  @apply fixed top-0 left-0 w-full z-50;
+  background: rgba(44, 55, 41, 0.85) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(203, 182, 123, 0.2) !important;
+}
 

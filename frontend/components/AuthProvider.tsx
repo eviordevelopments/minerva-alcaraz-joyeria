@@ -10,7 +10,7 @@ import { useAuthStore } from "../lib/store/useAuthStore";
  * Must be rendered once inside the root layout.
  */
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const { refreshProfile, logout, setLoading } = useAuthStore();
+  const { refreshProfile, setUser, setLoading } = useAuthStore();
 
   useEffect(() => {
     setLoading(true);
@@ -25,12 +25,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     // Listen for auth state changes (login, logout, token refresh)
+    // NOTE: On SIGNED_OUT we only clear the store — do NOT call logout()
+    // because logout() calls signOut() again creating an infinite loop.
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (event === "SIGNED_IN" && session) {
           await refreshProfile();
         } else if (event === "SIGNED_OUT") {
-          logout();
+          setUser(null); // just clear state, signOut already happened
         } else if (event === "TOKEN_REFRESHED" && session) {
           await refreshProfile();
         }

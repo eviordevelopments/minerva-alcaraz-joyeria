@@ -5,12 +5,36 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "../../components/Header";
 import { LuxuryButton } from "../../components/DesignSystem";
 import { ShieldCheck, Lock, Globe, ArrowRight, CheckCircle } from "lucide-react";
+import { useAuthStore } from "../../lib/store/useAuthStore";
+import { supabase } from "../../lib/supabase";
 
 export default function CheckoutPage() {
   const [step, setStep] = useState(1);
   const [isFinished, setIsFinished] = useState(false);
+  const { user, refreshProfile } = useAuthStore();
 
-  const handleComplete = () => {
+  const handleComplete = async () => {
+    if (user) {
+      try {
+        const currentPoints = user.circlePoints || 0;
+        const newPoints = currentPoints + 1000;
+        const currentTier = user.circleTier || "Observer";
+        const newTier = currentTier === "Observer" ? "Initiate" : currentTier;
+
+        await supabase
+          .from("profiles")
+          .update({
+            circle_points: newPoints,
+            is_circle_member: true,
+            circle_tier: newTier
+          })
+          .eq("id", user.id);
+
+        await refreshProfile();
+      } catch (err) {
+        console.error("Error updating circle points:", err);
+      }
+    }
     setIsFinished(true);
   };
 

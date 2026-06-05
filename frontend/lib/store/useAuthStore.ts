@@ -43,7 +43,12 @@ export const useAuthStore = create<AuthState>()(
 
       logout: async () => {
         await supabase.auth.signOut();
+        // Clear in-memory state
         set({ user: null, isAuthenticated: false });
+        // Clear persisted localStorage so stale data isn't rehydrated on next load
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('minerva-auth-storage');
+        }
       },
 
       refreshProfile: async () => {
