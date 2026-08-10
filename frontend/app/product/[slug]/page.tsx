@@ -79,23 +79,21 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
     async function loadProduct() {
       setIsLoading(true);
 
-      // 1. Try static array first (instant, no network)
-      const staticMatch = PRODUCTS.find(
-        (p) => p.id === slug || p.sku === slug
-      );
-      if (staticMatch) {
-        setProduct(staticToPDP(staticMatch));
-        setIsLoading(false);
-        return;
-      }
-
-      // 2. Try DB via public API — search by slug or sku
       try {
-        const res = await fetch(`/api/products?slug=${encodeURIComponent(slug)}`);
+        const res = await fetch(`/api/products`);
         const json = await res.json();
-        const row = (json.products ?? [])[0];
-        if (row) {
-          setProduct(dbRowToPDP(row));
+        const activeList: any[] = json.products ?? [];
+
+        const match = activeList.find(
+          (p) => p.id === slug || p.sku === slug || p.slug === slug
+        );
+
+        if (match) {
+          if (match._source === "db") {
+            setProduct(dbRowToPDP(match));
+          } else {
+            setProduct(staticToPDP(match));
+          }
           setIsLoading(false);
           return;
         }
@@ -103,13 +101,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
         // fallthrough
       }
 
-      // 3. Fall back to first static product (prevents blank page)
-      const fallback = PRODUCTS[0];
-      if (fallback) {
-        setProduct(staticToPDP(fallback));
-      } else {
-        setNotFound(true);
-      }
+      setNotFound(true);
       setIsLoading(false);
     }
 
@@ -164,7 +156,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
         <ProductPDPPreview product={product} isAdminPreview={false} />
 
         {/* ── Complementar el Ritual ───────────────────────────────────────── */}
-        {(relatedProducts.length > 0 || PRODUCTS.length > 0) && (
+        {relatedProducts.length > 0 && (
           <section className="mt-24 border-t border-plata-niebla/10 pt-20">
             <div className="flex flex-col items-center mb-12 text-center gap-3">
               <h2 className="text-4xl font-display text-verde-ebano italic">
@@ -175,9 +167,9 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-              {(relatedProducts.length > 0 ? relatedProducts : PRODUCTS.slice(0, 4)).map(
-                (rp) => <ProductCard key={rp.id} product={rp} />
-              )}
+              {relatedProducts.slice(0, 4).map((rp) => (
+                <ProductCard key={rp.id} product={rp} />
+              ))}
             </div>
           </section>
         )}

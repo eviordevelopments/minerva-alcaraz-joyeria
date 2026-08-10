@@ -37,6 +37,7 @@ export async function POST(req: NextRequest) {
       imagenes,
       isExclusive, // → is_circle_exclusive
       seoKeywords, // string → TEXT[]
+      paymentLink, // → payment_link URL
     } = body;
 
     if (!nombre || !sku || !precio || !tipo) {
@@ -87,6 +88,7 @@ export async function POST(req: NextRequest) {
       is_author_design:   isAuthor,
       seo_keywords:       seoArr,
       stock:              1,
+      payment_link:       paymentLink ?? null,
     };
 
     const { data, error } = await supabaseAdmin
@@ -97,7 +99,22 @@ export async function POST(req: NextRequest) {
 
     if (error) {
       console.error("Supabase insert error:", error);
-      // If slug conflict, retry with a unique suffix
+      // Fallback 1: If payment_link column is missing in DB schema cache
+      if (error.message?.includes("payment_link") || error.code === "PGRST204") {
+        console.warn("Retrying insert without payment_link column...");
+        const { payment_link, ...rowWithoutPaymentLink } = productRow;
+        const { data: retryData, error: retryError } = await supabaseAdmin
+          .from("products")
+          .insert(rowWithoutPaymentLink)
+          .select()
+          .single();
+
+        if (!retryError) {
+          return NextResponse.json({ success: true, product: retryData });
+        }
+      }
+
+      // Fallback 2: If slug conflict, retry with a unique suffix
       if (error.code === "23505" && error.message?.includes("slug")) {
         const uniqueSlug = `${slug}-${Date.now()}`;
         const { data: data2, error: error2 } = await supabaseAdmin

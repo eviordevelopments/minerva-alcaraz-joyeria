@@ -38,9 +38,9 @@ export default function SoportePage() {
   if (!user) return null;
 
   const channels = [
-    { icon: MessageCircle, label: "WhatsApp", value: "+52 55 1234 5678", href: "https://wa.me/5215512345678", color: "text-green-500" },
-    { icon: Mail, label: "Correo Directo", value: "hola@minervaalcaraz.com", href: "mailto:hola@minervaalcaraz.com", color: "text-oro-antiguo" },
-    { icon: Phone, label: "Teléfono", value: "+52 55 1234 5678", href: "tel:+5215512345678", color: "text-verde-ebano/60" },
+    { icon: MessageCircle, label: "WhatsApp Concierge", value: "+52 462 621 7960", href: "https://wa.me/524626217960?text=Hola%20Minerva%20Alcaraz,%20deseo%20asesor%C3%ADa%20personalizada%20sobre%20las%20piezas%20de%20alta%20joyer%C3%ADa.", color: "text-green-500" },
+    { icon: Mail, label: "Correo Directo", value: "concierge@minervaalcarazjoyeria.mx", href: "mailto:concierge@minervaalcarazjoyeria.mx", color: "text-oro-antiguo" },
+    { icon: Phone, label: "Teléfono", value: "+52 462 621 7960", href: "tel:+524626217960", color: "text-verde-ebano/60" },
   ];
 
   return (

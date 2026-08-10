@@ -16,7 +16,11 @@ function toSlug(name: string): string {
     .replace(/\s+/g, "-");
 }
 
-// ─── PUT: Update a DB product ─────────────────────────────────────────────
+function isUUID(str: string): boolean {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(str);
+}
+
+// ─── PUT: Update a DB product or create if static ─────────────────────────
 export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -30,9 +34,9 @@ export async function PUT(
       description,
       long_description,
       significado,
-      price,          // MXN pesos (number)
+      price,
       category,
-      collection,     // collection_name text
+      collection,
       collection_id,
       materials,
       occasions,
@@ -50,6 +54,7 @@ export async function PUT(
       is_unique_piece,
       is_circle_exclusive,
       seo_keywords,
+      sku,
     } = body;
 
     const updateData: Record<string, unknown> = {};
@@ -91,28 +96,88 @@ export async function PUT(
         ? seo_keywords
         : String(seo_keywords).split(",").map((k: string) => k.trim()).filter(Boolean);
     }
+    if (body.payment_link !== undefined) updateData.payment_link = body.payment_link || null;
 
     updateData.updated_at = new Date().toISOString();
 
-    const { data, error } = await supabaseAdmin
-      .from("products")
-      .update(updateData)
-      .eq("id", id)
-      .select()
-      .single();
+    // Safely query existing row without UUID syntax errors
+    let existingQuery = supabaseAdmin.from("products").select("id");
+    const skuVal = sku || id;
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+    if (isUUID(id)) {
+      existingQuery = existingQuery.or(`id.eq.${id},sku.eq.${skuVal},slug.eq.${id}`);
+    } else {
+      existingQuery = existingQuery.or(`sku.eq.${skuVal},slug.eq.${id}`);
     }
 
-    return NextResponse.json({ success: true, product: data });
+    const { data: existing } = await existingQuery.maybeSingle();
+
+    if (existing) {
+      let { data, error } = await supabaseAdmin
+        .from("products")
+        .update(updateData)
+        .eq("id", existing.id)
+        .select()
+        .single();
+
+      if (error && (error.message?.includes("payment_link") || error.code === "PGRST204")) {
+        delete updateData.payment_link;
+        const retry = await supabaseAdmin
+          .from("products")
+          .update(updateData)
+          .eq("id", existing.id)
+          .select()
+          .single();
+        data = retry.data;
+        error = retry.error;
+      }
+
+      if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+      return NextResponse.json({ success: true, product: data });
+    } else {
+      // Upsert static product into DB
+      const insertData: Record<string, unknown> = {
+        sku: skuVal,
+        slug: toSlug(name || id),
+        name: name || "Pieza Minerva Alcaraz",
+        description: description || "",
+        price_cents: price ? Math.round(parseFloat(price) * 100) : 0,
+        category: category || "Piezas Únicas",
+        collection_name: collection || "",
+        stock: stock !== undefined ? parseInt(stock, 10) : 1,
+        images: images || [],
+        primary_image: images?.[0] || null,
+        is_active: is_active ?? true,
+        ...updateData,
+      };
+
+      let { data, error } = await supabaseAdmin
+        .from("products")
+        .insert(insertData)
+        .select()
+        .single();
+
+      if (error && (error.message?.includes("payment_link") || error.code === "PGRST204")) {
+        delete insertData.payment_link;
+        const retry = await supabaseAdmin
+          .from("products")
+          .insert(insertData)
+          .select()
+          .single();
+        data = retry.data;
+        error = retry.error;
+      }
+
+      if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+      return NextResponse.json({ success: true, product: data });
+    }
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
-// ─── DELETE: Soft-delete (set is_active = false) or hard delete ───────────
+// ─── DELETE: Delete DB or static product ──────────────────────────────────
 export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -120,28 +185,48 @@ export async function DELETE(
   try {
     const { id } = await params;
     const { searchParams } = new URL(req.url);
-    const hard = searchParams.get("hard") === "true";
+    const skuParam = searchParams.get("sku") || id;
 
-    if (hard) {
-      const { error } = await supabaseAdmin
-        .from("products")
-        .delete()
-        .eq("id", id);
-
-      if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-      return NextResponse.json({ success: true, deleted: true });
+    let query = supabaseAdmin.from("products").select("id");
+    if (isUUID(id)) {
+      query = query.or(`id.eq.${id},sku.eq.${skuParam},slug.eq.${id}`);
+    } else {
+      query = query.or(`sku.eq.${skuParam},slug.eq.${id}`);
     }
 
-    // Soft delete — set is_active = false
-    const { data, error } = await supabaseAdmin
-      .from("products")
-      .update({ is_active: false, updated_at: new Date().toISOString() })
-      .eq("id", id)
-      .select()
-      .single();
+    const { data: existing } = await query.maybeSingle();
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-    return NextResponse.json({ success: true, product: data });
+    if (existing) {
+      // Mark inactive (tombstone) or delete
+      const { error } = await supabaseAdmin
+        .from("products")
+        .update({ is_active: false, updated_at: new Date().toISOString() })
+        .eq("id", existing.id);
+
+      if (error) {
+        await supabaseAdmin.from("products").delete().eq("id", existing.id);
+      }
+      return NextResponse.json({ success: true, deleted: true });
+    } else {
+      // Static mock product: insert tombstone row into DB with is_active = false
+      const { error } = await supabaseAdmin
+        .from("products")
+        .insert({
+          sku: skuParam,
+          slug: id,
+          name: `[Eliminado] ${skuParam}`,
+          description: "Producto mock eliminado",
+          price_cents: 0,
+          category: "Eliminado",
+          is_active: false,
+          stock: 0,
+        });
+
+      if (error) {
+        console.warn("Notice marking static product deleted in DB:", error.message);
+      }
+      return NextResponse.json({ success: true, deleted: true });
+    }
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";
     return NextResponse.json({ error: message }, { status: 500 });

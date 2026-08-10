@@ -8,16 +8,27 @@ const supabaseAdmin = createClient(
 );
 
 const BUCKET = "product-images";
+const FIFTY_MB = 50 * 1024 * 1024; // 50 MB limit
 
 async function ensureBucket() {
-  const { data: buckets } = await supabaseAdmin.storage.listBuckets();
-  const exists = buckets?.some((b) => b.name === BUCKET);
-  if (!exists) {
-    await supabaseAdmin.storage.createBucket(BUCKET, {
-      public: true,
-      fileSizeLimit: 10 * 1024 * 1024, // 10 MB
-      allowedMimeTypes: ["image/jpeg", "image/png", "image/webp", "image/gif"],
-    });
+  try {
+    const { data: buckets } = await supabaseAdmin.storage.listBuckets();
+    const exists = buckets?.some((b) => b.name === BUCKET);
+    if (!exists) {
+      await supabaseAdmin.storage.createBucket(BUCKET, {
+        public: true,
+        fileSizeLimit: FIFTY_MB,
+        allowedMimeTypes: ["image/jpeg", "image/png", "image/webp", "image/gif", "image/jpg"],
+      });
+    } else {
+      await supabaseAdmin.storage.updateBucket(BUCKET, {
+        public: true,
+        fileSizeLimit: FIFTY_MB,
+        allowedMimeTypes: ["image/jpeg", "image/png", "image/webp", "image/gif", "image/jpg"],
+      });
+    }
+  } catch (err) {
+    console.warn("Storage bucket setup warning:", err);
   }
 }
 

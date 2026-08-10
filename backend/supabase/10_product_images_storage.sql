@@ -11,12 +11,12 @@ VALUES (
   'product-images',
   'product-images',
   TRUE,                            -- publicly readable without auth
-  10485760,                        -- 10 MB per file
+  52428800,                        -- 50 MB per file
   ARRAY['image/jpeg','image/png','image/webp','image/gif','image/jpg']
 )
 ON CONFLICT (id) DO UPDATE SET
   public = TRUE,
-  file_size_limit = 10485760;
+  file_size_limit = 52428800;
 
 -- 2. RLS Policies for product-images bucket
 -- Allow public reads (anyone can view product images)

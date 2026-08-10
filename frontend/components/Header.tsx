@@ -17,6 +17,9 @@ interface HeaderProps {
 import { PRODUCTS } from "../constants/products";
 import { useCircleTheme } from "../lib/context/CircleThemeContext";
 
+import { useCartStore } from "../lib/store/useCartStore";
+import { useFavoritesStore } from "../lib/store/useFavoritesStore";
+
 export const Header = ({ theme = "light" }: HeaderProps) => {
   const { isCircleActive } = useCircleTheme();
   const activeTheme = isCircleActive ? "dark" : theme;
@@ -25,18 +28,26 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { isAuthenticated, user } = useAuthStore();
+
+  const { items: cartItems } = useCartStore();
+  const { items: favItems } = useFavoritesStore();
 
   const categories = ["Anillos", "Collares", "Pulseras", "Pendientes", "Sets", "Broches"];
   const collections = ["Amatista", "Chai", "Serpientes", "Escencia", "Etérea", "Floral", "Ecos de la Tierra"];
 
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const cartCount = mounted ? cartItems.reduce((acc, item) => acc + item.quantity, 0) : 0;
+  const favCount = mounted ? favItems.length : 0;
 
   let textColor = "text-verde-ebano";
   let hoverColor = "hover:text-oro-profundo";
@@ -60,11 +71,16 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
 
   return (
     <>
-      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-700 ${
-        isScrolled 
-          ? activeTheme === "dark" ? "header-glass-dark py-0" : "header-glass py-0" 
-          : "py-0 bg-transparent"
-      }`}>
+      <motion.header 
+        initial={{ opacity: 0, y: -15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-700 ${
+          isScrolled 
+            ? activeTheme === "dark" ? "header-glass-dark py-0" : "header-glass py-0" 
+            : "py-0 bg-transparent"
+        }`}
+      >
         {/* THE CIRCLE Announcement Bar */}
         <div className="w-full bg-verde-ebano py-2 border-b border-oro-antiguo/10 text-center relative z-10 px-4">
           <Link href="/the-circle" className="group inline-flex items-center gap-2 md:gap-4">
@@ -200,6 +216,11 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
                 size={22} 
                 strokeWidth={1} 
               />
+              {favCount > 0 && (
+                <span className="absolute -top-1 -right-2 bg-oro-antiguo text-verde-ebano text-[8px] font-bold w-4 h-4 flex items-center justify-center rounded-full shadow-sm">
+                  {favCount}
+                </span>
+              )}
             </Link>
             <button 
               onClick={() => setIsCartOpen(true)}
@@ -209,13 +230,15 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
                 size={22} 
                 strokeWidth={1} 
               />
-              <span className="absolute -top-1 -right-2 bg-oro-antiguo text-verde-ebano text-[8px] font-bold w-4 h-4 flex items-center justify-center rounded-full shadow-sm">
-                1
-              </span>
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-2 bg-oro-antiguo text-verde-ebano text-[8px] font-bold w-4 h-4 flex items-center justify-center rounded-full shadow-sm">
+                  {cartCount}
+                </span>
+              )}
             </button>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Mobile Drawer */}
       <AnimatePresence>
@@ -298,7 +321,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
         )}
       </AnimatePresence>
 
-      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <CartSidebar />
       <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   );

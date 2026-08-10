@@ -60,10 +60,8 @@ function ShopContent() {
     );
   };
 
-  // Merge DB products first (newest), then static — dedupe by SKU
-  const staticSkus = new Set(PRODUCTS.map(p => p.sku));
-  const freshDbProducts = dbProducts.filter(p => !staticSkus.has(p.sku));
-  const allProducts: Product[] = [...freshDbProducts, ...PRODUCTS];
+  // Products loaded dynamically from /api/products (excludes deleted products)
+  const allProducts: Product[] = dbProducts.length > 0 ? dbProducts : (isLoadingDb ? PRODUCTS : []);
 
   // Dynamic filter lists derived from merged catalog
   const collections = Array.from(new Set(allProducts.map(p => p.collection)));
@@ -85,22 +83,7 @@ function ShopContent() {
   } else if (sortBy === "Precio: Menor a Mayor") {
     filteredProducts = [...filteredProducts].sort((a, b) => a.price - b.price);
   } else if (sortBy === "Nuevas Adquisiciones") {
-    // DB products (fresh) already at front — no extra sort needed
-    filteredProducts = [...freshDbProducts.filter(p => {
-      if (activeFilters.length === 0) return true;
-      return (
-        activeFilters.includes(p.collection) ||
-        activeFilters.includes(p.category) ||
-        p.materials.some(m => activeFilters.includes(m))
-      );
-    }), ...PRODUCTS.filter(p => {
-      if (activeFilters.length === 0) return true;
-      return (
-        activeFilters.includes(p.collection) ||
-        activeFilters.includes(p.category) ||
-        p.materials.some(m => activeFilters.includes(m))
-      );
-    })];
+    filteredProducts = [...filteredProducts];
   }
 
 
@@ -118,9 +101,9 @@ function ShopContent() {
                 <RefreshCw size={10} className="animate-spin" /> Actualizando...
               </span>
             )}
-            {!isLoadingDb && freshDbProducts.length > 0 && (
+            {!isLoadingDb && dbProducts.length > 0 && (
               <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-widest text-oro-antiguo bg-oro-antiguo/10 border border-oro-antiguo/30 px-2 py-0.5">
-                + {freshDbProducts.length} Nueva{freshDbProducts.length > 1 ? "s" : ""}
+                + {dbProducts.length} Pieza{dbProducts.length > 1 ? "s" : ""}
               </span>
             )}
           </div>

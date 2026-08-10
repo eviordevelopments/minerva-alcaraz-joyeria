@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Header } from "../../../components/Header";
 import { Footer } from "../../../components/Footer";
@@ -45,14 +45,25 @@ import { PRODUCTS, Product } from "../../../constants/products";
 
 export default function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = React.use(params);
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    fetch("/api/products", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((json) => {
+        const activeList: Product[] = json.products ?? [];
+        setProducts(activeList.filter((p) => p.category.toLowerCase() === category.toLowerCase()));
+      })
+      .catch(() => {
+        setProducts(PRODUCTS.filter((p) => p.category.toLowerCase() === category.toLowerCase()));
+      });
+  }, [category]);
+
   const data = CATEGORY_MAP[category.toLowerCase()] || {
     title: category.toUpperCase(),
     subtitle: "Colección",
     narrative: "Explorando la maestría y el detalle en cada pieza de nuestra cofradía."
   };
-
-  // Filter real products by category
-  const products = PRODUCTS.filter(p => p.category.toLowerCase() === category.toLowerCase());
 
   return (
     <main className="min-h-screen bg-hueso-seda">

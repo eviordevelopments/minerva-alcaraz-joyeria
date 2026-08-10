@@ -34,14 +34,16 @@ export default function ConciergePage() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href="https://wa.me/5215512345678?text=Hola%20Minerva%2C%20soy%20miembro%20de%20The%20Circle..."
+                <a href="https://wa.me/524626217960?text=Hola%20Minerva,%20soy%20miembro%20de%20The%20Circle..."
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-3 bg-oro-antiguo text-verde-ebano text-[10px] uppercase tracking-[0.5em] px-8 py-4 hover:bg-hueso-seda transition-colors group"
                 >
                   <MessageCircle size={14} strokeWidth={1.5} />
-                  Abrir WhatsApp
+                  Abrir WhatsApp (+52 462 621 7960)
                   <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
                 </a>
-                <a href="mailto:concierge@minervaalcaraz.com"
+                <a href="mailto:concierge@minervaalcarazjoyeria.mx"
                   className="flex items-center gap-3 border border-hueso-seda/20 text-hueso-seda text-[10px] uppercase tracking-[0.4em] px-8 py-4 hover:border-oro-antiguo hover:text-oro-antiguo transition-colors"
                 >
                   Enviar Correo

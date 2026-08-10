@@ -10,8 +10,7 @@ import { Footer } from "../components/Footer";
 import { useDesignSystem } from "../components/DesignSystemProvider";
 import Link from "next/link";
 import { PRODUCTS } from "../constants/products";
-// [TEMP] Selector de tipografía — solo para revisión del cliente
-import { FontSelectorPanel } from "../components/FontSelectorPanel";
+import { HeroSection } from "../components/HeroSection";
 
 const ShortPhilosophySection = () => (
   <section className="w-full px-4 md:px-12 lg:px-24 py-12 md:py-20">
@@ -75,48 +74,7 @@ export default function Home() {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
-        {/* Hero Image Background */}
-        <div className="absolute inset-0 z-0 overflow-hidden" style={{ position: 'absolute' }}>
-          <Image 
-            src="/hero-section_image.JPG" 
-            alt="Minerva Alcaraz Hero" 
-            fill 
-            className="object-cover transition-transform duration-[20s] ease-linear group-hover:scale-110"
-            priority
-          />
-          {/* Darker Overlay to ensure text pops */}
-          <div className="absolute inset-0 bg-verde-ebano/50" />
-        </div>
-
-        {/* Narrative Overlay with Contrast Fix */}
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 hero-gradient">
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="hero-title-no-hyphens mt-20 md:mt-0 text-5xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-oro-antiguo max-w-5xl leading-tight mb-8 px-2 text-center"
-            style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
-          >
-            Donde el <span className="text-hueso-seda">arte</span> encuentra su <span className="text-hueso-seda">esencia</span><br />
-            y la <span className="text-hueso-seda">eternidad</span><br />
-            su <span className="text-hueso-seda">presencia</span>.
-          </motion.h1>
-          <LuxuryButton variant="primary" className="!bg-hueso-seda/10 !text-hueso-seda !border-hueso-seda hover:!bg-hueso-seda hover:!text-verde-ebano">
-            Comenzar Experiencia
-          </LuxuryButton>
-        </div>
-
-        {/* Scroll Indicator */}
-        <motion.div 
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-4"
-        >
-          <div className="w-[1px] h-16 bg-hueso-seda/50" />
-          <span className="text-[8px] text-hueso-seda uppercase tracking-[0.3em] opacity-50">Explorar</span>
-        </motion.div>
-      </section>
+      <HeroSection />
 
       <ShortPhilosophySection />
 
@@ -142,11 +100,6 @@ export default function Home() {
 
       {/* Second Philosophy Section below Catalog */}
       <LongPhilosophySection />
-
-      {/* [TEMP] Font Selector Panel — Revisión tipográfica para cliente */}
-      <FontSelectorPanel />
-
-
 
       <FAQSection />
 

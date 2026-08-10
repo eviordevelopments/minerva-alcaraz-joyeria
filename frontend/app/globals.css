@@ -8,17 +8,19 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Safe typography for narrow screens */
+/* Safe typography: never split words with hyphens in headings */
 h1, h2, h3, h4, h5, h6, .font-display {
   overflow-wrap: break-word;
   word-wrap: break-word;
-  hyphens: auto;
+  hyphens: manual !important;
+  -webkit-hyphens: manual !important;
   max-width: 100%;
 }
 
-/* Hero title: never hyphenate — let words wrap naturally */
+/* Hero title & main headings: never hyphenate — let words wrap naturally */
 .hero-title-no-hyphens {
-  hyphens: none !important;
+  hyphens: manual !important;
+  -webkit-hyphens: manual !important;
   overflow-wrap: normal !important;
   word-break: normal !important;
 }

@@ -370,6 +370,7 @@ CREATE TABLE IF NOT EXISTS public.products (
   seo_title           TEXT,
   seo_description     TEXT,
   seo_keywords        TEXT[],
+  payment_link        TEXT,
 
   -- Cloudinary image references
   images              TEXT[]   NOT NULL DEFAULT '{}',   -- array of Cloudinary URLs

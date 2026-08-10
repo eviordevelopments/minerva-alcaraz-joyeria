@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, ReactNode } from "react";
 import { useMentalState, MentalState } from "../lib/hooks/useMentalState";
+import { useCartStore } from "../lib/store/useCartStore";
 
 interface DesignSystemContextType {
   mentalState: MentalState;
@@ -15,15 +16,17 @@ const DesignSystemContext = createContext<DesignSystemContextType | undefined>(u
 
 export const DesignSystemProvider = ({ children }: { children: ReactNode }) => {
   const { mentalState, setMentalState, handleInteraction } = useMentalState();
-  const [isCartOpen, setIsCartOpen] = React.useState(false);
+  const { isOpen, openCart, closeCart } = useCartStore();
+
+  const setIsCartOpen = (open: boolean) => open ? openCart() : closeCart();
 
   return (
-    <DesignSystemContext.Provider value={{ 
-      mentalState, 
-      setMentalState, 
+    <DesignSystemContext.Provider value={{
+      mentalState,
+      setMentalState,
       handleInteraction,
-      isCartOpen, 
-      setIsCartOpen 
+      isCartOpen: isOpen,
+      setIsCartOpen,
     }}>
       <div className="min-h-screen bg-hueso-seda">
         {children}

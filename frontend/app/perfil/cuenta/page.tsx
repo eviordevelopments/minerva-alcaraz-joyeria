@@ -7,6 +7,7 @@ import { Footer } from "../../../components/Footer";
 import { ProfileSidebar } from "../../../components/ProfileSidebar";
 import { useAuthStore } from "../../../lib/store/useAuthStore";
 import { supabase } from "../../../lib/supabase";
+import { compressImageIfNeeded } from "@/lib/image-utils";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
@@ -115,8 +116,9 @@ export default function CuentaPage() {
   };
 
   const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file || !user) return;
+    const rawFile = e.target.files?.[0];
+    if (!rawFile || !user) return;
+    const file = await compressImageIfNeeded(rawFile);
     const path = `avatars/${user.id}/${Date.now()}.${file.name.split(".").pop()}`;
     const { error } = await supabase.storage.from("customer-uploads").upload(path, file, { upsert: true });
     if (!error) {

@@ -113,7 +113,7 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
                         className="group cursor-pointer flex items-center gap-6 p-4 border border-transparent hover:border-oro-antiguo/30 hover:bg-verde-ebano/5 transition-all"
                       >
                         <div className="relative w-24 h-32 bg-plata-niebla/20 overflow-hidden flex-shrink-0">
-                          <Image src={item.images[0]} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                          <Image src={item.images?.[0] || "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80"} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
                         </div>
                         <div className="flex flex-col gap-2">
                           <span className="text-[8px] uppercase tracking-[0.3em] text-oro-antiguo font-medium">{item.category}</span>

@@ -117,13 +117,13 @@ export const FAQSection = () => {
           ))}
         </div>
 
-        <div className="mt-6 md:mt-8 bg-authority p-6 sm:p-10 md:p-20 flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-12 shadow-2xl">
-          <div className="flex flex-col gap-3 md:gap-4 text-center lg:text-left">
-            <h4 className="text-2xl sm:text-3xl md:text-4xl font-display text-oro-antiguo">¿Aún tiene dudas?</h4>
-            <p className="text-[10px] sm:text-xs md:text-sm uppercase tracking-widest text-hueso-seda opacity-80">Nuestro Concierge Digital está a su disposición</p>
+        <div className="mt-6 md:mt-8 bg-authority py-5 px-6 sm:py-6 sm:px-8 md:py-7 md:px-12 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-8 shadow-xl border border-oro-antiguo/20 max-w-4xl mx-auto w-full">
+          <div className="flex flex-col gap-1.5 text-center sm:text-left">
+            <h4 className="text-lg sm:text-xl md:text-2xl font-display text-oro-antiguo">¿Aún tiene dudas?</h4>
+            <p className="text-[9px] sm:text-[10px] md:text-xs uppercase tracking-[0.2em] text-hueso-seda/80">Nuestro Concierge Digital está a su disposición</p>
           </div>
-          <LuxuryButton variant="gold" className="flex items-center justify-center gap-3 md:gap-4 w-full sm:w-fit mx-auto lg:mx-0">
-            <MessageCircle size={18} className="flex-shrink-0" /> Contactar a Concierge
+          <LuxuryButton variant="gold" className="!py-2.5 !px-5 flex items-center justify-center gap-2.5 text-[10px] uppercase tracking-[0.2em] w-full sm:w-auto flex-shrink-0">
+            <MessageCircle size={15} className="flex-shrink-0" /> Contactar a Concierge
           </LuxuryButton>
         </div>
 

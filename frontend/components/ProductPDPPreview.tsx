@@ -22,6 +22,10 @@ import {
   Box, BookOpen, ClipboardCheck, Truck, ShieldCheck,
 } from "lucide-react";
 import { EmpaqueCarousel } from "./EmpaqueCarousel";
+import { RingSizeGuideModal } from "./RingSizeGuideModal";
+import { useCartStore } from "../lib/store/useCartStore";
+import { useFavoritesStore } from "../lib/store/useFavoritesStore";
+import { useAuthStore } from "../lib/store/useAuthStore";
 
 export interface PDPProduct {
   id: string;
@@ -47,6 +51,7 @@ export interface PDPProduct {
   is_author_design?: boolean;
   is_limited_edition?: boolean;
   available_sizes?: string[];
+  payment_link?: string | null;
 }
 
 interface ProductPDPPreviewProps {
@@ -68,6 +73,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState("");
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
 
   const sizes = product.available_sizes?.length
     ? product.available_sizes
@@ -216,13 +222,28 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
             &quot;{product.description || "Una pieza diseñada para habitar en la eternidad."}&quot;
           </p>
 
+          {/* Technical Details & Specifications */}
+          {product.long_description && (
+            <div className="bg-[#2C3729]/5 p-4 border-l-2 border-[#CBB67B] flex flex-col gap-1.5">
+              <span className="text-[9px] uppercase tracking-[0.25em] text-[#CBB67B] font-semibold">
+                Detalles Técnicos &amp; Especificaciones
+              </span>
+              <p className="text-xs text-[#2C3729]/85 font-light leading-relaxed whitespace-pre-line">
+                {product.long_description}
+              </p>
+            </div>
+          )}
+
           {/* Size selector */}
           <div className="flex flex-col gap-3">
             <div className="flex justify-between items-center">
               <span className="text-[10px] uppercase tracking-widest text-[#2C3729]">
                 Seleccionar Talla
               </span>
-              <button className="text-[10px] uppercase tracking-widest flex items-center gap-1.5 text-[#C3C9C0] hover:text-[#CBB67B] transition-colors">
+              <button 
+                onClick={() => setIsSizeGuideOpen(true)}
+                className="text-[10px] uppercase tracking-widest flex items-center gap-1.5 text-[#CBB67B] hover:text-[#2C3729] transition-colors font-medium"
+              >
                 <Ruler size={12} /> Guía de Tallas
               </button>
             </div>
@@ -292,10 +313,28 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
                 <span className="text-[#2C3729]">
                   {product.style || "Clásico Atemporal"}
                 </span>
+                <span className="text-[#C3C9C0]">Guía de Tallas</span>
+                <span className="text-[#2C3729]">
+                  Méx. 3–13{" "}
+                  <button 
+                    onClick={() => setIsSizeGuideOpen(true)}
+                    className="text-[#CBB67B] underline font-semibold hover:text-[#2C3729] ml-1"
+                  >
+                    (Ver Medidas)
+                  </button>
+                </span>
                 <span className="text-[#C3C9C0]">Existencias</span>
                 <span className={product.stock <= 2 ? "text-amber-600" : "text-[#2C3729]"}>
                   {product.stock} {product.stock === 1 ? "pieza" : "piezas"}
                 </span>
+                {product.long_description && (
+                  <div className="col-span-2 mt-3 pt-3 border-t border-[#2C3729]/15">
+                    <span className="text-[#CBB67B] font-medium block mb-1">Especificaciones Adicionales</span>
+                    <p className="text-[#2C3729]/80 text-[10px] normal-case font-light leading-relaxed whitespace-pre-line">
+                      {product.long_description}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -418,6 +457,13 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
           </div>
         </div>
       </section>
+
+      <RingSizeGuideModal
+        isOpen={isSizeGuideOpen}
+        onClose={() => setIsSizeGuideOpen(false)}
+        onSelectSize={(size) => setSelectedSize(size)}
+        currentSelectedSize={selectedSize}
+      />
     </>
   );
 
