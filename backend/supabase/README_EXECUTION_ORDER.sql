@@ -23,3 +23,9 @@
 \i 06_the_circle_membership.sql
 \i 07_atelier_newsletter_promos.sql
 \i 08_views_functions_analytics.sql
+\i 09_erp_tables_and_showroom.sql
+\i 10_product_images_storage.sql
+\i 11_crm_and_phone_updates.sql
+\i 12_add_payment_link.sql
+\i 13_custom_materials_support.sql
+\i 14_erp_accounts_and_profiles.sql

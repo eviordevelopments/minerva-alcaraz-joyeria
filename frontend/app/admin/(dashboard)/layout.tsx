@@ -16,8 +16,10 @@ import {
   X,
   LogOut,
   User,
-  ExternalLink
+  ExternalLink,
+  Accessibility
 } from "lucide-react";
+import { useAccessibilityStore } from "@/lib/store/useAccessibilityStore";
 
 export default function AdminLayout({
   children,
@@ -27,6 +29,7 @@ export default function AdminLayout({
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { setPanelOpen } = useAccessibilityStore();
 
   const menuItems = [
     {
@@ -156,8 +159,16 @@ export default function AdminLayout({
               })}
             </nav>
 
-            {/* Toggle Switch */}
-            <div className="px-6">
+            {/* Bottom Actions */}
+            <div className="px-6 space-y-3">
+              <button 
+                onClick={() => setPanelOpen(true)}
+                className="w-full flex items-center justify-center gap-2 py-3 border border-[#CBB67B]/20 text-[#8E9A8B] hover:text-[#CBB67B] hover:border-[#CBB67B]/50 transition-colors focus:outline-none"
+              >
+                <Accessibility size={16} />
+                {isSidebarOpen && <span className="text-[10px] uppercase tracking-wider">Accesibilidad</span>}
+              </button>
+
               <button 
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                 className="w-full flex items-center justify-center gap-2 py-3 border border-[#CBB67B]/20 text-[#8E9A8B] hover:text-[#CBB67B] hover:border-[#CBB67B]/50 transition-colors focus:outline-none"

@@ -14,12 +14,13 @@
  * Optional fields render gracefully with fallbacks.
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import {
   ShoppingBag, Heart, Ruler, Info,
   Box, BookOpen, ClipboardCheck, Truck, ShieldCheck,
+  ChevronLeft, ChevronRight, Play, Pause,
 } from "lucide-react";
 import { EmpaqueCarousel } from "./EmpaqueCarousel";
 import { RingSizeGuideModal } from "./RingSizeGuideModal";
@@ -63,6 +64,7 @@ interface ProductPDPPreviewProps {
 }
 
 const FALLBACK_SIZES = ["5", "6", "7", "8", "9"];
+const AUTO_PLAY_INTERVAL = 4000; // 4 seconds per image fade
 
 export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
   product,
@@ -71,9 +73,46 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
   onFavorite,
 }) => {
   const [selectedImage, setSelectedImage] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isAutoPlayActive, setIsAutoPlayActive] = useState(true);
   const [selectedSize, setSelectedSize] = useState("");
   const [isFavorite, setIsFavorite] = useState(false);
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
+
+  const images = product.images && product.images.length > 0 ? product.images : [];
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // ── Auto-advance sequential slideshow ────────────────────────────────────
+  useEffect(() => {
+    if (images.length > 1 && !isPaused && isAutoPlayActive) {
+      timerRef.current = setInterval(() => {
+        setSelectedImage((prev) => (prev + 1) % images.length);
+      }, AUTO_PLAY_INTERVAL);
+    }
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [images.length, isPaused, isAutoPlayActive]);
+
+  const handleSelectImage = (idx: number) => {
+    setSelectedImage(idx);
+    if (timerRef.current) clearInterval(timerRef.current);
+    if (images.length > 1 && !isPaused && isAutoPlayActive) {
+      timerRef.current = setInterval(() => {
+        setSelectedImage((prev) => (prev + 1) % images.length);
+      }, AUTO_PLAY_INTERVAL);
+    }
+  };
+
+  const handleNextImage = () => {
+    if (images.length === 0) return;
+    handleSelectImage((selectedImage + 1) % images.length);
+  };
+
+  const handlePrevImage = () => {
+    if (images.length === 0) return;
+    handleSelectImage((selectedImage - 1 + images.length) % images.length);
+  };
 
   const sizes = product.available_sizes?.length
     ? product.available_sizes
@@ -121,41 +160,55 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
 
         {/* Gallery */}
         <div className="lg:col-span-7 flex flex-col md:flex-row gap-6">
-          {/* Vertical thumbnails */}
-          <div className="hidden md:flex flex-col gap-3 w-20 flex-shrink-0">
-            {product.images.map((img, idx) => (
-              <button
-                key={idx}
-                onClick={() => setSelectedImage(idx)}
-                className={`aspect-[3/4] relative overflow-hidden border transition-all ${
-                  selectedImage === idx
-                    ? "border-[#CBB67B]"
-                    : "border-transparent hover:border-[#CBB67B]/30"
-                }`}
-              >
-                <Image src={img} alt={`Vista ${idx + 1}`} fill className="object-cover" />
-              </button>
-            ))}
-          </div>
+          {/* Vertical thumbnails (desktop) */}
+          {images.length > 1 && (
+            <div className="hidden md:flex flex-col gap-3 w-20 flex-shrink-0 max-h-[600px] overflow-y-auto pr-1 custom-scrollbar">
+              {images.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleSelectImage(idx)}
+                  className={`aspect-[3/4] relative overflow-hidden border transition-all duration-300 group/thumb ${
+                    selectedImage === idx
+                      ? "border-[#CBB67B] ring-1 ring-[#CBB67B]/40 shadow-sm"
+                      : "border-transparent hover:border-[#CBB67B]/30 opacity-70 hover:opacity-100"
+                  }`}
+                  aria-label={`Ver vista ${idx + 1}`}
+                >
+                  <Image src={img} alt={`Vista ${idx + 1}`} fill className="object-cover" />
+                  {selectedImage === idx && (
+                    <motion.div
+                      layoutId="activeThumbBorder"
+                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#CBB67B]"
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
 
-          {/* Main viewport */}
-          <div className="flex-1 relative aspect-[3/4] overflow-hidden bg-[#C3C9C0]/10">
+          {/* Main viewport with cross-fade */}
+          <div
+            className="flex-1 relative aspect-[3/4] overflow-hidden bg-[#2C3729]/5 group select-none"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedImage}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
-                className="absolute inset-0"
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+                className="absolute inset-0 z-10"
               >
-                {product.images[selectedImage] ? (
+                {images[selectedImage] ? (
                   <Image
-                    src={product.images[selectedImage]}
+                    src={images[selectedImage]}
                     alt={product.name}
                     fill
                     className="object-cover"
-                    priority
+                    priority={selectedImage === 0}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center opacity-20">
@@ -165,25 +218,92 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
               </motion.div>
             </AnimatePresence>
 
-            {/* 360° button */}
-            <button className="absolute bottom-4 right-4 bg-[#E5DBD6]/80 backdrop-blur-md px-3 py-1.5 text-[8px] tracking-widest uppercase border border-[#2C3729]/20 flex items-center gap-2 hover:bg-[#2C3729] hover:text-[#E5DBD6] transition-all">
-              <Box size={10} /> Vista 360°
-            </button>
+            {/* Auto-play gold progress line running sequentially */}
+            {images.length > 1 && (
+              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#2C3729]/15 z-20 overflow-hidden">
+                <motion.div
+                  key={`${selectedImage}-${isPaused}-${isAutoPlayActive}`}
+                  initial={{ width: "0%" }}
+                  animate={{ width: isPaused || !isAutoPlayActive ? "0%" : "100%" }}
+                  transition={{
+                    duration: isPaused || !isAutoPlayActive ? 0 : AUTO_PLAY_INTERVAL / 1000,
+                    ease: "linear",
+                  }}
+                  className="h-full bg-[#CBB67B]"
+                />
+              </div>
+            )}
+
+            {/* Hover prev/next arrows */}
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={handlePrevImage}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-[#E5DBD6]/80 backdrop-blur-md text-[#2C3729] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-[#2C3729] hover:text-[#E5DBD6] border border-[#2C3729]/15 shadow-sm"
+                  aria-label="Imagen anterior"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <button
+                  onClick={handleNextImage}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-[#E5DBD6]/80 backdrop-blur-md text-[#2C3729] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-[#2C3729] hover:text-[#E5DBD6] border border-[#2C3729]/15 shadow-sm"
+                  aria-label="Siguiente imagen"
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </>
+            )}
+
+            {/* Controls badge: Auto-play status toggle */}
+            <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+              {images.length > 1 && (
+                <button
+                  onClick={() => setIsAutoPlayActive(!isAutoPlayActive)}
+                  className="bg-[#E5DBD6]/85 backdrop-blur-md px-2.5 py-1 text-[8px] tracking-[0.25em] uppercase text-[#2C3729] border border-[#2C3729]/20 flex items-center gap-1.5 hover:bg-[#2C3729] hover:text-[#E5DBD6] transition-all shadow-sm"
+                >
+                  {isPaused ? (
+                    <>
+                      <Pause size={9} className="text-[#CBB67B]" /> Pausado
+                    </>
+                  ) : isAutoPlayActive ? (
+                    <>
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#CBB67B] animate-pulse" /> Secuencia
+                    </>
+                  ) : (
+                    <>
+                      <Play size={9} /> Reproducir
+                    </>
+                  )}
+                </button>
+              )}
+              <button className="bg-[#E5DBD6]/85 backdrop-blur-md px-2.5 py-1 text-[8px] tracking-widest uppercase text-[#2C3729] border border-[#2C3729]/20 flex items-center gap-1.5 hover:bg-[#2C3729] hover:text-[#E5DBD6] transition-all shadow-sm">
+                <Box size={10} /> 360°
+              </button>
+            </div>
+
+            {/* Counter badge */}
+            {images.length > 1 && (
+              <div className="absolute bottom-4 left-4 z-20 bg-[#2C3729]/75 backdrop-blur-md px-2.5 py-1 text-[8px] uppercase tracking-[0.35em] text-[#CBB67B] border border-[#CBB67B]/20">
+                {String(selectedImage + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}
+              </div>
+            )}
 
             {/* Mobile thumbnail strip */}
-            <div className="md:hidden absolute bottom-14 left-0 right-0 flex gap-2 px-4 overflow-x-auto">
-              {product.images.map((img, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setSelectedImage(idx)}
-                  className={`flex-shrink-0 w-10 h-12 relative overflow-hidden border ${
-                    selectedImage === idx ? "border-[#CBB67B]" : "border-[#2C3729]/20"
-                  }`}
-                >
-                  <Image src={img} alt="" fill className="object-cover" />
-                </button>
-              ))}
-            </div>
+            {images.length > 1 && (
+              <div className="md:hidden absolute bottom-12 left-0 right-0 flex gap-2 px-4 overflow-x-auto z-20 py-1 bg-[#2C3729]/30 backdrop-blur-sm">
+                {images.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleSelectImage(idx)}
+                    className={`flex-shrink-0 w-10 h-12 relative overflow-hidden border transition-all ${
+                      selectedImage === idx ? "border-[#CBB67B] ring-1 ring-[#CBB67B]" : "border-white/20 opacity-70"
+                    }`}
+                  >
+                    <Image src={img} alt="" fill className="object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 

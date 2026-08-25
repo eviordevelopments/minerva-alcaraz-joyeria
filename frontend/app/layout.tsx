@@ -7,6 +7,9 @@ import { WhatsAppFAB } from "../components/WhatsAppFAB";
 import { CookieBanner } from "../components/CookieBanner";
 import { AIConcierge } from "../components/AIConcierge";
 import { NewsletterBanner, TheCircleBanner } from "../components/FloatingBanners";
+import { AccessibilityProvider } from "../components/AccessibilityProvider";
+import { AccessibilityFAB } from "../components/AccessibilityFAB";
+import { AccessibilityPanel } from "../components/AccessibilityPanel";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://minervaalcarazjoyeria.mx'),
@@ -55,17 +58,21 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <DesignSystemProvider>
-          <AuthProvider>
-            {children}
-            <MentalStateOverlay />
-            <WhatsAppFAB />
-            <CookieBanner />
-            <AIConcierge />
-            <NewsletterBanner />
-            <TheCircleBanner />
-          </AuthProvider>
-        </DesignSystemProvider>
+        <AccessibilityProvider>
+          <DesignSystemProvider>
+            <AuthProvider>
+              {children}
+              <MentalStateOverlay />
+              <WhatsAppFAB />
+              <CookieBanner />
+              <AIConcierge />
+              <NewsletterBanner />
+              <TheCircleBanner />
+              <AccessibilityFAB />
+              <AccessibilityPanel />
+            </AuthProvider>
+          </DesignSystemProvider>
+        </AccessibilityProvider>
       </body>
     </html>
   );

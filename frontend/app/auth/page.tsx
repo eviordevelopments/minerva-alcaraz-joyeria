@@ -9,6 +9,7 @@ import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Eye, EyeOff, ArrowRight, Crown, Loader2, Mail, Lock, User } from "lucide-react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 type AuthMode = "login" | "register";
 
@@ -21,6 +22,8 @@ export default function AuthPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = React.useRef<ReCAPTCHA>(null);
 
   const { refreshProfile, isAuthenticated } = useAuthStore();
   const router = useRouter();
@@ -36,6 +39,16 @@ export default function AuthPage() {
 
     try {
       if (mode === "register") {
+        if (!captchaToken) throw new Error("Por favor completa el reCAPTCHA de seguridad.");
+        
+        const captchaRes = await fetch("/api/verify-captcha", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token: captchaToken }),
+        });
+        const captchaData = await captchaRes.json();
+        if (!captchaData.success) throw new Error("Validación de reCAPTCHA fallida. Intenta nuevamente.");
+
         const { error: signUpError } = await supabase.auth.signUp({
           email,
           password,
@@ -192,6 +205,17 @@ export default function AuthPage() {
                   >
                     {error}
                   </motion.p>
+                )}
+
+                {mode === "register" && (
+                  <div className="flex justify-center mt-2">
+                    <ReCAPTCHA
+                      ref={recaptchaRef}
+                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                      onChange={(token) => setCaptchaToken(token)}
+                      theme="light"
+                    />
+                  </div>
                 )}
 
                 <button

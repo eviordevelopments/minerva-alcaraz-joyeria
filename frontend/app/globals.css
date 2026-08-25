@@ -477,3 +477,28 @@ h1, h2, h3, h4, h5, h6, .font-display {
   border-bottom: 1px solid rgba(203, 182, 123, 0.2) !important;
 }
 
+
+/* ─────────────────────────────────────────
+   ACCESSIBILITY OVERRIDES
+   ───────────────────────────────────────── */
+body.theme-dark {
+  filter: invert(1) hue-rotate(180deg) !important;
+  background-color: #1a1a1a !important;
+}
+body.theme-dark img, 
+body.theme-dark video,
+body.theme-dark [style*="background-image"] {
+  filter: invert(1) hue-rotate(180deg) !important;
+}
+
+body.text-large {
+  font-size: 115% !important;
+}
+
+body.high-contrast {
+  filter: contrast(140%) saturate(130%) !important;
+}
+
+body.theme-dark.high-contrast {
+  filter: invert(1) hue-rotate(180deg) contrast(140%) saturate(130%) !important;
+}
