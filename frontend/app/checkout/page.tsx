@@ -28,7 +28,7 @@ export default function CheckoutPage() {
   
   // Totals calculations
   const rawSubtotal = subtotal();
-  const isCircleMember = user?.is_circle_member || false;
+  const isCircleMember = user?.isCircleMember || false;
   const shippingCost = isCircleMember ? 0 : 500; // 500 MXN if not Circle
   const taxableAmount = rawSubtotal + shippingCost;
   const iva = Math.round(taxableAmount * 0.16);
@@ -36,7 +36,7 @@ export default function CheckoutPage() {
 
   // Pre-fill form with user data
   const [shippingEmail, setShippingEmail] = useState(user?.email ?? "");
-  const [shippingName, setShippingName] = useState(user?.full_name ?? user?.display_name ?? "");
+  const [shippingName, setShippingName] = useState(user?.fullName ?? user?.displayName ?? "");
   const [shippingPhone, setShippingPhone] = useState(user?.phone ?? "");
   const [shippingAddress, setShippingAddress] = useState("");
   const [shippingCity, setShippingCity] = useState("");
@@ -52,7 +52,7 @@ export default function CheckoutPage() {
   useEffect(() => {
     // If the user's details load late
     if (user?.email && !shippingEmail) setShippingEmail(user.email);
-    if (user?.full_name && !shippingName) setShippingName(user.full_name);
+    if (user?.fullName && !shippingName) setShippingName(user.fullName);
     if (user?.phone && !shippingPhone) setShippingPhone(user.phone);
   }, [user, shippingEmail, shippingName, shippingPhone]);
 
