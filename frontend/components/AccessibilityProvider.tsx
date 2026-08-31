@@ -17,8 +17,13 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
     else body.classList.remove('theme-dark');
 
     // Font size
-    if (fontSize === 'large') body.classList.add('text-large');
-    else body.classList.remove('text-large');
+    if (fontSize === 'large') {
+      body.classList.add('text-large');
+      document.documentElement.classList.add('text-large');
+    } else {
+      body.classList.remove('text-large');
+      document.documentElement.classList.remove('text-large');
+    }
 
     // High Contrast
     if (highContrast) body.classList.add('high-contrast');

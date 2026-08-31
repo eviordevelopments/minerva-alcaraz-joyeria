@@ -487,6 +487,6 @@ body.theme-dark [style*="background-image"] {
   filter: invert(1) hue-rotate(180deg) !important;
 }
 
-body.text-large {
+html.text-large {
   font-size: 115% !important;
 }
