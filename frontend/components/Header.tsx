@@ -165,17 +165,15 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
                   ? 'h-[24px] w-[80px] sm:h-[28px] sm:w-[90px] md:h-[50px] md:w-[155px]'
                   : 'h-[32px] w-[95px] sm:h-[38px] sm:w-[110px] md:h-[64px] md:w-[180px]'
               }`}>
-                <Image 
-                  src="/logo.png" 
+                <img 
+                  src="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/logo.png" 
                   alt="Minerva Alcaraz" 
-                  fill
-                  className={`object-contain transition-all duration-700`}
+                  className={`w-full h-full object-contain transition-all duration-700`}
                   style={{ 
                     filter: isScrolled 
                       ? 'var(--logo-filter-override)' 
                       : (logoFilter === "brightness-0 invert opacity-90" ? "brightness(0) invert(0.9)" : "none") 
                   }}
-                  priority
                 />
               </div>
             </Link>
@@ -252,7 +250,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
           >
             <div className="flex justify-between items-center mb-12">
                <div className="relative w-[100px] h-[30px]">
-                  <Image src="/logo.png" alt="Minerva Alcaraz" fill className="object-contain" />
+                  <img src="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/logo.png" alt="Minerva Alcaraz" className="w-full h-full object-contain" />
                </div>
                <button onClick={() => setIsMobileMenuOpen(false)} className="text-verde-ebano">
                  <X size={24} strokeWidth={1} />

@@ -50,12 +50,10 @@ export const HeroSection = () => {
           style={{ scale: imageScale }}
           className="absolute inset-0 z-0 w-full h-full"
         >
-          <Image 
+          <img 
             src="/hero-section_image.JPG" 
             alt="Minerva Alcaraz Joyería" 
-            fill 
-            className="object-cover object-center"
-            priority
+            className="absolute inset-0 w-full h-full object-cover object-center"
           />
         </motion.div>
 
