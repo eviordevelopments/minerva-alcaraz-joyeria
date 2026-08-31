@@ -481,10 +481,16 @@ h1, h2, h3, h4, h5, h6, .font-display {
 /* ─────────────────────────────────────────
    ACCESSIBILITY OVERRIDES
    ───────────────────────────────────────── */
-body.theme-dark {
-  filter: invert(1) hue-rotate(180deg) !important;
-  background-color: #1a1a1a !important;
+body.theme-dark::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  backdrop-filter: invert(1) hue-rotate(180deg);
+  -webkit-backdrop-filter: invert(1) hue-rotate(180deg);
 }
+
 body.theme-dark img, 
 body.theme-dark video,
 body.theme-dark [style*="background-image"] {
@@ -495,10 +501,12 @@ body.text-large {
   font-size: 115% !important;
 }
 
-body.high-contrast {
-  filter: contrast(140%) saturate(130%) !important;
-}
-
-body.theme-dark.high-contrast {
-  filter: invert(1) hue-rotate(180deg) contrast(140%) saturate(130%) !important;
+body.high-contrast::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  backdrop-filter: contrast(140%) saturate(130%);
+  -webkit-backdrop-filter: contrast(140%) saturate(130%);
 }
