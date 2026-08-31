@@ -64,5 +64,37 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
     };
   }, [voiceReader]);
 
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      
+      {/* DOM Overlay for Dark Mode - Placed at the end of the tree so it reliably covers sibling stacking contexts */}
+      {theme === 'dark' && (
+        <div 
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 99999,
+            pointerEvents: 'none',
+            backdropFilter: highContrast ? 'invert(1) hue-rotate(180deg) contrast(140%) saturate(130%)' : 'invert(1) hue-rotate(180deg)',
+            WebkitBackdropFilter: highContrast ? 'invert(1) hue-rotate(180deg) contrast(140%) saturate(130%)' : 'invert(1) hue-rotate(180deg)'
+          }}
+        />
+      )}
+
+      {/* DOM Overlay for High Contrast without Dark Mode */}
+      {highContrast && theme !== 'dark' && (
+        <div 
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 99998,
+            pointerEvents: 'none',
+            backdropFilter: 'contrast(140%) saturate(130%)',
+            WebkitBackdropFilter: 'contrast(140%) saturate(130%)'
+          }}
+        />
+      )}
+    </>
+  );
 }
