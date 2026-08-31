@@ -51,7 +51,7 @@ export const HeroSection = () => {
           className="absolute inset-0 z-0 w-full h-full"
         >
           <img 
-            src="/hero-section_image.JPG" 
+            src="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/hero-section_image.JPG" 
             alt="Minerva Alcaraz Joyería" 
             className="absolute inset-0 w-full h-full object-cover object-center"
           />
