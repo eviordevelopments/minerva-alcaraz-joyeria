@@ -37,7 +37,7 @@ export async function GET() {
     );
 
     const contacts = [
-      ...(profiles ?? []).map((p) => ({
+      ...(profiles ?? []).map((p: any) => ({
         id: p.id,
         name: p.full_name || p.email?.split("@")[0] || "Sin nombre",
         email: p.email ?? "",
