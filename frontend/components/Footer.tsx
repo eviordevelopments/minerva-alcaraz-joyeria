@@ -16,12 +16,10 @@ export const Footer = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-16 md:mb-20">
             <div className="lg:col-span-5 flex flex-col gap-10">
               <Link href="/">
-                <Image 
-                  src="/logo.png" 
+                <img 
+                  src="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/logo.png" 
                   alt="Minerva Alcaraz" 
-                  width={160} 
-                  height={50} 
-                  className="brightness-0 invert opacity-90"
+                  className="w-[160px] h-auto brightness-0 invert opacity-90"
                 />
               </Link>
               <div className="flex flex-col gap-8">
