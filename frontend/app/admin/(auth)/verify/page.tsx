@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Loader2, CheckCircle, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 
-export default function AdminVerifyPage() {
+function VerifyContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
@@ -177,5 +177,17 @@ export default function AdminVerifyPage() {
         </div>
       </motion.div>
     </div>
+  );
+}
+
+export default function AdminVerifyPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#2C3729] flex items-center justify-center">
+        <Loader2 size={32} className="animate-spin text-[#CBB67B]" />
+      </div>
+    }>
+      <VerifyContent />
+    </Suspense>
   );
 }

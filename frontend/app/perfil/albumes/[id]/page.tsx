@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "../../../../components/Header";
 import { Footer } from "../../../../components/Footer";
@@ -43,7 +43,7 @@ const VISIBILITY_MAP = {
   public:      { label: "Público",   icon: Globe,  desc: "Visible para todos" },
 };
 
-export default function AlbumDetailPage() {
+function AlbumDetailContent() {
   const { user, isAuthenticated } = useAuthStore();
   const router = useRouter();
   const params = useParams();
@@ -452,5 +452,17 @@ export default function AlbumDetailPage() {
 
       <Footer />
     </main>
+  );
+}
+
+export default function AlbumDetailPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
+        <Loader2 size={32} className="animate-spin text-oro-antiguo" />
+      </div>
+    }>
+      <AlbumDetailContent />
+    </Suspense>
   );
 }
