@@ -35,7 +35,7 @@ export async function POST(req: Request) {
     });
 
     if (!result || result.error) {
-      throw new Error(result?.error?.message || "Error al enviar correo electrónico");
+      throw new Error((result?.error as any)?.message || "Error al enviar correo electrónico");
     }
 
     return NextResponse.json({ success: true });
