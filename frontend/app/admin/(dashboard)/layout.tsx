@@ -50,9 +50,10 @@ export default function AdminLayout({
         if (data) {
           setProfileName(data.name);
           setProfileRole(data.role);
-          const location = Array.isArray(data.erp_accounts) 
-            ? data.erp_accounts[0]?.location 
-            : data.erp_accounts?.location;
+          const accounts: any = data.erp_accounts;
+          const location = Array.isArray(accounts) 
+            ? accounts[0]?.location 
+            : accounts?.location;
           setProfileLocation(location || "ONLINE");
         }
       }
