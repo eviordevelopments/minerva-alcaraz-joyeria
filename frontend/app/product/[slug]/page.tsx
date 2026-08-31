@@ -6,7 +6,7 @@ import { FAQSection } from "../../../components/FAQSection";
 import { Footer } from "../../../components/Footer";
 import { ProductCard } from "../../../components/DesignSystem";
 import { ProductPDPPreview, PDPProduct } from "../../../components/ProductPDPPreview";
-import { PRODUCTS } from "../../../constants/products";
+
 import { Loader2 } from "lucide-react";
 
 // ─── Normalize Supabase DB row → PDPProduct ────────────────────────────────
@@ -39,39 +39,11 @@ function dbRowToPDP(row: Record<string, unknown>): PDPProduct {
   };
 }
 
-// ─── Normalize static product → PDPProduct ────────────────────────────────
-function staticToPDP(p: (typeof PRODUCTS)[0]): PDPProduct {
-  return {
-    id: p.id,
-    sku: p.sku,
-    name: p.name,
-    description: p.description,
-    long_description: null,
-    significado: p.significado ?? null,
-    price: p.price,
-    currency: p.currency,
-    category: p.category,
-    collection: p.collection,
-    materials: p.materials,
-    occasions: p.occasions ?? [],
-    outfits: p.outfits ?? [],
-    style: p.metadata?.style ?? null,
-    purity: null,
-    images: p.images,
-    stock: p.stock,
-    is_featured: p.featured ?? false,
-    is_circle_exclusive: false,
-    is_unique_piece: p.category === "Piezas Únicas",
-    is_author_design: p.metadata?.isAuthorDesign ?? false,
-    is_limited_edition: false,
-    available_sizes: [],
-  };
-}
-
 export default function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = React.use(params);
 
   const [product, setProduct] = useState<PDPProduct | null>(null);
+  const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
@@ -85,15 +57,19 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
         const activeList: any[] = json.products ?? [];
 
         const match = activeList.find(
-          (p) => p.id === slug || p.sku === slug || p.slug === slug
+          (p: any) => p.id === slug || p.sku === slug || p.slug === slug
         );
 
         if (match) {
-          if (match._source === "db") {
-            setProduct(dbRowToPDP(match));
-          } else {
-            setProduct(staticToPDP(match));
-          }
+          setProduct(dbRowToPDP(match));
+          const related = activeList.filter(
+            (p) =>
+              p.collection === match.collection &&
+              p.id !== match.id &&
+              p.sku !== match.sku
+          ).slice(0, 4);
+          setRelatedProducts(related);
+          
           setIsLoading(false);
           return;
         }
@@ -107,16 +83,6 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
 
     loadProduct();
   }, [slug]);
-
-  // Related products (same collection, at most 4)
-  const relatedProducts = product
-    ? PRODUCTS.filter(
-        (p) =>
-          p.collection === product.collection &&
-          p.id !== product.id &&
-          p.sku !== product.sku
-      ).slice(0, 4)
-    : [];
 
   // ── Loading skeleton ──────────────────────────────────────────────────────
   if (isLoading) {

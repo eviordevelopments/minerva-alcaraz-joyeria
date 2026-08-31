@@ -14,7 +14,7 @@ interface HeaderProps {
   theme?: "light" | "dark";
 }
 
-import { PRODUCTS } from "../constants/products";
+
 import { useCircleTheme } from "../lib/context/CircleThemeContext";
 
 import { useCartStore } from "../lib/store/useCartStore";

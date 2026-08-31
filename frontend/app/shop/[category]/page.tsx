@@ -54,8 +54,9 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
         const activeList: Product[] = json.products ?? [];
         setProducts(activeList.filter((p) => p.category.toLowerCase() === category.toLowerCase()));
       })
-      .catch(() => {
-        setProducts(PRODUCTS.filter((p) => p.category.toLowerCase() === category.toLowerCase()));
+      .catch((err) => {
+        console.error("Failed to fetch products", err);
+        setProducts([]);
       });
   }, [category]);
 

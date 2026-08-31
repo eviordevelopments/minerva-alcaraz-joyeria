@@ -19,9 +19,20 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
 
   const filters = ["Todo", "Piezas Únicas", "Sets", "Anillos", "Collares", "Amatista", "Chai"];
 
+  const [products, setProducts] = useState<any[]>([]);
+
+  React.useEffect(() => {
+    if (isOpen) {
+      fetch("/api/products")
+        .then(res => res.json())
+        .then(data => setProducts(data.products || []))
+        .catch(err => console.error("Search fetch error", err));
+    }
+  }, [isOpen]);
+
   // Real search logic
   const results = query.length > 1 
-    ? PRODUCTS.filter(p => 
+    ? products.filter(p => 
         (p.name.toLowerCase().includes(query.toLowerCase()) || 
          p.category.toLowerCase().includes(query.toLowerCase()) ||
          p.collection.toLowerCase().includes(query.toLowerCase())) &&

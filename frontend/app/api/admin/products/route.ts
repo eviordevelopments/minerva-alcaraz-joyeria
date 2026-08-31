@@ -99,64 +99,19 @@ export async function GET() {
         updated_at: row.updated_at ?? new Date().toISOString(),
       }));
 
-    // ── Merge static PRODUCTS not already in DB (active or deleted) ────────
-    const activeStaticProducts = PRODUCTS
-      .filter((p) => !dbSkus.has(p.sku) && !dbSlugs.has(p.id))
-      .map((p) => ({
-        _source: "static" as const,
-        id: p.id,
-        sku: p.sku,
-        slug: p.id,
-        name: p.name,
-        description: p.description,
-        long_description: null,
-        significado: p.significado ?? null,
-        price: p.price,
-        price_cents: p.price * 100,
-        currency: p.currency,
-        category: p.category,
-        collection: p.collection,
-        collection_id: null,
-        materials: p.materials,
-        primary_material: p.materials[0] ?? null,
-        occasions: p.occasions ?? [],
-        outfits: p.outfits ?? [],
-        style: p.metadata?.style ?? null,
-        purity: null,
-        finish: null,
-        available_sizes: [],
-        images: p.images,
-        primary_image: p.images[0] ?? null,
-        stock: p.stock,
-        stock_reserved: 0,
-        sold: soldMap[p.sku] ?? 0,
-        is_active: true,
-        is_featured: p.featured ?? false,
-        is_author_design: p.metadata?.isAuthorDesign ?? false,
-        is_limited_edition: false,
-        is_unique_piece: p.category === "Piezas Únicas",
-        is_circle_exclusive: false,
-        seo_keywords: p.tags ?? [],
-        payment_link: null,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      }));
-
-    const finalProducts = activeDbProducts.length > 0 ? activeDbProducts : activeStaticProducts;
-
     return NextResponse.json({
-      products: finalProducts,
-      total: finalProducts.length,
+      products: activeDbProducts,
+      total: activeDbProducts.length,
       db_count: activeDbProducts.length,
-      static_count: activeDbProducts.length > 0 ? 0 : activeStaticProducts.length,
+      static_count: 0,
     });
   } catch (err: unknown) {
     console.error("Admin products API error:", err);
     return NextResponse.json({
-      products: PRODUCTS,
-      total: PRODUCTS.length,
+      products: [],
+      total: 0,
       db_count: 0,
-      static_count: PRODUCTS.length,
+      static_count: 0,
     });
   }
 }

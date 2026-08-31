@@ -284,12 +284,25 @@ const SidebarProduct = ({ product, index }: { product: Product; index: number })
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export const AIConcierge = () => {
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    fetch("/api/products")
+      .then(r => r.json())
+      .then(d => {
+        const prods = d.products || [];
+        setAllProducts(prods);
+        setRecommended(prods.filter((p: Product) => p.featured).slice(0, 6));
+      })
+      .catch(console.error);
+  }, []);
+
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([WELCOME]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [activeTab, setActiveTab] = useState<"chat" | "products">("chat");
-  const [recommended, setRecommended] = useState<Product[]>(getInitialProducts);
+  const [recommended, setRecommended] = useState<Product[]>([]);
   const [streamingDone, setStreamingDone] = useState<Set<string>>(new Set(["init"]));
   const [hasInteracted, setHasInteracted] = useState(false);
 
@@ -334,8 +347,8 @@ export const AIConcierge = () => {
       const delay = 900 + Math.random() * 600;
       setTimeout(() => {
         const { text: responseText, filter } = getResponse(trimmed);
-        const filtered = PRODUCTS.filter(filter).slice(0, 6);
-        setRecommended(filtered.length >= 2 ? filtered : getInitialProducts());
+        const filtered = allProducts.filter(filter).slice(0, 6);
+        setRecommended(filtered.length >= 2 ? filtered : allProducts.filter(p => p.featured).slice(0, 6));
 
         const assistantId = `a-${Date.now()}`;
         const assistantMsg: ChatMessage = {
@@ -349,7 +362,7 @@ export const AIConcierge = () => {
         setIsTyping(false);
       }, delay);
     },
-    [isTyping]
+    [isTyping, allProducts]
   );
 
   const handleSend = useCallback(() => {
@@ -374,7 +387,7 @@ export const AIConcierge = () => {
 
   // ── Render ──────────────────────────────────────────────────────────────────
   return (
-    <div className="fixed z-[100] bottom-20 right-4 md:bottom-8 md:right-28">
+    <div className="fixed z-[100000] bottom-20 right-4 md:bottom-8 md:right-28">
 
       {/* ── Panel ─────────────────────────────────────────────────────────── */}
       <AnimatePresence>

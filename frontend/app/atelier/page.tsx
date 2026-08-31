@@ -6,7 +6,7 @@ import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { ProductCard } from "../../components/DesignSystem";
 import { useAuthStore } from "../../lib/store/useAuthStore";
-import { PRODUCTS } from "../../constants/products";
+
 import Link from "next/link";
 import { 
   Crown, Lock, Calendar, MapPin, Clock, Sparkles, 
@@ -62,8 +62,17 @@ export default function AtelierPage() {
     }
   }, [isAuthenticated, user]);
 
-  // Filter products that contain "Atelier" tag
-  const atelierProducts = PRODUCTS.filter(p => p.tags?.includes("Atelier"));
+  const [atelierProducts, setAtelierProducts] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("/api/products")
+      .then(r => r.json())
+      .then(d => {
+        const prods = d.products || [];
+        setAtelierProducts(prods.filter((p: any) => p.tags?.includes("Atelier")));
+      })
+      .catch(console.error);
+  }, []);
 
   const handleBookAppointment = async (e: React.FormEvent) => {
     e.preventDefault();

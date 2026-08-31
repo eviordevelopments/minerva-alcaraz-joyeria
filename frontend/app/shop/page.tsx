@@ -61,7 +61,7 @@ function ShopContent() {
   };
 
   // Products loaded dynamically from /api/products (excludes deleted products)
-  const allProducts: Product[] = dbProducts.length > 0 ? dbProducts : (isLoadingDb ? PRODUCTS : []);
+  const allProducts: Product[] = dbProducts;
 
   // Dynamic filter lists derived from merged catalog
   const collections = Array.from(new Set(allProducts.map(p => p.collection)));

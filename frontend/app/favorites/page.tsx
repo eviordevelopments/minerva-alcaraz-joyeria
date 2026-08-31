@@ -6,9 +6,15 @@ import { FAQSection } from "../../components/FAQSection";
 import { ProductCard } from "../../components/DesignSystem";
 import { Heart } from "lucide-react";
 import { PRODUCTS } from "../../constants/products";
+import { useFavoritesStore } from "../../lib/store/useFavoritesStore";
 
 export default function FavoritesPage() {
-  const favorites = [PRODUCTS[0]]; // Mock favorites with real product
+  const { items } = useFavoritesStore();
+  const favorites = items.map(i => ({
+    ...i,
+    id: i.productId,
+    images: [i.image]
+  })) as any[];
 
   return (
     <main className="min-h-screen bg-hueso-seda">

@@ -81,19 +81,11 @@ export async function GET(req: Request) {
         _source: "db" as const,
       }));
 
-    // Filter static PRODUCTS to exclude any that match a DB SKU or Slug (active or deleted tombstone)
-    const activeStaticProducts = PRODUCTS.filter(
-      (p) => !dbSkus.has(p.sku) && !dbSlugs.has(p.id)
-    );
-
-    // If DB has real products, show ONLY DB products. Otherwise show non-deleted static items.
-    const finalProducts = activeDbProducts.length > 0 ? activeDbProducts : activeStaticProducts;
-
     return NextResponse.json({
-      products: finalProducts,
+      products: activeDbProducts,
     });
   } catch (err: unknown) {
     console.error("Public products API error:", err);
-    return NextResponse.json({ products: PRODUCTS });
+    return NextResponse.json({ products: [] });
   }
 }

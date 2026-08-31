@@ -4,30 +4,60 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Sparkles, Eye } from "lucide-react";
-import { PRODUCTS, Product } from "../constants/products";
-
-// Select recent signature pieces from new collections
-const HAUL_ITEMS: Product[] = PRODUCTS.filter(
-  (p) => p.featured || ["Amatista", "Chai", "Escencia", "Diseños de Autor", "Etérea", "Serpientes"].includes(p.collection)
-).slice(0, 6);
+import { ArrowRight, Sparkles, Eye, RefreshCw } from "lucide-react";
+import { Product } from "../constants/products";
 
 export const HaulCarousel: React.FC = () => {
+  const [haulItems, setHaulItems] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const res = await fetch("/api/products");
+        if (res.ok) {
+          const { products } = await res.json();
+          const items = (products || [])
+            .filter((p: Product) => p.featured || ["Amatista", "Chai", "Escencia", "Diseños de Autor", "Etérea", "Serpientes"].includes(p.collection))
+            .slice(0, 6);
+          setHaulItems(items);
+        }
+      } catch (err) {
+        console.error("Error fetching haul products", err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchProducts();
+  }, []);
+
   // Always auto-advance continuously every 5 seconds (5000ms)
   useEffect(() => {
+    if (haulItems.length === 0) return;
     timerRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % HAUL_ITEMS.length);
+      setCurrentIndex((prev) => (prev + 1) % haulItems.length);
     }, 5000);
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, []);
+  }, [haulItems.length]);
 
-  const currentItem = HAUL_ITEMS[currentIndex];
+  if (isLoading) {
+    return (
+      <section className="w-full bg-verde-ebano text-hueso-seda py-32 flex justify-center items-center">
+        <span className="flex items-center gap-2 text-xs uppercase tracking-widest text-oro-antiguo">
+          <RefreshCw className="animate-spin" size={14} /> Preparando Selección
+        </span>
+      </section>
+    );
+  }
+
+  if (haulItems.length === 0) return null;
+
+  const currentItem = haulItems[currentIndex];
 
   return (
     <section className="w-full bg-verde-ebano text-hueso-seda py-12 sm:py-16 md:py-20 px-4 sm:px-8 md:px-16 border-t border-b border-oro-antiguo/20 relative overflow-hidden">
@@ -50,7 +80,7 @@ export const HaulCarousel: React.FC = () => {
 
           <div className="flex items-center gap-4">
             <span className="text-[10px] uppercase tracking-widest text-hueso-seda/60 font-mono">
-              0{currentIndex + 1} / 0{HAUL_ITEMS.length}
+              0{currentIndex + 1} / 0{haulItems.length}
             </span>
           </div>
         </div>
@@ -153,7 +183,7 @@ export const HaulCarousel: React.FC = () => {
 
         {/* Thumbnail Selector Strip (Click to view immediately) */}
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 pt-2">
-          {HAUL_ITEMS.map((item, idx) => {
+          {haulItems.map((item, idx) => {
             const isActive = idx === currentIndex;
             return (
               <button

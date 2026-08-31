@@ -22,7 +22,7 @@ export function AccessibilityFAB() {
       animate={{ opacity: 1, scale: 1 }}
       whileHover={{ scale: 1.1 }}
       onClick={() => setPanelOpen(true)}
-      className="fixed bottom-6 left-6 z-[90] w-12 h-12 rounded-full bg-[#2C3729] border border-[#CBB67B]/30 flex items-center justify-center text-[#CBB67B] shadow-xl hover:shadow-[#CBB67B]/20 transition-all"
+      className="fixed bottom-6 left-6 z-[100000] w-12 h-12 rounded-full bg-[#2C3729] border border-[#CBB67B]/30 flex items-center justify-center text-[#CBB67B] shadow-xl hover:shadow-[#CBB67B]/20 transition-all"
       aria-label="Abrir panel de accesibilidad"
     >
       <Accessibility size={20} />

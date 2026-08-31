@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Header } from "../components/Header";
@@ -68,6 +69,26 @@ const LongPhilosophySection = () => (
 );
 
 export default function Home() {
+  const [featuredProducts, setFeaturedProducts] = React.useState<any[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    async function fetchFeatured() {
+      try {
+        const res = await fetch("/api/products");
+        if (res.ok) {
+          const { products } = await res.json();
+          setFeaturedProducts((products || []).slice(0, 4));
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchFeatured();
+  }, []);
+
   return (
     <main className="min-h-screen bg-hueso-seda">
       <Header />
@@ -90,11 +111,15 @@ export default function Home() {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-          {PRODUCTS.slice(0, 4).map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {isLoading ? (
+           <div className="w-full flex justify-center py-20 text-xs uppercase tracking-widest text-verde-ebano/50">Cargando catálogo...</div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+            {featuredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Second Philosophy Section below Catalog */}

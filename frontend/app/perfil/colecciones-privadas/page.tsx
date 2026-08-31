@@ -15,7 +15,26 @@ export default function ColeccionesPrivadasPage() {
   const router = useRouter();
   useEffect(() => { if (!isAuthenticated) router.push("/auth"); }, [isAuthenticated]);
   if (!user) return null;
-  const circleProducts = PRODUCTS.filter(p => p.stock === 1 || p.category === "Piezas Únicas");
+  const [circleProducts, setCircleProducts] = React.useState<any[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  useEffect(() => {
+    async function loadProducts() {
+      try {
+        const res = await fetch("/api/products");
+        if (res.ok) {
+          const { products } = await res.json();
+          const items = (products || []).filter((p: any) => p.is_circle_exclusive || p.is_unique_piece || p.stock === 1);
+          setCircleProducts(items);
+        }
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadProducts();
+  }, []);
 
   return (
     <main className="min-h-screen bg-transparent">
