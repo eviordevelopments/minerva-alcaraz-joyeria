@@ -284,14 +284,24 @@ export default function GuiaDeTallasPage() {
           </div>
 
           <div className="flex flex-col items-center">
-            <div className="relative w-full max-w-2xl bg-white border border-verde-ebano/20 shadow-2xl p-4 my-4">
-              <Image
-                src="/assets/guia-tallas/guia-tallas-completa.png"
-                alt="Infografía Completa Guía para el Tamaño de Anillos Minerva Alcaraz"
-                width={900}
-                height={1600}
-                className="w-full h-auto object-contain"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl my-4">
+              {[
+                "/assets/guia-tallas/guia-anillos-1.png",
+                "/assets/guia-tallas/guia-anillos-2.png",
+                "/assets/guia-tallas/guia-anillos-3.png",
+                "/assets/guia-tallas/medida-anillo-01.png",
+                "/assets/guia-tallas/medida-anillo-02.png",
+              ].map((src, idx) => (
+                <div key={idx} className="relative w-full bg-white border border-verde-ebano/20 shadow-2xl p-4 flex justify-center">
+                  <Image
+                    src={src}
+                    alt={`Infografía Completa Guía para el Tamaño de Anillos ${idx + 1}`}
+                    width={600}
+                    height={800}
+                    className="w-full h-auto object-contain max-h-[600px]"
+                  />
+                </div>
+              ))}
             </div>
             <div className="pt-4">
               <a

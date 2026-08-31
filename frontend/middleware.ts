@@ -68,7 +68,7 @@ export async function middleware(request: NextRequest) {
     const { data: { user } } = await supabase.auth.getUser();
     const erpProfileId = request.cookies.get('erp_profile_id')?.value;
     
-    const isAuthRoute = effectivePath === '/admin/login' || effectivePath === '/admin/register';
+    const isAuthRoute = effectivePath === '/admin/login' || effectivePath === '/admin/register' || effectivePath === '/admin/verify';
     const isSelectProfileRoute = effectivePath === '/admin/select-profile';
 
     // 1. If not logged in and trying to access private dashboard

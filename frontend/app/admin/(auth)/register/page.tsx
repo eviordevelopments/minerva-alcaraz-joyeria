@@ -5,15 +5,13 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
-import { Loader2, Plus, Trash2, Camera } from "lucide-react";
-import ReCAPTCHA from "react-google-recaptcha";
+import { Loader2, Plus, Trash2, Camera, CheckCircle } from "lucide-react";
 
 export default function AdminRegisterPage() {
   const router = useRouter();
   
   // Account State
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [location, setLocation] = useState<"San Miguel" | "ONLINE">("San Miguel");
   
   // Profiles State
@@ -21,12 +19,11 @@ export default function AdminRegisterPage() {
   
   // Validation State
   const [termsAccepted, setTermsAccepted] = useState(false);
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const recaptchaRef = React.useRef<ReCAPTCHA>(null);
   
   // Status
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const addProfile = () => {
     setProfiles([...profiles, { name: "", role: "", avatarFile: null }]);
@@ -51,67 +48,21 @@ export default function AdminRegisterPage() {
 
     try {
       if (!termsAccepted) throw new Error("Debes aceptar los términos y condiciones.");
-      if (!captchaToken) throw new Error("Por favor completa el reCAPTCHA de seguridad.");
       if (profiles.some(p => !p.name || !p.role)) throw new Error("Todos los perfiles deben tener nombre y rol.");
 
-      // 0. Verify reCAPTCHA with Backend
-      const captchaRes = await fetch("/api/verify-captcha", {
+      // Enviar datos al endpoint de invitación
+      const res = await fetch("/api/admin/invite", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: captchaToken }),
-      });
-      const captchaData = await captchaRes.json();
-      if (!captchaData.success) throw new Error("Validación de reCAPTCHA fallida. Intenta nuevamente.");
-
-      // 1. Create Auth User
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email,
-        password,
+        body: JSON.stringify({ email, location, profiles }),
       });
 
-      if (authError) throw new Error(authError.message);
-      if (!authData.user) throw new Error("Error inesperado al crear la cuenta");
-
-      const userId = authData.user.id;
-
-      // 2. Create ERP Account
-      const { error: accountError } = await supabase
-        .from("erp_accounts")
-        .insert({ id: userId, email, location });
-
-      if (accountError) throw new Error("Error al crear cuenta maestra: " + accountError.message);
-
-      // 3. Upload Avatars and Create Profiles
-      for (const p of profiles) {
-        let avatarUrl = "";
-        
-        if (p.avatarFile) {
-          const fileExt = p.avatarFile.name.split('.').pop();
-          const fileName = `${userId}-${Math.random()}.${fileExt}`;
-          const { error: uploadError, data: uploadData } = await supabase.storage
-            .from("erp_avatars")
-            .upload(fileName, p.avatarFile);
-            
-          if (!uploadError && uploadData) {
-            const { data } = supabase.storage.from("erp_avatars").getPublicUrl(uploadData.path);
-            avatarUrl = data.publicUrl;
-          }
-        }
-
-        const { error: profileError } = await supabase
-          .from("erp_profiles")
-          .insert({
-            account_id: userId,
-            name: p.name,
-            role: p.role,
-            avatar_url: avatarUrl || null
-          });
-
-        if (profileError) throw new Error(`Error al crear perfil ${p.name}: ` + profileError.message);
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Error al enviar la invitación.");
       }
 
-      // Success!
-      router.push("/admin/select-profile");
+      setSuccess(true);
 
     } catch (err: any) {
       setError(err.message);
@@ -143,11 +94,28 @@ export default function AdminRegisterPage() {
         </div>
 
         <form onSubmit={handleRegister} className="bg-[#1F271D]/80 backdrop-blur-md border border-[#CBB67B]/20 p-8 shadow-2xl space-y-8">
-          {error && (
-            <div className="bg-red-900/30 border border-red-500/50 text-red-200 p-4 text-sm text-center">
-              {error}
+          {success ? (
+            <div className="flex flex-col items-center justify-center space-y-4 py-12">
+              <CheckCircle size={48} className="text-[#CBB67B]" />
+              <h2 className="text-xl text-[#CBB67B] font-display-erp tracking-widest text-center">¡CORREO ENVIADO!</h2>
+              <p className="text-sm text-[#8E9A8B] text-center max-w-md">
+                Hemos enviado un enlace de activación a <strong>{email}</strong>. Por favor, revisa tu bandeja de entrada (y la carpeta de spam) para establecer tu contraseña y completar el registro.
+              </p>
+              <button
+                type="button"
+                onClick={() => setSuccess(false)}
+                className="mt-6 text-[10px] uppercase tracking-[0.2em] text-[#CBB67B] border border-[#CBB67B]/30 px-6 py-3 hover:bg-[#CBB67B]/10 transition-colors"
+              >
+                Volver
+              </button>
             </div>
-          )}
+          ) : (
+            <>
+              {error && (
+                <div className="bg-red-900/30 border border-red-500/50 text-red-200 p-4 text-sm text-center">
+                  {error}
+                </div>
+              )}
 
           {/* Seccion 1: Cuenta Maestra */}
           <div>
@@ -155,8 +123,8 @@ export default function AdminRegisterPage() {
               1. Credenciales de la Empresa
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-[9px] uppercase tracking-wider text-[#8E9A8B] mb-1">Correo Institucional</label>
+              <div className="md:col-span-2">
+                <label className="block text-[9px] uppercase tracking-wider text-[#8E9A8B] mb-1">Correo Corporativo</label>
                 <input
                   type="email"
                   required
@@ -164,18 +132,6 @@ export default function AdminRegisterPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-[#2C3729] border border-[#CBB67B]/30 px-3 py-2 text-sm text-[#E5DBD6] focus:outline-none focus:border-[#CBB67B]"
                   placeholder="admin@minervaalcaraz.com"
-                />
-              </div>
-              <div>
-                <label className="block text-[9px] uppercase tracking-wider text-[#8E9A8B] mb-1">Contraseña</label>
-                <input
-                  type="password"
-                  required
-                  minLength={6}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-[#2C3729] border border-[#CBB67B]/30 px-3 py-2 text-sm text-[#E5DBD6] focus:outline-none focus:border-[#CBB67B]"
-                  placeholder="••••••••"
                 />
               </div>
             </div>
@@ -227,22 +183,12 @@ export default function AdminRegisterPage() {
                     {/* Avatar Upload */}
                     <div className="flex-shrink-0 flex flex-col items-center justify-center gap-2">
                       <div className="w-16 h-16 rounded-none border border-[#CBB67B]/30 bg-[#1F271D] flex items-center justify-center overflow-hidden relative group">
-                        {profile.avatarFile ? (
-                          <img src={URL.createObjectURL(profile.avatarFile)} alt="avatar" className="w-full h-full object-cover" />
-                        ) : (
-                          <UserPlaceholder />
-                        )}
-                        <input 
-                          type="file" 
-                          accept="image/*"
-                          onChange={(e) => e.target.files && updateProfile(idx, 'avatarFile', e.target.files[0])}
-                          className="absolute inset-0 opacity-0 cursor-pointer"
-                        />
+                        <UserPlaceholder />
                         <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                           <Camera size={14} className="text-[#CBB67B]" />
                         </div>
                       </div>
-                      <span className="text-[8px] uppercase text-[#8E9A8B]">Foto</span>
+                      <span className="text-[8px] uppercase text-[#8E9A8B] text-center">La foto se agrega<br/>más tarde</span>
                     </div>
 
                     <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -302,12 +248,7 @@ export default function AdminRegisterPage() {
             </div>
 
             <div className="flex justify-center pt-2 border-t border-[#CBB67B]/10">
-              <ReCAPTCHA
-                ref={recaptchaRef}
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-                onChange={(token) => setCaptchaToken(token)}
-                theme="dark"
-              />
+              {/* reCAPTCHA fue eliminado en favor de la validación por correo electrónico */}
             </div>
           </div>
 
@@ -316,8 +257,10 @@ export default function AdminRegisterPage() {
             disabled={isLoading}
             className="w-full bg-[#CBB67B] text-[#2C3729] py-4 uppercase tracking-[0.2em] text-xs font-bold hover:bg-[#E4D5A4] transition-colors flex items-center justify-center gap-2"
           >
-            {isLoading ? <Loader2 size={16} className="animate-spin" /> : "Crear Cuenta de Equipo"}
+            {isLoading ? <Loader2 size={16} className="animate-spin" /> : "Enviar Invitación"}
           </button>
+          </>
+        )}
         </form>
 
         <div className="mt-8 text-center">

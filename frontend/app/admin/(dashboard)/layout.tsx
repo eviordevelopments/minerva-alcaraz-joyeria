@@ -17,7 +17,8 @@ import {
   LogOut,
   User,
   ExternalLink,
-  Accessibility
+  Accessibility,
+  ShoppingBag
 } from "lucide-react";
 import { useAccessibilityStore } from "@/lib/store/useAccessibilityStore";
 
@@ -30,6 +31,34 @@ export default function AdminLayout({
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { setPanelOpen } = useAccessibilityStore();
+  
+  const [profileName, setProfileName] = useState("Cargando...");
+  const [profileLocation, setProfileLocation] = useState("...");
+  const [profileRole, setProfileRole] = useState("");
+
+  React.useEffect(() => {
+    async function loadProfile() {
+      const match = document.cookie.match(/(^| )erp_profile_id=([^;]+)/);
+      if (match) {
+        const profileId = match[2];
+        const { supabase } = await import("@/lib/supabase");
+        const { data } = await supabase
+          .from("erp_profiles")
+          .select("name, role, erp_accounts(location)")
+          .eq("id", profileId)
+          .single();
+        if (data) {
+          setProfileName(data.name);
+          setProfileRole(data.role);
+          const location = Array.isArray(data.erp_accounts) 
+            ? data.erp_accounts[0]?.location 
+            : data.erp_accounts?.location;
+          setProfileLocation(location || "ONLINE");
+        }
+      }
+    }
+    loadProfile();
+  }, []);
 
   const menuItems = [
     {
@@ -61,6 +90,12 @@ export default function AdminLayout({
       path: "/admin/crm",
       icon: Users,
       description: "Gestión de The Circle"
+    },
+    {
+      name: "Pedidos",
+      path: "/admin/pedidos",
+      icon: ShoppingBag,
+      description: "Logística y Envíos"
     }
   ];
 
@@ -109,8 +144,10 @@ export default function AdminLayout({
               <User size={16} className="text-[#CBB67B]" />
             </div>
             <div className="hidden md:flex flex-col text-left">
-              <span className="text-xs font-semibold tracking-wider">Asesor Principal</span>
-              <span className="text-[9px] uppercase tracking-widest text-[#CBB67B]">Taller CDMX</span>
+              <span className="text-xs font-semibold tracking-wider">{profileName}</span>
+              <span className="text-[9px] uppercase tracking-widest text-[#CBB67B]">
+                {profileRole ? `${profileRole} · ` : ""}{profileLocation}
+              </span>
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@ import {
   ImagePlus, Package, TrendingUp, Archive, ChevronDown,
   ChevronUp, ToggleLeft, ToggleRight, ArrowLeft, Sparkles,
 } from "lucide-react";
-import { ProductPDPPreview, PDPProduct } from "../../../components/ProductPDPPreview";
+import { ProductPDPPreview, PDPProduct } from "../../../../components/ProductPDPPreview";
 import { compressImageIfNeeded } from "@/lib/image-utils";
 
 // ─── Types ────────────────────────────────────────────────────────────────────

@@ -76,16 +76,17 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-verde-ebano/80 backdrop-blur-md">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-verde-ebano/80 backdrop-blur-md">
+      <div className="flex min-h-full items-center justify-center p-4 sm:p-6 py-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.3 }}
-          className="relative w-full max-w-4xl bg-hueso-seda border-2 border-oro-antiguo shadow-2xl text-verde-ebano rounded-sm overflow-hidden my-auto max-h-[90vh] flex flex-col"
+          className="relative w-[95vw] max-w-7xl max-h-[90vh] bg-hueso-seda border-2 border-oro-antiguo shadow-2xl text-verde-ebano rounded-sm overflow-hidden flex flex-col"
         >
           {/* Header */}
-          <div className="sticky top-0 z-20 bg-hueso-seda border-b border-verde-ebano/15 px-6 py-4 flex items-center justify-between">
+          <div className="z-20 bg-hueso-seda border-b border-verde-ebano/15 px-6 py-4 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-verde-ebano/5 flex items-center justify-center text-oro-antiguo border border-oro-antiguo/30">
                 <Ruler size={16} />
@@ -105,7 +106,7 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex border-b border-verde-ebano/10 bg-verde-ebano/5 px-6 pt-2 overflow-x-auto">
+          <div className="flex border-b border-verde-ebano/10 bg-verde-ebano/5 px-6 pt-2 overflow-x-auto shrink-0">
             <button
               onClick={() => setActiveTab("tabla")}
               className={`px-5 py-3 text-xs uppercase tracking-widest font-medium border-b-2 transition-all whitespace-nowrap ${
@@ -134,7 +135,7 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
                   : "border-transparent text-verde-ebano/60 hover:text-verde-ebano"
               }`}
             >
-              Infografía Completa
+              Guía de Tallas
             </button>
           </div>
 
@@ -323,37 +324,71 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
               </div>
             )}
 
-            {/* TAB 3: INFOGRAFÍA COMPLETA */}
+            {/* TAB 3: GUÍA DE TALLAS */}
             {activeTab === "infografia" && (
-              <div className="space-y-6 flex flex-col items-center">
-                <div className="flex justify-between items-center w-full px-2">
-                  <p className="text-xs text-verde-ebano/70">
-                    Diseño oficial Minerva Alcaraz Joyería · Guía de Medición de Anillos
-                  </p>
-                  <a
-                    href="/assets/guia-tallas/guia-tallas-completa.png"
-                    download="Guia_Tallas_Anillos_Minerva_Alcaraz.png"
-                    className="flex items-center gap-1.5 text-xs text-oro-antiguo hover:text-verde-ebano transition-colors uppercase font-medium tracking-wider"
-                  >
-                    <Download size={14} /> Descargar Guía
-                  </a>
-                </div>
+              <div className="space-y-10 flex flex-col items-center">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-verde-ebano/50 self-start">
+                  Minerva Alcaraz Joyería · Guías de Medición Oficiales para Anillos
+                </p>
 
-                <div className="relative w-full max-w-2xl bg-white border border-verde-ebano/20 shadow-lg p-2 group">
-                  <Image
-                    src="/assets/guia-tallas/guia-tallas-completa.png"
-                    alt="Infografía Oficial Guía para el Tamaño de Anillos"
-                    width={900}
-                    height={1600}
-                    className="w-full h-auto object-contain"
-                  />
-                  <button
-                    onClick={() => setPreviewImage("/assets/guia-tallas/guia-tallas-completa.png")}
-                    className="absolute top-4 right-4 bg-verde-ebano/80 text-hueso-seda p-2.5 rounded-full backdrop-blur-md opacity-90 hover:opacity-100 transition-opacity"
-                    title="Ampliar pantalla completa"
-                  >
-                    <Maximize2 size={16} />
-                  </button>
+                {/* Infografías principales: ancho completo, apiladas */}
+                {[
+                  { src: "/assets/guia-tallas/guia-anillos-1.png", label: "Infografía 01" },
+                  { src: "/assets/guia-tallas/guia-anillos-3.png", label: "Infografía 02" },
+                ].map((item, idx) => (
+                  <div key={idx} className="w-full relative bg-white border border-verde-ebano/20 shadow-md group">
+                    <div className="absolute top-3 left-3 z-10 bg-verde-ebano/70 backdrop-blur-sm px-3 py-1">
+                      <span className="text-[9px] uppercase tracking-[0.3em] text-oro-antiguo">{item.label}</span>
+                    </div>
+                    <Image
+                      src={item.src}
+                      alt={item.label}
+                      width={1200}
+                      height={900}
+                      className="w-full h-auto object-contain"
+                    />
+                    <button
+                      onClick={() => setPreviewImage(item.src)}
+                      className="absolute top-3 right-3 z-10 bg-verde-ebano/80 text-hueso-seda p-2.5 rounded-full backdrop-blur-md opacity-80 group-hover:opacity-100 transition-opacity"
+                      title="Ampliar en pantalla completa"
+                    >
+                      <Maximize2 size={16} />
+                    </button>
+                  </div>
+                ))}
+
+                {/* Ilustraciones icónicas: grandes y centradas con fondo oscuro destacado */}
+                <div className="w-full border-t border-verde-ebano/15 pt-8 space-y-4">
+                  <div className="text-center space-y-1">
+                    <span className="text-[9px] uppercase tracking-[0.4em] text-oro-antiguo">Ilustraciones Artesanales</span>
+                    <h4 className="text-lg font-display text-verde-ebano">Método Visual de Medición</h4>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {[
+                      { src: "/assets/guia-tallas/medida-anillo-01.png", label: "Método 01 — Diámetro" },
+                      { src: "/assets/guia-tallas/medida-anillo-02.png", label: "Método 02 — Circunferencia" },
+                    ].map((item, idx) => (
+                      <div key={idx} className="relative bg-verde-ebano border border-oro-antiguo/30 p-8 flex flex-col items-center gap-6 group">
+                        <span className="text-[9px] uppercase tracking-[0.4em] text-oro-antiguo">{item.label}</span>
+                        <div className="relative w-full flex justify-center">
+                          <Image
+                            src={item.src}
+                            alt={item.label}
+                            width={500}
+                            height={500}
+                            className="w-full max-w-xs h-auto object-contain drop-shadow-xl"
+                          />
+                        </div>
+                        <button
+                          onClick={() => setPreviewImage(item.src)}
+                          className="absolute top-4 right-4 bg-hueso-seda/20 text-hueso-seda p-2 rounded-full opacity-70 group-hover:opacity-100 transition-opacity"
+                          title="Ampliar en pantalla completa"
+                        >
+                          <Maximize2 size={14} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}
@@ -372,6 +407,7 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
           </div>
         </motion.div>
       </div>
+    </div>
 
       {/* Lightbox Modal for HD image preview */}
       {previewImage && (

@@ -24,6 +24,8 @@ import {
 } from "lucide-react";
 import { EmpaqueCarousel } from "./EmpaqueCarousel";
 import { RingSizeGuideModal } from "./RingSizeGuideModal";
+import { BraceletSizeGuideModal } from "./BraceletSizeGuideModal";
+import { NecklaceSizeGuideModal } from "./NecklaceSizeGuideModal";
 import { useCartStore } from "../lib/store/useCartStore";
 import { useFavoritesStore } from "../lib/store/useFavoritesStore";
 import { useAuthStore } from "../lib/store/useAuthStore";
@@ -78,6 +80,8 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
   const [selectedSize, setSelectedSize] = useState("");
   const [isFavorite, setIsFavorite] = useState(false);
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
+  
+  const { addItem, openCart } = useCartStore();
 
   const images = product.images && product.images.length > 0 ? product.images : [];
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -112,6 +116,27 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
   const handlePrevImage = () => {
     if (images.length === 0) return;
     handleSelectImage((selectedImage - 1 + images.length) % images.length);
+  };
+
+  const handleAddToCart = () => {
+    if (onAddToCart) {
+      onAddToCart();
+      return;
+    }
+    
+    addItem({
+      productId: product.id,
+      sku: product.sku,
+      name: product.name,
+      collection: product.collection,
+      category: product.category,
+      image: product.images[0] || "",
+      price: product.price,
+      currency: product.currency,
+      size: selectedSize || undefined,
+      paymentLink: product.payment_link
+    });
+    openCart();
   };
 
   const sizes = product.available_sizes?.length
@@ -388,7 +413,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
           <div className="flex flex-col gap-3">
             <button
               disabled={product.stock === 0}
-              onClick={onAddToCart}
+              onClick={handleAddToCart}
               className="w-full py-4 bg-[#294127] text-[#E5DBD6] text-xs uppercase tracking-[0.3em] hover:bg-[#2C3729] transition-all flex items-center justify-center gap-3 disabled:bg-[#C3C9C0] disabled:cursor-not-allowed"
             >
               <ShoppingBag size={15} />
@@ -578,12 +603,25 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
         </div>
       </section>
 
-      <RingSizeGuideModal
-        isOpen={isSizeGuideOpen}
-        onClose={() => setIsSizeGuideOpen(false)}
-        onSelectSize={(size) => setSelectedSize(size)}
-        currentSelectedSize={selectedSize}
-      />
+      {/* Conditionally render the correct Size Guide Modal based on category */}
+      {product.category?.toLowerCase().includes("pulsera") ? (
+        <BraceletSizeGuideModal
+          isOpen={isSizeGuideOpen}
+          onClose={() => setIsSizeGuideOpen(false)}
+        />
+      ) : product.category?.toLowerCase().includes("collar") ? (
+        <NecklaceSizeGuideModal
+          isOpen={isSizeGuideOpen}
+          onClose={() => setIsSizeGuideOpen(false)}
+        />
+      ) : (
+        <RingSizeGuideModal
+          isOpen={isSizeGuideOpen}
+          onClose={() => setIsSizeGuideOpen(false)}
+          onSelectSize={(size) => setSelectedSize(size)}
+          currentSelectedSize={selectedSize}
+        />
+      )}
     </>
   );
 

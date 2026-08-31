@@ -13,8 +13,7 @@ export async function GET() {
       .from("profiles")
       .select(
         `id, full_name, email, avatar_url, phone, is_circle_member,
-         circle_tier, total_purchases, total_spent_cents, 
-         circle_joined_at, created_at, updated_at`
+         circle_tier, circle_joined_at, created_at, updated_at`
       )
       .order("created_at", { ascending: false });
 

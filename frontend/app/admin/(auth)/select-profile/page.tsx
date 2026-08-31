@@ -59,7 +59,7 @@ export default function SelectProfilePage() {
     // Set cookie for 7 days
     const expires = new Date();
     expires.setTime(expires.getTime() + 7 * 24 * 60 * 60 * 1000);
-    document.cookie = `erp_profile_id=${profileId}; expires=${expires.toUTCString অ্যাকশন()}; path=/`;
+    document.cookie = `erp_profile_id=${profileId}; expires=${expires.toUTCString()}; path=/`;
 
     // Trigger router navigation to dashboard
     router.push("/admin");

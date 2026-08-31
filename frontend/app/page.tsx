@@ -49,7 +49,6 @@ const LongPhilosophySection = () => (
         transition={{ duration: 1 }}
         viewport={{ once: true }}
       >
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-display text-verde-ebano mb-8 md:mb-16">Nuestra Filosofía</h2>
         <p className="text-base sm:text-lg md:text-2xl lg:text-4xl text-verde-ebano font-sans font-light leading-relaxed max-w-5xl mx-auto uppercase tracking-[0.05em] md:tracking-[0.1em]">
           &ldquo;CREEMOS QUE LA JOYERÍA ES UNA FORMA ESENCIAL DE CONEXIÓN Y EXPRESIÓN PERSONAL. CADA PIEZA QUE CREAMOS NACE DE UN PROCESO ARTESANAL COMPARTIDO, ELABORADA ENTRE NOSOTROS Y TÚ.&rdquo;
         </p>

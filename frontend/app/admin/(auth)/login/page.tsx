@@ -72,7 +72,7 @@ export default function AdminLoginPage() {
 
             <div>
               <label className="block text-[10px] uppercase tracking-wider text-[#8E9A8B] mb-2">
-                Correo Institucional
+                Correo Corporativo
               </label>
               <input
                 type="email"

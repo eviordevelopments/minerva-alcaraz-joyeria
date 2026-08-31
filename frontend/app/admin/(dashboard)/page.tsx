@@ -53,6 +53,20 @@ export default function AdminDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date());
+  const [profileName, setProfileName] = useState("");
+
+  useEffect(() => {
+    async function loadProfileName() {
+      const match = document.cookie.match(/(^| )erp_profile_id=([^;]+)/);
+      if (match) {
+        const profileId = match[2];
+        const { supabase } = await import("@/lib/supabase");
+        const { data } = await supabase.from("erp_profiles").select("name").eq("id", profileId).single();
+        if (data) setProfileName(data.name.split(" ")[0]); // Use first name
+      }
+    }
+    loadProfileName();
+  }, []);
 
   async function loadData() {
     setIsLoading(true);
@@ -117,8 +131,11 @@ export default function AdminDashboard() {
             Métricas Reales · Supabase Live
           </span>
           <h1 className="font-display-erp text-3xl sm:text-4xl text-[#E5DBD6] mt-2 font-bold">
-            Dashboard Global
+            Dashboard
           </h1>
+          {profileName && (
+            <p className="text-sm mt-1 text-[#8E9A8B]">Hola, {profileName}</p>
+          )}
         </div>
 
         <div className="flex items-center gap-3">
