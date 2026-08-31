@@ -8,7 +8,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, message: 'Falta el token de reCAPTCHA' }, { status: 400 });
     }
 
-    const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+    const secretKey = process.env.RECAPTCHA_SECRET_KEY || "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe";
     if (!secretKey) {
       return NextResponse.json({ success: false, message: 'Servidor no configurado para reCAPTCHA' }, { status: 500 });
     }
