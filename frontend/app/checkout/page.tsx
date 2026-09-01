@@ -29,10 +29,10 @@ export default function CheckoutPage() {
   // Totals calculations
   const rawSubtotal = subtotal();
   const isCircleMember = user?.isCircleMember || false;
-  const shippingCost = isCircleMember ? 0 : 500; // 500 MXN if not Circle
-  const taxableAmount = rawSubtotal + shippingCost;
+  const shippingCost = 0; // Envío sin costo
+  const taxableAmount = rawSubtotal; // IVA solo sobre productos
   const iva = Math.round(taxableAmount * 0.16);
-  const total = taxableAmount + iva;
+  const total = taxableAmount + iva + shippingCost;
 
   // Pre-fill form with user data
   const [shippingEmail, setShippingEmail] = useState(user?.email ?? "");

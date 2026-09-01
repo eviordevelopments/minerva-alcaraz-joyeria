@@ -65,14 +65,14 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Calculate Shipping & IVA
-    // Free for THE CIRCLE, else 500 MXN
-    const shippingCents = isTheCircleMember ? 0 : 50000;
+    // Free shipping for everyone now
+    const shippingCents = 0;
     
-    // IVA is 16% on top
-    const taxableAmount = subtotalCents + shippingCents;
+    // IVA is 16% on top of the product price ONLY
+    const taxableAmount = subtotalCents;
     const taxCents = Math.round(taxableAmount * 0.16);
     
-    const totalCents = taxableAmount + taxCents;
+    const totalCents = taxableAmount + taxCents + shippingCents;
 
     // 3. Create Draft Order in Database
     const orderNumber = `MA-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
