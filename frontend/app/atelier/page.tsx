@@ -136,7 +136,7 @@ export default function AtelierPage() {
             transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
             className="w-12 h-12 border-t-2 border-oro-antiguo rounded-full"
           />
-          <span className="text-[10px] uppercase tracking-[0.6em] text-verde-ebano/60">Verificando acceso...</span>
+          <span className="text-xs uppercase tracking-[0.6em] text-verde-ebano/60">Verificando acceso...</span>
         </div>
       </main>
     );
@@ -165,28 +165,28 @@ export default function AtelierPage() {
             </div>
             
             <div className="flex flex-col gap-2 md:gap-3">
-              <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.4em] sm:tracking-[0.8em] text-oro-antiguo">El Santuario Privado</span>
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.4em] sm:tracking-[0.8em] text-oro-antiguo">El Santuario Privado</span>
               <h1 className="text-xl sm:text-3xl md:text-5xl font-display text-hueso-seda leading-tight hero-title-no-hyphens">Atelier Minerva Alcaraz</h1>
             </div>
 
-            <p className="text-xs sm:text-sm leading-relaxed text-hueso-seda/70 font-light">
+            <p className="text-sm sm:text-base leading-relaxed text-hueso-seda/70 font-light">
               El Atelier es un espacio dedicado a la entrega de piezas especiales, la muestra de colecciones exclusivas y la co-creación personalizada con Minerva Alcaraz.
             </p>
             
-            <p className="text-[10px] sm:text-xs text-oro-antiguo/90 font-light max-w-md">
+            <p className="text-xs sm:text-sm text-oro-antiguo/90 font-light max-w-md">
               El acceso físico y digital está estrictamente limitado a los miembros registrados en <strong className="font-semibold text-oro-antiguo">THE CIRCLE</strong>.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-2 w-full justify-center">
               <Link 
                 href="/auth"
-                className="px-6 py-3.5 sm:px-8 sm:py-4 bg-oro-antiguo text-verde-ebano text-[9px] sm:text-[10px] uppercase tracking-widest hover:bg-hueso-seda transition-all duration-500 font-medium text-center"
+                className="px-6 py-3.5 sm:px-8 sm:py-4 bg-oro-antiguo text-verde-ebano text-[11px] sm:text-xs uppercase tracking-widest hover:bg-hueso-seda transition-all duration-500 font-medium text-center"
               >
                 Acceder a su Cuenta
               </Link>
               <Link 
                 href="/the-circle"
-                className="px-6 py-3.5 sm:px-8 sm:py-4 border border-hueso-seda/25 text-hueso-seda text-[9px] sm:text-[10px] uppercase tracking-widest hover:bg-hueso-seda hover:text-verde-ebano transition-all duration-500 text-center"
+                className="px-6 py-3.5 sm:px-8 sm:py-4 border border-hueso-seda/25 text-hueso-seda text-[11px] sm:text-xs uppercase tracking-widest hover:bg-hueso-seda hover:text-verde-ebano transition-all duration-500 text-center"
               >
                 Conocer The Circle
               </Link>
@@ -210,12 +210,12 @@ export default function AtelierPage() {
         <div className="luxury-container relative z-10 flex flex-col gap-6">
           <div className="flex items-center gap-2">
             <Crown size={12} className="text-oro-antiguo animate-pulse" />
-            <span className="text-[10px] uppercase tracking-[0.8em] text-oro-antiguo">Espacio Exclusivo The Circle</span>
+            <span className="text-xs uppercase tracking-[0.8em] text-oro-antiguo">Espacio Exclusivo The Circle</span>
           </div>
           <h1 className="text-5xl md:text-8xl font-display text-verde-ebano leading-none">
             El Atelier
           </h1>
-          <p className="text-sm md:text-base text-verde-ebano/70 max-w-2xl leading-relaxed font-light mt-2">
+          <p className="text-base md:text-base text-verde-ebano/70 max-w-2xl leading-relaxed font-light mt-2">
             Bienvenido al espacio exclusivo de entrega y muestra del Atelier. Aquí encontrarás tus piezas en custodia, colecciones especiales y la posibilidad de agendar tu próxima visita.
           </p>
         </div>
@@ -229,9 +229,9 @@ export default function AtelierPage() {
             {/* Left side: Pending Deliveries */}
             <div className="lg:col-span-6 flex flex-col gap-10">
               <div className="flex flex-col gap-2">
-                <span className="text-[9px] uppercase tracking-widest text-oro-antiguo">Adquisiciones de Autor</span>
+                <span className="text-[11px] uppercase tracking-widest text-oro-antiguo">Adquisiciones de Autor</span>
                 <h2 className="text-3xl font-display text-verde-ebano">Piezas Especiales en Custodia</h2>
-                <p className="text-xs text-verde-ebano/60 font-light mt-1">
+                <p className="text-sm text-verde-ebano/60 font-light mt-1">
                   A continuación se enlistan las piezas que actualmente están en nuestro Atelier, listas para ser recolectadas bajo cita presencial.
                 </p>
               </div>
@@ -247,8 +247,8 @@ export default function AtelierPage() {
                     <div className="flex-1 flex flex-col justify-between gap-4">
                       <div className="flex flex-col gap-1">
                         <div className="flex justify-between items-start gap-4">
-                          <h3 className="text-xs uppercase tracking-widest font-semibold text-verde-ebano">{item.productName}</h3>
-                          <span className={`text-[8px] uppercase tracking-wider px-2 py-1 ${
+                          <h3 className="text-sm uppercase tracking-widest font-semibold text-verde-ebano">{item.productName}</h3>
+                          <span className={`text-[10px] uppercase tracking-wider px-2 py-1 ${
                             item.status.includes("Listo") 
                               ? "bg-verde-ebano text-hueso-seda" 
                               : "border border-oro-antiguo text-oro-antiguo"
@@ -256,12 +256,12 @@ export default function AtelierPage() {
                             {item.status}
                           </span>
                         </div>
-                        <span className="text-[9px] text-verde-ebano/40 font-mono">{item.sku}</span>
-                        <p className="text-[10px] text-verde-ebano/70 leading-relaxed mt-2">{item.description}</p>
+                        <span className="text-[11px] text-verde-ebano/40 font-mono">{item.sku}</span>
+                        <p className="text-xs text-verde-ebano/70 leading-relaxed mt-2">{item.description}</p>
                       </div>
                       
                       {item.status.includes("Listo") && (
-                        <div className="flex items-center gap-1.5 text-[9px] uppercase tracking-widest text-oro-profundo font-semibold">
+                        <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-oro-profundo font-semibold">
                           <ShieldCheck size={12} /> Custodiado en Bóveda Principal
                         </div>
                       )}
@@ -274,9 +274,9 @@ export default function AtelierPage() {
             {/* Right side: Appointment Scheduler */}
             <div className="lg:col-span-6 bg-white border border-verde-ebano/15 p-8 md:p-12 flex flex-col gap-8 shadow-sm">
               <div className="flex flex-col gap-2">
-                <span className="text-[9px] uppercase tracking-widest text-oro-antiguo">El Ritual de Recolección</span>
+                <span className="text-[11px] uppercase tracking-widest text-oro-antiguo">El Ritual de Recolección</span>
                 <h2 className="text-2xl font-display text-verde-ebano">Agendar Cita en Atelier</h2>
-                <p className="text-[10px] text-verde-ebano/50 leading-relaxed">
+                <p className="text-xs text-verde-ebano/50 leading-relaxed">
                   Evite superposiciones en nuestras mesas de exhibición. Cada cita cuenta con la atención exclusiva de un maestro joyero. Ubicación: San Miguel de Allende, Gto.
                 </p>
               </div>
@@ -292,11 +292,11 @@ export default function AtelierPage() {
                     className="flex flex-col gap-6"
                   >
                     <div className="flex flex-col gap-2">
-                      <label className="text-[9px] uppercase tracking-[0.2em] text-verde-ebano/60">Recurso/Mesa de Atención</label>
+                      <label className="text-[11px] uppercase tracking-[0.2em] text-verde-ebano/60">Recurso/Mesa de Atención</label>
                       <select 
                         value={selectedRecursoId} 
                         onChange={(e) => setSelectedRecursoId(e.target.value)}
-                        className="bg-transparent border-b border-verde-ebano/15 py-3 text-xs text-verde-ebano outline-none focus:border-oro-antiguo transition-colors cursor-pointer w-full"
+                        className="bg-transparent border-b border-verde-ebano/15 py-3 text-sm text-verde-ebano outline-none focus:border-oro-antiguo transition-colors cursor-pointer w-full"
                       >
                         {recursos.length > 0 ? (
                           recursos.map((rec) => (
@@ -311,35 +311,35 @@ export default function AtelierPage() {
                     </div>
 
                     <div className="flex flex-col gap-2">
-                      <label className="text-[9px] uppercase tracking-[0.2em] text-verde-ebano/60">Motivo de la Visita</label>
+                      <label className="text-[11px] uppercase tracking-[0.2em] text-verde-ebano/60">Motivo de la Visita</label>
                       <input 
                         type="text"
                         required
                         value={motivoVisita}
                         onChange={(e) => setMotivoVisita(e.target.value)}
                         placeholder="Ej: Recolección de pieza de autor"
-                        className="bg-transparent border-b border-verde-ebano/15 py-3 text-xs text-verde-ebano outline-none focus:border-oro-antiguo transition-colors"
+                        className="bg-transparent border-b border-verde-ebano/15 py-3 text-sm text-verde-ebano outline-none focus:border-oro-antiguo transition-colors"
                       />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div className="flex flex-col gap-2">
-                        <label className="text-[9px] uppercase tracking-[0.2em] text-verde-ebano/60">Seleccionar Fecha</label>
+                        <label className="text-[11px] uppercase tracking-[0.2em] text-verde-ebano/60">Seleccionar Fecha</label>
                         <input 
                           type="date" 
                           required
                           value={selectedDate}
                           onChange={(e) => setSelectedDate(e.target.value)}
-                          className="bg-transparent border-b border-verde-ebano/15 py-3 text-xs text-verde-ebano outline-none focus:border-oro-antiguo transition-colors"
+                          className="bg-transparent border-b border-verde-ebano/15 py-3 text-sm text-verde-ebano outline-none focus:border-oro-antiguo transition-colors"
                         />
                       </div>
                       <div className="flex flex-col gap-2">
-                        <label className="text-[9px] uppercase tracking-[0.2em] text-verde-ebano/60">Hora de Cita</label>
+                        <label className="text-[11px] uppercase tracking-[0.2em] text-verde-ebano/60">Hora de Cita</label>
                         <select 
                           required
                           value={selectedTime}
                           onChange={(e) => setSelectedTime(e.target.value)}
-                          className="bg-transparent border-b border-verde-ebano/15 py-3 text-xs text-verde-ebano outline-none focus:border-oro-antiguo transition-colors cursor-pointer"
+                          className="bg-transparent border-b border-verde-ebano/15 py-3 text-sm text-verde-ebano outline-none focus:border-oro-antiguo transition-colors cursor-pointer"
                         >
                           <option value="">Seleccione hora...</option>
                           <option>10:00 AM</option>
@@ -352,14 +352,14 @@ export default function AtelierPage() {
                     </div>
 
                     {bookingError && (
-                      <div className="text-[10px] text-red-600 bg-red-50 border border-red-200/50 p-4 leading-relaxed uppercase tracking-wide">
+                      <div className="text-xs text-red-600 bg-red-50 border border-red-200/50 p-4 leading-relaxed uppercase tracking-wide">
                         {bookingError}
                       </div>
                     )}
 
                     <div className="flex items-start gap-3 bg-hueso-seda/30 p-4 border border-verde-ebano/5 mt-2">
                       <MapPin size={14} className="text-oro-antiguo flex-shrink-0 mt-0.5" />
-                      <p className="text-[9px] text-verde-ebano/60 leading-relaxed uppercase tracking-tighter">
+                      <p className="text-[11px] text-verde-ebano/60 leading-relaxed uppercase tracking-tighter">
                         Flagship Atelier Boutique: Calle Real de Correo #18, Zona Centro, San Miguel de Allende, México.
                       </p>
                     </div>
@@ -367,7 +367,7 @@ export default function AtelierPage() {
                     <button 
                       type="submit"
                       disabled={bookingLoading}
-                      className="w-full bg-verde-ebano text-hueso-seda hover:bg-oro-antiguo hover:text-verde-ebano font-medium text-[10px] uppercase tracking-widest py-4 transition-all duration-500 flex items-center justify-center gap-2"
+                      className="w-full bg-verde-ebano text-hueso-seda hover:bg-oro-antiguo hover:text-verde-ebano font-medium text-xs uppercase tracking-widest py-4 transition-all duration-500 flex items-center justify-center gap-2"
                     >
                       {bookingLoading ? (
                         <div className="w-4 h-4 border-2 border-hueso-seda border-t-transparent rounded-full animate-spin" />
@@ -387,14 +387,14 @@ export default function AtelierPage() {
                       <Check size={18} />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <h3 className="text-sm uppercase tracking-widest font-semibold text-verde-ebano">Cita Registrada con Éxito</h3>
-                      <p className="text-[10px] text-verde-ebano/70 leading-relaxed max-w-sm">
+                      <h3 className="text-base uppercase tracking-widest font-semibold text-verde-ebano">Cita Registrada con Éxito</h3>
+                      <p className="text-xs text-verde-ebano/70 leading-relaxed max-w-sm">
                         Su mesa en <strong className="font-semibold">{selectedTable}</strong> ha sido reservada para el <strong className="font-semibold">{selectedDate}</strong> a las <strong className="font-semibold">{selectedTime}</strong>. Un asesor gemólogo le asistirá personalmente.
                       </p>
                     </div>
                     <button 
                       onClick={() => setIsBooked(false)}
-                      className="text-[9px] uppercase tracking-widest text-oro-antiguo hover:underline"
+                      className="text-[11px] uppercase tracking-widest text-oro-antiguo hover:underline"
                     >
                       Agendar otra Cita
                     </button>
@@ -413,13 +413,13 @@ export default function AtelierPage() {
         <div className="luxury-container flex flex-col gap-16">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-verde-ebano/10 pb-8">
             <div className="flex flex-col gap-2 max-w-xl">
-              <span className="text-[9px] uppercase tracking-widest text-oro-antiguo">Curaduría Especial</span>
+              <span className="text-[11px] uppercase tracking-widest text-oro-antiguo">Curaduría Especial</span>
               <h2 className="text-3xl md:text-4xl font-display text-verde-ebano">Muestra de Atelier</h2>
-              <p className="text-xs text-verde-ebano/60 leading-relaxed font-light mt-1">
+              <p className="text-sm text-verde-ebano/60 leading-relaxed font-light mt-1">
                 Catálogo exclusivo de piezas de autor y colecciones limitadas disponibles en exhibición privada dentro de nuestro Atelier.
               </p>
             </div>
-            <span className="text-[10px] uppercase tracking-widest font-medium border border-oro-antiguo/30 px-3 py-1.5 text-oro-antiguo">
+            <span className="text-xs uppercase tracking-widest font-medium border border-oro-antiguo/30 px-3 py-1.5 text-oro-antiguo">
               {atelierProducts.length} Piezas en Atelier
             </span>
           </div>
@@ -438,12 +438,12 @@ export default function AtelierPage() {
         
         <div className="luxury-container relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           <div className="lg:col-span-5 flex flex-col gap-8">
-            <span className="text-[9px] uppercase tracking-[0.8em] text-oro-antiguo">Santuario Físico</span>
+            <span className="text-[11px] uppercase tracking-[0.8em] text-oro-antiguo">Santuario Físico</span>
             <h2 className="text-3xl md:text-5xl font-display text-hueso-seda leading-tight">San Miguel de Allende</h2>
-            <p className="text-xs leading-relaxed text-hueso-seda/70 font-light">
+            <p className="text-sm leading-relaxed text-hueso-seda/70 font-light">
               Nuestra sede se aloja en una casona colonial del siglo XVIII, donde el diseño digital interactivo se funde con los muros de cantera y los árboles de olivo. Un espacio de silencio acústico y visual diseñado para que su atención repose únicamente en la armonía geométrica del metal y las gemas preciosas.
             </p>
-            <div className="flex flex-col gap-4 text-[9px] uppercase tracking-widest text-oro-antiguo/90 font-light">
+            <div className="flex flex-col gap-4 text-[11px] uppercase tracking-widest text-oro-antiguo/90 font-light">
               <div className="flex items-center gap-3">
                 <MapPin size={12} /> San Miguel de Allende, Centro Histórico
               </div>
@@ -455,7 +455,7 @@ export default function AtelierPage() {
           <div className="lg:col-span-7 aspect-video relative bg-[#121811] border border-oro-antiguo/10 flex items-center justify-center overflow-hidden">
             <div className="text-center flex flex-col items-center gap-3 p-8">
               <Compass size={32} strokeWidth={0.8} className="text-oro-antiguo/40 animate-pulse" />
-              <span className="text-[8px] uppercase tracking-[0.4em] text-hueso-seda/50">Cinemática del Atelier en Vivo</span>
+              <span className="text-[10px] uppercase tracking-[0.4em] text-hueso-seda/50">Cinemática del Atelier en Vivo</span>
             </div>
           </div>
         </div>

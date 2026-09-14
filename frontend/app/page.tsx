@@ -23,10 +23,10 @@ const ShortPhilosophySection = () => (
         viewport={{ once: true }}
       >
         <h2 className="text-xl sm:text-2xl md:text-3xl font-display text-verde-ebano mb-6 md:mb-10">Nuestra Filosofía</h2>
-        <p className="text-sm sm:text-lg md:text-2xl lg:text-3xl text-verde-ebano font-sans font-light leading-relaxed max-w-4xl mx-auto uppercase tracking-[0.05em] md:tracking-[0.1em]">
+        <p className="text-base sm:text-lg md:text-2xl lg:text-3xl text-verde-ebano font-sans font-light leading-relaxed max-w-4xl mx-auto uppercase tracking-[0.05em] md:tracking-[0.1em]">
           &ldquo;CREAMOS PARA QUE PUEDAS EXPRESAR LO QUE SIENTES. CADA PIEZA ES UNA FORMA DE AMOR, IDENTIDAD Y CONEXIÓN CON QUIENES MÁS IMPORTAN.&rdquo;
         </p>
-        <span className="block mt-6 md:mt-10 text-[9px] md:text-xs tracking-[0.3em] md:tracking-[0.5em] text-oro-antiguo font-sans uppercase">
+        <span className="block mt-6 md:mt-10 text-[11px] md:text-sm tracking-[0.3em] md:tracking-[0.5em] text-oro-antiguo font-sans uppercase">
           - Minerva Alcaraz
         </span>
         <div className="mt-8 md:mt-12">
@@ -53,7 +53,7 @@ const LongPhilosophySection = () => (
         <p className="text-base sm:text-lg md:text-2xl lg:text-4xl text-verde-ebano font-sans font-light leading-relaxed max-w-5xl mx-auto uppercase tracking-[0.05em] md:tracking-[0.1em]">
           &ldquo;CREEMOS QUE LA JOYERÍA ES UNA FORMA ESENCIAL DE CONEXIÓN Y EXPRESIÓN PERSONAL. CADA PIEZA QUE CREAMOS NACE DE UN PROCESO ARTESANAL COMPARTIDO, ELABORADA ENTRE NOSOTROS Y TÚ.&rdquo;
         </p>
-        <span className="block mt-8 md:mt-12 text-[10px] md:text-xs tracking-[0.3em] md:tracking-[0.5em] text-oro-antiguo font-sans uppercase">
+        <span className="block mt-8 md:mt-12 text-xs md:text-sm tracking-[0.3em] md:tracking-[0.5em] text-oro-antiguo font-sans uppercase">
           - Minerva Alcaraz
         </span>
         <div className="mt-10 md:mt-20">
@@ -104,15 +104,15 @@ export default function Home() {
       {/* Catalog Section — top padding ensures clear separation from CollectionGrid on all screens */}
       <section className="w-full px-4 md:px-12 lg:px-24 pt-16 md:pt-24 pb-16 md:pb-24 bg-hueso-seda relative z-10">
         <div className="flex flex-col items-center mb-10 md:mb-16 text-center">
-          <span className="text-[10px] sm:text-sm md:text-base uppercase tracking-[0.3em] sm:tracking-[0.6em] text-verde-ebano/60 mb-3 md:mb-4">Catálogo Exclusivo</span>
+          <span className="text-xs sm:text-base md:text-base uppercase tracking-[0.3em] sm:tracking-[0.6em] text-verde-ebano/60 mb-3 md:mb-4">Catálogo Exclusivo</span>
           <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-display text-verde-ebano mb-4 md:mb-6">Piezas Únicas &amp; Sets</h2>
-          <p className="text-sm md:text-lg lg:text-xl text-verde-ebano/80 italic font-light max-w-2xl px-2">
+          <p className="text-base md:text-lg lg:text-xl text-verde-ebano/80 italic font-light max-w-2xl px-2">
             &ldquo;Descubre nuestra curaduría de objetos preciosos. Cada joya es una obra irrepetible. Adquiérela como pieza individual o completa tu legado con nuestros sets completos diseñados en perfecta armonía.&rdquo;
           </p>
         </div>
         
         {isLoading ? (
-           <div className="w-full flex justify-center py-20 text-xs uppercase tracking-widest text-verde-ebano/50">Cargando catálogo...</div>
+           <div className="w-full flex justify-center py-20 text-sm uppercase tracking-widest text-verde-ebano/50">Cargando catálogo...</div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             {featuredProducts.map((product) => (

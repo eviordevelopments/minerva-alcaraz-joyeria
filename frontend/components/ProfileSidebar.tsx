@@ -119,10 +119,10 @@ export function ProfileSidebar({ circleActive: propCircleActive }: ProfileSideba
           </div>
 
           <div className="flex flex-col gap-1 flex-1 min-w-0">
-            <p className={`text-sm font-medium truncate leading-tight ${textPrimary}`}>
+            <p className={`text-base font-medium truncate leading-tight ${textPrimary}`}>
               {user.displayName || user.fullName}
             </p>
-            <p className={`text-[9px] uppercase tracking-widest truncate ${textEmail}`}>
+            <p className={`text-[11px] uppercase tracking-widest truncate ${textEmail}`}>
               {user.email}
             </p>
             {/* Tier badge */}
@@ -140,10 +140,10 @@ export function ProfileSidebar({ circleActive: propCircleActive }: ProfileSideba
         {isCircle && (
           <div className={`flex flex-col gap-2 pt-3 border-t ${border}`}>
             <div className="flex justify-between items-center">
-              <span className={`text-[8px] uppercase tracking-[0.4em] ${textMuted}`}>
+              <span className={`text-[10px] uppercase tracking-[0.4em] ${textMuted}`}>
                 Puntos de Legado
               </span>
-              <span className={`text-[10px] font-medium ${gold}`}>
+              <span className={`text-xs font-medium ${gold}`}>
                 {pts.toLocaleString("es-MX")}
               </span>
             </div>
@@ -161,7 +161,7 @@ export function ProfileSidebar({ circleActive: propCircleActive }: ProfileSideba
 
       {/* ── Navigation ───────────────────────────────────────────────────── */}
       <nav className="flex flex-col gap-1">
-        <p className={`text-[8px] uppercase tracking-[0.5em] px-1 mb-2 ${textMuted}`}>
+        <p className={`text-[10px] uppercase tracking-[0.5em] px-1 mb-2 ${textMuted}`}>
           Mi Espacio
         </p>
 
@@ -203,7 +203,7 @@ export function ProfileSidebar({ circleActive: propCircleActive }: ProfileSideba
       {/* ── Logout ───────────────────────────────────────────────────────── */}
       <button
         onClick={handleLogout}
-        className={`flex items-center gap-3 px-3 py-2.5 text-[9px] uppercase tracking-[0.4em] transition-colors group ${
+        className={`flex items-center gap-3 px-3 py-2.5 text-[11px] uppercase tracking-[0.4em] transition-colors group ${
           circleActive
             ? "text-[#E5DBD6]/25 hover:text-red-400"
             : "text-[#2C3729]/30 hover:text-red-400"
@@ -264,7 +264,7 @@ function NavLink({
             : ""
         }
       />
-      <span className={`text-[9px] uppercase tracking-[0.3em] flex-1 ${active ? "font-medium" : ""}`}>
+      <span className={`text-[11px] uppercase tracking-[0.3em] flex-1 ${active ? "font-medium" : ""}`}>
         {item.label}
       </span>
       <ChevronRight

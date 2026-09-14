@@ -37,7 +37,7 @@ export const BraceletSizeGuideModal: React.FC<BraceletSizeGuideModalProps> = ({
               </div>
               <div>
                 <h2 className="text-xl sm:text-2xl font-display text-[#2C3729]">Guía para Medida de Pulseras</h2>
-                <p className="text-[10px] uppercase tracking-[0.25em] text-[#2C3729]/60">Minerva Alcaraz · Medidas Oficiales</p>
+                <p className="text-xs uppercase tracking-[0.25em] text-[#2C3729]/60">Minerva Alcaraz · Medidas Oficiales</p>
               </div>
             </div>
             <button
@@ -53,7 +53,7 @@ export const BraceletSizeGuideModal: React.FC<BraceletSizeGuideModalProps> = ({
           <div className="p-6 overflow-y-auto flex-1 space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">
               <h3 className="text-2xl font-display text-[#2C3729]">Encuentra tu medida perfecta</h3>
-              <p className="text-sm font-light text-[#2C3729]/80 leading-relaxed">
+              <p className="text-base font-light text-[#2C3729]/80 leading-relaxed">
                 Nuestras pulseras están diseñadas para ajustarse elegantemente a la muñeca. Utiliza estas guías visuales para determinar la medida ideal que te brinde comodidad y sofisticación.
               </p>
             </div>
@@ -98,11 +98,11 @@ export const BraceletSizeGuideModal: React.FC<BraceletSizeGuideModalProps> = ({
           </div>
 
           {/* Footer */}
-          <div className="border-t border-[#2C3729]/15 bg-[#2C3729]/5 px-6 py-3 flex items-center justify-between text-xs text-[#2C3729]/70 shrink-0">
+          <div className="border-t border-[#2C3729]/15 bg-[#2C3729]/5 px-6 py-3 flex items-center justify-between text-sm text-[#2C3729]/70 shrink-0">
             <span>Si tienes dudas con tu medida, nuestro Atelier te asesora personalmente.</span>
             <button
               onClick={onClose}
-              className="px-5 py-2 bg-[#2C3729] text-[#E5DBD6] uppercase text-[10px] tracking-widest hover:bg-[#CBB67B] hover:text-[#2C3729] transition-colors"
+              className="px-5 py-2 bg-[#2C3729] text-[#E5DBD6] uppercase text-xs tracking-widest hover:bg-[#CBB67B] hover:text-[#2C3729] transition-colors"
             >
               Entendido
             </button>

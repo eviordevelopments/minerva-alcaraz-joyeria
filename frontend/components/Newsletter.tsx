@@ -32,9 +32,9 @@ export const Newsletter = () => {
             className="flex flex-col items-center gap-6"
           >
             <Mail className="text-oro-profundo" size={28} strokeWidth={1} />
-            <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.4em] sm:tracking-[0.8em] text-oro-profundo font-semibold">La Cofradía</span>
+            <span className="text-[11px] sm:text-xs uppercase tracking-[0.4em] sm:tracking-[0.8em] text-oro-profundo font-semibold">La Cofradía</span>
             <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-display italic px-4 !text-verde-ebano">Únete a Nuestra Herencia</h2>
-            <p className="text-xs sm:text-sm md:text-base text-verde-ebano/70 font-light leading-relaxed max-w-2xl uppercase tracking-[0.1em] sm:tracking-[0.2em] px-4">
+            <p className="text-sm sm:text-base md:text-base text-verde-ebano/70 font-light leading-relaxed max-w-2xl uppercase tracking-[0.1em] sm:tracking-[0.2em] px-4">
               Recibe invitaciones exclusivas a rituales de diseño privado y sé el primero en descubrir nuestras piezas únicas de edición limitada.
             </p>
           </motion.div>
@@ -53,17 +53,17 @@ export const Newsletter = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="TU CORREO ELECTRÓNICO" 
-                  className="bg-transparent w-full sm:flex-1 text-[10px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.4em] text-verde-ebano outline-none placeholder:text-verde-ebano/35 py-2 text-center sm:text-left font-medium"
+                  className="bg-transparent w-full sm:flex-1 text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.4em] text-verde-ebano outline-none placeholder:text-verde-ebano/35 py-2 text-center sm:text-left font-medium"
                   required
                 />
                 <button 
                   type="submit"
-                  className="flex items-center gap-4 text-[9px] sm:text-[10px] uppercase tracking-[0.3em] sm:tracking-[0.5em] text-oro-profundo hover:text-verde-ebano transition-colors pb-2 whitespace-nowrap font-bold"
+                  className="flex items-center gap-4 text-[11px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] text-oro-profundo hover:text-verde-ebano transition-colors pb-2 whitespace-nowrap font-bold"
                 >
                   Suscribirse <ArrowRight size={16} strokeWidth={1} />
                 </button>
               </div>
-              <p className="text-[9px] text-verde-ebano/40 uppercase tracking-widest mt-6 text-left leading-relaxed">
+              <p className="text-[11px] text-verde-ebano/40 uppercase tracking-widest mt-6 text-left leading-relaxed">
                 Al suscribirte, aceptas nuestra política de privacidad y el tratamiento de tus datos para fines exclusivos de la marca.
               </p>
             </motion.form>
@@ -74,7 +74,7 @@ export const Newsletter = () => {
               className="bg-verde-ebano/5 border border-oro-profundo/30 p-12 mt-8 text-center"
             >
               <h3 className="text-xl font-display text-oro-profundo mb-4 italic">Bienvenido a la Herencia</h3>
-              <p className="text-xs text-verde-ebano/85 uppercase tracking-[0.2em]">
+              <p className="text-sm text-verde-ebano/85 uppercase tracking-[0.2em]">
                 Un correo de confirmación ha sido enviado a tu estancia digital.
               </p>
             </motion.div>

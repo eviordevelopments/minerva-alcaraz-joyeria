@@ -258,7 +258,7 @@ export default function PerfilPage() {
             className="fixed bottom-6 left-4 right-4 sm:left-auto sm:right-8 sm:max-w-md z-50 bg-[#2C3729] text-[#E5DBD6] border border-[#CBB67B]/40 px-5 py-4 flex items-center gap-3 shadow-2xl"
           >
             <Sparkles size={14} className="text-[#CBB67B] shrink-0 animate-spin" />
-            <p className="text-[10px] uppercase tracking-widest leading-relaxed">{toastMessage}</p>
+            <p className="text-xs uppercase tracking-widest leading-relaxed">{toastMessage}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -288,7 +288,7 @@ export default function PerfilPage() {
             >
               <div className="flex items-center gap-3 flex-wrap">
                 <span
-                  className={`text-[9px] uppercase tracking-[0.7em] ${
+                  className={`text-[11px] uppercase tracking-[0.7em] ${
                     isCircleActive ? "text-[#CBB67B]" : "text-[#CBB67B]"
                   }`}
                 >
@@ -312,7 +312,7 @@ export default function PerfilPage() {
                 Bienvenid@, {user.displayName || user.fullName.split(" ")[0]}
               </h1>
               <p
-                className={`text-xs font-light italic ${
+                className={`text-sm font-light italic ${
                   isCircleActive ? "text-[#E5DBD6]/50" : "text-[#2C3729]/50"
                 }`}
               >
@@ -348,7 +348,7 @@ export default function PerfilPage() {
                       className={`${isCircleActive ? "text-[#CBB67B] animate-pulse" : "text-[#2C3729]/30"}`}
                     />
                     <span
-                      className={`text-[9px] uppercase tracking-[0.6em] font-medium ${
+                      className={`text-[11px] uppercase tracking-[0.6em] font-medium ${
                         isCircleActive ? "text-[#CBB67B]" : "text-[#2C3729]/40"
                       }`}
                     >
@@ -367,7 +367,7 @@ export default function PerfilPage() {
                 {/* Points badge */}
                 <div className="flex flex-row sm:flex-col sm:items-end gap-2 sm:gap-1">
                   <span
-                    className={`text-[8px] uppercase tracking-widest ${
+                    className={`text-[10px] uppercase tracking-widest ${
                       isCircleActive ? "text-[#E5DBD6]/40" : "text-[#2C3729]/40"
                     }`}
                   >
@@ -386,12 +386,12 @@ export default function PerfilPage() {
               {/* Progress bar */}
               <div className="flex flex-col gap-3 z-10">
                 <div
-                  className={`flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 text-[9px] uppercase tracking-widest ${
+                  className={`flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 text-[11px] uppercase tracking-widest ${
                     isCircleActive ? "text-[#E5DBD6]/40" : "text-[#2C3729]/40"
                   }`}
                 >
                   <span>Progreso de Nivel</span>
-                  <span className="text-[8px]">
+                  <span className="text-[10px]">
                     Siguiente: {tierMeta.nextTier} ({points}/{targetPoints} pts)
                   </span>
                 </div>
@@ -410,7 +410,7 @@ export default function PerfilPage() {
                 </div>
 
                 <p
-                  className={`text-[10px] font-light italic leading-relaxed ${
+                  className={`text-xs font-light italic leading-relaxed ${
                     isCircleActive ? "text-[#E5DBD6]/55" : "text-[#2C3729]/45"
                   }`}
                 >
@@ -426,14 +426,14 @@ export default function PerfilPage() {
               >
                 <div className="flex flex-col gap-1">
                   <span
-                    className={`text-[8px] uppercase tracking-widest ${
+                    className={`text-[10px] uppercase tracking-widest ${
                       isCircleActive ? "text-[#CBB67B]" : "text-[#2C3729]/40"
                     }`}
                   >
                     Sandbox de Simulación
                   </span>
                   <p
-                    className={`text-[10px] font-light ${
+                    className={`text-xs font-light ${
                       isCircleActive ? "text-[#E5DBD6]/35" : "text-[#2C3729]/35"
                     }`}
                   >
@@ -444,7 +444,7 @@ export default function PerfilPage() {
                 <button
                   onClick={handleSimulatePurchase}
                   disabled={isSimulating}
-                  className={`flex-shrink-0 text-[9px] uppercase tracking-[0.4em] px-7 py-3.5 transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 group ${
+                  className={`flex-shrink-0 text-[11px] uppercase tracking-[0.4em] px-7 py-3.5 transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 group ${
                     isCircleActive
                       ? "bg-[#CBB67B] text-[#2C3729] hover:bg-[#E5DBD6] hover:text-[#2C3729]"
                       : "bg-[#2C3729] text-[#E5DBD6] hover:bg-[#CBB67B] hover:text-[#2C3729]"
@@ -520,7 +520,7 @@ export default function PerfilPage() {
                       <div className="flex flex-col gap-1">
                         <div className="flex items-center gap-1">
                           <span
-                            className={`text-[9px] uppercase tracking-[0.25em] font-medium transition-colors ${
+                            className={`text-[11px] uppercase tracking-[0.25em] font-medium transition-colors ${
                               isCircleActive
                                 ? "text-[#E5DBD6] group-hover:text-[#CBB67B]"
                                 : "text-[#2C3729] group-hover:text-[#CBB67B]"
@@ -531,7 +531,7 @@ export default function PerfilPage() {
                           {isLocked && <Crown size={7} className="text-[#CBB67B]" />}
                         </div>
                         <p
-                          className={`text-[8px] sm:text-[9px] font-light leading-snug ${
+                          className={`text-[10px] sm:text-[11px] font-light leading-snug ${
                             isCircleActive ? "text-[#E5DBD6]/35" : "text-[#2C3729]/40"
                           }`}
                         >
@@ -568,7 +568,7 @@ export default function PerfilPage() {
                   }`}
                 >
                   <h3
-                    className={`text-[10px] uppercase tracking-[0.5em] ${
+                    className={`text-xs uppercase tracking-[0.5em] ${
                       isCircleActive ? "text-[#E5DBD6]/40" : "text-[#2C3729]/40"
                     }`}
                   >
@@ -576,7 +576,7 @@ export default function PerfilPage() {
                   </h3>
                   <Link
                     href="/perfil/pedidos"
-                    className={`text-[8px] uppercase tracking-widest transition-colors ${
+                    className={`text-[10px] uppercase tracking-widest transition-colors ${
                       isCircleActive
                         ? "text-[#CBB67B] hover:text-[#E5DBD6]"
                         : "text-[#CBB67B] hover:text-[#2C3729]"
@@ -598,7 +598,7 @@ export default function PerfilPage() {
                       className={isCircleActive ? "text-[#E5DBD6]/20" : "text-[#2C3729]/20"}
                     />
                     <p
-                      className={`text-[10px] uppercase tracking-widest ${
+                      className={`text-xs uppercase tracking-widest ${
                         isCircleActive ? "text-[#E5DBD6]/40" : "text-[#2C3729]/40"
                       }`}
                     >
@@ -606,7 +606,7 @@ export default function PerfilPage() {
                     </p>
                     <Link
                       href="/shop"
-                      className="text-[9px] uppercase tracking-[0.4em] text-[#CBB67B] border-b border-[#CBB67B]/30 pb-0.5 hover:border-[#CBB67B] transition-colors"
+                      className="text-[11px] uppercase tracking-[0.4em] text-[#CBB67B] border-b border-[#CBB67B]/30 pb-0.5 hover:border-[#CBB67B] transition-colors"
                     >
                       Explorar el Atelier
                     </Link>
@@ -624,14 +624,14 @@ export default function PerfilPage() {
                       >
                         <div className="flex flex-col gap-1">
                           <span
-                            className={`text-[9px] uppercase tracking-widest font-medium ${
+                            className={`text-[11px] uppercase tracking-widest font-medium ${
                               isCircleActive ? "text-[#E5DBD6]" : "text-[#2C3729]"
                             }`}
                           >
                             {order.order_number}
                           </span>
                           <span
-                            className={`text-[8px] ${
+                            className={`text-[10px] ${
                               isCircleActive ? "text-[#E5DBD6]/40" : "text-[#2C3729]/40"
                             }`}
                           >
@@ -643,7 +643,7 @@ export default function PerfilPage() {
                           </span>
                         </div>
                         <span
-                          className={`text-xs font-display ${
+                          className={`text-sm font-display ${
                             isCircleActive ? "text-[#CBB67B]" : "text-[#2C3729]"
                           }`}
                         >
@@ -672,7 +672,7 @@ export default function PerfilPage() {
                   }`}
                 >
                   <h3
-                    className={`text-[10px] uppercase tracking-[0.5em] ${
+                    className={`text-xs uppercase tracking-[0.5em] ${
                       isCircleActive ? "text-[#E5DBD6]/40" : "text-[#2C3729]/40"
                     }`}
                   >
@@ -680,7 +680,7 @@ export default function PerfilPage() {
                   </h3>
                   <Link
                     href="/perfil/cuenta"
-                    className={`text-[8px] uppercase tracking-widest transition-colors ${
+                    className={`text-[10px] uppercase tracking-widest transition-colors ${
                       isCircleActive
                         ? "text-[#CBB67B] hover:text-[#E5DBD6]"
                         : "text-[#CBB67B] hover:text-[#2C3729]"
@@ -705,7 +705,7 @@ export default function PerfilPage() {
                       }`}
                     >
                       <span
-                        className={`text-[8px] uppercase tracking-widest ${
+                        className={`text-[10px] uppercase tracking-widest ${
                           isCircleActive ? "text-[#E5DBD6]/35" : "text-[#2C3729]/40"
                         }`}
                       >
@@ -725,13 +725,13 @@ export default function PerfilPage() {
                 >
                   <div className="flex items-center gap-2 text-[#CBB67B]">
                     <MapPin size={10} strokeWidth={1.5} />
-                    <span className="text-[8px] uppercase tracking-widest font-medium">
+                    <span className="text-[10px] uppercase tracking-widest font-medium">
                       Destino de Envío Principal
                     </span>
                   </div>
                   {address ? (
                     <p
-                      className={`text-[10px] leading-relaxed font-light ${
+                      className={`text-xs leading-relaxed font-light ${
                         isCircleActive ? "text-[#E5DBD6]/50" : "text-[#2C3729]/50"
                       }`}
                     >
@@ -744,7 +744,7 @@ export default function PerfilPage() {
                     </p>
                   ) : (
                     <p
-                      className={`text-[9px] italic ${
+                      className={`text-[11px] italic ${
                         isCircleActive ? "text-[#E5DBD6]/30" : "text-[#2C3729]/30"
                       }`}
                     >
@@ -779,7 +779,7 @@ export default function PerfilPage() {
                 }`}
               >
                 <span
-                  className={`text-[9px] uppercase tracking-[0.6em] ${
+                  className={`text-[11px] uppercase tracking-[0.6em] ${
                     isCircleActive ? "text-[#CBB67B]" : "text-[#CBB67B]"
                   }`}
                 >
@@ -793,7 +793,7 @@ export default function PerfilPage() {
                   Dentro de la Caja
                 </h3>
                 <p
-                  className={`text-[10px] font-light italic leading-relaxed mt-1 ${
+                  className={`text-xs font-light italic leading-relaxed mt-1 ${
                     isCircleActive ? "text-[#E5DBD6]/45" : "text-[#2C3729]/45"
                   }`}
                 >
@@ -819,7 +819,7 @@ export default function PerfilPage() {
                   ].map((item) => (
                     <li
                       key={item}
-                      className={`flex items-center gap-3 text-[9px] uppercase tracking-[0.25em] ${
+                      className={`flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] ${
                         isCircleActive ? "text-[#E5DBD6]/55" : "text-[#2C3729]/55"
                       }`}
                     >

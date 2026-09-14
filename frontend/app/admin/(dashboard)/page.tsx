@@ -127,14 +127,14 @@ export default function AdminDashboard() {
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-[#CBB67B]/20 pb-6">
         <div>
-          <span className="text-[10px] uppercase tracking-[0.4em] text-[#CBB67B]">
+          <span className="text-xs uppercase tracking-[0.4em] text-[#CBB67B]">
             Métricas Reales · Supabase Live
           </span>
           <h1 className="font-display-erp text-3xl sm:text-4xl text-[#E5DBD6] mt-2 font-bold">
             Dashboard
           </h1>
           {profileName && (
-            <p className="text-sm mt-1 text-[#8E9A8B]">Hola, {profileName}</p>
+            <p className="text-base mt-1 text-[#8E9A8B]">Hola, {profileName}</p>
           )}
         </div>
 
@@ -145,7 +145,7 @@ export default function AdminDashboard() {
               <button
                 key={p}
                 onClick={() => setPeriod(p)}
-                className={`text-[9px] uppercase tracking-widest px-4 py-2 transition-all ${
+                className={`text-[11px] uppercase tracking-widest px-4 py-2 transition-all ${
                   period === p
                     ? "bg-[#CBB67B] text-[#1F271D] font-bold"
                     : "text-[#8E9A8B] hover:text-[#E5DBD6]"
@@ -173,8 +173,8 @@ export default function AdminDashboard() {
         <div className="bg-red-950/60 border border-red-500/30 p-4 flex items-center gap-3 text-red-300">
           <AlertCircle size={16} className="flex-shrink-0" />
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-wider">Error al cargar datos</p>
-            <p className="text-[9px] opacity-80 mt-0.5">{error}</p>
+            <p className="text-xs font-bold uppercase tracking-wider">Error al cargar datos</p>
+            <p className="text-[11px] opacity-80 mt-0.5">{error}</p>
           </div>
         </div>
       )}
@@ -203,7 +203,7 @@ export default function AdminDashboard() {
               >
                 <div className="flex items-start justify-between">
                   <div className="flex flex-col text-left">
-                    <span className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">
+                    <span className="text-xs uppercase tracking-wider text-[#8E9A8B]">
                       {card.title}
                     </span>
                     <span className="text-2xl font-medium tracking-wider mt-2 font-mono text-[#E5DBD6]">
@@ -214,7 +214,7 @@ export default function AdminDashboard() {
                     <Icon size={16} className="text-[#CBB67B]" />
                   </div>
                 </div>
-                <div className="border-t border-[#CBB67B]/10 mt-4 pt-4 text-[9px] uppercase tracking-widest text-[#8E9A8B]">
+                <div className="border-t border-[#CBB67B]/10 mt-4 pt-4 text-[11px] uppercase tracking-widest text-[#8E9A8B]">
                   {card.description}
                 </div>
               </motion.div>
@@ -228,10 +228,10 @@ export default function AdminDashboard() {
         {/* Circle vs Standard visual */}
         <div className="lg:col-span-8 bg-[#1F271D] border border-[#CBB67B]/15 p-6 sm:p-8">
           <div className="flex flex-col gap-1 border-b border-[#CBB67B]/10 pb-4 mb-6">
-            <span className="text-[10px] uppercase tracking-wider text-[#CBB67B]">
+            <span className="text-xs uppercase tracking-wider text-[#CBB67B]">
               Composición del Directorio
             </span>
-            <h3 className="text-xs uppercase tracking-[0.2em] font-medium text-[#E5DBD6]">
+            <h3 className="text-sm uppercase tracking-[0.2em] font-medium text-[#E5DBD6]">
               Usuarios · The Circle vs Registrados
             </h3>
           </div>
@@ -261,7 +261,7 @@ export default function AdminDashboard() {
                 const pct = item.total > 0 ? Math.round((item.count / item.total) * 100) : 0;
                 return (
                   <div key={item.label} className="space-y-2">
-                    <div className="flex justify-between text-[10px] uppercase tracking-widest text-[#8E9A8B]">
+                    <div className="flex justify-between text-xs uppercase tracking-widest text-[#8E9A8B]">
                       <span>{item.label}</span>
                       <span className="font-mono text-[#E5DBD6] font-bold">
                         {item.count.toLocaleString("es-MX")} ({pct}%)
@@ -281,7 +281,7 @@ export default function AdminDashboard() {
 
               <div className="mt-4 bg-[#2C3729]/55 border border-[#CBB67B]/10 p-3 flex items-start gap-2">
                 <AlertCircle size={14} className="text-[#CBB67B] flex-shrink-0 mt-0.5" />
-                <p className="text-[10px] text-[#8E9A8B] leading-relaxed text-left">
+                <p className="text-xs text-[#8E9A8B] leading-relaxed text-left">
                   Datos en tiempo real desde Supabase. Actualizado:{" "}
                   <span className="text-[#E5DBD6]">
                     {lastRefresh.toLocaleTimeString("es-MX")}
@@ -303,10 +303,10 @@ export default function AdminDashboard() {
         {/* Recent Activity */}
         <div className="lg:col-span-4 bg-[#1F271D] border border-[#CBB67B]/15 p-6 flex flex-col">
           <div className="border-b border-[#CBB67B]/10 pb-4 mb-4">
-            <span className="text-[10px] uppercase tracking-wider text-[#CBB67B]">
+            <span className="text-xs uppercase tracking-wider text-[#CBB67B]">
               Canal de Interacciones
             </span>
-            <h3 className="text-xs uppercase tracking-[0.2em] font-medium mt-1 text-[#E5DBD6]">
+            <h3 className="text-sm uppercase tracking-[0.2em] font-medium mt-1 text-[#E5DBD6]">
               Actividad Reciente · Live
             </h3>
           </div>
@@ -319,7 +319,7 @@ export default function AdminDashboard() {
             ) : activity.length === 0 ? (
               <div className="text-center text-[#8E9A8B] py-8 flex flex-col items-center gap-3">
                 <Sparkles size={20} className="text-[#CBB67B]/30" />
-                <span className="text-[9px] uppercase tracking-widest">
+                <span className="text-[11px] uppercase tracking-widest">
                   Sin actividad reciente
                 </span>
               </div>
@@ -330,18 +330,18 @@ export default function AdminDashboard() {
                   className="text-left border-l-2 border-[#CBB67B] pl-3 py-1 space-y-1"
                 >
                   <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-semibold text-[#E5DBD6] tracking-wide flex items-center gap-1.5">
+                    <span className="text-xs font-semibold text-[#E5DBD6] tracking-wide flex items-center gap-1.5">
                       {act.isCircle && <ShieldCheck size={10} className="text-[#CBB67B]" />}
                       {act.user}
                     </span>
-                    <span className="text-[8px] text-[#8E9A8B] font-mono">
+                    <span className="text-[10px] text-[#8E9A8B] font-mono">
                       {formatRelativeTime(act.joinedAt)}
                     </span>
                   </div>
-                  <p className="text-[9px] text-[#8E9A8B] tracking-wider">
+                  <p className="text-[11px] text-[#8E9A8B] tracking-wider">
                     {act.action}
                   </p>
-                  <p className="text-[8px] text-[#CBB67B]/60 font-mono truncate">
+                  <p className="text-[10px] text-[#CBB67B]/60 font-mono truncate">
                     {act.email}
                   </p>
                 </div>
@@ -351,7 +351,7 @@ export default function AdminDashboard() {
 
           <button
             onClick={loadData}
-            className="mt-4 w-full py-3.5 border border-[#CBB67B]/30 hover:border-[#CBB67B] text-[9px] uppercase tracking-widest font-semibold transition-colors bg-[#2C3729] flex items-center justify-center gap-2 text-[#8E9A8B] hover:text-[#CBB67B]"
+            className="mt-4 w-full py-3.5 border border-[#CBB67B]/30 hover:border-[#CBB67B] text-[11px] uppercase tracking-widest font-semibold transition-colors bg-[#2C3729] flex items-center justify-center gap-2 text-[#8E9A8B] hover:text-[#CBB67B]"
           >
             <span>Actualizar Actividad</span>
             <ArrowUpRight size={12} />

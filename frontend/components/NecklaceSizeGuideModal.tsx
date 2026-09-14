@@ -36,7 +36,7 @@ export const NecklaceSizeGuideModal: React.FC<NecklaceSizeGuideModalProps> = ({
               </div>
               <div>
                 <h2 className="text-xl sm:text-2xl font-display text-[#2C3729]">Guía para Medida de Collares</h2>
-                <p className="text-[10px] uppercase tracking-[0.25em] text-[#2C3729]/60">Minerva Alcaraz · Medidas Oficiales</p>
+                <p className="text-xs uppercase tracking-[0.25em] text-[#2C3729]/60">Minerva Alcaraz · Medidas Oficiales</p>
               </div>
             </div>
             <button
@@ -56,7 +56,7 @@ export const NecklaceSizeGuideModal: React.FC<NecklaceSizeGuideModalProps> = ({
           <div className="p-6 overflow-y-auto flex-1 space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">
               <h3 className="text-2xl font-display text-[#2C3729]">La Caída Perfecta</h3>
-              <p className="text-sm font-light text-[#2C3729]/80 leading-relaxed">
+              <p className="text-base font-light text-[#2C3729]/80 leading-relaxed">
                 Descubre cómo lucirá tu collar. Nuestras guías de referencia muestran las diferentes longitudes y caídas en silueta para que elijas la proporción ideal que realce tu escote y atuendo.
               </p>
             </div>
@@ -83,11 +83,11 @@ export const NecklaceSizeGuideModal: React.FC<NecklaceSizeGuideModalProps> = ({
           </div>
 
           {/* Footer */}
-          <div className="border-t border-[#2C3729]/15 bg-[#2C3729]/5 px-6 py-3 flex items-center justify-between text-xs text-[#2C3729]/70">
+          <div className="border-t border-[#2C3729]/15 bg-[#2C3729]/5 px-6 py-3 flex items-center justify-between text-sm text-[#2C3729]/70">
             <span>Si tienes dudas con tu medida, nuestro Atelier te asesora personalmente.</span>
             <button
               onClick={onClose}
-              className="px-5 py-2 bg-[#2C3729] text-[#E5DBD6] uppercase text-[10px] tracking-widest hover:bg-[#CBB67B] hover:text-[#2C3729] transition-colors"
+              className="px-5 py-2 bg-[#2C3729] text-[#E5DBD6] uppercase text-xs tracking-widest hover:bg-[#CBB67B] hover:text-[#2C3729] transition-colors"
             >
               Entendido
             </button>

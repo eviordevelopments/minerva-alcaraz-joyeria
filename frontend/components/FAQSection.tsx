@@ -30,7 +30,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            <p className="pb-8 text-sm md:text-base text-verde-ebano/80 leading-loose max-w-4xl">
+            <p className="pb-8 text-base md:text-base text-verde-ebano/80 leading-loose max-w-4xl">
               {answer}
             </p>
           </motion.div>
@@ -99,13 +99,13 @@ export const FAQSection = () => {
           
           <div className="flex flex-col gap-4 md:gap-6 text-center">
             <h2 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-display text-verde-ebano">Preguntas Frecuentes</h2>
-            <p className="text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.3em] md:tracking-[0.6em] text-verde-ebano/60">Claridad y Confianza en su Experiencia</p>
+            <p className="text-xs sm:text-sm md:text-base uppercase tracking-[0.3em] md:tracking-[0.6em] text-verde-ebano/60">Claridad y Confianza en su Experiencia</p>
           </div>
 
         <div className="flex flex-col gap-16">
           {faqData.map((section, idx) => (
             <div key={idx} className="flex flex-col gap-8">
-              <h3 className="text-sm md:text-base uppercase tracking-[0.2em] text-oro-antiguo border-l-2 border-oro-antiguo pl-6">
+              <h3 className="text-base md:text-base uppercase tracking-[0.2em] text-oro-antiguo border-l-2 border-oro-antiguo pl-6">
                 {section.category}
               </h3>
               <div className="flex flex-col">
@@ -120,9 +120,9 @@ export const FAQSection = () => {
         <div className="mt-6 md:mt-8 bg-authority py-5 px-6 sm:py-6 sm:px-8 md:py-7 md:px-12 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-8 shadow-xl border border-oro-antiguo/20 max-w-4xl mx-auto w-full">
           <div className="flex flex-col gap-1.5 text-center sm:text-left">
             <h4 className="text-lg sm:text-xl md:text-2xl font-display text-oro-antiguo">¿Aún tiene dudas?</h4>
-            <p className="text-[9px] sm:text-[10px] md:text-xs uppercase tracking-[0.2em] text-hueso-seda/80">Nuestro Concierge Digital está a su disposición</p>
+            <p className="text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.2em] text-hueso-seda/80">Nuestro Concierge Digital está a su disposición</p>
           </div>
-          <LuxuryButton variant="gold" className="!py-2.5 !px-5 flex items-center justify-center gap-2.5 text-[10px] uppercase tracking-[0.2em] w-full sm:w-auto flex-shrink-0">
+          <LuxuryButton variant="gold" className="!py-2.5 !px-5 flex items-center justify-center gap-2.5 text-xs uppercase tracking-[0.2em] w-full sm:w-auto flex-shrink-0">
             <MessageCircle size={15} className="flex-shrink-0" /> Contactar a Concierge
           </LuxuryButton>
         </div>

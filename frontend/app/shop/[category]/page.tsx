@@ -73,7 +73,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
       <section className="pt-48 pb-32 luxury-container">
         {/* Category Header - Striking Titles */}
         <div className="flex flex-col gap-8 mb-24 max-w-4xl">
-          <span className="text-[10px] uppercase tracking-[1em] text-oro-antiguo">{data.subtitle}</span>
+          <span className="text-xs uppercase tracking-[1em] text-oro-antiguo">{data.subtitle}</span>
           <h1 className="text-6xl md:text-8xl font-display text-verde-ebano leading-none italic">
             {data.title}
           </h1>
@@ -102,10 +102,10 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
           <div className="relative z-10 flex flex-col items-center text-center gap-8 max-w-3xl mx-auto">
             <Sparkles className="text-oro-antiguo" size={32} strokeWidth={1} />
             <h2 className="text-4xl font-display uppercase tracking-widest italic">¿Busca una pieza irrepetible?</h2>
-            <p className="text-sm font-light opacity-70 leading-relaxed uppercase tracking-widest">
+            <p className="text-base font-light opacity-70 leading-relaxed uppercase tracking-widest">
               Nuestra IA ha seleccionado estas piezas para usted basándose en la armonía de su estilo.
             </p>
-            <button className="px-12 py-4 bg-oro-antiguo text-verde-ebano text-[10px] uppercase tracking-[0.4em] hover:bg-hueso-seda transition-all">
+            <button className="px-12 py-4 bg-oro-antiguo text-verde-ebano text-xs uppercase tracking-[0.4em] hover:bg-hueso-seda transition-all">
               Consultar al Oráculo
             </button>
           </div>

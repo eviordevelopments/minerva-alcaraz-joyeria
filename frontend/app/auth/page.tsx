@@ -93,7 +93,7 @@ export default function AuthPage() {
               <Crown size={18} strokeWidth={1} className="text-oro-antiguo" />
             </div>
             <div className="text-center">
-              <p className="text-[9px] uppercase tracking-[0.8em] text-oro-antiguo">Minerva Alcaraz</p>
+              <p className="text-[11px] uppercase tracking-[0.8em] text-oro-antiguo">Minerva Alcaraz</p>
               <h1 className="text-2xl font-display text-verde-ebano uppercase tracking-widest mt-1">
                 {mode === "login" ? "Bienvenido" : "Crear Cuenta"}
               </h1>
@@ -106,7 +106,7 @@ export default function AuthPage() {
               <button
                 key={m}
                 onClick={() => { setMode(m); setError(null); setSuccessMsg(null); }}
-                className={`flex-1 py-3 text-[9px] uppercase tracking-[0.5em] transition-all duration-300 ${
+                className={`flex-1 py-3 text-[11px] uppercase tracking-[0.5em] transition-all duration-300 ${
                   mode === m
                     ? "text-verde-ebano border-b-2 border-oro-antiguo -mb-px"
                     : "text-verde-ebano/30 hover:text-verde-ebano/60"
@@ -128,10 +128,10 @@ export default function AuthPage() {
                 <div className="w-14 h-14 bg-verde-ebano/5 border border-verde-ebano/20 flex items-center justify-center rounded-full">
                   <Mail size={22} strokeWidth={1} className="text-oro-antiguo" />
                 </div>
-                <p className="text-xs text-verde-ebano/70 leading-loose max-w-xs">{successMsg}</p>
+                <p className="text-sm text-verde-ebano/70 leading-loose max-w-xs">{successMsg}</p>
                 <button
                   onClick={() => { setMode("login"); setSuccessMsg(null); }}
-                  className="text-[9px] uppercase tracking-[0.5em] text-oro-antiguo border-b border-oro-antiguo/30 pb-0.5 hover:border-oro-antiguo transition-colors"
+                  className="text-[11px] uppercase tracking-[0.5em] text-oro-antiguo border-b border-oro-antiguo/30 pb-0.5 hover:border-oro-antiguo transition-colors"
                 >
                   Ir a Iniciar Sesión
                 </button>
@@ -148,7 +148,7 @@ export default function AuthPage() {
               >
                 {mode === "register" && (
                   <div className="flex flex-col gap-2">
-                    <label className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/50 flex items-center gap-2">
+                    <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/50 flex items-center gap-2">
                       <User size={10} strokeWidth={1.5} /> Nombre Completo
                     </label>
                     <input
@@ -157,13 +157,13 @@ export default function AuthPage() {
                       onChange={(e) => setFullName(e.target.value)}
                       required
                       placeholder="Tu nombre"
-                      className="bg-transparent border-b border-verde-ebano/15 py-2.5 text-sm text-verde-ebano outline-none focus:border-oro-antiguo transition-colors placeholder:text-verde-ebano/20"
+                      className="bg-transparent border-b border-verde-ebano/15 py-2.5 text-base text-verde-ebano outline-none focus:border-oro-antiguo transition-colors placeholder:text-verde-ebano/20"
                     />
                   </div>
                 )}
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/50 flex items-center gap-2">
+                  <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/50 flex items-center gap-2">
                     <Mail size={10} strokeWidth={1.5} /> Correo Electrónico
                   </label>
                   <input
@@ -172,12 +172,12 @@ export default function AuthPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     placeholder="tu@correo.com"
-                    className="bg-transparent border-b border-verde-ebano/15 py-2.5 text-sm text-verde-ebano outline-none focus:border-oro-antiguo transition-colors placeholder:text-verde-ebano/20"
+                    className="bg-transparent border-b border-verde-ebano/15 py-2.5 text-base text-verde-ebano outline-none focus:border-oro-antiguo transition-colors placeholder:text-verde-ebano/20"
                   />
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/50 flex items-center gap-2">
+                  <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/50 flex items-center gap-2">
                     <Lock size={10} strokeWidth={1.5} /> Contraseña
                   </label>
                   <div className="relative">
@@ -188,7 +188,7 @@ export default function AuthPage() {
                       required
                       minLength={6}
                       placeholder="••••••••"
-                      className="w-full bg-transparent border-b border-verde-ebano/15 py-2.5 text-sm text-verde-ebano outline-none focus:border-oro-antiguo transition-colors placeholder:text-verde-ebano/20 pr-10"
+                      className="w-full bg-transparent border-b border-verde-ebano/15 py-2.5 text-base text-verde-ebano outline-none focus:border-oro-antiguo transition-colors placeholder:text-verde-ebano/20 pr-10"
                     />
                     <button
                       type="button"
@@ -204,7 +204,7 @@ export default function AuthPage() {
                   <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="text-[10px] text-red-600/70 tracking-wide bg-red-50 px-4 py-3 border border-red-100"
+                    className="text-xs text-red-600/70 tracking-wide bg-red-50 px-4 py-3 border border-red-100"
                   >
                     {error}
                   </motion.p>
@@ -224,7 +224,7 @@ export default function AuthPage() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="flex items-center justify-center gap-3 bg-verde-ebano text-hueso-seda text-[10px] uppercase tracking-[0.5em] py-4 hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-500 mt-2 group disabled:opacity-60"
+                  className="flex items-center justify-center gap-3 bg-verde-ebano text-hueso-seda text-xs uppercase tracking-[0.5em] py-4 hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-500 mt-2 group disabled:opacity-60"
                 >
                   {isLoading ? (
                     <Loader2 size={14} className="animate-spin" />
@@ -237,7 +237,7 @@ export default function AuthPage() {
                 </button>
 
                 {mode === "login" && (
-                  <p className="text-center text-[9px] text-verde-ebano/30 uppercase tracking-widest">
+                  <p className="text-center text-[11px] text-verde-ebano/30 uppercase tracking-widest">
                     ¿Olvidaste tu contraseña?{" "}
                     <Link href="/auth/reset" className="text-oro-antiguo hover:underline">
                       Recuperar
@@ -253,12 +253,12 @@ export default function AuthPage() {
             <div className="w-6 h-6 border border-oro-antiguo/30 flex items-center justify-center">
               <Crown size={10} className="text-oro-antiguo" strokeWidth={1.5} />
             </div>
-            <p className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/30">
+            <p className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/30">
               ¿Miembro de The Circle?
             </p>
             <Link
               href="/the-circle"
-              className="text-[9px] uppercase tracking-[0.5em] text-oro-antiguo hover:underline"
+              className="text-[11px] uppercase tracking-[0.5em] text-oro-antiguo hover:underline"
             >
               Descubrir beneficios exclusivos →
             </Link>

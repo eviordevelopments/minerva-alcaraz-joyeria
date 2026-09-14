@@ -75,7 +75,7 @@ export default function PedidosPage() {
 
           <div className="flex-1 flex flex-col gap-6">
             <div className="flex flex-col gap-1">
-              <p className="text-[9px] uppercase tracking-[0.7em] text-oro-antiguo">Historial</p>
+              <p className="text-[11px] uppercase tracking-[0.7em] text-oro-antiguo">Historial</p>
               <h1 className="text-3xl font-display text-verde-ebano">Mis Pedidos</h1>
             </div>
 
@@ -83,7 +83,7 @@ export default function PedidosPage() {
               <div className="flex items-center justify-center py-24">
                 <div className="flex flex-col items-center gap-4">
                   <div className="w-8 h-8 border-2 border-oro-antiguo/20 border-t-oro-antiguo rounded-full animate-spin" />
-                  <p className="text-[9px] uppercase tracking-[0.5em] text-verde-ebano/30">Cargando pedidos...</p>
+                  <p className="text-[11px] uppercase tracking-[0.5em] text-verde-ebano/30">Cargando pedidos...</p>
                 </div>
               </div>
             ) : orders.length === 0 ? (
@@ -92,10 +92,10 @@ export default function PedidosPage() {
                   <Package size={24} strokeWidth={0.8} className="text-verde-ebano/20" />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <p className="text-sm text-verde-ebano/40 uppercase tracking-[0.3em]">Sin pedidos aún</p>
-                  <p className="text-[10px] text-verde-ebano/25 font-light">Tu primer joya te está esperando</p>
+                  <p className="text-base text-verde-ebano/40 uppercase tracking-[0.3em]">Sin pedidos aún</p>
+                  <p className="text-xs text-verde-ebano/25 font-light">Tu primer joya te está esperando</p>
                 </div>
-                <a href="/shop" className="text-[9px] uppercase tracking-[0.5em] text-oro-antiguo border-b border-oro-antiguo/30 pb-0.5 hover:border-oro-antiguo transition-colors">
+                <a href="/shop" className="text-[11px] uppercase tracking-[0.5em] text-oro-antiguo border-b border-oro-antiguo/30 pb-0.5 hover:border-oro-antiguo transition-colors">
                   Explorar Catálogo →
                 </a>
               </div>
@@ -118,20 +118,20 @@ export default function PedidosPage() {
                         onClick={() => setExpandedId(isExpanded ? null : order.order_id)}
                         className="w-full flex items-center gap-4 p-6 text-left hover:bg-verde-ebano/1 transition-colors"
                       >
-                        <div className={`flex items-center gap-1.5 text-[8px] uppercase tracking-[0.3em] border px-2.5 py-1.5 ${statusInfo.color}`}>
+                        <div className={`flex items-center gap-1.5 text-[10px] uppercase tracking-[0.3em] border px-2.5 py-1.5 ${statusInfo.color}`}>
                           <StatusIcon size={10} strokeWidth={2} />
                           {statusInfo.label}
                         </div>
                         <div className="flex-1 flex flex-col gap-0.5">
-                          <p className="text-[10px] uppercase tracking-[0.3em] text-verde-ebano font-medium">
+                          <p className="text-xs uppercase tracking-[0.3em] text-verde-ebano font-medium">
                             Pedido {order.order_number}
                           </p>
-                          <p className="text-[9px] text-verde-ebano/30">
+                          <p className="text-[11px] text-verde-ebano/30">
                             {new Date(order.placed_at).toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" })}
                             {" · "}{order.item_count} {order.item_count === 1 ? "pieza" : "piezas"}
                           </p>
                         </div>
-                        <p className="text-sm font-medium text-verde-ebano">{formatPrice(order.total_cents)}</p>
+                        <p className="text-base font-medium text-verde-ebano">{formatPrice(order.total_cents)}</p>
                         {isExpanded ? <ChevronUp size={14} strokeWidth={1} className="text-verde-ebano/30 flex-shrink-0" /> : <ChevronDown size={14} strokeWidth={1} className="text-verde-ebano/30 flex-shrink-0" />}
                       </button>
 
@@ -152,17 +152,17 @@ export default function PedidosPage() {
                                   )}
                                 </div>
                                 <div className="flex-1">
-                                  <p className="text-[10px] uppercase tracking-[0.2em] text-verde-ebano">{item.product_name}</p>
-                                  <p className="text-[9px] text-verde-ebano/40">{item.collection_name} · ×{item.quantity}</p>
+                                  <p className="text-xs uppercase tracking-[0.2em] text-verde-ebano">{item.product_name}</p>
+                                  <p className="text-[11px] text-verde-ebano/40">{item.collection_name} · ×{item.quantity}</p>
                                 </div>
-                                <p className="text-[10px] text-verde-ebano/60">{formatPrice(item.unit_price_cents * item.quantity)}</p>
+                                <p className="text-xs text-verde-ebano/60">{formatPrice(item.unit_price_cents * item.quantity)}</p>
                               </div>
                             ))}
 
                             {order.tracking_number && (
                               <div className="flex items-center gap-3 pt-3 border-t border-verde-ebano/6">
                                 <Truck size={12} strokeWidth={1.2} className="text-oro-antiguo" />
-                                <span className="text-[9px] uppercase tracking-[0.3em] text-verde-ebano/50">
+                                <span className="text-[11px] uppercase tracking-[0.3em] text-verde-ebano/50">
                                   Rastreo: {order.carrier} — {order.tracking_number}
                                 </span>
                                 <ExternalLink size={10} strokeWidth={1} className="text-verde-ebano/20" />

@@ -138,13 +138,13 @@ export default function CheckoutPage() {
           <h1 className="text-5xl font-display text-hueso-seda leading-tight">
             Gracias por tu Adquisición, {shippingName.split(" ")[0] || "Miembro"}
           </h1>
-          <p className="text-sm text-hueso-seda/60 tracking-widest leading-loose uppercase max-w-md">
+          <p className="text-base text-hueso-seda/60 tracking-widest leading-loose uppercase max-w-md">
             El pago ha sido procesado exitosamente y pronto recibirás un correo de confirmación. Tu legado está siendo preparado en nuestro Atelier.
           </p>
 
           <button
             onClick={handleWhatsApp}
-            className="flex items-center gap-3 border border-oro-antiguo text-oro-antiguo px-8 py-4 text-[10px] uppercase tracking-widest hover:bg-oro-antiguo hover:text-verde-ebano transition-all"
+            className="flex items-center gap-3 border border-oro-antiguo text-oro-antiguo px-8 py-4 text-xs uppercase tracking-widest hover:bg-oro-antiguo hover:text-verde-ebano transition-all"
           >
             Soporte por WhatsApp
             <ExternalLink size={14} />
@@ -173,7 +173,7 @@ export default function CheckoutPage() {
         <div className="pt-56 pb-32 flex flex-col items-center gap-8 text-center px-8">
           <ShoppingBag size={40} strokeWidth={0.8} className="text-verde-ebano/20" />
           <h1 className="text-4xl font-display text-verde-ebano">Tu bolsa está vacía</h1>
-          <p className="text-sm text-plata-niebla uppercase tracking-widest">
+          <p className="text-base text-plata-niebla uppercase tracking-widest">
             Añade piezas a tu bolsa antes de proceder al pago.
           </p>
           <Link href="/shop">
@@ -199,11 +199,11 @@ export default function CheckoutPage() {
                 Finalizar Adquisición
               </h1>
               <div className="flex items-center gap-3 mt-4">
-                <span className={`text-[10px] uppercase tracking-[0.3em] font-medium transition-colors ${step === 1 ? 'text-oro-antiguo' : 'text-plata-niebla'}`}>
+                <span className={`text-xs uppercase tracking-[0.3em] font-medium transition-colors ${step === 1 ? 'text-oro-antiguo' : 'text-plata-niebla'}`}>
                   01. Envío
                 </span>
                 <div className="w-8 h-px bg-verde-ebano/20" />
-                <span className={`text-[10px] uppercase tracking-[0.3em] font-medium transition-colors ${step === 2 ? 'text-oro-antiguo' : 'text-plata-niebla'}`}>
+                <span className={`text-xs uppercase tracking-[0.3em] font-medium transition-colors ${step === 2 ? 'text-oro-antiguo' : 'text-plata-niebla'}`}>
                   02. Pago Seguro
                 </span>
               </div>
@@ -221,7 +221,7 @@ export default function CheckoutPage() {
                 >
                   <section className="flex flex-col gap-8">
                     <div className="flex items-center gap-4">
-                      <span className="text-xs uppercase tracking-[0.3em] text-oro-antiguo font-medium">
+                      <span className="text-sm uppercase tracking-[0.3em] text-oro-antiguo font-medium">
                         01. Destino del Legado
                       </span>
                       <div className="h-px flex-1 bg-verde-ebano/10" />
@@ -229,7 +229,7 @@ export default function CheckoutPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-7">
                       <div className="col-span-full group">
-                        <label className="text-[10px] uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
+                        <label className="text-xs uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
                           Correo Electrónico *
                         </label>
                         <input
@@ -242,7 +242,7 @@ export default function CheckoutPage() {
                         />
                       </div>
                       <div className="group">
-                        <label className="text-[10px] uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
+                        <label className="text-xs uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
                           Nombre Completo *
                         </label>
                         <input
@@ -255,7 +255,7 @@ export default function CheckoutPage() {
                         />
                       </div>
                       <div className="group">
-                        <label className="text-[10px] uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
+                        <label className="text-xs uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
                           Teléfono de Contacto *
                         </label>
                         <input
@@ -268,7 +268,7 @@ export default function CheckoutPage() {
                         />
                       </div>
                       <div className="col-span-full group">
-                        <label className="text-[10px] uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
+                        <label className="text-xs uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
                           Dirección de Entrega *
                         </label>
                         <input
@@ -281,7 +281,7 @@ export default function CheckoutPage() {
                         />
                       </div>
                       <div className="group">
-                        <label className="text-[10px] uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
+                        <label className="text-xs uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
                           Ciudad / Estado *
                         </label>
                         <input
@@ -294,7 +294,7 @@ export default function CheckoutPage() {
                         />
                       </div>
                       <div className="group">
-                        <label className="text-[10px] uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
+                        <label className="text-xs uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
                           Código Postal *
                         </label>
                         <input
@@ -307,7 +307,7 @@ export default function CheckoutPage() {
                         />
                       </div>
                       <div className="col-span-full group">
-                        <label className="text-[10px] uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
+                        <label className="text-xs uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
                           Nota Personalizada / Instrucciones
                         </label>
                         <textarea
@@ -327,7 +327,7 @@ export default function CheckoutPage() {
                       disabled={isLoading}
                       className="w-full bg-verde-ebano text-hueso-seda py-7 px-12 flex items-center justify-between border border-verde-ebano hover:bg-hueso-seda hover:text-verde-ebano transition-all duration-700 group overflow-hidden relative"
                     >
-                      <span className="text-sm uppercase tracking-[0.5em] font-medium z-10">
+                      <span className="text-base uppercase tracking-[0.5em] font-medium z-10">
                         {isLoading ? "Procesando..." : "Continuar a Pago Seguro"}
                       </span>
                       <div className="flex items-center gap-5 z-10">
@@ -345,7 +345,7 @@ export default function CheckoutPage() {
                       ].map(({ icon: Icon, label }) => (
                         <div key={label} className="flex flex-col items-center gap-1.5">
                           <Icon size={20} strokeWidth={1} />
-                          <span className="text-[8px] uppercase tracking-widest">{label}</span>
+                          <span className="text-[10px] uppercase tracking-widest">{label}</span>
                         </div>
                       ))}
                     </div>
@@ -362,12 +362,12 @@ export default function CheckoutPage() {
                   <div className="flex items-center justify-between">
                     <button 
                       onClick={() => setStep(1)}
-                      className="text-[10px] uppercase tracking-widest text-plata-niebla hover:text-verde-ebano flex items-center gap-2 transition-colors"
+                      className="text-xs uppercase tracking-widest text-plata-niebla hover:text-verde-ebano flex items-center gap-2 transition-colors"
                     >
                       <ChevronLeft size={14} /> Volver a envío
                     </button>
                     <div className="flex items-center gap-4">
-                      <span className="text-xs uppercase tracking-[0.3em] text-oro-antiguo font-medium">
+                      <span className="text-sm uppercase tracking-[0.3em] text-oro-antiguo font-medium">
                         02. Pago Seguro
                       </span>
                     </div>
@@ -435,23 +435,23 @@ export default function CheckoutPage() {
                     </div>
 
                     <div className="flex-1 flex flex-col gap-1 min-w-0">
-                      <span className="text-[8px] uppercase tracking-[0.3em] text-oro-antiguo truncate">
+                      <span className="text-[10px] uppercase tracking-[0.3em] text-oro-antiguo truncate">
                         {item.collection}
                       </span>
-                      <h4 className="text-xs font-display text-hueso-seda leading-snug">
+                      <h4 className="text-sm font-display text-hueso-seda leading-snug">
                         {item.name}
                       </h4>
                       {item.size && (
-                        <span className="text-[8px] text-hueso-seda/50 uppercase tracking-widest mt-1">
+                        <span className="text-[10px] text-hueso-seda/50 uppercase tracking-widest mt-1">
                           Talla: {item.size}
                         </span>
                       )}
-                      <span className="text-[8px] text-hueso-seda/50 uppercase tracking-widest mt-0.5">
+                      <span className="text-[10px] text-hueso-seda/50 uppercase tracking-widest mt-0.5">
                         Cantidad: {String(item.quantity).padStart(2, "0")}
                       </span>
                     </div>
 
-                    <span className="text-xs font-mono text-hueso-seda flex-shrink-0 mt-1">
+                    <span className="text-sm font-mono text-hueso-seda flex-shrink-0 mt-1">
                       ${(item.price * item.quantity).toLocaleString("es-MX")}
                     </span>
                   </div>
@@ -460,19 +460,19 @@ export default function CheckoutPage() {
 
               {/* Totals */}
               <div className="flex flex-col gap-3 pt-6 border-t border-hueso-seda/20">
-                <div className="flex justify-between text-[10px] uppercase tracking-widest text-hueso-seda/60">
+                <div className="flex justify-between text-xs uppercase tracking-widest text-hueso-seda/60">
                   <span>Subtotal ({items.reduce((s, i) => s + i.quantity, 0)} piezas)</span>
                   <span>${rawSubtotal.toLocaleString("es-MX")}</span>
                 </div>
                 
-                <div className="flex justify-between text-[10px] uppercase tracking-widest text-hueso-seda/60">
+                <div className="flex justify-between text-xs uppercase tracking-widest text-hueso-seda/60">
                   <span>Envío Asegurado {isCircleMember ? '(THE CIRCLE)' : ''}</span>
                   <span className={isCircleMember ? "text-oro-antiguo" : ""}>
                     {isCircleMember ? "Cortesía" : `$${shippingCost.toLocaleString("es-MX")}`}
                   </span>
                 </div>
                 
-                <div className="flex justify-between text-[10px] uppercase tracking-widest text-hueso-seda/60">
+                <div className="flex justify-between text-xs uppercase tracking-widest text-hueso-seda/60">
                   <span>IVA (16%)</span>
                   <span>${iva.toLocaleString("es-MX")}</span>
                 </div>
@@ -481,14 +481,14 @@ export default function CheckoutPage() {
                 
                 <div className="flex justify-between items-end">
                   <div className="flex flex-col gap-1">
-                    <span className="text-[9px] uppercase tracking-[0.4em] text-oro-antiguo">
+                    <span className="text-[11px] uppercase tracking-[0.4em] text-oro-antiguo">
                       Total Final
                     </span>
                     <span className="text-3xl text-hueso-seda tracking-tighter font-display">
                       ${total.toLocaleString("es-MX")}
                     </span>
                   </div>
-                  <span className="text-[10px] uppercase tracking-widest text-oro-antiguo pb-1">
+                  <span className="text-xs uppercase tracking-widest text-oro-antiguo pb-1">
                     MXN
                   </span>
                 </div>
@@ -497,10 +497,10 @@ export default function CheckoutPage() {
               {/* Authenticity note */}
               <div className="p-5 border border-oro-antiguo/20 bg-hueso-seda/[0.03] text-center mt-2">
                 <ShieldCheck size={16} className="text-oro-antiguo mx-auto mb-2" />
-                <span className="text-[8px] uppercase tracking-[0.4em] text-oro-antiguo block mb-1.5">
+                <span className="text-[10px] uppercase tracking-[0.4em] text-oro-antiguo block mb-1.5">
                   Certificación Minerva Alcaraz
                 </span>
-                <p className="text-[9px] text-hueso-seda/40 font-light italic leading-relaxed">
+                <p className="text-[11px] text-hueso-seda/40 font-light italic leading-relaxed">
                   "Cada pieza es un testimonio de devoción y maestría, forjada para habitar en la eternidad."
                 </p>
               </div>

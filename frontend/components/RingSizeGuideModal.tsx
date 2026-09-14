@@ -93,7 +93,7 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
               </div>
               <div>
                 <h2 className="text-xl sm:text-2xl font-display text-verde-ebano">Guía para el Tamaño de Anillos</h2>
-                <p className="text-[10px] uppercase tracking-[0.25em] text-verde-ebano/60">Minerva Alcaraz · Medidas México</p>
+                <p className="text-xs uppercase tracking-[0.25em] text-verde-ebano/60">Minerva Alcaraz · Medidas México</p>
               </div>
             </div>
             <button
@@ -109,7 +109,7 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
           <div className="flex border-b border-verde-ebano/10 bg-verde-ebano/5 px-6 pt-2 overflow-x-auto shrink-0">
             <button
               onClick={() => setActiveTab("tabla")}
-              className={`px-5 py-3 text-xs uppercase tracking-widest font-medium border-b-2 transition-all whitespace-nowrap ${
+              className={`px-5 py-3 text-sm uppercase tracking-widest font-medium border-b-2 transition-all whitespace-nowrap ${
                 activeTab === "tabla"
                   ? "border-oro-antiguo text-verde-ebano bg-hueso-seda"
                   : "border-transparent text-verde-ebano/60 hover:text-verde-ebano"
@@ -119,7 +119,7 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
             </button>
             <button
               onClick={() => setActiveTab("metodo")}
-              className={`px-5 py-3 text-xs uppercase tracking-widest font-medium border-b-2 transition-all whitespace-nowrap ${
+              className={`px-5 py-3 text-sm uppercase tracking-widest font-medium border-b-2 transition-all whitespace-nowrap ${
                 activeTab === "metodo"
                   ? "border-oro-antiguo text-verde-ebano bg-hueso-seda"
                   : "border-transparent text-verde-ebano/60 hover:text-verde-ebano"
@@ -129,7 +129,7 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
             </button>
             <button
               onClick={() => setActiveTab("infografia")}
-              className={`px-5 py-3 text-xs uppercase tracking-widest font-medium border-b-2 transition-all whitespace-nowrap ${
+              className={`px-5 py-3 text-sm uppercase tracking-widest font-medium border-b-2 transition-all whitespace-nowrap ${
                 activeTab === "infografia"
                   ? "border-oro-antiguo text-verde-ebano bg-hueso-seda"
                   : "border-transparent text-verde-ebano/60 hover:text-verde-ebano"
@@ -150,10 +150,10 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
                 <div className="bg-verde-ebano text-hueso-seda p-5 border border-oro-antiguo/30 space-y-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
-                      <span className="text-[9px] uppercase tracking-[0.3em] text-oro-antiguo">Calculadora Instantánea</span>
+                      <span className="text-[11px] uppercase tracking-[0.3em] text-oro-antiguo">Calculadora Instantánea</span>
                       <h3 className="text-base font-display">Encuentra tu Talla de Anillo</h3>
                     </div>
-                    <div className="flex bg-hueso-seda/10 p-0.5 rounded text-[10px] uppercase tracking-wider">
+                    <div className="flex bg-hueso-seda/10 p-0.5 rounded text-xs uppercase tracking-wider">
                       <button
                         onClick={() => { setCalcType("diameter"); handleCalculate(calcInput); }}
                         className={`px-3 py-1 rounded ${calcType === "diameter" ? "bg-oro-antiguo text-verde-ebano font-bold" : "text-hueso-seda/70"}`}
@@ -176,9 +176,9 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
                       placeholder={calcType === "diameter" ? "Ej: 16.5" : "Ej: 51.9"}
                       value={calcInput}
                       onChange={(e) => handleCalculate(e.target.value)}
-                      className="w-full sm:w-48 bg-hueso-seda text-verde-ebano px-4 py-2.5 text-sm outline-none border border-oro-antiguo focus:ring-1 focus:ring-oro-antiguo"
+                      className="w-full sm:w-48 bg-hueso-seda text-verde-ebano px-4 py-2.5 text-base outline-none border border-oro-antiguo focus:ring-1 focus:ring-oro-antiguo"
                     />
-                    <div className="flex-1 text-xs text-hueso-seda/80 italic">
+                    <div className="flex-1 text-sm text-hueso-seda/80 italic">
                       {highlightedSize ? (
                         <span className="text-oro-antiguo font-semibold not-italic">
                           ✨ Talla recomendada México: <span className="text-lg underline underline-offset-4">{highlightedSize}</span>
@@ -194,14 +194,14 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
                 <div className="border border-verde-ebano/15 overflow-x-auto">
                   <table className="w-full text-left border-collapse">
                     <thead>
-                      <tr className="bg-verde-ebano/5 text-verde-ebano text-[11px] uppercase tracking-wider border-b border-verde-ebano/15">
+                      <tr className="bg-verde-ebano/5 text-verde-ebano text-sm uppercase tracking-wider border-b border-verde-ebano/15">
                         <th className="p-3 font-semibold text-center">Tamaño México</th>
                         <th className="p-3 font-semibold text-center">Diámetro (mm)</th>
                         <th className="p-3 font-semibold text-center">Circunferencia interior (mm)</th>
                         {onSelectSize && <th className="p-3 font-semibold text-center">Acción</th>}
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-verde-ebano/10 text-xs">
+                    <tbody className="divide-y divide-verde-ebano/10 text-sm">
                       {RING_SIZE_DATA.map((item) => {
                         const isSelected = currentSelectedSize === item.size;
                         const isHighlighted = highlightedSize === item.size;
@@ -216,7 +216,7 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
                                 : "hover:bg-verde-ebano/5"
                             }`}
                           >
-                            <td className="p-3 text-center font-display text-sm text-verde-ebano">
+                            <td className="p-3 text-center font-display text-base text-verde-ebano">
                               Talla {item.size}
                             </td>
                             <td className="p-3 text-center text-verde-ebano/80">{item.diameter} mm</td>
@@ -228,7 +228,7 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
                                     onSelectSize(item.size);
                                     onClose();
                                   }}
-                                  className={`px-3 py-1 text-[10px] uppercase tracking-widest border transition-all ${
+                                  className={`px-3 py-1 text-xs uppercase tracking-widest border transition-all ${
                                     isSelected
                                       ? "bg-verde-ebano text-hueso-seda border-verde-ebano"
                                       : "border-verde-ebano/30 hover:border-oro-antiguo hover:bg-oro-antiguo/10 text-verde-ebano"
@@ -263,9 +263,9 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
                       />
                     </div>
                     <div>
-                      <span className="text-[9px] uppercase tracking-[0.3em] text-oro-antiguo font-semibold">Diagrama 01</span>
+                      <span className="text-[11px] uppercase tracking-[0.3em] text-oro-antiguo font-semibold">Diagrama 01</span>
                       <h4 className="text-lg font-display text-verde-ebano">Diámetro Interior (mm)</h4>
-                      <p className="text-xs text-verde-ebano/70 mt-1 leading-relaxed">
+                      <p className="text-sm text-verde-ebano/70 mt-1 leading-relaxed">
                         Mide la distancia recta pasando por el centro exacto entre los bordes internos del anillo.
                       </p>
                     </div>
@@ -282,9 +282,9 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
                       />
                     </div>
                     <div>
-                      <span className="text-[9px] uppercase tracking-[0.3em] text-oro-antiguo font-semibold">Diagrama 02</span>
+                      <span className="text-[11px] uppercase tracking-[0.3em] text-oro-antiguo font-semibold">Diagrama 02</span>
                       <h4 className="text-lg font-display text-verde-ebano">Circunferencia del Dedo (mm)</h4>
-                      <p className="text-xs text-verde-ebano/70 mt-1 leading-relaxed">
+                      <p className="text-sm text-verde-ebano/70 mt-1 leading-relaxed">
                         Mide el perímetro o contorno completo del dedo rodeándolo con una tira de papel o cinta.
                       </p>
                     </div>
@@ -297,25 +297,25 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="p-4 border border-verde-ebano/10 bg-verde-ebano/5 flex flex-col space-y-3">
-                      <span className="w-8 h-8 bg-oro-antiguo text-verde-ebano font-bold text-sm flex items-center justify-center rounded-full">1</span>
-                      <h4 className="text-sm font-semibold text-verde-ebano">Consigue una regla</h4>
-                      <p className="text-xs text-verde-ebano/80 leading-relaxed">
+                      <span className="w-8 h-8 bg-oro-antiguo text-verde-ebano font-bold text-base flex items-center justify-center rounded-full">1</span>
+                      <h4 className="text-base font-semibold text-verde-ebano">Consigue una regla</h4>
+                      <p className="text-sm text-verde-ebano/80 leading-relaxed">
                         De preferencia debe contener milímetros (mm) o centímetros (cm) bien graduados.
                       </p>
                     </div>
 
                     <div className="p-4 border border-verde-ebano/10 bg-verde-ebano/5 flex flex-col space-y-3">
-                      <span className="w-8 h-8 bg-oro-antiguo text-verde-ebano font-bold text-sm flex items-center justify-center rounded-full">2</span>
-                      <h4 className="text-sm font-semibold text-verde-ebano">Mide el interior del anillo</h4>
-                      <p className="text-xs text-verde-ebano/80 leading-relaxed">
+                      <span className="w-8 h-8 bg-oro-antiguo text-verde-ebano font-bold text-base flex items-center justify-center rounded-full">2</span>
+                      <h4 className="text-base font-semibold text-verde-ebano">Mide el interior del anillo</h4>
+                      <p className="text-sm text-verde-ebano/80 leading-relaxed">
                         Colócalo sobre una superficie plana y mide el diámetro interno del anillo con la regla (de borde interno a borde interno).
                       </p>
                     </div>
 
                     <div className="p-4 border border-verde-ebano/10 bg-verde-ebano/5 flex flex-col space-y-3">
-                      <span className="w-8 h-8 bg-oro-antiguo text-verde-ebano font-bold text-sm flex items-center justify-center rounded-full">3</span>
-                      <h4 className="text-sm font-semibold text-verde-ebano">Busca tu talla</h4>
-                      <p className="text-xs text-verde-ebano/80 leading-relaxed">
+                      <span className="w-8 h-8 bg-oro-antiguo text-verde-ebano font-bold text-base flex items-center justify-center rounded-full">3</span>
+                      <h4 className="text-base font-semibold text-verde-ebano">Busca tu talla</h4>
+                      <p className="text-sm text-verde-ebano/80 leading-relaxed">
                         En la tabla de arriba encontrarás tu talla recomendada según tu medida obtenida en milímetros.
                       </p>
                     </div>
@@ -327,7 +327,7 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
             {/* TAB 3: GUÍA DE TALLAS */}
             {activeTab === "infografia" && (
               <div className="space-y-10 flex flex-col items-center">
-                <p className="text-[10px] uppercase tracking-[0.3em] text-verde-ebano/50 self-start">
+                <p className="text-xs uppercase tracking-[0.3em] text-verde-ebano/50 self-start">
                   Minerva Alcaraz Joyería · Guías de Medición Oficiales para Anillos
                 </p>
 
@@ -338,7 +338,7 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
                 ].map((item, idx) => (
                   <div key={idx} className="w-full relative bg-white border border-verde-ebano/20 shadow-md group">
                     <div className="absolute top-3 left-3 z-10 bg-verde-ebano/70 backdrop-blur-sm px-3 py-1">
-                      <span className="text-[9px] uppercase tracking-[0.3em] text-oro-antiguo">{item.label}</span>
+                      <span className="text-[11px] uppercase tracking-[0.3em] text-oro-antiguo">{item.label}</span>
                     </div>
                     <Image
                       src={item.src}
@@ -360,7 +360,7 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
                 {/* Ilustraciones icónicas: grandes y centradas con fondo oscuro destacado */}
                 <div className="w-full border-t border-verde-ebano/15 pt-8 space-y-4">
                   <div className="text-center space-y-1">
-                    <span className="text-[9px] uppercase tracking-[0.4em] text-oro-antiguo">Ilustraciones Artesanales</span>
+                    <span className="text-[11px] uppercase tracking-[0.4em] text-oro-antiguo">Ilustraciones Artesanales</span>
                     <h4 className="text-lg font-display text-verde-ebano">Método Visual de Medición</h4>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -369,7 +369,7 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
                       { src: "/assets/guia-tallas/medida-anillo-02.png", label: "Método 02 — Circunferencia" },
                     ].map((item, idx) => (
                       <div key={idx} className="relative bg-verde-ebano border border-oro-antiguo/30 p-8 flex flex-col items-center gap-6 group">
-                        <span className="text-[9px] uppercase tracking-[0.4em] text-oro-antiguo">{item.label}</span>
+                        <span className="text-[11px] uppercase tracking-[0.4em] text-oro-antiguo">{item.label}</span>
                         <div className="relative w-full flex justify-center">
                           <Image
                             src={item.src}
@@ -396,11 +396,11 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
           </div>
 
           {/* Footer */}
-          <div className="border-t border-verde-ebano/15 bg-verde-ebano/5 px-6 py-3 flex items-center justify-between text-xs text-verde-ebano/70">
+          <div className="border-t border-verde-ebano/15 bg-verde-ebano/5 px-6 py-3 flex items-center justify-between text-sm text-verde-ebano/70">
             <span>Si tienes dudas con tu medida, nuestro Atelier te asesora personalmente.</span>
             <button
               onClick={onClose}
-              className="px-5 py-2 bg-verde-ebano text-hueso-seda uppercase text-[10px] tracking-widest hover:bg-oro-antiguo hover:text-verde-ebano transition-colors"
+              className="px-5 py-2 bg-verde-ebano text-hueso-seda uppercase text-xs tracking-widest hover:bg-oro-antiguo hover:text-verde-ebano transition-colors"
             >
               Entendido
             </button>

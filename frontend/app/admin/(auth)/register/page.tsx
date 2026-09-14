@@ -88,7 +88,7 @@ export default function AdminRegisterPage() {
           <h1 className="text-3xl font-display-erp font-bold text-[#CBB67B] mb-2 tracking-widest">
             NUEVA CUENTA
           </h1>
-          <h2 className="text-[10px] uppercase tracking-[0.3em] text-[#8E9A8B]">
+          <h2 className="text-xs uppercase tracking-[0.3em] text-[#8E9A8B]">
             Configuración de Empresa y Equipo
           </h2>
         </div>
@@ -98,13 +98,13 @@ export default function AdminRegisterPage() {
             <div className="flex flex-col items-center justify-center space-y-4 py-12">
               <CheckCircle size={48} className="text-[#CBB67B]" />
               <h2 className="text-xl text-[#CBB67B] font-display-erp tracking-widest text-center">¡CORREO ENVIADO!</h2>
-              <p className="text-sm text-[#8E9A8B] text-center max-w-md">
+              <p className="text-base text-[#8E9A8B] text-center max-w-md">
                 Hemos enviado un enlace de activación a <strong>{email}</strong>. Por favor, revisa tu bandeja de entrada (y la carpeta de spam) para establecer tu contraseña y completar el registro.
               </p>
               <button
                 type="button"
                 onClick={() => setSuccess(false)}
-                className="mt-6 text-[10px] uppercase tracking-[0.2em] text-[#CBB67B] border border-[#CBB67B]/30 px-6 py-3 hover:bg-[#CBB67B]/10 transition-colors"
+                className="mt-6 text-xs uppercase tracking-[0.2em] text-[#CBB67B] border border-[#CBB67B]/30 px-6 py-3 hover:bg-[#CBB67B]/10 transition-colors"
               >
                 Volver
               </button>
@@ -112,39 +112,39 @@ export default function AdminRegisterPage() {
           ) : (
             <>
               {error && (
-                <div className="bg-red-900/30 border border-red-500/50 text-red-200 p-4 text-sm text-center">
+                <div className="bg-red-900/30 border border-red-500/50 text-red-200 p-4 text-base text-center">
                   {error}
                 </div>
               )}
 
           {/* Seccion 1: Cuenta Maestra */}
           <div>
-            <h3 className="text-[#CBB67B] text-xs uppercase tracking-widest font-semibold mb-4 border-b border-[#CBB67B]/20 pb-2">
+            <h3 className="text-[#CBB67B] text-sm uppercase tracking-widest font-semibold mb-4 border-b border-[#CBB67B]/20 pb-2">
               1. Credenciales de la Empresa
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="md:col-span-2">
-                <label className="block text-[9px] uppercase tracking-wider text-[#8E9A8B] mb-1">Correo Corporativo</label>
+                <label className="block text-[11px] uppercase tracking-wider text-[#8E9A8B] mb-1">Correo Corporativo</label>
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-[#2C3729] border border-[#CBB67B]/30 px-3 py-2 text-sm text-[#E5DBD6] focus:outline-none focus:border-[#CBB67B]"
+                  className="w-full bg-[#2C3729] border border-[#CBB67B]/30 px-3 py-2 text-base text-[#E5DBD6] focus:outline-none focus:border-[#CBB67B]"
                   placeholder="admin@minervaalcaraz.com"
                 />
               </div>
             </div>
 
             <div className="mt-4">
-              <label className="block text-[9px] uppercase tracking-wider text-[#8E9A8B] mb-2">Ubicación Operativa</label>
+              <label className="block text-[11px] uppercase tracking-wider text-[#8E9A8B] mb-2">Ubicación Operativa</label>
               <div className="flex bg-[#2C3729] border border-[#CBB67B]/30 p-1">
                 {["San Miguel", "ONLINE"].map((loc) => (
                   <button
                     key={loc}
                     type="button"
                     onClick={() => setLocation(loc as any)}
-                    className={`flex-1 py-2 text-[10px] uppercase tracking-widest transition-colors ${
+                    className={`flex-1 py-2 text-xs uppercase tracking-widest transition-colors ${
                       location === loc ? "bg-[#CBB67B] text-[#2C3729] font-bold" : "text-[#8E9A8B] hover:text-[#E5DBD6]"
                     }`}
                   >
@@ -158,13 +158,13 @@ export default function AdminRegisterPage() {
           {/* Seccion 2: Perfiles del Equipo */}
           <div>
             <div className="flex justify-between items-end mb-4 border-b border-[#CBB67B]/20 pb-2">
-              <h3 className="text-[#CBB67B] text-xs uppercase tracking-widest font-semibold">
+              <h3 className="text-[#CBB67B] text-sm uppercase tracking-widest font-semibold">
                 2. Perfiles de Usuario
               </h3>
               <button
                 type="button"
                 onClick={addProfile}
-                className="text-[9px] uppercase tracking-widest text-[#CBB67B] hover:text-[#E5DBD6] flex items-center gap-1"
+                className="text-[11px] uppercase tracking-widest text-[#CBB67B] hover:text-[#E5DBD6] flex items-center gap-1"
               >
                 <Plus size={12} /> Añadir Perfil
               </button>
@@ -188,29 +188,29 @@ export default function AdminRegisterPage() {
                           <Camera size={14} className="text-[#CBB67B]" />
                         </div>
                       </div>
-                      <span className="text-[8px] uppercase text-[#8E9A8B] text-center">La foto se agrega<br/>más tarde</span>
+                      <span className="text-[10px] uppercase text-[#8E9A8B] text-center">La foto se agrega<br/>más tarde</span>
                     </div>
 
                     <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-[8px] uppercase tracking-wider text-[#8E9A8B] mb-1">Nombre Completo</label>
+                        <label className="block text-[10px] uppercase tracking-wider text-[#8E9A8B] mb-1">Nombre Completo</label>
                         <input
                           type="text"
                           required
                           value={profile.name}
                           onChange={(e) => updateProfile(idx, "name", e.target.value)}
-                          className="w-full bg-[#1F271D] border border-[#CBB67B]/20 px-3 py-2 text-sm text-[#E5DBD6] focus:outline-none focus:border-[#CBB67B]"
+                          className="w-full bg-[#1F271D] border border-[#CBB67B]/20 px-3 py-2 text-base text-[#E5DBD6] focus:outline-none focus:border-[#CBB67B]"
                           placeholder="Ej. María López"
                         />
                       </div>
                       <div>
-                        <label className="block text-[8px] uppercase tracking-wider text-[#8E9A8B] mb-1">Rol / Puesto (Libre)</label>
+                        <label className="block text-[10px] uppercase tracking-wider text-[#8E9A8B] mb-1">Rol / Puesto (Libre)</label>
                         <input
                           type="text"
                           required
                           value={profile.role}
                           onChange={(e) => updateProfile(idx, "role", e.target.value)}
-                          className="w-full bg-[#1F271D] border border-[#CBB67B]/20 px-3 py-2 text-sm text-[#E5DBD6] focus:outline-none focus:border-[#CBB67B]"
+                          className="w-full bg-[#1F271D] border border-[#CBB67B]/20 px-3 py-2 text-base text-[#E5DBD6] focus:outline-none focus:border-[#CBB67B]"
                           placeholder="Ej. Gerente de Ventas"
                         />
                       </div>
@@ -242,7 +242,7 @@ export default function AdminRegisterPage() {
                 onChange={(e) => setTermsAccepted(e.target.checked)}
                 className="w-4 h-4 accent-[#CBB67B] bg-[#1F271D] border-[#CBB67B]/30"
               />
-              <label htmlFor="terms" className="text-xs text-[#8E9A8B]">
+              <label htmlFor="terms" className="text-sm text-[#8E9A8B]">
                 Acepto los <a href="#" className="text-[#CBB67B] underline underline-offset-2">Términos y Condiciones</a> y confirmo que estos datos son de uso exclusivo interno.
               </label>
             </div>
@@ -255,7 +255,7 @@ export default function AdminRegisterPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-[#CBB67B] text-[#2C3729] py-4 uppercase tracking-[0.2em] text-xs font-bold hover:bg-[#E4D5A4] transition-colors flex items-center justify-center gap-2"
+            className="w-full bg-[#CBB67B] text-[#2C3729] py-4 uppercase tracking-[0.2em] text-sm font-bold hover:bg-[#E4D5A4] transition-colors flex items-center justify-center gap-2"
           >
             {isLoading ? <Loader2 size={16} className="animate-spin" /> : "Enviar Invitación"}
           </button>
@@ -266,7 +266,7 @@ export default function AdminRegisterPage() {
         <div className="mt-8 text-center">
           <Link
             href="/admin/login"
-            className="text-[#8E9A8B] text-[10px] uppercase tracking-widest hover:text-[#CBB67B] transition-colors"
+            className="text-[#8E9A8B] text-xs uppercase tracking-widest hover:text-[#CBB67B] transition-colors"
           >
             ← Volver al inicio de sesión
           </Link>

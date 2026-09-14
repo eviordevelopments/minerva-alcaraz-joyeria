@@ -83,7 +83,7 @@ export default function AdminCrm() {
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-[#CBB67B]/20 pb-6">
         <div>
-          <span className="text-[10px] uppercase tracking-[0.4em] text-[#CBB67B]">
+          <span className="text-xs uppercase tracking-[0.4em] text-[#CBB67B]">
             Directorio Real · Supabase Live
           </span>
           <h1 className="font-display-erp text-3xl sm:text-4xl text-[#E5DBD6] mt-2 font-bold">
@@ -98,7 +98,7 @@ export default function AdminCrm() {
               placeholder="Buscar por nombre o email..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-[#1F271D] border border-[#CBB67B]/30 pl-10 pr-4 py-2.5 text-xs text-[#E5DBD6] placeholder-[#8E9A8B]/60 focus:border-[#CBB67B] outline-none w-56 rounded-none"
+              className="bg-[#1F271D] border border-[#CBB67B]/30 pl-10 pr-4 py-2.5 text-sm text-[#E5DBD6] placeholder-[#8E9A8B]/60 focus:border-[#CBB67B] outline-none w-56 rounded-none"
             />
             <Search size={14} className="absolute left-3.5 text-[#8E9A8B]" />
           </div>
@@ -117,8 +117,8 @@ export default function AdminCrm() {
         <div className="bg-red-950/60 border border-red-500/30 p-4 flex items-center gap-3 text-red-300">
           <AlertCircle size={16} className="flex-shrink-0" />
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-wider">Error al cargar contactos</p>
-            <p className="text-[9px] opacity-80">{error}</p>
+            <p className="text-xs font-bold uppercase tracking-wider">Error al cargar contactos</p>
+            <p className="text-[11px] opacity-80">{error}</p>
           </div>
         </div>
       )}
@@ -134,7 +134,7 @@ export default function AdminCrm() {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`text-[10px] uppercase tracking-widest px-6 py-4 border-b-2 transition-all font-semibold whitespace-nowrap ${
+            className={`text-xs uppercase tracking-widest px-6 py-4 border-b-2 transition-all font-semibold whitespace-nowrap ${
               activeTab === tab.id
                 ? "border-[#CBB67B] text-[#CBB67B]"
                 : "border-transparent text-[#8E9A8B] hover:text-[#E5DBD6]"
@@ -156,7 +156,7 @@ export default function AdminCrm() {
         <div className="bg-[#1F271D] border border-[#CBB67B]/20 overflow-x-auto text-left">
           <table className="w-full border-collapse min-w-[700px]">
             <thead>
-              <tr className="border-b border-[#CBB67B]/20 bg-[#2C3729]/30 text-[#8E9A8B] text-[9px] uppercase tracking-widest">
+              <tr className="border-b border-[#CBB67B]/20 bg-[#2C3729]/30 text-[#8E9A8B] text-[11px] uppercase tracking-widest">
                 <th className="py-4 px-6 text-left font-bold">Cliente</th>
                 <th className="py-4 px-6 text-left font-bold">Email</th>
                 <th className="py-4 px-6 text-center font-bold">Membresía</th>
@@ -165,7 +165,7 @@ export default function AdminCrm() {
                 <th className="py-4 px-6 text-right font-bold">Miembro desde</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#CBB67B]/10 text-xs">
+            <tbody className="divide-y divide-[#CBB67B]/10 text-sm">
               <AnimatePresence mode="popLayout">
                 {filteredContacts.length > 0 ? (
                   filteredContacts.map((c) => (
@@ -200,20 +200,20 @@ export default function AdminCrm() {
                             {c.name}
                           </span>
                           {c.tier && (
-                            <span className="text-[8px] text-[#CBB67B]/70 uppercase tracking-widest">
+                            <span className="text-[10px] text-[#CBB67B]/70 uppercase tracking-widest">
                               {c.tier}
                             </span>
                           )}
                         </div>
                       </td>
 
-                      <td className="py-4 px-6 text-[#8E9A8B] font-mono text-[10px]">
+                      <td className="py-4 px-6 text-[#8E9A8B] font-mono text-xs">
                         {c.email}
                       </td>
 
                       <td className="py-4 px-6 text-center">
                         <span
-                          className={`inline-block text-[8px] uppercase tracking-widest px-3 py-1 font-bold border ${
+                          className={`inline-block text-[10px] uppercase tracking-widest px-3 py-1 font-bold border ${
                             c.isCircle
                               ? "bg-[#CBB67B]/15 border-[#CBB67B] text-[#CBB67B]"
                               : c.source === "newsletter"
@@ -233,7 +233,7 @@ export default function AdminCrm() {
                         {formatCurrency(c.totalSpentCents)}
                       </td>
 
-                      <td className="py-4 px-6 text-right text-[10px] text-[#8E9A8B] whitespace-nowrap">
+                      <td className="py-4 px-6 text-right text-xs text-[#8E9A8B] whitespace-nowrap">
                         {formatDate(c.joinDate)}
                       </td>
                     </motion.tr>
@@ -246,7 +246,7 @@ export default function AdminCrm() {
                     >
                       <div className="flex flex-col items-center gap-3">
                         <Sparkles size={20} className="text-[#CBB67B]/30" />
-                        <span className="text-[9px] uppercase tracking-widest italic">
+                        <span className="text-[11px] uppercase tracking-widest italic">
                           {contacts.length === 0
                             ? "Sin contactos registrados aún"
                             : "Ningún contacto coincide con la búsqueda"}
@@ -264,7 +264,7 @@ export default function AdminCrm() {
       {/* Summary footer */}
       {!isLoading && contacts.length > 0 && (
         <div className="flex justify-end">
-          <span className="text-[9px] uppercase tracking-widest text-[#8E9A8B]">
+          <span className="text-[11px] uppercase tracking-widest text-[#8E9A8B]">
             Mostrando {filteredContacts.length} de {contacts.length} contactos
           </span>
         </div>

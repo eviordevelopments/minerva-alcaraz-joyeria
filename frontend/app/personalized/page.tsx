@@ -60,7 +60,7 @@ export default function PersonalizedPage() {
           
           {/* Left Column: Vision */}
           <div className="flex flex-col gap-10">
-            <span className="text-xs md:text-sm uppercase tracking-[0.8em] text-oro-antiguo">Co-Creación</span>
+            <span className="text-sm md:text-base uppercase tracking-[0.8em] text-oro-antiguo">Co-Creación</span>
             <h1 className="hero-title-no-hyphens text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-verde-ebano leading-tight">
               Tu Historia en Metales Preciosos
             </h1>
@@ -74,8 +74,8 @@ export default function PersonalizedPage() {
                   <Clock size={28} strokeWidth={1} />
                 </div>
                 <div>
-                  <h4 className="text-sm md:text-base uppercase tracking-widest text-verde-ebano mb-3">Cita de Diseño</h4>
-                  <p className="text-xs md:text-sm opacity-60 leading-relaxed uppercase tracking-wider">Sesiones personalizadas con maestros joyeros.</p>
+                  <h4 className="text-base md:text-base uppercase tracking-widest text-verde-ebano mb-3">Cita de Diseño</h4>
+                  <p className="text-sm md:text-base opacity-60 leading-relaxed uppercase tracking-wider">Sesiones personalizadas con maestros joyeros.</p>
                 </div>
               </div>
               <div className="flex items-start gap-8">
@@ -83,8 +83,8 @@ export default function PersonalizedPage() {
                   <MapPin size={28} strokeWidth={1} />
                 </div>
                 <div>
-                  <h4 className="text-sm md:text-base uppercase tracking-widest text-verde-ebano mb-3">Presencial o Digital</h4>
-                  <p className="text-xs md:text-sm opacity-60 leading-relaxed uppercase tracking-wider">Disponible en nuestro atelier o vía Zoom.</p>
+                  <h4 className="text-base md:text-base uppercase tracking-widest text-verde-ebano mb-3">Presencial o Digital</h4>
+                  <p className="text-sm md:text-base opacity-60 leading-relaxed uppercase tracking-wider">Disponible en nuestro atelier o vía Zoom.</p>
                 </div>
               </div>
             </div>
@@ -94,19 +94,19 @@ export default function PersonalizedPage() {
           <div className="bg-authority p-12 sm:p-16 md:p-24 flex flex-col gap-12 shadow-2xl">
             <div className="flex flex-col gap-4">
               <h3 className="text-3xl md:text-4xl font-display text-oro-antiguo">Solicitud Concierge</h3>
-              <p className="text-xs md:text-sm uppercase tracking-widest opacity-60 text-hueso-seda">Inicia tu ritual de personalización</p>
+              <p className="text-sm md:text-base uppercase tracking-widest opacity-60 text-hueso-seda">Inicia tu ritual de personalización</p>
             </div>
 
             {submittedData ? (
               <div className="flex flex-col items-center justify-center text-center space-y-6 py-12">
                 <CheckCircle2 size={48} className="text-oro-antiguo" strokeWidth={1} />
                 <div className="space-y-2">
-                  <span className="text-[10px] uppercase tracking-[0.4em] text-oro-antiguo font-mono">
+                  <span className="text-xs uppercase tracking-[0.4em] text-oro-antiguo font-mono">
                     {submittedData.requestNumber}
                   </span>
                   <h4 className="text-2xl font-display text-hueso-seda">Solicitud Recibida</h4>
                 </div>
-                <p className="text-xs sm:text-sm text-hueso-seda/80 font-light leading-relaxed max-w-sm italic">
+                <p className="text-sm sm:text-base text-hueso-seda/80 font-light leading-relaxed max-w-sm italic">
                   Hemos enviado una copia a tu correo electrónico. Nuestro equipo del Atelier revisará tu proyecto y se pondrá en contacto en un máximo de 24 horas hábiles.
                 </p>
                 <button
@@ -114,7 +114,7 @@ export default function PersonalizedPage() {
                     setSubmittedData(null);
                     setDescription("");
                   }}
-                  className="px-6 py-3 border border-oro-antiguo text-oro-antiguo text-xs uppercase tracking-widest hover:bg-oro-antiguo hover:text-verde-ebano transition-all mt-4"
+                  className="px-6 py-3 border border-oro-antiguo text-oro-antiguo text-sm uppercase tracking-widest hover:bg-oro-antiguo hover:text-verde-ebano transition-all mt-4"
                 >
                   Enviar Otra Solicitud
                 </button>
@@ -122,13 +122,13 @@ export default function PersonalizedPage() {
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-8">
                 {errorMsg && (
-                  <div className="p-4 bg-red-950/60 border border-red-500/30 text-red-300 text-xs tracking-wide">
+                  <div className="p-4 bg-red-950/60 border border-red-500/30 text-red-300 text-sm tracking-wide">
                     {errorMsg}
                   </div>
                 )}
 
                 <div className="flex flex-col gap-3">
-                  <label className="text-xs md:text-sm uppercase tracking-widest opacity-70 text-hueso-seda">
+                  <label className="text-sm md:text-base uppercase tracking-widest opacity-70 text-hueso-seda">
                     Nombre Completo
                   </label>
                   <input
@@ -141,7 +141,7 @@ export default function PersonalizedPage() {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  <label className="text-xs md:text-sm uppercase tracking-widest opacity-70 text-hueso-seda">
+                  <label className="text-sm md:text-base uppercase tracking-widest opacity-70 text-hueso-seda">
                     Email de Contacto
                   </label>
                   <input
@@ -154,7 +154,7 @@ export default function PersonalizedPage() {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  <label className="text-xs md:text-sm uppercase tracking-widest opacity-70 text-hueso-seda">
+                  <label className="text-sm md:text-base uppercase tracking-widest opacity-70 text-hueso-seda">
                     Descripción de la Joya
                   </label>
                   <textarea
@@ -184,7 +184,7 @@ export default function PersonalizedPage() {
                   )}
                 </LuxuryButton>
                 
-                <p className="text-[10px] md:text-xs text-center opacity-40 uppercase tracking-[0.2em] mt-6 text-hueso-seda">
+                <p className="text-xs md:text-sm text-center opacity-40 uppercase tracking-[0.2em] mt-6 text-hueso-seda">
                   Nuestro equipo te contactará en un máximo de 24 horas hábiles.
                 </p>
               </form>

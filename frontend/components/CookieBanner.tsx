@@ -41,20 +41,20 @@ export const CookieBanner = () => {
             </div>
 
             <div className="flex flex-col gap-3">
-              <h3 className="text-[10px] uppercase tracking-[0.4em] text-verde-ebano font-medium">Privacidad & Legado</h3>
-              <p className="text-[10px] md:text-xs text-verde-ebano/70 leading-relaxed font-light italic">
-                "Nuestra curaduría digital utiliza cookies para asegurar que tu experiencia sea tan impecable como nuestras piezas. Al continuar, aceptas nuestro <Link href="/privacy" className="underline decoration-oro-antiguo/30 hover:text-oro-antiguo transition-colors">Aviso de Privacidad</Link> y el uso de tecnologías de personalización."
+              <h3 className="text-xs uppercase tracking-[0.4em] text-verde-ebano font-medium">Privacidad & Legado</h3>
+              <p className="text-xs md:text-sm text-verde-ebano/70 leading-relaxed font-light italic">
+                "Nuestra página utiliza cookies para asegurar que tu experiencia sea tan impecable como nuestras piezas. Al continuar, aceptas nuestro <Link href="/privacy" className="underline decoration-oro-antiguo/30 hover:text-oro-antiguo transition-colors">Aviso de Privacidad</Link> y el uso de tecnologías de personalización."
               </p>
             </div>
 
             <div className="flex gap-4 items-center">
               <button 
                 onClick={acceptCookies}
-                className="bg-verde-ebano text-hueso-seda text-[9px] uppercase tracking-[0.3em] px-6 py-3 hover:bg-bosque-profundo transition-all"
+                className="bg-verde-ebano text-hueso-seda text-[11px] uppercase tracking-[0.3em] px-6 py-3 hover:bg-bosque-profundo transition-all"
               >
                 Aceptar Experiencia
               </button>
-              <Link href="/policies" className="text-[9px] uppercase tracking-[0.3em] text-verde-ebano/40 hover:text-verde-ebano transition-colors">
+              <Link href="/policies" className="text-[11px] uppercase tracking-[0.3em] text-verde-ebano/40 hover:text-verde-ebano transition-colors">
                 Políticas
               </Link>
             </div>

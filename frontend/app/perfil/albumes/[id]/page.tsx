@@ -181,7 +181,7 @@ function AlbumDetailContent() {
 
           <div className="flex-1 flex flex-col gap-6">
             {/* Back */}
-            <Link href="/perfil/albumes" className="flex items-center gap-2 text-[9px] uppercase tracking-[0.4em] text-verde-ebano/35 hover:text-verde-ebano transition-colors w-fit">
+            <Link href="/perfil/albumes" className="flex items-center gap-2 text-[11px] uppercase tracking-[0.4em] text-verde-ebano/35 hover:text-verde-ebano transition-colors w-fit">
               <ArrowLeft size={12} strokeWidth={1.5} /> Mis Álbumes
             </Link>
 
@@ -189,20 +189,20 @@ function AlbumDetailContent() {
             {isEditing ? (
               <div className="bg-white border border-verde-ebano/8 p-6 flex flex-col gap-5">
                 <div className="flex flex-col gap-2">
-                  <label className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/40">Nombre del Álbum</label>
+                  <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Nombre del Álbum</label>
                   <input value={editTitle} onChange={e => setEditTitle(e.target.value)}
                     className="text-2xl font-display text-verde-ebano bg-transparent outline-none border-b border-verde-ebano/12 pb-2 focus:border-oro-antiguo transition-colors"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/40">Descripción</label>
+                  <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Descripción</label>
                   <textarea value={editDesc} onChange={e => setEditDesc(e.target.value)} rows={2}
-                    className="text-sm text-verde-ebano/60 bg-transparent outline-none border-b border-verde-ebano/12 pb-2 focus:border-oro-antiguo transition-colors resize-none"
+                    className="text-base text-verde-ebano/60 bg-transparent outline-none border-b border-verde-ebano/12 pb-2 focus:border-oro-antiguo transition-colors resize-none"
                     placeholder="Una narrativa de tu colección..."
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/40">Visibilidad</label>
+                  <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Visibilidad</label>
                   <div className="flex gap-2">
                     {(["private", "shared_link", "public"] as AlbumVisibility[]).map(v => {
                       const vis = VISIBILITY_MAP[v];
@@ -221,9 +221,9 @@ function AlbumDetailContent() {
                   </div>
                 </div>
                 <div className="flex gap-3">
-                  <button onClick={() => setIsEditing(false)} className="flex-1 border border-verde-ebano/12 text-verde-ebano/40 text-[9px] uppercase tracking-[0.4em] py-2.5 hover:border-verde-ebano/25 transition-colors">Cancelar</button>
+                  <button onClick={() => setIsEditing(false)} className="flex-1 border border-verde-ebano/12 text-verde-ebano/40 text-[11px] uppercase tracking-[0.4em] py-2.5 hover:border-verde-ebano/25 transition-colors">Cancelar</button>
                   <button onClick={saveAlbum} disabled={isSaving}
-                    className="flex-1 flex items-center justify-center gap-2 bg-oro-antiguo text-verde-ebano text-[9px] uppercase tracking-[0.4em] py-2.5 hover:bg-verde-ebano hover:text-hueso-seda transition-all disabled:opacity-50"
+                    className="flex-1 flex items-center justify-center gap-2 bg-oro-antiguo text-verde-ebano text-[11px] uppercase tracking-[0.4em] py-2.5 hover:bg-verde-ebano hover:text-hueso-seda transition-all disabled:opacity-50"
                   >
                     {isSaving ? <Loader2 size={12} className="animate-spin" /> : <><Save size={12} /> Guardar</>}
                   </button>
@@ -234,16 +234,16 @@ function AlbumDetailContent() {
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center gap-2">
                     <Crown size={9} strokeWidth={1.5} className="text-oro-antiguo" />
-                    <p className="text-[8px] uppercase tracking-[0.6em] text-oro-antiguo">Álbum Personal</p>
+                    <p className="text-[10px] uppercase tracking-[0.6em] text-oro-antiguo">Álbum Personal</p>
                   </div>
                   <h1 className="text-3xl font-display text-verde-ebano">{album.title}</h1>
-                  {album.description && <p className="text-sm text-verde-ebano/40 italic font-light max-w-lg">{album.description}</p>}
+                  {album.description && <p className="text-base text-verde-ebano/40 italic font-light max-w-lg">{album.description}</p>}
                   <div className="flex items-center gap-3 mt-1">
-                    <span className="text-[8px] uppercase tracking-[0.3em] text-verde-ebano/30">
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-verde-ebano/30">
                       {items.length} {items.length === 1 ? "pieza" : "piezas"}
                     </span>
                     <span className="text-verde-ebano/15">·</span>
-                    <span className="text-[8px] uppercase tracking-[0.3em] text-verde-ebano/30">
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-verde-ebano/30">
                       {VISIBILITY_MAP[album.visibility].label}
                     </span>
                   </div>
@@ -262,7 +262,7 @@ function AlbumDetailContent() {
                     <Pencil size={13} strokeWidth={1.2} className="text-verde-ebano/40" />
                   </button>
                   <button onClick={() => setShowAddModal(true)}
-                    className="flex items-center gap-2 bg-verde-ebano text-hueso-seda text-[9px] uppercase tracking-[0.4em] px-4 py-2.5 hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-300"
+                    className="flex items-center gap-2 bg-verde-ebano text-hueso-seda text-[11px] uppercase tracking-[0.4em] px-4 py-2.5 hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-300"
                   >
                     <Plus size={11} strokeWidth={2} /> Agregar
                   </button>
@@ -277,10 +277,10 @@ function AlbumDetailContent() {
               </div>
             ) : items.length === 0 ? (
               <div className="bg-white border border-verde-ebano/8 p-14 flex flex-col items-center gap-5 text-center">
-                <p className="text-sm text-verde-ebano/25 uppercase tracking-[0.3em]">Álbum vacío</p>
-                <p className="text-[10px] text-verde-ebano/20">Agrega piezas del catálogo para crear tu colección personal</p>
+                <p className="text-base text-verde-ebano/25 uppercase tracking-[0.3em]">Álbum vacío</p>
+                <p className="text-xs text-verde-ebano/20">Agrega piezas del catálogo para crear tu colección personal</p>
                 <button onClick={() => setShowAddModal(true)}
-                  className="flex items-center gap-2 text-[9px] uppercase tracking-[0.5em] text-oro-antiguo border-b border-oro-antiguo/30 pb-0.5 hover:border-oro-antiguo transition-colors"
+                  className="flex items-center gap-2 text-[11px] uppercase tracking-[0.5em] text-oro-antiguo border-b border-oro-antiguo/30 pb-0.5 hover:border-oro-antiguo transition-colors"
                 >
                   <Plus size={10} /> Agregar Primera Pieza
                 </button>
@@ -308,17 +308,17 @@ function AlbumDetailContent() {
                       <div className="p-4 flex flex-col gap-3">
                         <div className="flex items-start justify-between gap-2">
                           <div className="flex-1">
-                            <p className="text-[9px] uppercase tracking-[0.3em] text-verde-ebano font-medium leading-snug">{product?.name}</p>
-                            <p className="text-[8px] text-verde-ebano/35 mt-0.5">{product?.collection_name}</p>
+                            <p className="text-[11px] uppercase tracking-[0.3em] text-verde-ebano font-medium leading-snug">{product?.name}</p>
+                            <p className="text-[10px] text-verde-ebano/35 mt-0.5">{product?.collection_name}</p>
                           </div>
-                          <p className="text-[10px] text-verde-ebano/60 flex-shrink-0">{product ? formatPrice(product.price_cents) : ""}</p>
+                          <p className="text-xs text-verde-ebano/60 flex-shrink-0">{product ? formatPrice(product.price_cents) : ""}</p>
                         </div>
 
                         {/* Personal note */}
                         {editingNoteId === item.id ? (
                           <div className="flex gap-2 items-end">
                             <textarea value={noteText} onChange={e => setNoteText(e.target.value)} rows={2} autoFocus
-                              className="flex-1 text-[9px] text-verde-ebano/60 bg-transparent border-b border-verde-ebano/15 outline-none focus:border-oro-antiguo resize-none"
+                              className="flex-1 text-[11px] text-verde-ebano/60 bg-transparent border-b border-verde-ebano/15 outline-none focus:border-oro-antiguo resize-none"
                               placeholder="Tu nota personal..."
                             />
                             <button onClick={() => saveNote(item.id)} className="text-oro-antiguo"><Check size={13} /></button>
@@ -326,20 +326,20 @@ function AlbumDetailContent() {
                           </div>
                         ) : item.note ? (
                           <p onClick={() => { setEditingNoteId(item.id); setNoteText(item.note || ""); }}
-                            className="text-[9px] text-verde-ebano/40 italic font-light cursor-pointer hover:text-verde-ebano/60 transition-colors"
+                            className="text-[11px] text-verde-ebano/40 italic font-light cursor-pointer hover:text-verde-ebano/60 transition-colors"
                           >
                             "{item.note}"
                           </p>
                         ) : (
                           <button onClick={() => { setEditingNoteId(item.id); setNoteText(""); }}
-                            className="text-[8px] uppercase tracking-[0.3em] text-verde-ebano/20 hover:text-oro-antiguo transition-colors text-left"
+                            className="text-[10px] uppercase tracking-[0.3em] text-verde-ebano/20 hover:text-oro-antiguo transition-colors text-left"
                           >
                             + Agregar nota personal
                           </button>
                         )}
 
                         <Link href={`/product/${product?.slug}`} target="_blank"
-                          className="flex items-center gap-1 text-[8px] uppercase tracking-[0.3em] text-verde-ebano/20 hover:text-oro-antiguo transition-colors"
+                          className="flex items-center gap-1 text-[10px] uppercase tracking-[0.3em] text-verde-ebano/20 hover:text-oro-antiguo transition-colors"
                         >
                           Ver en catálogo <ExternalLink size={9} strokeWidth={1.5} />
                         </Link>
@@ -372,7 +372,7 @@ function AlbumDetailContent() {
               {/* Modal header */}
               <div className="flex items-center justify-between p-6 border-b border-verde-ebano/8">
                 <div className="flex flex-col gap-0.5">
-                  <p className="text-[8px] uppercase tracking-[0.5em] text-oro-antiguo">Catálogo</p>
+                  <p className="text-[10px] uppercase tracking-[0.5em] text-oro-antiguo">Catálogo</p>
                   <h2 className="text-lg font-display text-verde-ebano">Agregar al Álbum</h2>
                 </div>
                 <button onClick={() => setShowAddModal(false)} className="w-8 h-8 border border-verde-ebano/10 flex items-center justify-center">
@@ -388,7 +388,7 @@ function AlbumDetailContent() {
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
                     placeholder="Buscar pieza por nombre o colección..."
-                    className="flex-1 bg-transparent text-sm text-verde-ebano outline-none placeholder:text-verde-ebano/25"
+                    className="flex-1 bg-transparent text-base text-verde-ebano outline-none placeholder:text-verde-ebano/25"
                     autoFocus
                   />
                   {isSearching && <Loader2 size={12} className="animate-spin text-verde-ebano/30" />}
@@ -398,11 +398,11 @@ function AlbumDetailContent() {
               {/* Results */}
               <div className="flex-1 overflow-y-auto p-4">
                 {!searchQuery ? (
-                  <p className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/25 text-center py-10">
+                  <p className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/25 text-center py-10">
                     Escribe para buscar piezas del catálogo
                   </p>
                 ) : searchResults.length === 0 && !isSearching ? (
-                  <p className="text-[9px] uppercase tracking-[0.3em] text-verde-ebano/25 text-center py-10">
+                  <p className="text-[11px] uppercase tracking-[0.3em] text-verde-ebano/25 text-center py-10">
                     Sin resultados para "{searchQuery}"
                   </p>
                 ) : (
@@ -436,7 +436,7 @@ function AlbumDetailContent() {
                             )}
                           </div>
                           <div className="p-3 flex flex-col gap-0.5">
-                            <p className="text-[8px] uppercase tracking-[0.2em] text-verde-ebano leading-tight">{product.name}</p>
+                            <p className="text-[10px] uppercase tracking-[0.2em] text-verde-ebano leading-tight">{product.name}</p>
                             <p className="text-[7px] text-verde-ebano/35">{formatPrice(product.price_cents)}</p>
                           </div>
                         </button>

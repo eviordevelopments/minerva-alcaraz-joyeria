@@ -46,7 +46,7 @@ export function AccessibilityPanel() {
             <h2 className="text-2xl font-display text-[#2C3729] uppercase tracking-widest mb-1">
               Accesibilidad
             </h2>
-            <p className="text-[10px] uppercase tracking-[0.2em] text-[#2C3729]/60">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#2C3729]/60">
               Personaliza tu experiencia
             </p>
           </div>
@@ -57,7 +57,7 @@ export function AccessibilityPanel() {
             <div className="flex items-center justify-between border-b border-[#2C3729]/10 pb-4">
               <div className="flex items-center gap-3 text-[#2C3729]">
                 {theme === 'dark' ? <Moon size={18} /> : <Sun size={18} />}
-                <span className="text-xs uppercase tracking-widest">Modo Oscuro</span>
+                <span className="text-sm uppercase tracking-widest">Modo Oscuro</span>
               </div>
               <button 
                 onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
@@ -71,7 +71,7 @@ export function AccessibilityPanel() {
             <div className="flex items-center justify-between border-b border-[#2C3729]/10 pb-4">
               <div className="flex items-center gap-3 text-[#2C3729]">
                 <Type size={18} />
-                <span className="text-xs uppercase tracking-widest">Texto Grande</span>
+                <span className="text-sm uppercase tracking-widest">Texto Grande</span>
               </div>
               <button 
                 onClick={() => setFontSize(fontSize === 'normal' ? 'large' : 'normal')}
@@ -85,7 +85,7 @@ export function AccessibilityPanel() {
             <div className="flex items-center justify-between border-b border-[#2C3729]/10 pb-4">
               <div className="flex items-center gap-3 text-[#2C3729]">
                 <Contrast size={18} />
-                <span className="text-xs uppercase tracking-widest">Alto Contraste</span>
+                <span className="text-sm uppercase tracking-widest">Alto Contraste</span>
               </div>
               <button 
                 onClick={() => setHighContrast(!highContrast)}
@@ -100,8 +100,8 @@ export function AccessibilityPanel() {
               <div className="flex items-center gap-3 text-[#2C3729]">
                 {voiceReader ? <Volume2 size={18} /> : <VolumeX size={18} />}
                 <div className="flex flex-col">
-                  <span className="text-xs uppercase tracking-widest">Lectura por Voz</span>
-                  <span className="text-[9px] text-[#2C3729]/50 tracking-wider">Haz clic en textos para leer</span>
+                  <span className="text-sm uppercase tracking-widest">Lectura por Voz</span>
+                  <span className="text-[11px] text-[#2C3729]/50 tracking-wider">Haz clic en textos para leer</span>
                 </div>
               </div>
               <button 

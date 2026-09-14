@@ -27,7 +27,7 @@ export default function EventosPage() {
           <ProfileSidebar />
           <div className="flex-1 flex flex-col gap-6">
             <div className="flex flex-col gap-1">
-              <div className="flex items-center gap-2"><Crown size={10} className="text-oro-antiguo" /><p className="text-[9px] uppercase tracking-[0.7em] text-oro-antiguo">The Circle</p></div>
+              <div className="flex items-center gap-2"><Crown size={10} className="text-oro-antiguo" /><p className="text-[11px] uppercase tracking-[0.7em] text-oro-antiguo">The Circle</p></div>
               <h1 className="text-3xl font-display text-verde-ebano">Eventos Atelier</h1>
             </div>
             <div className="flex flex-col gap-4">
@@ -35,20 +35,20 @@ export default function EventosPage() {
                 <div key={event.id} className="bg-white border border-verde-ebano/8 hover:border-oro-antiguo/20 transition-all p-6 flex flex-col md:flex-row gap-6">
                   <div className="flex flex-col items-center justify-center text-center w-16 flex-shrink-0">
                     <span className="text-2xl font-display text-verde-ebano">{new Date(event.date).getDate()}</span>
-                    <span className="text-[8px] uppercase tracking-[0.3em] text-oro-antiguo">{new Date(event.date).toLocaleDateString("es-MX", { month: "short" })}</span>
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-oro-antiguo">{new Date(event.date).toLocaleDateString("es-MX", { month: "short" })}</span>
                   </div>
                   <div className="flex-1 flex flex-col gap-3">
                     <div className="flex flex-col gap-1">
-                      <span className="text-[8px] uppercase tracking-[0.4em] text-oro-antiguo/60 border border-oro-antiguo/20 px-2 py-1 self-start">{event.type}</span>
-                      <h3 className="text-[11px] uppercase tracking-[0.2em] text-verde-ebano font-medium mt-2">{event.title}</h3>
+                      <span className="text-[10px] uppercase tracking-[0.4em] text-oro-antiguo/60 border border-oro-antiguo/20 px-2 py-1 self-start">{event.type}</span>
+                      <h3 className="text-sm uppercase tracking-[0.2em] text-verde-ebano font-medium mt-2">{event.title}</h3>
                     </div>
                     <div className="flex flex-wrap gap-4">
-                      <span className="flex items-center gap-1.5 text-[9px] text-verde-ebano/40"><Clock size={10} strokeWidth={1.2} /> {event.time}</span>
-                      <span className="flex items-center gap-1.5 text-[9px] text-verde-ebano/40"><MapPin size={10} strokeWidth={1.2} /> {event.location}</span>
-                      <span className="text-[9px] text-verde-ebano/40">{event.available} de {event.spots} lugares disponibles</span>
+                      <span className="flex items-center gap-1.5 text-[11px] text-verde-ebano/40"><Clock size={10} strokeWidth={1.2} /> {event.time}</span>
+                      <span className="flex items-center gap-1.5 text-[11px] text-verde-ebano/40"><MapPin size={10} strokeWidth={1.2} /> {event.location}</span>
+                      <span className="text-[11px] text-verde-ebano/40">{event.available} de {event.spots} lugares disponibles</span>
                     </div>
                   </div>
-                  <button className="flex items-center gap-2 bg-verde-ebano text-hueso-seda text-[9px] uppercase tracking-[0.4em] px-5 py-3 hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-300 self-start md:self-center flex-shrink-0">
+                  <button className="flex items-center gap-2 bg-verde-ebano text-hueso-seda text-[11px] uppercase tracking-[0.4em] px-5 py-3 hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-300 self-start md:self-center flex-shrink-0">
                     Reservar Lugar
                   </button>
                 </div>

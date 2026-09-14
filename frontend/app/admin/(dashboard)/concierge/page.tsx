@@ -188,7 +188,7 @@ export default function AdminConcierge() {
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-[#CBB67B]/20 pb-6">
         <div>
-          <span className="text-[10px] uppercase tracking-[0.4em] text-[#CBB67B]">
+          <span className="text-xs uppercase tracking-[0.4em] text-[#CBB67B]">
             Orfebrería de Lujo · Supabase Live
           </span>
           <h1 className="font-display-erp text-3xl sm:text-4xl text-[#E5DBD6] mt-2 font-bold">
@@ -203,7 +203,7 @@ export default function AdminConcierge() {
               placeholder="Buscar por cliente u orden..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-[#1F271D] border border-[#CBB67B]/30 pl-10 pr-4 py-2.5 text-xs text-[#E5DBD6] placeholder-[#8E9A8B]/60 focus:border-[#CBB67B] outline-none w-60 rounded-none"
+              className="bg-[#1F271D] border border-[#CBB67B]/30 pl-10 pr-4 py-2.5 text-sm text-[#E5DBD6] placeholder-[#8E9A8B]/60 focus:border-[#CBB67B] outline-none w-60 rounded-none"
             />
             <Search size={14} className="absolute left-3.5 text-[#8E9A8B]" />
           </div>
@@ -222,8 +222,8 @@ export default function AdminConcierge() {
         <div className="bg-red-950/60 border border-red-500/30 p-4 flex items-center gap-3 text-red-300">
           <AlertCircle size={16} className="flex-shrink-0" />
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-wider">Error al cargar órdenes</p>
-            <p className="text-[9px] opacity-80">{error}</p>
+            <p className="text-xs font-bold uppercase tracking-wider">Error al cargar órdenes</p>
+            <p className="text-[11px] opacity-80">{error}</p>
           </div>
         </div>
       )}
@@ -231,7 +231,7 @@ export default function AdminConcierge() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
         {/* Left: Orders list */}
         <div className="lg:col-span-5 space-y-4">
-          <h3 className="text-[10px] uppercase tracking-widest text-[#8E9A8B] font-bold">
+          <h3 className="text-xs uppercase tracking-widest text-[#8E9A8B] font-bold">
             Órdenes Activas ({filteredOrders.length})
           </h3>
 
@@ -244,7 +244,7 @@ export default function AdminConcierge() {
           ) : filteredOrders.length === 0 ? (
             <div className="bg-[#1F271D] border border-[#CBB67B]/10 p-12 text-center flex flex-col items-center gap-3">
               <Sparkles size={20} className="text-[#CBB67B]/30" />
-              <span className="text-[9px] uppercase tracking-widest text-[#8E9A8B]">
+              <span className="text-[11px] uppercase tracking-widest text-[#8E9A8B]">
                 {orders.length === 0
                   ? "Sin órdenes de concierge activas"
                   : "Sin resultados para la búsqueda"}
@@ -266,26 +266,26 @@ export default function AdminConcierge() {
                   >
                     <div className="flex justify-between items-start">
                       <div className="flex flex-col">
-                        <span className="text-[9px] uppercase tracking-widest text-[#CBB67B] font-mono">
+                        <span className="text-[11px] uppercase tracking-widest text-[#CBB67B] font-mono">
                           {ord.request_number}
                         </span>
-                        <h4 className="text-sm font-semibold tracking-wide text-[#E5DBD6] mt-0.5">
+                        <h4 className="text-base font-semibold tracking-wide text-[#E5DBD6] mt-0.5">
                           {ord.contact_name}
                         </h4>
                       </div>
                       <div className="flex items-center gap-1.5 border border-[#CBB67B]/20 px-2 py-1 bg-[#2C3729]/50">
                         {getStatusIcon(ord.status)}
-                        <span className="text-[8px] uppercase tracking-wider text-[#CBB67B]">
+                        <span className="text-[10px] uppercase tracking-wider text-[#CBB67B]">
                           {STATUS_LABELS[ord.status] ?? ord.status}
                         </span>
                       </div>
                     </div>
 
-                    <p className="text-[10px] text-[#8E9A8B] leading-relaxed line-clamp-2 italic">
+                    <p className="text-xs text-[#8E9A8B] leading-relaxed line-clamp-2 italic">
                       "{ord.description}"
                     </p>
 
-                    <div className="border-t border-[#CBB67B]/10 pt-2 flex justify-between items-center text-[9px] uppercase tracking-widest text-[#8E9A8B]">
+                    <div className="border-t border-[#CBB67B]/10 pt-2 flex justify-between items-center text-[11px] uppercase tracking-widest text-[#8E9A8B]">
                       <span>
                         {ord.estimated_ready_at
                           ? `Entrega: ${formatDate(ord.estimated_ready_at)}`
@@ -317,13 +317,13 @@ export default function AdminConcierge() {
                 {/* Header */}
                 <div className="border-b border-[#CBB67B]/10 pb-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
                   <div>
-                    <span className="text-[9px] uppercase tracking-widest text-[#CBB67B] font-mono">
+                    <span className="text-[11px] uppercase tracking-widest text-[#CBB67B] font-mono">
                       {currentOrder.request_number}
                     </span>
                     <h2 className="text-xl font-bold tracking-wide mt-0.5 text-[#E5DBD6]">
                       {currentOrder.contact_name}
                     </h2>
-                    <p className="text-[9px] text-[#8E9A8B] font-mono mt-1">
+                    <p className="text-[11px] text-[#8E9A8B] font-mono mt-1">
                       {currentOrder.contact_email}
                       {currentOrder.contact_phone && ` · ${currentOrder.contact_phone}`}
                     </p>
@@ -335,7 +335,7 @@ export default function AdminConcierge() {
                     <select
                       value={currentOrder.status}
                       onChange={(e) => handleStatusChange(currentOrder.id, e.target.value)}
-                      className="bg-[#2C3729] border border-[#CBB67B]/30 px-3 py-2 text-[9px] uppercase tracking-wider text-[#CBB67B] outline-none focus:border-[#CBB67B]"
+                      className="bg-[#2C3729] border border-[#CBB67B]/30 px-3 py-2 text-[11px] uppercase tracking-wider text-[#CBB67B] outline-none focus:border-[#CBB67B]"
                     >
                       {STATUS_OPTIONS.map((s) => (
                         <option key={s} value={s}>
@@ -348,10 +348,10 @@ export default function AdminConcierge() {
 
                 {/* Description */}
                 <div className="space-y-2">
-                  <span className="text-[8px] uppercase tracking-[0.25em] text-[#CBB67B] font-bold">
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-[#CBB67B] font-bold">
                     Descripción del Pedido
                   </span>
-                  <p className="text-[11px] text-[#E5DBD6]/80 leading-relaxed font-light">
+                  <p className="text-sm text-[#E5DBD6]/80 leading-relaxed font-light">
                     {currentOrder.description}
                   </p>
                 </div>
@@ -361,26 +361,26 @@ export default function AdminConcierge() {
                   <div className="grid grid-cols-2 gap-3 bg-[#2C3729]/30 border border-[#CBB67B]/10 p-4">
                     {currentOrder.desired_material && (
                       <div>
-                        <span className="text-[8px] uppercase tracking-widest text-[#8E9A8B]">Material</span>
-                        <p className="text-[10px] text-[#E5DBD6] mt-0.5">{currentOrder.desired_material}</p>
+                        <span className="text-[10px] uppercase tracking-widest text-[#8E9A8B]">Material</span>
+                        <p className="text-xs text-[#E5DBD6] mt-0.5">{currentOrder.desired_material}</p>
                       </div>
                     )}
                     {currentOrder.desired_stone && (
                       <div>
-                        <span className="text-[8px] uppercase tracking-widest text-[#8E9A8B]">Piedra</span>
-                        <p className="text-[10px] text-[#E5DBD6] mt-0.5">{currentOrder.desired_stone}</p>
+                        <span className="text-[10px] uppercase tracking-widest text-[#8E9A8B]">Piedra</span>
+                        <p className="text-xs text-[#E5DBD6] mt-0.5">{currentOrder.desired_stone}</p>
                       </div>
                     )}
                     {currentOrder.desired_size && (
                       <div>
-                        <span className="text-[8px] uppercase tracking-widest text-[#8E9A8B]">Talla</span>
-                        <p className="text-[10px] text-[#E5DBD6] mt-0.5">{currentOrder.desired_size}</p>
+                        <span className="text-[10px] uppercase tracking-widest text-[#8E9A8B]">Talla</span>
+                        <p className="text-xs text-[#E5DBD6] mt-0.5">{currentOrder.desired_size}</p>
                       </div>
                     )}
                     {currentOrder.engraving_text && (
                       <div>
-                        <span className="text-[8px] uppercase tracking-widest text-[#8E9A8B]">Grabado</span>
-                        <p className="text-[10px] text-[#E5DBD6] mt-0.5 italic">"{currentOrder.engraving_text}"</p>
+                        <span className="text-[10px] uppercase tracking-widest text-[#8E9A8B]">Grabado</span>
+                        <p className="text-xs text-[#E5DBD6] mt-0.5 italic">"{currentOrder.engraving_text}"</p>
                       </div>
                     )}
                   </div>
@@ -388,12 +388,12 @@ export default function AdminConcierge() {
 
                 {/* Communication log */}
                 <div className="space-y-3">
-                  <span className="text-[8px] uppercase tracking-[0.25em] text-[#CBB67B] font-bold block">
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-[#CBB67B] font-bold block">
                     Bitácora de Comunicación ({currentOrder.communication_log.length})
                   </span>
 
                   {currentOrder.communication_log.length === 0 ? (
-                    <div className="bg-[#2C3729]/30 border border-[#CBB67B]/10 p-4 text-center text-[#8E9A8B] text-[9px] uppercase tracking-widest">
+                    <div className="bg-[#2C3729]/30 border border-[#CBB67B]/10 p-4 text-center text-[#8E9A8B] text-[11px] uppercase tracking-widest">
                       Sin notas registradas aún
                     </div>
                   ) : (
@@ -402,14 +402,14 @@ export default function AdminConcierge() {
                         <div key={idx} className="relative text-left">
                           <div className="absolute -left-[21px] top-1.5 w-3 h-3 bg-[#1F271D] border-2 border-[#CBB67B]" />
                           <div className="flex items-center gap-2">
-                            <span className="text-[9px] font-bold uppercase tracking-wider text-[#E5DBD6]">
+                            <span className="text-[11px] font-bold uppercase tracking-wider text-[#E5DBD6]">
                               {entry.role === "admin" ? "Atelier" : "Cliente"}
                             </span>
-                            <span className="text-[8px] text-[#8E9A8B] font-mono">
+                            <span className="text-[10px] text-[#8E9A8B] font-mono">
                               {new Date(entry.timestamp).toLocaleString("es-MX")}
                             </span>
                           </div>
-                          <p className="text-[10px] text-[#8E9A8B] mt-1 leading-relaxed">
+                          <p className="text-xs text-[#8E9A8B] mt-1 leading-relaxed">
                             {entry.message}
                           </p>
                         </div>
@@ -425,12 +425,12 @@ export default function AdminConcierge() {
                       value={newLog}
                       onChange={(e) => setNewLog(e.target.value)}
                       onKeyDown={(e) => e.key === "Enter" && handleSendLog()}
-                      className="bg-[#2C3729] border border-[#CBB67B]/30 px-3 py-2 text-xs text-[#E5DBD6] placeholder-[#8E9A8B]/60 focus:border-[#CBB67B] outline-none flex-1 rounded-none"
+                      className="bg-[#2C3729] border border-[#CBB67B]/30 px-3 py-2 text-sm text-[#E5DBD6] placeholder-[#8E9A8B]/60 focus:border-[#CBB67B] outline-none flex-1 rounded-none"
                     />
                     <button
                       onClick={handleSendLog}
                       disabled={isSendingLog || !newLog.trim()}
-                      className="bg-[#CBB67B] hover:bg-[#E4D5A4] disabled:opacity-50 text-[#1F271D] font-bold text-[10px] uppercase tracking-widest px-4 transition-all flex items-center gap-1.5"
+                      className="bg-[#CBB67B] hover:bg-[#E4D5A4] disabled:opacity-50 text-[#1F271D] font-bold text-xs uppercase tracking-widest px-4 transition-all flex items-center gap-1.5"
                     >
                       {isSendingLog ? (
                         <Loader2 size={12} className="animate-spin" />
@@ -444,7 +444,7 @@ export default function AdminConcierge() {
             ) : (
               <div className="bg-[#1F271D] border border-[#CBB67B]/10 p-12 text-center text-[#8E9A8B] flex flex-col items-center justify-center gap-3 h-full min-h-[300px]">
                 <Sparkles size={24} className="text-[#CBB67B]/40" />
-                <span className="text-xs uppercase tracking-widest">
+                <span className="text-sm uppercase tracking-widest">
                   Selecciona una orden para ver el seguimiento
                 </span>
               </div>

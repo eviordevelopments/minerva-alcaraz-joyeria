@@ -57,7 +57,7 @@ export default function AdminLoginPage() {
           <h1 className="text-4xl font-display-erp font-bold text-[#CBB67B] mb-2 tracking-widest">
             MA
           </h1>
-          <h2 className="text-[10px] uppercase tracking-[0.4em] text-[#8E9A8B]">
+          <h2 className="text-xs uppercase tracking-[0.4em] text-[#8E9A8B]">
             Atelier Interno & ERP
           </h2>
         </div>
@@ -65,13 +65,13 @@ export default function AdminLoginPage() {
         <div className="bg-[#1F271D]/80 backdrop-blur-md border border-[#CBB67B]/20 p-8 shadow-2xl">
           <form onSubmit={handleLogin} className="space-y-6">
             {error && (
-              <div className="bg-red-900/30 border border-red-500/50 text-red-200 p-3 text-sm rounded-none text-center">
+              <div className="bg-red-900/30 border border-red-500/50 text-red-200 p-3 text-base rounded-none text-center">
                 {error}
               </div>
             )}
 
             <div>
-              <label className="block text-[10px] uppercase tracking-wider text-[#8E9A8B] mb-2">
+              <label className="block text-xs uppercase tracking-wider text-[#8E9A8B] mb-2">
                 Correo Corporativo
               </label>
               <input
@@ -85,7 +85,7 @@ export default function AdminLoginPage() {
             </div>
 
             <div>
-              <label className="block text-[10px] uppercase tracking-wider text-[#8E9A8B] mb-2">
+              <label className="block text-xs uppercase tracking-wider text-[#8E9A8B] mb-2">
                 Contraseña
               </label>
               <input
@@ -101,7 +101,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-[#CBB67B] text-[#2C3729] py-3.5 uppercase tracking-widest text-[11px] font-bold hover:bg-[#E4D5A4] transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-[#CBB67B] text-[#2C3729] py-3.5 uppercase tracking-widest text-sm font-bold hover:bg-[#E4D5A4] transition-colors flex items-center justify-center gap-2"
             >
               {isLoading ? (
                 <Loader2 size={16} className="animate-spin" />
@@ -112,12 +112,12 @@ export default function AdminLoginPage() {
           </form>
 
           <div className="mt-8 pt-6 border-t border-[#CBB67B]/10 text-center space-y-4">
-            <p className="text-[#8E9A8B] text-xs">
+            <p className="text-[#8E9A8B] text-sm">
               ¿No tienes una cuenta de equipo?
             </p>
             <Link
               href="/admin/register"
-              className="inline-block border border-[#CBB67B]/30 text-[#CBB67B] px-6 py-2 text-[10px] uppercase tracking-widest hover:bg-[#CBB67B]/10 transition-colors"
+              className="inline-block border border-[#CBB67B]/30 text-[#CBB67B] px-6 py-2 text-xs uppercase tracking-widest hover:bg-[#CBB67B]/10 transition-colors"
             >
               Registrar Nueva Cuenta
             </Link>

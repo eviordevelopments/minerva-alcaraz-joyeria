@@ -123,7 +123,7 @@ export default function AdminLayout({
           <div className="flex items-center gap-2">
             <span className="font-display-erp text-2xl text-[#CBB67B] font-bold">MA</span>
             <div className="w-[1px] h-6 bg-[#CBB67B]/30 hidden sm:block"></div>
-            <span className="text-[10px] uppercase tracking-[0.4em] text-[#8E9A8B] hidden sm:block">
+            <span className="text-xs uppercase tracking-[0.4em] text-[#8E9A8B] hidden sm:block">
               Atelier Interno &amp; ERP
             </span>
           </div>
@@ -134,7 +134,7 @@ export default function AdminLayout({
           <Link 
             href="/" 
             target="_blank"
-            className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-[#CBB67B] hover:text-[#E4D5A4] transition-colors border border-[#CBB67B]/20 px-3 py-1.5"
+            className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#CBB67B] hover:text-[#E4D5A4] transition-colors border border-[#CBB67B]/20 px-3 py-1.5"
           >
             <span>Ver Tienda</span>
             <ExternalLink size={12} />
@@ -145,8 +145,8 @@ export default function AdminLayout({
               <User size={16} className="text-[#CBB67B]" />
             </div>
             <div className="hidden md:flex flex-col text-left">
-              <span className="text-xs font-semibold tracking-wider">{profileName}</span>
-              <span className="text-[9px] uppercase tracking-widest text-[#CBB67B]">
+              <span className="text-sm font-semibold tracking-wider">{profileName}</span>
+              <span className="text-[11px] uppercase tracking-widest text-[#CBB67B]">
                 {profileRole ? `${profileRole} · ` : ""}{profileLocation}
               </span>
             </div>
@@ -180,8 +180,8 @@ export default function AdminLayout({
                       
                       {isSidebarOpen && (
                         <div className="flex flex-col items-start leading-tight">
-                          <span className="text-xs uppercase tracking-wider font-medium">{item.name}</span>
-                          <span className="text-[8px] text-[#8E9A8B] lowercase italic truncate max-w-[150px]">
+                          <span className="text-sm uppercase tracking-wider font-medium">{item.name}</span>
+                          <span className="text-[10px] text-[#8E9A8B] lowercase italic truncate max-w-[150px]">
                             {item.description}
                           </span>
                         </div>
@@ -204,7 +204,7 @@ export default function AdminLayout({
                 className="w-full flex items-center justify-center gap-2 py-3 border border-[#CBB67B]/20 text-[#8E9A8B] hover:text-[#CBB67B] hover:border-[#CBB67B]/50 transition-colors focus:outline-none"
               >
                 <Accessibility size={16} />
-                {isSidebarOpen && <span className="text-[10px] uppercase tracking-wider">Accesibilidad</span>}
+                {isSidebarOpen && <span className="text-xs uppercase tracking-wider">Accesibilidad</span>}
               </button>
 
               <button 
@@ -212,7 +212,7 @@ export default function AdminLayout({
                 className="w-full flex items-center justify-center gap-2 py-3 border border-[#CBB67B]/20 text-[#8E9A8B] hover:text-[#CBB67B] hover:border-[#CBB67B]/50 transition-colors focus:outline-none"
               >
                 {isSidebarOpen ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
-                {isSidebarOpen && <span className="text-[10px] uppercase tracking-wider">Contraer</span>}
+                {isSidebarOpen && <span className="text-xs uppercase tracking-wider">Contraer</span>}
               </button>
             </div>
           </div>
@@ -259,8 +259,8 @@ export default function AdminLayout({
                         >
                           <Icon size={18} />
                           <div className="flex flex-col items-start text-left">
-                            <span className="text-xs uppercase tracking-wider">{item.name}</span>
-                            <span className="text-[8px] text-[#8E9A8B]">{item.description}</span>
+                            <span className="text-sm uppercase tracking-wider">{item.name}</span>
+                            <span className="text-[10px] text-[#8E9A8B]">{item.description}</span>
                           </div>
                         </div>
                       </Link>
@@ -274,7 +274,7 @@ export default function AdminLayout({
                     className="flex items-center justify-center gap-2 w-full py-3 bg-[#2C3729] border border-[#CBB67B]/30 text-[#CBB67B] hover:bg-[#CBB67B] hover:text-[#2C3729] transition-all"
                   >
                     <LogOut size={14} />
-                    <span className="text-[10px] uppercase tracking-widest font-semibold">Cerrar Sesión</span>
+                    <span className="text-xs uppercase tracking-widest font-semibold">Cerrar Sesión</span>
                   </Link>
                 </div>
               </motion.aside>

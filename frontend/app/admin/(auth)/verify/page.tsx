@@ -86,8 +86,8 @@ function VerifyContent() {
       <div className="min-h-screen bg-[#2C3729] flex flex-col items-center justify-center p-6 text-[#E5DBD6]">
         <AlertTriangle size={48} className="text-red-400 mb-4" />
         <h1 className="text-2xl font-display-erp text-[#CBB67B] mb-2">Enlace Inválido</h1>
-        <p className="text-sm text-[#8E9A8B] mb-8">No se encontró un token válido en la URL.</p>
-        <Link href="/admin/register" className="text-[10px] uppercase tracking-[0.2em] text-[#CBB67B] border border-[#CBB67B]/30 px-6 py-3 hover:bg-[#CBB67B]/10 transition-colors">
+        <p className="text-base text-[#8E9A8B] mb-8">No se encontró un token válido en la URL.</p>
+        <Link href="/admin/register" className="text-xs uppercase tracking-[0.2em] text-[#CBB67B] border border-[#CBB67B]/30 px-6 py-3 hover:bg-[#CBB67B]/10 transition-colors">
           Volver a Registrarse
         </Link>
       </div>
@@ -111,7 +111,7 @@ function VerifyContent() {
           <h1 className="text-3xl font-display-erp font-bold text-[#CBB67B] mb-2 tracking-widest">
             ACTIVACIÓN DE CUENTA
           </h1>
-          <h2 className="text-[10px] uppercase tracking-[0.3em] text-[#8E9A8B]">
+          <h2 className="text-xs uppercase tracking-[0.3em] text-[#8E9A8B]">
             Paso final: Establecer contraseña
           </h2>
         </div>
@@ -121,7 +121,7 @@ function VerifyContent() {
             <div className="flex flex-col items-center justify-center space-y-4 py-8">
               <CheckCircle size={48} className="text-[#CBB67B]" />
               <h2 className="text-xl text-[#CBB67B] font-display-erp tracking-widest text-center">¡CUENTA ACTIVADA!</h2>
-              <p className="text-sm text-[#8E9A8B] text-center max-w-md">
+              <p className="text-base text-[#8E9A8B] text-center max-w-md">
                 Bienvenido al sistema ERP, <strong>{email}</strong>.<br/>
                 Redirigiendo a tu entorno de trabajo...
               </p>
@@ -130,37 +130,37 @@ function VerifyContent() {
           ) : (
             <form onSubmit={handleVerify} className="space-y-6">
               {error && (
-                <div className="bg-red-900/30 border border-red-500/50 text-red-200 p-4 text-sm text-center">
+                <div className="bg-red-900/30 border border-red-500/50 text-red-200 p-4 text-base text-center">
                   {error}
                 </div>
               )}
 
-              <p className="text-sm text-[#E5DBD6]/80 text-center font-light leading-relaxed">
+              <p className="text-base text-[#E5DBD6]/80 text-center font-light leading-relaxed">
                 Tu identidad ha sido verificada. Para proteger el acceso de tu equipo, crea una contraseña segura.
               </p>
 
               <div>
-                <label className="block text-[9px] uppercase tracking-wider text-[#8E9A8B] mb-1">Nueva Contraseña</label>
+                <label className="block text-[11px] uppercase tracking-wider text-[#8E9A8B] mb-1">Nueva Contraseña</label>
                 <input
                   type="password"
                   required
                   minLength={6}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-[#2C3729] border border-[#CBB67B]/30 px-3 py-3 text-sm text-[#E5DBD6] focus:outline-none focus:border-[#CBB67B]"
+                  className="w-full bg-[#2C3729] border border-[#CBB67B]/30 px-3 py-3 text-base text-[#E5DBD6] focus:outline-none focus:border-[#CBB67B]"
                   placeholder="••••••••"
                 />
               </div>
 
               <div>
-                <label className="block text-[9px] uppercase tracking-wider text-[#8E9A8B] mb-1">Confirmar Contraseña</label>
+                <label className="block text-[11px] uppercase tracking-wider text-[#8E9A8B] mb-1">Confirmar Contraseña</label>
                 <input
                   type="password"
                   required
                   minLength={6}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full bg-[#2C3729] border border-[#CBB67B]/30 px-3 py-3 text-sm text-[#E5DBD6] focus:outline-none focus:border-[#CBB67B]"
+                  className="w-full bg-[#2C3729] border border-[#CBB67B]/30 px-3 py-3 text-base text-[#E5DBD6] focus:outline-none focus:border-[#CBB67B]"
                   placeholder="••••••••"
                 />
               </div>
@@ -168,7 +168,7 @@ function VerifyContent() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-[#CBB67B] text-[#2C3729] py-4 uppercase tracking-[0.2em] text-xs font-bold hover:bg-[#E4D5A4] transition-colors flex items-center justify-center gap-2 mt-4"
+                className="w-full bg-[#CBB67B] text-[#2C3729] py-4 uppercase tracking-[0.2em] text-sm font-bold hover:bg-[#E4D5A4] transition-colors flex items-center justify-center gap-2 mt-4"
               >
                 {isLoading ? <Loader2 size={16} className="animate-spin" /> : "Activar y Entrar"}
               </button>

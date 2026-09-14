@@ -44,12 +44,12 @@ export default function ColeccionesPrivadasPage() {
           <ProfileSidebar />
           <div className="flex-1 flex flex-col gap-6">
             <div className="flex flex-col gap-1">
-              <div className="flex items-center gap-2"><Crown size={10} className="text-oro-antiguo" /><p className="text-[9px] uppercase tracking-[0.7em] text-oro-antiguo">The Circle</p></div>
+              <div className="flex items-center gap-2"><Crown size={10} className="text-oro-antiguo" /><p className="text-[11px] uppercase tracking-[0.7em] text-oro-antiguo">The Circle</p></div>
               <h1 className="text-3xl font-display text-verde-ebano">Colecciones Privadas</h1>
             </div>
             <div className="bg-verde-ebano/4 border border-oro-antiguo/10 p-5 flex items-start gap-3">
               <Gem size={14} strokeWidth={1} className="text-oro-antiguo flex-shrink-0 mt-0.5" />
-              <p className="text-[10px] text-verde-ebano/50 leading-loose">Piezas únicas e irrepetibles disponibles exclusivamente para miembros de The Circle. Estas joyas no aparecen en el catálogo general.</p>
+              <p className="text-xs text-verde-ebano/50 leading-loose">Piezas únicas e irrepetibles disponibles exclusivamente para miembros de The Circle. Estas joyas no aparecen en el catálogo general.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
               {circleProducts.map(p => (
@@ -59,9 +59,9 @@ export default function ColeccionesPrivadasPage() {
                     <div className="absolute top-2 left-2 bg-oro-antiguo/90 text-verde-ebano text-[7px] uppercase tracking-[0.4em] px-2 py-1 flex items-center gap-1"><Sparkles size={8} /> Exclusiva</div>
                   </div>
                   <div className="p-5 flex flex-col gap-2">
-                    <p className="text-[9px] uppercase tracking-[0.3em] text-verde-ebano font-medium">{p.name}</p>
-                    <p className="text-[8px] text-verde-ebano/40">{p.collection}</p>
-                    <p className="text-sm text-verde-ebano/70">${p.price.toLocaleString("es-MX")} MXN</p>
+                    <p className="text-[11px] uppercase tracking-[0.3em] text-verde-ebano font-medium">{p.name}</p>
+                    <p className="text-[10px] text-verde-ebano/40">{p.collection}</p>
+                    <p className="text-base text-verde-ebano/70">${p.price.toLocaleString("es-MX")} MXN</p>
                   </div>
                 </Link>
               ))}

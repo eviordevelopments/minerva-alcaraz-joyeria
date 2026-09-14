@@ -25,7 +25,7 @@ export default function FavoritesPage() {
           <div className="flex flex-col gap-2 items-center text-center">
             <Heart size={32} strokeWidth={0.5} className="text-oro-antiguo mb-4" />
             <h1 className="text-4xl font-display text-verde-ebano">Mis Favoritos</h1>
-            <p className="text-[10px] uppercase tracking-[0.4em] text-plata-niebla">Selección Curada de Deseos</p>
+            <p className="text-xs uppercase tracking-[0.4em] text-plata-niebla">Selección Curada de Deseos</p>
           </div>
 
           {favorites.length > 0 ? (
@@ -39,7 +39,7 @@ export default function FavoritesPage() {
             </div>
           ) : (
             <div className="py-32 text-center flex flex-col items-center gap-6">
-              <p className="text-xs uppercase tracking-widest text-plata-niebla">No tiene piezas en su lista de favoritos</p>
+              <p className="text-sm uppercase tracking-widest text-plata-niebla">No tiene piezas en su lista de favoritos</p>
             </div>
           )}
         </div>

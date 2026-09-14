@@ -139,7 +139,7 @@ export default function AdminShowroom() {
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-[#CBB67B]/20 pb-6">
         <div>
-          <span className="text-[10px] uppercase tracking-[0.4em] text-[#CBB67B]">
+          <span className="text-xs uppercase tracking-[0.4em] text-[#CBB67B]">
             Planificación Real · Supabase Live
           </span>
           <h1 className="font-display-erp text-3xl sm:text-4xl text-[#E5DBD6] mt-2 font-bold">
@@ -160,7 +160,7 @@ export default function AdminShowroom() {
               setShowModal(true);
               setOverlapError("");
             }}
-            className="flex items-center gap-2 border border-[#CBB67B] px-5 py-2.5 bg-[#CBB67B]/10 hover:bg-[#CBB67B] hover:text-[#1F271D] text-xs uppercase tracking-widest text-[#CBB67B] transition-all font-semibold"
+            className="flex items-center gap-2 border border-[#CBB67B] px-5 py-2.5 bg-[#CBB67B]/10 hover:bg-[#CBB67B] hover:text-[#1F271D] text-sm uppercase tracking-widest text-[#CBB67B] transition-all font-semibold"
           >
             <Plus size={14} />
             <span>Agendar Cita</span>
@@ -173,8 +173,8 @@ export default function AdminShowroom() {
         <div className="bg-red-950/60 border border-red-500/30 p-4 flex items-center gap-3 text-red-300">
           <AlertCircle size={16} className="flex-shrink-0" />
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-wider">Error al cargar el showroom</p>
-            <p className="text-[9px] opacity-80">{error}</p>
+            <p className="text-xs font-bold uppercase tracking-wider">Error al cargar el showroom</p>
+            <p className="text-[11px] opacity-80">{error}</p>
           </div>
         </div>
       )}
@@ -182,7 +182,7 @@ export default function AdminShowroom() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
         {/* Left: Recursos */}
         <div className="lg:col-span-4 space-y-4">
-          <h3 className="text-[10px] uppercase tracking-widest text-[#8E9A8B] font-bold">
+          <h3 className="text-xs uppercase tracking-widest text-[#8E9A8B] font-bold">
             Espacios del Showroom
           </h3>
 
@@ -200,11 +200,11 @@ export default function AdminShowroom() {
                   <div key={rec.id} className="bg-[#1F271D] border border-[#CBB67B]/15 p-5 space-y-2">
                     <div className="flex items-center gap-2 text-[#CBB67B]">
                       <MapPin size={14} />
-                      <h4 className="text-sm font-semibold tracking-wider font-display-erp">
+                      <h4 className="text-base font-semibold tracking-wider font-display-erp">
                         {rec.nombre_recurso}
                       </h4>
                     </div>
-                    <p className="text-[10px] text-[#8E9A8B]">
+                    <p className="text-xs text-[#8E9A8B]">
                       {citasRec.length === 0
                         ? "Sin citas activas"
                         : `${citasRec.length} cita${citasRec.length > 1 ? "s" : ""} activa${citasRec.length > 1 ? "s" : ""}`}
@@ -216,10 +216,10 @@ export default function AdminShowroom() {
           )}
 
           <div className="bg-[#2C3729]/50 border border-[#CBB67B]/15 p-5 space-y-2.5">
-            <span className="text-[8px] uppercase tracking-[0.25em] text-[#CBB67B] font-bold block">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-[#CBB67B] font-bold block">
               Garantía de Privacidad Absoluta
             </span>
-            <p className="text-[10px] text-[#8E9A8B] leading-relaxed font-light">
+            <p className="text-xs text-[#8E9A8B] leading-relaxed font-light">
               Las citas se validan contra una restricción de exclusión TSTZRANGE en la base de datos (PostgreSQL GiST). Dos citas no pueden solaparse en el mismo espacio.
             </p>
           </div>
@@ -228,15 +228,15 @@ export default function AdminShowroom() {
         {/* Right: Calendar view */}
         <div className="lg:col-span-8 bg-[#1F271D] border border-[#CBB67B]/20 p-6 sm:p-8">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 border-b border-[#CBB67B]/10 pb-4">
-            <h3 className="text-xs uppercase tracking-[0.2em] font-medium text-[#E5DBD6]">
+            <h3 className="text-sm uppercase tracking-[0.2em] font-medium text-[#E5DBD6]">
               Agenda del Día
             </h3>
             <div className="flex items-center gap-2">
-              <span className="text-[8px] uppercase tracking-widest text-[#8E9A8B]">Filtro:</span>
+              <span className="text-[10px] uppercase tracking-widest text-[#8E9A8B]">Filtro:</span>
               <select
                 value={selectedRecurso}
                 onChange={(e) => setSelectedRecurso(e.target.value)}
-                className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-1.5 text-[9px] uppercase tracking-widest text-[#E5DBD6] outline-none"
+                className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-1.5 text-[11px] uppercase tracking-widest text-[#E5DBD6] outline-none"
               >
                 <option value="all">Ver Todos</option>
                 {recursos.map((r) => (
@@ -272,7 +272,7 @@ export default function AdminShowroom() {
                         : "bg-[#2C3729]/10 border-[#CBB67B]/10 hover:border-[#CBB67B]/30"
                     }`}
                   >
-                    <div className="col-span-2 flex items-center gap-1.5 text-xs font-mono font-bold text-[#CBB67B]">
+                    <div className="col-span-2 flex items-center gap-1.5 text-sm font-mono font-bold text-[#CBB67B]">
                       <Clock size={12} />
                       <span>{time}</span>
                     </div>
@@ -281,16 +281,16 @@ export default function AdminShowroom() {
                       {activeCita ? (
                         <>
                           <div className="flex flex-col gap-0.5">
-                            <span className="text-[10px] uppercase tracking-wider text-[#CBB67B] font-semibold">
+                            <span className="text-xs uppercase tracking-wider text-[#CBB67B] font-semibold">
                               {activeCita.motivo}
                             </span>
-                            <span className="text-[8px] uppercase tracking-widest text-[#8E9A8B]">
+                            <span className="text-[10px] uppercase tracking-widest text-[#8E9A8B]">
                               {activeCita.recursoNombre} ·{" "}
                               {activeCita.horaInicio}–{activeCita.horaFin}
                             </span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className="text-[8px] uppercase tracking-widest border border-[#CBB67B]/30 px-2 py-0.5 bg-[#1F271D] text-[#CBB67B]">
+                            <span className="text-[10px] uppercase tracking-widest border border-[#CBB67B]/30 px-2 py-0.5 bg-[#1F271D] text-[#CBB67B]">
                               {activeCita.status}
                             </span>
                             <button
@@ -304,7 +304,7 @@ export default function AdminShowroom() {
                         </>
                       ) : (
                         <>
-                          <span className="text-[9px] uppercase tracking-widest italic text-[#8E9A8B]/50">
+                          <span className="text-[11px] uppercase tracking-widest italic text-[#8E9A8B]/50">
                             Disponible para exhibiciones
                           </span>
                           <button
@@ -318,7 +318,7 @@ export default function AdminShowroom() {
                               setShowModal(true);
                               setOverlapError("");
                             }}
-                            className="text-[8px] uppercase tracking-widest font-semibold hover:text-[#CBB67B] border border-[#CBB67B]/10 hover:border-[#CBB67B]/40 px-3 py-1.5 transition-all text-[#8E9A8B] w-fit"
+                            className="text-[10px] uppercase tracking-widest font-semibold hover:text-[#CBB67B] border border-[#CBB67B]/10 hover:border-[#CBB67B]/40 px-3 py-1.5 transition-all text-[#8E9A8B] w-fit"
                           >
                             Reservar
                           </button>
@@ -334,7 +334,7 @@ export default function AdminShowroom() {
           {!isLoading && filteredCitas.length === 0 && (
             <div className="mt-8 text-center text-[#8E9A8B] flex flex-col items-center gap-3">
               <Calendar size={20} className="text-[#CBB67B]/30" />
-              <span className="text-[9px] uppercase tracking-widest">
+              <span className="text-[11px] uppercase tracking-widest">
                 Sin citas agendadas hoy
               </span>
             </div>
@@ -392,18 +392,18 @@ export default function AdminShowroom() {
                   >
                     <div className="flex items-center gap-2">
                       <AlertTriangle size={14} className="text-red-400 flex-shrink-0" />
-                      <span className="text-[9px] uppercase tracking-wider font-bold">
+                      <span className="text-[11px] uppercase tracking-wider font-bold">
                         Violación de Exclusión Temporal
                       </span>
                     </div>
-                    <p className="text-[9px] leading-relaxed">{overlapError}</p>
+                    <p className="text-[11px] leading-relaxed">{overlapError}</p>
                   </motion.div>
                 )}
               </AnimatePresence>
 
               <form onSubmit={handleCreateBooking} className="space-y-4">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">
+                  <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">
                     Nombre del Cliente VIP *
                   </label>
                   <input
@@ -411,19 +411,19 @@ export default function AdminShowroom() {
                     placeholder="Ej: María Inés"
                     value={formCliente}
                     onChange={(e) => setFormCliente(e.target.value)}
-                    className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-xs focus:border-[#CBB67B] outline-none text-[#E5DBD6] w-full"
+                    className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6] w-full"
                     required
                   />
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">
+                  <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">
                     Espacio Físico *
                   </label>
                   <select
                     value={formRecursoId}
                     onChange={(e) => setFormRecursoId(e.target.value)}
-                    className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-xs focus:border-[#CBB67B] outline-none text-[#E5DBD6] w-full"
+                    className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6] w-full"
                     required
                   >
                     {recursos.map((r) => (
@@ -436,11 +436,11 @@ export default function AdminShowroom() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">Hora Entrada</label>
+                    <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">Hora Entrada</label>
                     <select
                       value={formInicio}
                       onChange={(e) => setFormInicio(e.target.value)}
-                      className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-xs focus:border-[#CBB67B] outline-none text-[#E5DBD6] font-mono"
+                      className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6] font-mono"
                     >
                       {TIME_SLOTS.map((t) => (
                         <option key={t} value={t}>{t}</option>
@@ -449,11 +449,11 @@ export default function AdminShowroom() {
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">Hora Salida</label>
+                    <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">Hora Salida</label>
                     <select
                       value={formFin}
                       onChange={(e) => setFormFin(e.target.value)}
-                      className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-xs focus:border-[#CBB67B] outline-none text-[#E5DBD6] font-mono"
+                      className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6] font-mono"
                     >
                       {TIME_SLOTS.filter(
                         (t) => parseInt(t) > parseInt(formInicio)
@@ -465,13 +465,13 @@ export default function AdminShowroom() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">Motivo de la Visita *</label>
+                  <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">Motivo de la Visita *</label>
                   <input
                     type="text"
                     placeholder="Ej: Co-creación de anillo de compromiso"
                     value={formMotivo}
                     onChange={(e) => setFormMotivo(e.target.value)}
-                    className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-xs focus:border-[#CBB67B] outline-none text-[#E5DBD6] w-full"
+                    className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6] w-full"
                     required
                   />
                 </div>
@@ -479,7 +479,7 @@ export default function AdminShowroom() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 bg-[#CBB67B] hover:bg-[#E4D5A4] disabled:opacity-50 text-[#1F271D] font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2"
+                  className="w-full py-4 bg-[#CBB67B] hover:bg-[#E4D5A4] disabled:opacity-50 text-[#1F271D] font-bold text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? (
                     <Loader2 size={14} className="animate-spin" />

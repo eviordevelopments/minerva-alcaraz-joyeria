@@ -28,7 +28,7 @@ export default function CartPage() {
         <div className="flex flex-col gap-12">
           <div className="flex flex-col gap-2">
             <h1 className="text-4xl font-display text-verde-ebano">Mi Bolsa</h1>
-            <p className="text-[10px] uppercase tracking-[0.4em] text-plata-niebla">Artículos Seleccionados para su Legado</p>
+            <p className="text-xs uppercase tracking-[0.4em] text-plata-niebla">Artículos Seleccionados para su Legado</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
@@ -38,9 +38,9 @@ export default function CartPage() {
                 <div key={item.id} className="flex flex-col md:flex-row gap-8 border-b border-plata-niebla/10 pb-8 items-center">
                   <div className="w-32 aspect-[3/4] bg-plata-niebla/10" />
                   <div className="flex-1 flex flex-col gap-2 text-center md:text-left">
-                    <span className="text-[9px] uppercase tracking-widest text-plata-niebla">{item.category}</span>
+                    <span className="text-[11px] uppercase tracking-widest text-plata-niebla">{item.category}</span>
                     <h3 className="text-lg font-display text-verde-ebano">{item.name}</h3>
-                    <span className="text-[8px] tracking-widest text-plata-niebla uppercase">SKU: {item.sku}</span>
+                    <span className="text-[10px] tracking-widest text-plata-niebla uppercase">SKU: {item.sku}</span>
                   </div>
                   <div className="flex flex-col items-center md:items-end gap-4">
                     <span className="text-lg text-verde-ebano">${item.price.toLocaleString()} USD</span>
@@ -54,7 +54,7 @@ export default function CartPage() {
               {cartItems.length === 0 && (
                 <div className="py-32 text-center flex flex-col items-center gap-6">
                   <ShoppingBag size={48} strokeWidth={0.5} className="opacity-20" />
-                  <p className="text-xs uppercase tracking-widest text-plata-niebla">Su bolsa está vacía</p>
+                  <p className="text-sm uppercase tracking-widest text-plata-niebla">Su bolsa está vacía</p>
                   <LuxuryButton>Explorar Colecciones</LuxuryButton>
                 </div>
               )}
@@ -65,7 +65,7 @@ export default function CartPage() {
               <div className="bg-authority p-12 flex flex-col gap-8 shadow-2xl">
                 <h2 className="text-2xl font-display text-oro-antiguo">Resumen</h2>
                 
-                <div className="flex flex-col gap-4 text-xs uppercase tracking-widest text-hueso-seda/70">
+                <div className="flex flex-col gap-4 text-sm uppercase tracking-widest text-hueso-seda/70">
                   <div className="flex justify-between">
                     <span>Subtotal</span>
                     <span>${total.toLocaleString()} USD</span>
@@ -75,7 +75,7 @@ export default function CartPage() {
                     <span className="text-oro-antiguo">Gratis</span>
                   </div>
                   <div className="h-[1px] bg-hueso-seda/10 my-4" />
-                  <div className="flex justify-between text-hueso-seda text-sm">
+                  <div className="flex justify-between text-hueso-seda text-base">
                     <span>Total</span>
                     <span className="text-oro-antiguo">${total.toLocaleString()} USD</span>
                   </div>
@@ -85,19 +85,19 @@ export default function CartPage() {
                    <LuxuryButton variant="secondary" className="w-full flex items-center justify-center gap-2">
                      Pagar Ahora <ArrowRight size={14} />
                    </LuxuryButton>
-                   <p className="text-[8px] uppercase tracking-[0.2em] text-hueso-seda/40 text-center">
+                   <p className="text-[10px] uppercase tracking-[0.2em] text-hueso-seda/40 text-center">
                      Membresía THE CIRCLE disponible en el siguiente paso
                    </p>
                 </div>
 
                 <div className="flex flex-col gap-4 mt-8 pt-8 border-t border-hueso-seda/10">
-                   <div className="flex items-center gap-3 text-[9px] uppercase tracking-widest text-hueso-seda/60">
+                   <div className="flex items-center gap-3 text-[11px] uppercase tracking-widest text-hueso-seda/60">
                      <Lock size={12} /> Pago Encriptado SSL
                    </div>
-                   <div className="flex items-center gap-3 text-[9px] uppercase tracking-widest text-hueso-seda/60">
+                   <div className="flex items-center gap-3 text-[11px] uppercase tracking-widest text-hueso-seda/60">
                      <ShieldCheck size={12} /> Garantía de Autenticidad
                    </div>
-                   <div className="flex items-center gap-3 text-[9px] uppercase tracking-widest text-hueso-seda/60">
+                   <div className="flex items-center gap-3 text-[11px] uppercase tracking-widest text-hueso-seda/60">
                      <CreditCard size={12} /> Visa, Mastercard, AMEX
                    </div>
                 </div>

@@ -84,11 +84,11 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
         {/* THE CIRCLE Announcement Bar */}
         <div className="w-full bg-verde-ebano py-2 border-b border-oro-antiguo/10 text-center relative z-10 px-4">
           <Link href="/the-circle" className="group inline-flex items-center gap-2 md:gap-4">
-            <span className="text-oro-antiguo text-[8px] sm:text-[9px] uppercase tracking-[0.3em] sm:tracking-[0.6em] font-medium whitespace-nowrap">The Circle</span>
-            <p className="hidden sm:block text-hueso-seda text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-light italic opacity-80 group-hover:opacity-100 transition-opacity">
-              &ldquo;Únase a la cofradía del lujo eterno. Privilegios exclusivos y acceso prioritario.&rdquo;
+            <span className="text-oro-antiguo text-[10px] sm:text-[11px] uppercase tracking-[0.3em] sm:tracking-[0.6em] font-medium whitespace-nowrap">The Circle</span>
+            <p className="hidden sm:block text-hueso-seda text-[11px] md:text-xs uppercase tracking-[0.2em] font-light italic opacity-80 group-hover:opacity-100 transition-opacity">
+              ACCESO PRIORITARIO Y PRIVILEGIOS EXCLUSIVOS
             </p>
-            <p className="sm:hidden text-hueso-seda text-[8px] uppercase tracking-[0.1em] font-light italic opacity-80">
+            <p className="sm:hidden text-hueso-seda text-[10px] uppercase tracking-[0.1em] font-light italic opacity-80">
               &ldquo;Privilegios exclusivos&rdquo;
             </p>
           </Link>
@@ -117,34 +117,34 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
               <div className="absolute top-full left-0 pt-6 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50">
                 <div className="bg-hueso-seda border border-verde-ebano/10 shadow-2xl p-10 w-[750px] grid grid-cols-3 gap-12">
                   <div className="flex flex-col gap-6">
-                    <span className="text-[9px] uppercase tracking-[0.4em] text-oro-antiguo border-b border-oro-antiguo/20 pb-2">Categorías</span>
+                    <span className="text-[11px] uppercase tracking-[0.4em] text-oro-antiguo border-b border-oro-antiguo/20 pb-2">Categorías</span>
                     <div className="flex flex-col gap-4">
                       {categories.map(cat => (
-                        <Link key={cat} href={`/shop?category=${cat}`} className="text-[10px] uppercase tracking-[0.2em] text-verde-ebano hover:text-oro-antiguo transition-colors font-light">
+                        <Link key={cat} href={`/shop?category=${cat}`} className="text-xs uppercase tracking-[0.2em] text-verde-ebano hover:text-oro-antiguo transition-colors font-light">
                           {cat}
                         </Link>
                       ))}
                     </div>
                   </div>
                   <div className="flex flex-col gap-6">
-                    <span className="text-[9px] uppercase tracking-[0.4em] text-oro-antiguo border-b border-oro-antiguo/20 pb-2">Colecciones</span>
+                    <span className="text-[11px] uppercase tracking-[0.4em] text-oro-antiguo border-b border-oro-antiguo/20 pb-2">Colecciones</span>
                     <div className="flex flex-col gap-4">
                       {collections.map(item => (
-                        <Link key={item} href={`/shop?collection=${encodeURIComponent(item)}`} className="text-[10px] uppercase tracking-[0.2em] text-verde-ebano hover:text-oro-antiguo transition-colors font-light">
+                        <Link key={item} href={`/shop?collection=${encodeURIComponent(item)}`} className="text-xs uppercase tracking-[0.2em] text-verde-ebano hover:text-oro-antiguo transition-colors font-light">
                           {item}
                         </Link>
                       ))}
                     </div>
                   </div>
                   <div className="flex flex-col gap-6">
-                    <span className="text-[9px] uppercase tracking-[0.4em] text-oro-antiguo border-b border-oro-antiguo/20 pb-2">Especiales</span>
+                    <span className="text-[11px] uppercase tracking-[0.4em] text-oro-antiguo border-b border-oro-antiguo/20 pb-2">Especiales</span>
                     <div className="flex flex-col gap-4">
-                      <Link href="/shop?collection=Diseños de Autor" className="text-[10px] uppercase tracking-[0.2em] text-verde-ebano hover:text-oro-antiguo transition-colors font-light">Diseños de Autor</Link>
-                      <Link href="/shop?collection=Piezas Únicas" className="text-[10px] uppercase tracking-[0.2em] text-verde-ebano hover:text-oro-antiguo transition-colors font-light">Piezas Únicas</Link>
-                      <Link href="/shop?category=Edición Limitada" className="text-[10px] uppercase tracking-[0.2em] text-verde-ebano hover:text-oro-antiguo transition-colors font-light">Edición Limitada</Link>
+                      <Link href="/shop?collection=Diseños de Autor" className="text-xs uppercase tracking-[0.2em] text-verde-ebano hover:text-oro-antiguo transition-colors font-light">Diseños de Autor</Link>
+                      <Link href="/shop?collection=Piezas Únicas" className="text-xs uppercase tracking-[0.2em] text-verde-ebano hover:text-oro-antiguo transition-colors font-light">Piezas Únicas</Link>
+                      <Link href="/shop?category=Edición Limitada" className="text-xs uppercase tracking-[0.2em] text-verde-ebano hover:text-oro-antiguo transition-colors font-light">Edición Limitada</Link>
                     </div>
                     <div className="mt-4 p-6 bg-verde-ebano/5 border border-verde-ebano/10">
-                       <p className="text-[9px] text-verde-ebano/60 italic leading-relaxed">
+                       <p className="text-[11px] text-verde-ebano/60 italic leading-relaxed">
                          "La joya no es un adorno, es un amuleto de identidad."
                        </p>
                     </div>
@@ -197,7 +197,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
                 ) : (
                   <User size={22} strokeWidth={1} />
                 )}
-                <span className="hidden xl:inline text-[9px] uppercase tracking-widest font-light">
+                <span className="hidden xl:inline text-[11px] uppercase tracking-widest font-light">
                   {user?.displayName || user?.fullName?.split(' ')[0]}
                 </span>
               </Link>
@@ -215,7 +215,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
                 strokeWidth={1} 
               />
               {favCount > 0 && (
-                <span className="absolute -top-1 -right-2 bg-oro-antiguo text-verde-ebano text-[8px] font-bold w-4 h-4 flex items-center justify-center rounded-full shadow-sm">
+                <span className="absolute -top-1 -right-2 bg-oro-antiguo text-verde-ebano text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full shadow-sm">
                   {favCount}
                 </span>
               )}
@@ -229,7 +229,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
                 strokeWidth={1} 
               />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-2 bg-oro-antiguo text-verde-ebano text-[8px] font-bold w-4 h-4 flex items-center justify-center rounded-full shadow-sm">
+                <span className="absolute -top-1 -right-2 bg-oro-antiguo text-verde-ebano text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full shadow-sm">
                   {cartCount}
                 </span>
               )}
@@ -259,7 +259,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
 
             <div className="flex flex-col gap-8">
               <div className="flex flex-col gap-4">
-                <span className="text-[10px] uppercase tracking-[0.4em] text-oro-antiguo">Menú Principal</span>
+                <span className="text-xs uppercase tracking-[0.4em] text-oro-antiguo">Menú Principal</span>
                 <Link onClick={() => setIsMobileMenuOpen(false)} href="/shop" className="text-2xl font-display text-verde-ebano italic">Explorar Joyas</Link>
                 <Link onClick={() => setIsMobileMenuOpen(false)} href="/collections" className="text-2xl font-display text-verde-ebano italic">Colecciones</Link>
                 <Link onClick={() => setIsMobileMenuOpen(false)} href="/atelier" className="text-2xl font-display text-verde-ebano italic">Atelier</Link>
@@ -267,10 +267,10 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
               </div>
 
               <div className="flex flex-col gap-4 mt-4">
-                <span className="text-[10px] uppercase tracking-[0.4em] text-oro-antiguo">Categorías</span>
+                <span className="text-xs uppercase tracking-[0.4em] text-oro-antiguo">Categorías</span>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                   {categories.map(cat => (
-                    <Link key={cat} onClick={() => setIsMobileMenuOpen(false)} href={`/shop?category=${encodeURIComponent(cat)}`} className="text-[10px] uppercase tracking-widest text-verde-ebano/70">
+                    <Link key={cat} onClick={() => setIsMobileMenuOpen(false)} href={`/shop?category=${encodeURIComponent(cat)}`} className="text-xs uppercase tracking-widest text-verde-ebano/70">
                       {cat}
                     </Link>
                   ))}
@@ -278,10 +278,10 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
               </div>
 
               <div className="flex flex-col gap-4 mt-4">
-                <span className="text-[10px] uppercase tracking-[0.4em] text-oro-antiguo">Colecciones Destacadas</span>
+                <span className="text-xs uppercase tracking-[0.4em] text-oro-antiguo">Colecciones Destacadas</span>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                   {collections.map(col => (
-                    <Link key={col} onClick={() => setIsMobileMenuOpen(false)} href={`/shop?collection=${encodeURIComponent(col)}`} className="text-[10px] uppercase tracking-widest text-verde-ebano/70">
+                    <Link key={col} onClick={() => setIsMobileMenuOpen(false)} href={`/shop?collection=${encodeURIComponent(col)}`} className="text-xs uppercase tracking-widest text-verde-ebano/70">
                       {col}
                     </Link>
                   ))}
@@ -290,30 +290,30 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
 
               <div className="flex flex-col gap-4 mt-8 pt-8 border-t border-verde-ebano/10">
               {isAuthenticated ? (
-                <Link onClick={() => setIsMobileMenuOpen(false)} href="/perfil" className="flex items-center gap-4 text-xs uppercase tracking-widest text-verde-ebano">
+                <Link onClick={() => setIsMobileMenuOpen(false)} href="/perfil" className="flex items-center gap-4 text-sm uppercase tracking-widest text-verde-ebano">
                   <div className="relative w-5 h-5 flex items-center justify-center border border-verde-ebano/20">
                     {user?.isCircleMember && <div className="absolute -inset-0.5 border border-oro-antiguo/40" />}
-                    <span className="text-[10px] font-medium">{user?.fullName?.charAt(0)}</span>
+                    <span className="text-xs font-medium">{user?.fullName?.charAt(0)}</span>
                   </div>
                   {user?.displayName || user?.fullName?.split(' ')[0] || 'Mi Perfil'}
                   {user?.isCircleMember && <span className="text-[7px] text-oro-antiguo border border-oro-antiguo/30 px-1 py-0.5 uppercase tracking-widest">Circle</span>}
                 </Link>
               ) : (
-                <Link onClick={() => setIsMobileMenuOpen(false)} href="/auth" className="flex items-center gap-4 text-xs uppercase tracking-widest text-verde-ebano">
+                <Link onClick={() => setIsMobileMenuOpen(false)} href="/auth" className="flex items-center gap-4 text-sm uppercase tracking-widest text-verde-ebano">
                   <User size={16} strokeWidth={1} /> Mi Cuenta
                 </Link>
               )}
-                <Link onClick={() => setIsMobileMenuOpen(false)} href="/favorites" className="flex items-center gap-4 text-xs uppercase tracking-widest text-verde-ebano">
+                <Link onClick={() => setIsMobileMenuOpen(false)} href="/favorites" className="flex items-center gap-4 text-sm uppercase tracking-widest text-verde-ebano">
                   <Heart size={16} strokeWidth={1} /> Mis Favoritos
                 </Link>
-                <button onClick={() => { setIsMobileMenuOpen(false); setIsSearchOpen(true); }} className="flex items-center gap-4 text-xs uppercase tracking-widest text-verde-ebano">
+                <button onClick={() => { setIsMobileMenuOpen(false); setIsSearchOpen(true); }} className="flex items-center gap-4 text-sm uppercase tracking-widest text-verde-ebano">
                   <Search size={16} strokeWidth={1} /> Buscar
                 </button>
               </div>
             </div>
 
             <div className="mt-auto pt-12 pb-4">
-               <p className="text-[9px] uppercase tracking-[0.3em] text-verde-ebano/40 text-center">Minerva Alcaraz © 2026</p>
+               <p className="text-[11px] uppercase tracking-[0.3em] text-verde-ebano/40 text-center">Minerva Alcaraz © 2026</p>
             </div>
           </motion.div>
         )}

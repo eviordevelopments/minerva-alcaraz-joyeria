@@ -122,7 +122,7 @@ export function getUserWelcomeTemplate({ name }: { name: string }) {
     </p>
 
     <div style="text-align: center; margin-top: 30px;">
-      <a href="https://minervaalcarazjoyeria.mx/perfil" class="btn">Ir a Mi Perfil</a>
+      <a href="https://minervaalcarazjoyeria.mx/auth" class="btn">Iniciar Sesión en Mi Cuenta</a>
     </div>
 
     ${BRAND_SIGNATURE}

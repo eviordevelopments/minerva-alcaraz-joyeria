@@ -80,7 +80,7 @@ export const NewsletterBanner = () => {
 
                 {/* Floating label */}
                 <div className="absolute bottom-4 left-4 bg-hueso-seda/10 backdrop-blur-md border border-hueso-seda/20 px-3 py-1.5">
-                  <span className="text-[8px] uppercase tracking-[0.5em] text-hueso-seda font-light">Colección Escencia</span>
+                  <span className="text-[10px] uppercase tracking-[0.5em] text-hueso-seda font-light">Colección Escencia</span>
                 </div>
               </div>
 
@@ -97,7 +97,7 @@ export const NewsletterBanner = () => {
                       {/* Header label */}
                       <div className="flex items-center gap-3">
                         <div className="w-6 h-[1px] bg-oro-antiguo" />
-                        <span className="text-[9px] uppercase tracking-[0.6em] text-oro-antiguo font-medium">La Herencia</span>
+                        <span className="text-[11px] uppercase tracking-[0.6em] text-oro-antiguo font-medium">La Herencia</span>
                       </div>
 
                       {/* Title */}
@@ -105,7 +105,7 @@ export const NewsletterBanner = () => {
                         <h2 className="font-display text-hueso-seda text-3xl md:text-4xl leading-tight uppercase">
                           Únase al<br />Legado
                         </h2>
-                        <p className="text-hueso-seda/60 text-[11px] md:text-xs font-light leading-relaxed max-w-xs italic">
+                        <p className="text-hueso-seda/60 text-sm md:text-sm font-light leading-relaxed max-w-xs italic">
                           "Las piezas más extraordinarias nunca llegan al catálogo público. Son reservadas para quienes custodian la herencia."
                         </p>
                       </div>
@@ -120,7 +120,7 @@ export const NewsletterBanner = () => {
                         ].map(({ icon: Icon, text }) => (
                           <div key={text} className="flex items-start gap-3">
                             <Icon size={12} className="text-oro-antiguo flex-shrink-0 mt-0.5" strokeWidth={1.5} />
-                            <span className="text-[10px] uppercase tracking-[0.15em] text-hueso-seda/70 leading-relaxed">{text}</span>
+                            <span className="text-xs uppercase tracking-[0.15em] text-hueso-seda/70 leading-relaxed">{text}</span>
                           </div>
                         ))}
                       </div>
@@ -129,7 +129,7 @@ export const NewsletterBanner = () => {
                     {/* Form */}
                     <form onSubmit={handleSubmit} className="flex flex-col gap-4 relative z-10 mt-6">
                       <div className="flex flex-col gap-1">
-                        <label className="text-[9px] uppercase tracking-[0.4em] text-oro-antiguo">
+                        <label className="text-[11px] uppercase tracking-[0.4em] text-oro-antiguo">
                           Su Correo Electrónico
                         </label>
                         <div className="flex border-b border-hueso-seda/20 focus-within:border-oro-antiguo transition-colors pb-2 gap-3 items-center">
@@ -140,20 +140,20 @@ export const NewsletterBanner = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="nombre@correo.com"
                             required
-                            className="flex-1 bg-transparent text-hueso-seda text-[11px] outline-none placeholder:text-hueso-seda/20 placeholder:text-[10px] placeholder:uppercase placeholder:tracking-widest"
+                            className="flex-1 bg-transparent text-hueso-seda text-sm outline-none placeholder:text-hueso-seda/20 placeholder:text-xs placeholder:uppercase placeholder:tracking-widest"
                           />
                         </div>
                       </div>
 
                       <button
                         type="submit"
-                        className="flex items-center justify-center gap-3 bg-oro-antiguo text-verde-ebano text-[10px] uppercase tracking-[0.4em] py-3 px-6 hover:bg-hueso-seda transition-colors duration-500 font-medium group"
+                        className="flex items-center justify-center gap-3 bg-oro-antiguo text-verde-ebano text-xs uppercase tracking-[0.4em] py-3 px-6 hover:bg-hueso-seda transition-colors duration-500 font-medium group"
                       >
                         Unirse a la Herencia
                         <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                       </button>
 
-                      <p className="text-[8px] uppercase tracking-[0.2em] text-hueso-seda/30 text-center">
+                      <p className="text-[10px] uppercase tracking-[0.2em] text-hueso-seda/30 text-center">
                         Sin spam. Solo lo que merece tu atención.
                       </p>
                     </form>
@@ -170,7 +170,7 @@ export const NewsletterBanner = () => {
                     </motion.div>
                     <div className="flex flex-col gap-2">
                       <h3 className="font-display text-hueso-seda text-2xl uppercase">Bienvenido al Legado</h3>
-                      <p className="text-hueso-seda/60 text-xs italic font-light">
+                      <p className="text-hueso-seda/60 text-sm italic font-light">
                         "Serás el primero en conocer cada historia antes que el mundo."
                       </p>
                     </div>
@@ -243,7 +243,7 @@ export const TheCircleBanner = () => {
                   <Crown size={14} className="text-oro-antiguo" strokeWidth={1} />
                 </div>
                 <div className="flex flex-col gap-0.5">
-                  <span className="text-[8px] uppercase tracking-[0.6em] text-oro-antiguo">Membresía de Élite</span>
+                  <span className="text-[10px] uppercase tracking-[0.6em] text-oro-antiguo">Membresía de Élite</span>
                   <span className="font-display text-hueso-seda text-lg uppercase leading-none">The Circle</span>
                 </div>
               </div>
@@ -253,7 +253,7 @@ export const TheCircleBanner = () => {
 
               {/* Copy */}
               <div className="flex flex-col gap-3">
-                <p className="text-hueso-seda/80 text-[11px] md:text-xs font-light leading-relaxed italic">
+                <p className="text-hueso-seda/80 text-sm md:text-sm font-light leading-relaxed italic">
                   "Eleve su experiencia a un nivel reservado para pocos. Acceso a piezas irrepetibles, concierge dedicado y rituales de selección privados."
                 </p>
 
@@ -265,7 +265,7 @@ export const TheCircleBanner = () => {
                   ].map(({ icon: Icon, text }) => (
                     <div key={text} className="flex items-center gap-2.5">
                       <Icon size={10} className="text-oro-antiguo flex-shrink-0" strokeWidth={1.5} />
-                      <span className="text-[9px] uppercase tracking-[0.15em] text-hueso-seda/60">{text}</span>
+                      <span className="text-[11px] uppercase tracking-[0.15em] text-hueso-seda/60">{text}</span>
                     </div>
                   ))}
                 </div>
@@ -276,14 +276,14 @@ export const TheCircleBanner = () => {
                 <Link
                   href="/the-circle"
                   onClick={handleDismiss}
-                  className="flex items-center justify-center gap-2 bg-oro-antiguo text-verde-ebano text-[9px] uppercase tracking-[0.4em] py-3 px-5 hover:bg-hueso-seda transition-colors duration-500 font-medium group"
+                  className="flex items-center justify-center gap-2 bg-oro-antiguo text-verde-ebano text-[11px] uppercase tracking-[0.4em] py-3 px-5 hover:bg-hueso-seda transition-colors duration-500 font-medium group"
                 >
                   Elevar Mi Experiencia
                   <ArrowRight size={11} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <button
                   onClick={handleDismiss}
-                  className="text-[8px] uppercase tracking-[0.3em] text-hueso-seda/30 hover:text-hueso-seda/60 transition-colors py-1"
+                  className="text-[10px] uppercase tracking-[0.3em] text-hueso-seda/30 hover:text-hueso-seda/60 transition-colors py-1"
                 >
                   Quizás más tarde
                 </button>

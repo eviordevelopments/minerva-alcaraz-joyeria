@@ -14,14 +14,14 @@ export default function StoryPage() {
       {/* Hero: El Origen de la Luz */}
       <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-verde-ebano">
         <div className="absolute inset-0 opacity-40">
-          <div className="w-full h-full bg-[url('/story_hero.jpg')] bg-cover bg-center grayscale mix-blend-overlay scale-105 animate-slow-zoom" />
+          <div className="w-full h-full bg-[url('/taller/1.jpg')] bg-cover bg-center grayscale mix-blend-overlay scale-105 animate-slow-zoom" />
         </div>
         <div className="relative z-10 text-center px-8 pt-32">
           <motion.span 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            className="text-oro-antiguo text-[10px] uppercase tracking-[0.8em] mb-8 block"
+            className="text-oro-antiguo text-xs uppercase tracking-[0.8em] mb-8 block"
           >
             Una Herencia Viva
           </motion.span>
@@ -47,18 +47,15 @@ export default function StoryPage() {
           viewport={{ once: true }}
           className="relative aspect-[4/5] bg-plata-niebla/10 overflow-hidden"
         >
-          <div className="absolute inset-0 flex items-center justify-center text-[10px] uppercase tracking-[0.4em] opacity-30 p-12 text-center">
-            Fotografía Documental:<br/>Talleres de Taxco y Raíces de Zacatecas
-          </div>
-          {/* <Image src="/story_roots.webp" alt="Raíces" fill className="object-cover" /> */}
+          <Image src="/taller/2.jpg" alt="Raíces" fill className="object-cover" />
         </motion.div>
         <div className="flex flex-col gap-12">
-          <span className="text-oro-antiguo text-[10px] uppercase tracking-[0.6em]">El Origen</span>
+          <span className="text-oro-antiguo text-xs uppercase tracking-[0.6em]">El Origen</span>
           <h2 className="text-4xl md:text-6xl font-display text-verde-ebano italic">La Materia que Respira</h2>
           <p className="text-lg md:text-xl text-verde-ebano/80 font-light leading-loose italic">
             "Mi historia no comienza en un boceto, sino en el murmullo del metal siendo transformado por el fuego en los antiguos talleres de México. Crecí entre el polvo de plata de Taxco y la luz dorada de Zacatecas, aprendiendo que una joya no es un adorno, sino un recipiente de la memoria."
           </p>
-          <p className="text-sm md:text-base text-verde-ebano/70 leading-relaxed font-sans max-w-lg">
+          <p className="text-base md:text-base text-verde-ebano/70 leading-relaxed font-sans max-w-lg">
             Para Minerva Alcaraz, la joyería es un ejercicio de arqueología emocional. Cada técnica utilizada —desde la filigrana más delicada hasta el martillado más rudo— es una conversación con las manos de quienes nos precedieron.
           </p>
         </div>
@@ -71,7 +68,7 @@ export default function StoryPage() {
           <motion.span 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="text-oro-antiguo text-[10px] uppercase tracking-[0.8em] mb-12"
+            className="text-oro-antiguo text-xs uppercase tracking-[0.8em] mb-12"
           >
             Artesanía Pura
           </motion.span>
@@ -92,8 +89,8 @@ export default function StoryPage() {
                 <div className="w-12 h-12 rounded-full border border-oro-antiguo/30 flex items-center justify-center text-oro-antiguo font-display italic text-xl">
                   {i + 1}
                 </div>
-                <h3 className="text-hueso-seda text-sm uppercase tracking-[0.4em]">{step.title}</h3>
-                <p className="text-hueso-seda/60 text-xs font-light max-w-[200px] leading-relaxed">
+                <h3 className="text-hueso-seda text-base uppercase tracking-[0.4em]">{step.title}</h3>
+                <p className="text-hueso-seda/60 text-sm font-light max-w-[200px] leading-relaxed">
                   {step.desc}
                 </p>
               </motion.div>
@@ -105,7 +102,7 @@ export default function StoryPage() {
       {/* Section 3: El Manifiesto de la Eternidad */}
       <section className="py-48 luxury-container">
         <div className="max-w-4xl mx-auto text-center flex flex-col gap-12">
-           <span className="text-oro-antiguo text-[10px] uppercase tracking-[0.6em]">Nuestra Visión</span>
+           <span className="text-oro-antiguo text-xs uppercase tracking-[0.6em]">Nuestra Visión</span>
            <h2 className="text-5xl md:text-7xl font-display text-verde-ebano leading-tight italic">
              "Crear objetos que el tiempo no pueda borrar, sino enriquecer."
            </h2>
@@ -124,9 +121,14 @@ export default function StoryPage() {
           <motion.div 
             key={i}
             whileHover={{ scale: 0.98 }}
-            className="aspect-square bg-plata-niebla/10 flex items-center justify-center text-[8px] uppercase tracking-widest opacity-20 border border-verde-ebano/5"
+            className="relative aspect-square bg-plata-niebla/10 overflow-hidden group border border-verde-ebano/5"
           >
-            Detalle de Taller {i}
+            <Image 
+              src={`/taller/${i}.jpg`} 
+              alt={`Detalle de Taller ${i}`} 
+              fill 
+              className="object-cover group-hover:scale-105 transition-transform duration-700" 
+            />
           </motion.div>
         ))}
       </section>

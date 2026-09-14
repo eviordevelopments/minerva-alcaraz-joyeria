@@ -26,7 +26,7 @@ type SaveStatus = "idle" | "saving" | "saved" | "error";
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="bg-white border border-verde-ebano/8 p-8 flex flex-col gap-6">
-      <h2 className="text-[10px] uppercase tracking-[0.5em] text-verde-ebano/40 border-b border-verde-ebano/6 pb-4">{title}</h2>
+      <h2 className="text-xs uppercase tracking-[0.5em] text-verde-ebano/40 border-b border-verde-ebano/6 pb-4">{title}</h2>
       {children}
     </div>
   );
@@ -35,13 +35,13 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/40">{label}</label>
+      <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">{label}</label>
       {children}
     </div>
   );
 }
 
-const inputClass = "bg-transparent border-b border-verde-ebano/12 py-2.5 text-sm text-verde-ebano outline-none focus:border-oro-antiguo transition-colors placeholder:text-verde-ebano/20";
+const inputClass = "bg-transparent border-b border-verde-ebano/12 py-2.5 text-base text-verde-ebano outline-none focus:border-oro-antiguo transition-colors placeholder:text-verde-ebano/20";
 
 export default function CuentaPage() {
   const { user, isAuthenticated, refreshProfile } = useAuthStore();
@@ -179,7 +179,7 @@ export default function CuentaPage() {
 
           <div className="flex-1 flex flex-col gap-6">
             <div className="flex flex-col gap-1">
-              <p className="text-[9px] uppercase tracking-[0.7em] text-oro-antiguo">Configuración</p>
+              <p className="text-[11px] uppercase tracking-[0.7em] text-oro-antiguo">Configuración</p>
               <h1 className="text-3xl font-display text-verde-ebano">Mi Cuenta</h1>
             </div>
 
@@ -200,10 +200,10 @@ export default function CuentaPage() {
                 </div>
                 <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleAvatarUpload} />
                 <div className="flex flex-col gap-1">
-                  <button onClick={() => fileRef.current?.click()} className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano border-b border-verde-ebano/20 pb-0.5 w-fit hover:border-oro-antiguo hover:text-oro-antiguo transition-colors">
+                  <button onClick={() => fileRef.current?.click()} className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano border-b border-verde-ebano/20 pb-0.5 w-fit hover:border-oro-antiguo hover:text-oro-antiguo transition-colors">
                     Cambiar Foto
                   </button>
-                  <p className="text-[8px] text-verde-ebano/30">JPG, PNG o WEBP. Máximo 5MB.</p>
+                  <p className="text-[10px] text-verde-ebano/30">JPG, PNG o WEBP. Máximo 5MB.</p>
                 </div>
               </div>
             </Section>
@@ -255,7 +255,7 @@ export default function CuentaPage() {
                     <button
                       key={c}
                       onClick={() => toggleChip(c, preferredCollections, setPreferredCollections)}
-                      className={`text-[8px] uppercase tracking-[0.3em] px-3 py-1.5 border transition-all duration-200 ${
+                      className={`text-[10px] uppercase tracking-[0.3em] px-3 py-1.5 border transition-all duration-200 ${
                         preferredCollections.includes(c)
                           ? "bg-verde-ebano text-hueso-seda border-verde-ebano"
                           : "border-verde-ebano/15 text-verde-ebano/50 hover:border-verde-ebano/40"
@@ -273,7 +273,7 @@ export default function CuentaPage() {
                     <button
                       key={m}
                       onClick={() => toggleChip(m, preferredMaterials, setPreferredMaterials)}
-                      className={`text-[8px] uppercase tracking-[0.3em] px-3 py-1.5 border transition-all duration-200 ${
+                      className={`text-[10px] uppercase tracking-[0.3em] px-3 py-1.5 border transition-all duration-200 ${
                         preferredMaterials.includes(m)
                           ? "bg-oro-antiguo/20 text-oro-antiguo border-oro-antiguo/50"
                           : "border-verde-ebano/15 text-verde-ebano/50 hover:border-verde-ebano/40"
@@ -290,7 +290,7 @@ export default function CuentaPage() {
             <button
               onClick={saveProfile}
               disabled={saveStatus === "saving"}
-              className="flex items-center justify-center gap-3 bg-verde-ebano text-hueso-seda text-[10px] uppercase tracking-[0.5em] py-4 hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-500 disabled:opacity-60"
+              className="flex items-center justify-center gap-3 bg-verde-ebano text-hueso-seda text-xs uppercase tracking-[0.5em] py-4 hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-500 disabled:opacity-60"
             >
               {saveStatus === "saving" ? (
                 <Loader2 size={14} className="animate-spin" />
@@ -305,7 +305,7 @@ export default function CuentaPage() {
             <Section title="Dirección de Envío Principal">
               <div className="flex items-center gap-2 mb-2">
                 <MapPin size={12} strokeWidth={1.2} className="text-oro-antiguo" />
-                <span className="text-[9px] uppercase tracking-[0.3em] text-verde-ebano/40">Dirección guardada para tus pedidos</span>
+                <span className="text-[11px] uppercase tracking-[0.3em] text-verde-ebano/40">Dirección guardada para tus pedidos</span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Field label="Nombre del Destinatario">
@@ -351,7 +351,7 @@ export default function CuentaPage() {
               <button
                 onClick={saveAddress}
                 disabled={savingAddress}
-                className="flex items-center gap-3 border border-verde-ebano/20 text-verde-ebano text-[9px] uppercase tracking-[0.4em] px-6 py-3 hover:border-oro-antiguo hover:text-oro-antiguo transition-all w-fit"
+                className="flex items-center gap-3 border border-verde-ebano/20 text-verde-ebano text-[11px] uppercase tracking-[0.4em] px-6 py-3 hover:border-oro-antiguo hover:text-oro-antiguo transition-all w-fit"
               >
                 {savingAddress ? <Loader2 size={12} className="animate-spin" /> : addressSaved ? <CheckCircle2 size={12} className="text-green-500" /> : <Save size={12} />}
                 {addressSaved ? "Dirección Guardada" : "Guardar Dirección"}

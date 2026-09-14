@@ -130,13 +130,13 @@ export default function AlbumesPage() {
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-2">
                   <Crown size={10} strokeWidth={1.5} className="text-oro-antiguo" />
-                  <p className="text-[9px] uppercase tracking-[0.7em] text-oro-antiguo">The Circle</p>
+                  <p className="text-[11px] uppercase tracking-[0.7em] text-oro-antiguo">The Circle</p>
                 </div>
                 <h1 className="text-3xl font-display text-verde-ebano">Mis Álbumes</h1>
               </div>
               <button
                 onClick={() => setShowCreateModal(true)}
-                className="flex items-center gap-2 bg-verde-ebano text-hueso-seda text-[9px] uppercase tracking-[0.4em] px-5 py-3 hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-300 group"
+                className="flex items-center gap-2 bg-verde-ebano text-hueso-seda text-[11px] uppercase tracking-[0.4em] px-5 py-3 hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-300 group"
               >
                 <Plus size={12} strokeWidth={2} />
                 Nuevo Álbum
@@ -148,7 +148,7 @@ export default function AlbumesPage() {
               <div className="w-8 h-8 border border-oro-antiguo/20 flex items-center justify-center flex-shrink-0">
                 <Images size={13} strokeWidth={1.2} className="text-oro-antiguo" />
               </div>
-              <p className="text-[10px] text-verde-ebano/50 leading-loose">
+              <p className="text-xs text-verde-ebano/50 leading-loose">
                 Crea álbumes personales con las piezas que más te inspiran. Agrega productos del catálogo, escribe notas, y comparte tu colección con quienes elijas. Tus álbumes son tu legado curado.
               </p>
             </div>
@@ -164,11 +164,11 @@ export default function AlbumesPage() {
                   <Images size={20} strokeWidth={0.8} className="text-oro-antiguo/40" />
                 </div>
                 <div className="flex flex-col gap-1">
-                  <p className="text-sm text-verde-ebano/40 uppercase tracking-[0.3em]">Aún no tienes álbumes</p>
-                  <p className="text-[10px] text-verde-ebano/25">Crea tu primera colección personal</p>
+                  <p className="text-base text-verde-ebano/40 uppercase tracking-[0.3em]">Aún no tienes álbumes</p>
+                  <p className="text-xs text-verde-ebano/25">Crea tu primera colección personal</p>
                 </div>
                 <button onClick={() => setShowCreateModal(true)}
-                  className="flex items-center gap-2 text-[9px] uppercase tracking-[0.5em] text-oro-antiguo border-b border-oro-antiguo/30 pb-0.5 hover:border-oro-antiguo transition-colors"
+                  className="flex items-center gap-2 text-[11px] uppercase tracking-[0.5em] text-oro-antiguo border-b border-oro-antiguo/30 pb-0.5 hover:border-oro-antiguo transition-colors"
                 >
                   <Plus size={10} /> Crear Álbum
                 </button>
@@ -207,10 +207,10 @@ export default function AlbumesPage() {
                       <div className="p-5 flex flex-col gap-3">
                         <div className="flex items-start justify-between gap-2">
                           <div className="flex flex-col gap-0.5">
-                            <Link href={`/perfil/albumes/${album.id}`} className="text-[10px] uppercase tracking-[0.3em] text-verde-ebano font-medium hover:text-oro-antiguo transition-colors">
+                            <Link href={`/perfil/albumes/${album.id}`} className="text-xs uppercase tracking-[0.3em] text-verde-ebano font-medium hover:text-oro-antiguo transition-colors">
                               {album.title}
                             </Link>
-                            <p className="text-[9px] text-verde-ebano/30">
+                            <p className="text-[11px] text-verde-ebano/30">
                               {album.item_count ?? 0} {album.item_count === 1 ? "pieza" : "piezas"}
                             </p>
                           </div>
@@ -243,13 +243,13 @@ export default function AlbumesPage() {
                           </div>
                         </div>
 
-                        <div className={`flex items-center gap-1.5 text-[8px] uppercase tracking-[0.3em] ${vis.color}`}>
+                        <div className={`flex items-center gap-1.5 text-[10px] uppercase tracking-[0.3em] ${vis.color}`}>
                           <VisIcon size={9} strokeWidth={1.5} />
                           {vis.label}
                         </div>
 
                         <Link href={`/perfil/albumes/${album.id}`}
-                          className="flex items-center gap-1.5 text-[8px] uppercase tracking-[0.4em] text-verde-ebano/25 hover:text-oro-antiguo transition-colors group/link mt-1"
+                          className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.4em] text-verde-ebano/25 hover:text-oro-antiguo transition-colors group/link mt-1"
                         >
                           Ver Álbum <ArrowRight size={9} className="group-hover/link:translate-x-0.5 transition-transform" />
                         </Link>
@@ -281,7 +281,7 @@ export default function AlbumesPage() {
             >
               <div className="flex items-center justify-between">
                 <div className="flex flex-col gap-1">
-                  <p className="text-[8px] uppercase tracking-[0.6em] text-oro-antiguo">The Circle</p>
+                  <p className="text-[10px] uppercase tracking-[0.6em] text-oro-antiguo">The Circle</p>
                   <h2 className="text-xl font-display text-verde-ebano">Nuevo Álbum</h2>
                 </div>
                 <button onClick={() => setShowCreateModal(false)} className="w-8 h-8 border border-verde-ebano/10 flex items-center justify-center hover:border-verde-ebano/30 transition-colors">
@@ -291,10 +291,10 @@ export default function AlbumesPage() {
 
               <div className="flex flex-col gap-5">
                 <div className="flex flex-col gap-2">
-                  <label className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/40">Nombre del Álbum *</label>
+                  <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Nombre del Álbum *</label>
                   <input
                     value={newTitle} onChange={e => setNewTitle(e.target.value)}
-                    className="bg-transparent border-b border-verde-ebano/15 py-2.5 text-sm text-verde-ebano outline-none focus:border-oro-antiguo transition-colors placeholder:text-verde-ebano/25"
+                    className="bg-transparent border-b border-verde-ebano/15 py-2.5 text-base text-verde-ebano outline-none focus:border-oro-antiguo transition-colors placeholder:text-verde-ebano/25"
                     placeholder="Mi Colección de Oro..."
                     autoFocus
                     onKeyDown={e => { if (e.key === "Enter" && newTitle.trim()) createAlbum(); }}
@@ -302,16 +302,16 @@ export default function AlbumesPage() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/40">Descripción</label>
+                  <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Descripción</label>
                   <textarea
                     value={newDesc} onChange={e => setNewDesc(e.target.value)} rows={2}
-                    className="bg-transparent border-b border-verde-ebano/15 py-2.5 text-sm text-verde-ebano outline-none focus:border-oro-antiguo transition-colors resize-none placeholder:text-verde-ebano/25"
+                    className="bg-transparent border-b border-verde-ebano/15 py-2.5 text-base text-verde-ebano outline-none focus:border-oro-antiguo transition-colors resize-none placeholder:text-verde-ebano/25"
                     placeholder="Una narrativa de este álbum..."
                   />
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/40">Visibilidad</label>
+                  <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Visibilidad</label>
                   <div className="flex gap-2">
                     {(["private", "shared_link", "public"] as AlbumVisibility[]).map(v => {
                       const vis = VISIBILITY_MAP[v];
@@ -335,12 +335,12 @@ export default function AlbumesPage() {
 
               <div className="flex gap-3 pt-2">
                 <button onClick={() => setShowCreateModal(false)}
-                  className="flex-1 border border-verde-ebano/12 text-verde-ebano/40 text-[9px] uppercase tracking-[0.4em] py-3 hover:border-verde-ebano/30 transition-colors"
+                  className="flex-1 border border-verde-ebano/12 text-verde-ebano/40 text-[11px] uppercase tracking-[0.4em] py-3 hover:border-verde-ebano/30 transition-colors"
                 >
                   Cancelar
                 </button>
                 <button onClick={createAlbum} disabled={isCreating || !newTitle.trim()}
-                  className="flex-1 flex items-center justify-center gap-2 bg-oro-antiguo text-verde-ebano text-[9px] uppercase tracking-[0.4em] py-3 hover:bg-verde-ebano hover:text-hueso-seda transition-all duration-300 disabled:opacity-50"
+                  className="flex-1 flex items-center justify-center gap-2 bg-oro-antiguo text-verde-ebano text-[11px] uppercase tracking-[0.4em] py-3 hover:bg-verde-ebano hover:text-hueso-seda transition-all duration-300 disabled:opacity-50"
                 >
                   {isCreating ? <Loader2 size={12} className="animate-spin" /> : <><Check size={12} /> Crear</>}
                 </button>

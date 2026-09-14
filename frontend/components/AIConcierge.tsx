@@ -53,7 +53,7 @@ const KB: KBEntry[] = [
   {
     pattern: /anillos?/i,
     response:
-      "Nuestros anillos están elaborados a mano en plata .950 y oro. Puedes elegir del catálogo o personalizarlos: piedra, metal, dimensión y grabado. Aquí algunas opciones disponibles:",
+      "Nuestros anillos están elaborados a mano en plata .925 y oro. Puedes elegir del catálogo o personalizarlos: piedra, metal, dimensión y grabado. Aquí algunas opciones disponibles:",
     filter: (p) => p.category === "Anillos",
   },
   {
@@ -131,7 +131,7 @@ const KB: KBEntry[] = [
   {
     pattern: /plata|oro|material|piedra|turquesa|perla|obsidiana|cuarzo|diamante/i,
     response:
-      "Trabajamos en Plata Ley .950 y Oro de 10k, 14k y 18k, con piedras naturales seleccionadas: turquesa, perla, obsidiana, cuarzo y más. ¿Tienes preferencia por algún material?",
+      "Trabajamos en Plata Ley .925 y Oro de 10k, 14k y 18k, con piedras naturales seleccionadas: turquesa, perla, obsidiana, cuarzo y más. ¿Tienes preferencia por algún material?",
     filter: (p) => !!p.featured,
   },
   {
@@ -260,16 +260,16 @@ const SidebarProduct = ({ product, index }: { product: Product; index: number })
       {/* Info */}
       <div className="flex-1 flex flex-col justify-between min-w-0 py-0.5">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.15em] text-hueso-seda font-medium group-hover:text-oro-antiguo transition-colors leading-snug line-clamp-2">
+          <p className="text-xs uppercase tracking-[0.15em] text-hueso-seda font-medium group-hover:text-oro-antiguo transition-colors leading-snug line-clamp-2">
             {product.name}
           </p>
           {product.collection && (
-            <p className="text-[8px] uppercase tracking-widest text-oro-antiguo/50 mt-0.5">
+            <p className="text-[10px] uppercase tracking-widest text-oro-antiguo/50 mt-0.5">
               {product.collection}
             </p>
           )}
         </div>
-        <p className="text-[10px] text-oro-antiguo font-medium mt-1">
+        <p className="text-xs text-oro-antiguo font-medium mt-1">
           ${product.price.toLocaleString("es-MX")} MXN
         </p>
       </div>
@@ -428,10 +428,10 @@ export const AIConcierge = () => {
                   <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-verde-ebano" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[9px] uppercase tracking-[0.45em] text-hueso-seda font-medium">
+                  <span className="text-[11px] uppercase tracking-[0.45em] text-hueso-seda font-medium">
                     Concierge Digital
                   </span>
-                  <span className="text-[8px] uppercase tracking-widest text-hueso-seda/35">
+                  <span className="text-[10px] uppercase tracking-widest text-hueso-seda/35">
                     En línea · Minerva Alcaraz
                   </span>
                 </div>
@@ -444,7 +444,7 @@ export const AIConcierge = () => {
                     key={tab}
                     onClick={() => setActiveTab(tab)}
                     className={[
-                      "px-3 py-1.5 text-[8px] uppercase tracking-widest transition-colors",
+                      "px-3 py-1.5 text-[10px] uppercase tracking-widest transition-colors",
                       activeTab === tab
                         ? "bg-oro-antiguo text-verde-ebano font-semibold"
                         : "text-hueso-seda/40 hover:text-hueso-seda",
@@ -499,7 +499,7 @@ export const AIConcierge = () => {
                         {/* Bubble */}
                         <div
                           className={[
-                            "max-w-[82%] px-4 py-3 text-[11px] leading-relaxed",
+                            "max-w-[82%] px-4 py-3 text-sm leading-relaxed",
                             msg.role === "user"
                               ? "bg-oro-antiguo text-verde-ebano font-medium"
                               : "border border-hueso-seda/12 text-hueso-seda font-light",
@@ -554,7 +554,7 @@ export const AIConcierge = () => {
                             setInput("");
                             sendMessage(q);
                           }}
-                          className="flex-shrink-0 px-3 py-1.5 border border-hueso-seda/15 text-[8px] uppercase tracking-wider text-hueso-seda/50 hover:border-oro-antiguo hover:text-oro-antiguo transition-all duration-300 whitespace-nowrap"
+                          className="flex-shrink-0 px-3 py-1.5 border border-hueso-seda/15 text-[10px] uppercase tracking-wider text-hueso-seda/50 hover:border-oro-antiguo hover:text-oro-antiguo transition-all duration-300 whitespace-nowrap"
                         >
                           {q}
                         </button>
@@ -577,7 +577,7 @@ export const AIConcierge = () => {
                       onKeyDown={handleKeyDown}
                       placeholder="Escribe tu consulta..."
                       disabled={isTyping}
-                      className="flex-1 px-4 py-3 text-[11px] text-hueso-seda placeholder:text-hueso-seda/25 outline-none border border-hueso-seda/10 focus:border-oro-antiguo/40 transition-colors disabled:opacity-40"
+                      className="flex-1 px-4 py-3 text-sm text-hueso-seda placeholder:text-hueso-seda/25 outline-none border border-hueso-seda/10 focus:border-oro-antiguo/40 transition-colors disabled:opacity-40"
                       style={{ background: "rgba(229,219,214,0.04)" }}
                     />
                     <motion.button
@@ -608,10 +608,10 @@ export const AIConcierge = () => {
               >
                 {/* Panel header */}
                 <div className="px-5 py-4 border-b border-oro-antiguo/10 flex-shrink-0">
-                  <p className="text-[8px] uppercase tracking-[0.7em] text-oro-antiguo">
+                  <p className="text-[10px] uppercase tracking-[0.7em] text-oro-antiguo">
                     Recomendaciones
                   </p>
-                  <p className="text-[10px] text-hueso-seda/40 mt-0.5 font-light">
+                  <p className="text-xs text-hueso-seda/40 mt-0.5 font-light">
                     Basadas en tu consulta
                   </p>
                 </div>
@@ -637,7 +637,7 @@ export const AIConcierge = () => {
                 <div className="px-5 py-4 border-t border-oro-antiguo/10 flex-shrink-0">
                   <Link
                     href="/shop"
-                    className="group flex items-center justify-center gap-2 w-full py-3 border border-hueso-seda/15 text-[9px] uppercase tracking-[0.4em] text-hueso-seda/40 hover:border-oro-antiguo hover:text-oro-antiguo transition-all duration-400"
+                    className="group flex items-center justify-center gap-2 w-full py-3 border border-hueso-seda/15 text-[11px] uppercase tracking-[0.4em] text-hueso-seda/40 hover:border-oro-antiguo hover:text-oro-antiguo transition-all duration-400"
                   >
                     Ver catálogo completo
                     <ChevronRight size={10} className="group-hover:translate-x-0.5 transition-transform" />

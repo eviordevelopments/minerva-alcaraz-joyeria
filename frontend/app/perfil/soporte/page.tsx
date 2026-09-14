@@ -51,7 +51,7 @@ export default function SoportePage() {
           <ProfileSidebar />
           <div className="flex-1 flex flex-col gap-6">
             <div className="flex flex-col gap-1">
-              <p className="text-[9px] uppercase tracking-[0.7em] text-oro-antiguo">Asistencia</p>
+              <p className="text-[11px] uppercase tracking-[0.7em] text-oro-antiguo">Asistencia</p>
               <h1 className="text-3xl font-display text-verde-ebano">Soporte</h1>
             </div>
 
@@ -63,8 +63,8 @@ export default function SoportePage() {
                 >
                   <Icon size={16} strokeWidth={1.2} className={color} />
                   <div className="flex flex-col gap-0.5">
-                    <p className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/40">{label}</p>
-                    <p className="text-[10px] text-verde-ebano/70 group-hover:text-verde-ebano transition-colors">{value}</p>
+                    <p className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">{label}</p>
+                    <p className="text-xs text-verde-ebano/70 group-hover:text-verde-ebano transition-colors">{value}</p>
                   </div>
                 </a>
               ))}
@@ -74,15 +74,15 @@ export default function SoportePage() {
             <div className="bg-white border border-verde-ebano/8 p-8">
               <div className="flex items-center gap-3 mb-6">
                 <HeadphonesIcon size={14} strokeWidth={1.2} className="text-oro-antiguo" />
-                <h2 className="text-[10px] uppercase tracking-[0.4em] text-verde-ebano/60">Enviar Mensaje</h2>
+                <h2 className="text-xs uppercase tracking-[0.4em] text-verde-ebano/60">Enviar Mensaje</h2>
               </div>
 
               {success ? (
                 <div className="flex flex-col items-center gap-5 py-10 text-center">
                   <CheckCircle2 size={28} strokeWidth={1} className="text-green-500" />
                   <div className="flex flex-col gap-2">
-                    <p className="text-sm font-display text-verde-ebano">Mensaje Enviado</p>
-                    <p className="text-[10px] text-verde-ebano/40 leading-relaxed max-w-xs">
+                    <p className="text-base font-display text-verde-ebano">Mensaje Enviado</p>
+                    <p className="text-xs text-verde-ebano/40 leading-relaxed max-w-xs">
                       Te responderemos en tu correo en un plazo de 24 horas hábiles.
                     </p>
                   </div>
@@ -90,21 +90,21 @@ export default function SoportePage() {
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                   <div className="flex flex-col gap-2">
-                    <label className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/40">Asunto *</label>
+                    <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Asunto *</label>
                     <input value={subject} onChange={e => setSubject(e.target.value)} required
-                      className="bg-transparent border-b border-verde-ebano/12 py-2.5 text-sm text-verde-ebano outline-none focus:border-oro-antiguo transition-colors placeholder:text-verde-ebano/20"
+                      className="bg-transparent border-b border-verde-ebano/12 py-2.5 text-base text-verde-ebano outline-none focus:border-oro-antiguo transition-colors placeholder:text-verde-ebano/20"
                       placeholder="¿En qué podemos ayudarte?"
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/40">Mensaje *</label>
+                    <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Mensaje *</label>
                     <textarea value={message} onChange={e => setMessage(e.target.value)} required rows={5}
-                      className="bg-transparent border-b border-verde-ebano/12 py-2.5 text-sm text-verde-ebano outline-none focus:border-oro-antiguo transition-colors resize-none placeholder:text-verde-ebano/20"
+                      className="bg-transparent border-b border-verde-ebano/12 py-2.5 text-base text-verde-ebano outline-none focus:border-oro-antiguo transition-colors resize-none placeholder:text-verde-ebano/20"
                       placeholder="Cuéntanos con detalle tu consulta..."
                     />
                   </div>
                   <button type="submit" disabled={isSubmitting}
-                    className="flex items-center justify-center gap-3 bg-verde-ebano text-hueso-seda text-[10px] uppercase tracking-[0.5em] py-4 hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-500 disabled:opacity-60 group"
+                    className="flex items-center justify-center gap-3 bg-verde-ebano text-hueso-seda text-xs uppercase tracking-[0.5em] py-4 hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-500 disabled:opacity-60 group"
                   >
                     {isSubmitting ? <Loader2 size={14} className="animate-spin" /> : <><span>Enviar</span><ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" /></>}
                   </button>

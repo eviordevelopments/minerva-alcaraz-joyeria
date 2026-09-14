@@ -10,17 +10,18 @@ html, body {
 
 /* Safe typography: never split words with hyphens in headings */
 h1, h2, h3, h4, h5, h6, .font-display {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  hyphens: manual !important;
-  -webkit-hyphens: manual !important;
+  overflow-wrap: normal;
+  word-wrap: normal;
+  word-break: normal;
+  hyphens: none !important;
+  -webkit-hyphens: none !important;
   max-width: 100%;
 }
 
 /* Hero title & main headings: never hyphenate — let words wrap naturally */
 .hero-title-no-hyphens {
-  hyphens: manual !important;
-  -webkit-hyphens: manual !important;
+  hyphens: none !important;
+  -webkit-hyphens: none !important;
   overflow-wrap: normal !important;
   word-break: normal !important;
 }
@@ -183,8 +184,8 @@ h1, h2, h3, h4, h5, h6, .font-display {
     @apply font-display uppercase transition-all duration-700;
     /* Fluid letter-spacing: tighter on mobile, wider on desktop */
     letter-spacing: 0.05em;
-    word-break: break-word;
-    overflow-wrap: break-word;
+    word-break: normal;
+    overflow-wrap: normal;
   }
 
   @media (min-width: 768px) {

@@ -36,11 +36,11 @@ export const CartSidebar: React.FC = () => {
             <div className="p-8 border-b border-plata-niebla/10 flex justify-between items-center flex-shrink-0">
               <div className="flex items-center gap-3">
                 <ShoppingBag size={20} strokeWidth={1} />
-                <span className="text-sm uppercase tracking-[0.2em] font-display">
+                <span className="text-base uppercase tracking-[0.2em] font-display">
                   Mi Bolsa
                 </span>
                 {items.length > 0 && (
-                  <span className="w-5 h-5 bg-verde-ebano text-hueso-seda text-[9px] flex items-center justify-center font-mono">
+                  <span className="w-5 h-5 bg-verde-ebano text-hueso-seda text-[11px] flex items-center justify-center font-mono">
                     {items.reduce((s, i) => s + i.quantity, 0)}
                   </span>
                 )}
@@ -63,17 +63,17 @@ export const CartSidebar: React.FC = () => {
                     className="text-verde-ebano/20"
                   />
                   <div className="flex flex-col gap-2">
-                    <p className="text-sm font-display text-verde-ebano/50">
+                    <p className="text-base font-display text-verde-ebano/50">
                       Tu bolsa está vacía
                     </p>
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-plata-niebla">
+                    <p className="text-xs uppercase tracking-[0.3em] text-plata-niebla">
                       Descubre nuestras piezas eternas
                     </p>
                   </div>
                   <Link
                     href="/shop"
                     onClick={closeCart}
-                    className="text-[10px] uppercase tracking-widest border-b border-oro-antiguo/40 text-oro-antiguo pb-0.5 hover:border-oro-antiguo transition-colors"
+                    className="text-xs uppercase tracking-widest border-b border-oro-antiguo/40 text-oro-antiguo pb-0.5 hover:border-oro-antiguo transition-colors"
                   >
                     Explorar el Atelier
                   </Link>
@@ -109,23 +109,23 @@ export const CartSidebar: React.FC = () => {
 
                     {/* Details */}
                     <div className="flex-1 flex flex-col gap-1 min-w-0">
-                      <span className="text-[9px] uppercase tracking-widest text-plata-niebla truncate">
+                      <span className="text-[11px] uppercase tracking-widest text-plata-niebla truncate">
                         {item.collection}
                       </span>
                       <Link
                         href={`/product/${item.productId}`}
                         onClick={closeCart}
                       >
-                        <h4 className="text-xs font-display text-verde-ebano leading-snug hover:text-oro-antiguo transition-colors">
+                        <h4 className="text-sm font-display text-verde-ebano leading-snug hover:text-oro-antiguo transition-colors">
                           {item.name}
                         </h4>
                       </Link>
                       {item.size && (
-                        <span className="text-[9px] text-plata-niebla uppercase tracking-widest">
+                        <span className="text-[11px] text-plata-niebla uppercase tracking-widest">
                           Talla {item.size}
                         </span>
                       )}
-                      <span className="text-xs text-verde-ebano mt-1 font-mono">
+                      <span className="text-sm text-verde-ebano mt-1 font-mono">
                         ${item.price.toLocaleString("es-MX")} {item.currency}
                       </span>
 
@@ -140,7 +140,7 @@ export const CartSidebar: React.FC = () => {
                           >
                             <Minus size={11} />
                           </button>
-                          <span className="px-3 text-xs font-mono min-w-[2rem] text-center">
+                          <span className="px-3 text-sm font-mono min-w-[2rem] text-center">
                             {item.quantity}
                           </span>
                           <button
@@ -163,7 +163,7 @@ export const CartSidebar: React.FC = () => {
                     </div>
 
                     {/* Line total */}
-                    <span className="text-xs font-mono text-verde-ebano flex-shrink-0 mt-1">
+                    <span className="text-sm font-mono text-verde-ebano flex-shrink-0 mt-1">
                       ${(item.price * item.quantity).toLocaleString("es-MX")}
                     </span>
                   </div>
@@ -175,16 +175,16 @@ export const CartSidebar: React.FC = () => {
             {items.length > 0 && (
               <div className="p-8 bg-verde-ebano flex flex-col gap-5 flex-shrink-0">
                 <div className="flex flex-col gap-2">
-                  <div className="flex justify-between text-[10px] uppercase tracking-widest text-hueso-seda/50">
+                  <div className="flex justify-between text-xs uppercase tracking-widest text-hueso-seda/50">
                     <span>Subtotal</span>
                     <span>${total.toLocaleString("es-MX")} MXN</span>
                   </div>
-                  <div className="flex justify-between text-[10px] uppercase tracking-widest text-oro-antiguo">
+                  <div className="flex justify-between text-xs uppercase tracking-widest text-oro-antiguo">
                     <span>Envío</span>
                     <span>Cortesía</span>
                   </div>
                   <div className="h-px bg-hueso-seda/10 my-1" />
-                  <div className="flex justify-between text-sm uppercase tracking-widest text-hueso-seda font-medium">
+                  <div className="flex justify-between text-base uppercase tracking-widest text-hueso-seda font-medium">
                     <span>Total</span>
                     <span>${total.toLocaleString("es-MX")} MXN</span>
                   </div>
@@ -192,7 +192,7 @@ export const CartSidebar: React.FC = () => {
 
                 <Link href="/checkout" onClick={closeCart}>
                   <button className="w-full bg-hueso-seda text-verde-ebano py-4 px-8 flex items-center justify-between hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-500">
-                    <span className="text-[11px] uppercase tracking-[0.4em] font-medium">
+                    <span className="text-sm uppercase tracking-[0.4em] font-medium">
                       Proceder al Pago
                     </span>
                     <div className="flex items-center gap-3">

@@ -156,17 +156,17 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
     isAdminPreview ? (
       <div className="bg-[#E5DBD6] text-[#2C3729] border-4 border-[#CBB67B] shadow-2xl relative">
         <div className="sticky top-0 z-10 bg-[#CBB67B]/10 border-b border-[#CBB67B]/30 px-6 py-3 flex items-center justify-between">
-          <span className="text-[9px] uppercase tracking-[0.5em] text-[#2C3729]/50">
+          <span className="text-[11px] uppercase tracking-[0.5em] text-[#2C3729]/50">
             Vista Previa del PDP · Simulación Exacta
           </span>
           <div className="flex gap-2">
             {product.is_circle_exclusive && (
-              <span className="text-[8px] uppercase tracking-widest border border-[#CBB67B] text-[#CBB67B] px-2 py-0.5 bg-[#2C3729]">
+              <span className="text-[10px] uppercase tracking-widest border border-[#CBB67B] text-[#CBB67B] px-2 py-0.5 bg-[#2C3729]">
                 Exclusivo The Circle
               </span>
             )}
             {product.is_unique_piece && (
-              <span className="text-[8px] uppercase tracking-widest border border-[#2C3729]/30 text-[#2C3729]/60 px-2 py-0.5">
+              <span className="text-[10px] uppercase tracking-widest border border-[#2C3729]/30 text-[#2C3729]/60 px-2 py-0.5">
                 Pieza Única
               </span>
             )}
@@ -284,7 +284,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
               {images.length > 1 && (
                 <button
                   onClick={() => setIsAutoPlayActive(!isAutoPlayActive)}
-                  className="bg-[#E5DBD6]/85 backdrop-blur-md px-2.5 py-1 text-[8px] tracking-[0.25em] uppercase text-[#2C3729] border border-[#2C3729]/20 flex items-center gap-1.5 hover:bg-[#2C3729] hover:text-[#E5DBD6] transition-all shadow-sm"
+                  className="bg-[#E5DBD6]/85 backdrop-blur-md px-2.5 py-1 text-[10px] tracking-[0.25em] uppercase text-[#2C3729] border border-[#2C3729]/20 flex items-center gap-1.5 hover:bg-[#2C3729] hover:text-[#E5DBD6] transition-all shadow-sm"
                 >
                   {isPaused ? (
                     <>
@@ -301,14 +301,14 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
                   )}
                 </button>
               )}
-              <button className="bg-[#E5DBD6]/85 backdrop-blur-md px-2.5 py-1 text-[8px] tracking-widest uppercase text-[#2C3729] border border-[#2C3729]/20 flex items-center gap-1.5 hover:bg-[#2C3729] hover:text-[#E5DBD6] transition-all shadow-sm">
+              <button className="bg-[#E5DBD6]/85 backdrop-blur-md px-2.5 py-1 text-[10px] tracking-widest uppercase text-[#2C3729] border border-[#2C3729]/20 flex items-center gap-1.5 hover:bg-[#2C3729] hover:text-[#E5DBD6] transition-all shadow-sm">
                 <Box size={10} /> 360°
               </button>
             </div>
 
             {/* Counter badge */}
             {images.length > 1 && (
-              <div className="absolute bottom-4 left-4 z-20 bg-[#2C3729]/75 backdrop-blur-md px-2.5 py-1 text-[8px] uppercase tracking-[0.35em] text-[#CBB67B] border border-[#CBB67B]/20">
+              <div className="absolute bottom-4 left-4 z-20 bg-[#2C3729]/75 backdrop-blur-md px-2.5 py-1 text-[10px] uppercase tracking-[0.35em] text-[#CBB67B] border border-[#CBB67B]/20">
                 {String(selectedImage + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}
               </div>
             )}
@@ -337,14 +337,14 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
           {/* Header */}
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-3 flex-wrap">
-              <span className="text-[10px] uppercase tracking-[0.4em] text-[#C3C9C0]">
+              <span className="text-xs uppercase tracking-[0.4em] text-[#C3C9C0]">
                 Colección {product.collection}
               </span>
-              <span className="px-2 py-0.5 border border-[#CBB67B] text-[8px] uppercase tracking-widest text-[#CBB67B] bg-[#CBB67B]/5">
+              <span className="px-2 py-0.5 border border-[#CBB67B] text-[10px] uppercase tracking-widest text-[#CBB67B] bg-[#CBB67B]/5">
                 {product.category}
               </span>
               {product.is_limited_edition && (
-                <span className="px-2 py-0.5 border border-[#C3C9C0]/40 text-[8px] uppercase tracking-widest text-[#C3C9C0]">
+                <span className="px-2 py-0.5 border border-[#C3C9C0]/40 text-[10px] uppercase tracking-widest text-[#C3C9C0]">
                   Ed. Limitada
                 </span>
               )}
@@ -356,24 +356,24 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
               <span className="text-xl font-light text-[#2C3729]">
                 ${product.price.toLocaleString("es-MX")} {product.currency}
               </span>
-              <span className="text-[8px] tracking-widest text-[#C3C9C0] uppercase font-mono">
+              <span className="text-[10px] tracking-widest text-[#C3C9C0] uppercase font-mono">
                 SKU: {product.sku}
               </span>
             </div>
           </div>
 
           {/* Narrative quote */}
-          <p className="text-sm italic text-[#2C3729]/70 font-light border-l-2 border-[#CBB67B] pl-4 py-1 leading-relaxed">
+          <p className="text-base italic text-[#2C3729]/70 font-light border-l-2 border-[#CBB67B] pl-4 py-1 leading-relaxed">
             &quot;{product.description || "Una pieza diseñada para habitar en la eternidad."}&quot;
           </p>
 
           {/* Technical Details & Specifications */}
           {product.long_description && (
             <div className="bg-[#2C3729]/5 p-4 border-l-2 border-[#CBB67B] flex flex-col gap-1.5">
-              <span className="text-[9px] uppercase tracking-[0.25em] text-[#CBB67B] font-semibold">
+              <span className="text-[11px] uppercase tracking-[0.25em] text-[#CBB67B] font-semibold">
                 Detalles Técnicos &amp; Especificaciones
               </span>
-              <p className="text-xs text-[#2C3729]/85 font-light leading-relaxed whitespace-pre-line">
+              <p className="text-sm text-[#2C3729]/85 font-light leading-relaxed whitespace-pre-line">
                 {product.long_description}
               </p>
             </div>
@@ -382,12 +382,12 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
           {/* Size selector */}
           <div className="flex flex-col gap-3">
             <div className="flex justify-between items-center">
-              <span className="text-[10px] uppercase tracking-widest text-[#2C3729]">
+              <span className="text-xs uppercase tracking-widest text-[#2C3729]">
                 Seleccionar Talla
               </span>
               <button 
                 onClick={() => setIsSizeGuideOpen(true)}
-                className="text-[10px] uppercase tracking-widest flex items-center gap-1.5 text-[#CBB67B] hover:text-[#2C3729] transition-colors font-medium"
+                className="text-xs uppercase tracking-widest flex items-center gap-1.5 text-[#CBB67B] hover:text-[#2C3729] transition-colors font-medium"
               >
                 <Ruler size={12} /> Guía de Tallas
               </button>
@@ -397,7 +397,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
                 <button
                   key={size}
                   onClick={() => setSelectedSize(size)}
-                  className={`w-11 h-11 border text-xs transition-all ${
+                  className={`w-11 h-11 border text-sm transition-all ${
                     selectedSize === size
                       ? "border-[#2C3729] bg-[#2C3729] text-[#E5DBD6]"
                       : "border-[#C3C9C0]/40 text-[#2C3729] hover:border-[#CBB67B]"
@@ -414,7 +414,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
             <button
               disabled={product.stock === 0}
               onClick={handleAddToCart}
-              className="w-full py-4 bg-[#294127] text-[#E5DBD6] text-xs uppercase tracking-[0.3em] hover:bg-[#2C3729] transition-all flex items-center justify-center gap-3 disabled:bg-[#C3C9C0] disabled:cursor-not-allowed"
+              className="w-full py-4 bg-[#294127] text-[#E5DBD6] text-sm uppercase tracking-[0.3em] hover:bg-[#2C3729] transition-all flex items-center justify-center gap-3 disabled:bg-[#C3C9C0] disabled:cursor-not-allowed"
             >
               <ShoppingBag size={15} />
               {product.stock === 0 ? "Pieza Agotada" : "Añadir a la Bolsa"}
@@ -422,7 +422,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
             <div className="grid grid-cols-2 gap-3">
               <button
                 onClick={() => { setIsFavorite(!isFavorite); onFavorite?.(); }}
-                className={`py-3.5 border text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all ${
+                className={`py-3.5 border text-sm uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all ${
                   isFavorite
                     ? "border-[#CBB67B] text-[#CBB67B]"
                     : "border-[#2C3729] text-[#2C3729] hover:border-[#CBB67B]"
@@ -431,7 +431,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
                 <Heart size={13} className={isFavorite ? "fill-[#CBB67B]" : ""} />
                 Favoritos
               </button>
-              <button className="py-3.5 border border-[#2C3729] text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 hover:border-[#CBB67B] transition-all text-[#2C3729]">
+              <button className="py-3.5 border border-[#2C3729] text-sm uppercase tracking-[0.2em] flex items-center justify-center gap-2 hover:border-[#CBB67B] transition-all text-[#2C3729]">
                 <BookOpen size={13} /> Mi Álbum
               </button>
             </div>
@@ -440,10 +440,10 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
           {/* Technical panel */}
           <div className="flex flex-col gap-5">
             <div className="bg-[#C3C9C0]/10 p-5 border-l-2 border-[#CBB67B]">
-              <span className="text-[9px] uppercase tracking-widest text-[#2C3729] font-medium block mb-3">
+              <span className="text-[11px] uppercase tracking-widest text-[#2C3729] font-medium block mb-3">
                 Detalle Técnico
               </span>
-              <div className="grid grid-cols-2 gap-y-3 text-[9px] uppercase tracking-wider">
+              <div className="grid grid-cols-2 gap-y-3 text-[11px] uppercase tracking-wider">
                 <span className="text-[#C3C9C0]">Material</span>
                 <span className="text-[#2C3729]">
                   {product.materials.join(", ") || "—"}
@@ -475,7 +475,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
                 {product.long_description && (
                   <div className="col-span-2 mt-3 pt-3 border-t border-[#2C3729]/15">
                     <span className="text-[#CBB67B] font-medium block mb-1">Especificaciones Adicionales</span>
-                    <p className="text-[#2C3729]/80 text-[10px] normal-case font-light leading-relaxed whitespace-pre-line">
+                    <p className="text-[#2C3729]/80 text-xs normal-case font-light leading-relaxed whitespace-pre-line">
                       {product.long_description}
                     </p>
                   </div>
@@ -486,12 +486,12 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
             {/* El Significado */}
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-3">
-                <span className="text-[9px] uppercase tracking-widest text-[#CBB67B]">
+                <span className="text-[11px] uppercase tracking-widest text-[#CBB67B]">
                   El Significado
                 </span>
                 <div className="h-px flex-1 bg-[#CBB67B]/20" />
               </div>
-              <p className="text-sm leading-relaxed text-[#2C3729]/75 font-light">
+              <p className="text-base leading-relaxed text-[#2C3729]/75 font-light">
                 {product.significado ||
                   "Una pieza diseñada para habitar en la eternidad, capturando la esencia de la herencia y el arte joyero."}
               </p>
@@ -499,20 +499,20 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
 
             {/* AI suggestions */}
             <div className="border-t border-[#C3C9C0]/20 pt-5 flex flex-col gap-3">
-              <span className="text-[9px] uppercase tracking-widest flex items-center gap-2 text-[#CBB67B]">
+              <span className="text-[11px] uppercase tracking-widest flex items-center gap-2 text-[#CBB67B]">
                 <Info size={12} /> Sugerencias
               </span>
               <div className="flex flex-wrap gap-2">
                 {occasions.map((occ) => (
                   <span
                     key={occ}
-                    className="px-3 py-1 bg-[#E5DBD6] border border-[#C3C9C0]/30 text-[9px] uppercase tracking-widest text-[#2C3729]"
+                    className="px-3 py-1 bg-[#E5DBD6] border border-[#C3C9C0]/30 text-[11px] uppercase tracking-widest text-[#2C3729]"
                   >
                     {occ}
                   </span>
                 ))}
               </div>
-              <p className="text-[10px] text-[#C3C9C0] italic">
+              <p className="text-xs text-[#C3C9C0] italic">
                 Ideal con: {outfits.join(", ")}.
               </p>
             </div>
@@ -525,13 +525,13 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-3">
-              <span className="text-[10px] uppercase tracking-[0.6em] text-[#CBB67B]">
+              <span className="text-xs uppercase tracking-[0.6em] text-[#CBB67B]">
                 El Ritual de Desempaque
               </span>
               <h2 className="text-3xl font-display text-[#2C3729] italic">
                 Dentro de la Caja
               </h2>
-              <p className="text-sm text-[#2C3729]/65 leading-relaxed font-light">
+              <p className="text-base text-[#2C3729]/65 leading-relaxed font-light">
                 Cada pieza llega en un ecosistema diseñado para proteger su alma y exaltar su belleza.
               </p>
             </div>
@@ -547,16 +547,16 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
                   className="flex flex-col gap-3 p-4 border border-[#C3C9C0]/15 hover:border-[#CBB67B]/30 transition-colors"
                 >
                   <Icon className="text-[#CBB67B]" size={20} strokeWidth={1} />
-                  <h3 className="text-[10px] uppercase tracking-widest text-[#2C3729] font-medium">
+                  <h3 className="text-xs uppercase tracking-widest text-[#2C3729] font-medium">
                     {title}
                   </h3>
-                  <p className="text-[11px] text-[#C3C9C0] leading-relaxed font-light">{desc}</p>
+                  <p className="text-sm text-[#C3C9C0] leading-relaxed font-light">{desc}</p>
                 </div>
               ))}
             </div>
           </div>
           <div className="flex flex-col gap-2">
-            <span className="text-[9px] uppercase tracking-[0.4em] text-[#CBB67B]/70">
+            <span className="text-[11px] uppercase tracking-[0.4em] text-[#CBB67B]/70">
               Galería del Empaque
             </span>
             <EmpaqueCarousel
@@ -571,7 +571,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
       <section className="mt-16 bg-[#2C3729] text-[#E5DBD6] p-8 md:p-16 lg:p-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="flex flex-col gap-6">
-            <span className="text-[10px] uppercase tracking-[0.6em] text-[#CBB67B]">
+            <span className="text-xs uppercase tracking-[0.6em] text-[#CBB67B]">
               Armonía de Estilo
             </span>
             <h2 className="text-4xl md:text-5xl font-display leading-tight italic">
@@ -586,7 +586,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
               {outfits.map((outfit) => (
                 <span
                   key={outfit}
-                  className="px-3 py-1.5 border border-[#CBB67B]/30 text-[9px] uppercase tracking-widest text-[#CBB67B]"
+                  className="px-3 py-1.5 border border-[#CBB67B]/30 text-[11px] uppercase tracking-widest text-[#CBB67B]"
                 >
                   {outfit}
                 </span>

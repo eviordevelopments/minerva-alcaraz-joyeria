@@ -51,7 +51,7 @@ export default function StripeCheckoutForm({
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
       <PaymentElement />
       {message && (
-        <div className="text-sm text-red-500 border border-red-500/20 bg-red-500/5 p-4 rounded-sm mt-4">
+        <div className="text-base text-red-500 border border-red-500/20 bg-red-500/5 p-4 rounded-sm mt-4">
           {message}
         </div>
       )}

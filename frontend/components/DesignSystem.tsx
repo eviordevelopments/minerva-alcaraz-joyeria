@@ -30,7 +30,7 @@ export const LuxuryButton: React.FC<LuxuryButtonProps> = ({
       disabled={disabled}
       className={`
         px-6 sm:px-10 py-3 sm:py-4
-        text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.3em]
+        text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em]
         transition-all duration-700
         ${variant === "gold" ? "border border-oro-antiguo" : "border border-verde-ebano"} rounded-none
         ${variant === "primary" 
@@ -133,7 +133,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <button
         onClick={handleAddToCart}
         className={`absolute bottom-[calc(33%+1rem)] left-1/2 -translate-x-1/2 z-20 
-          px-4 py-2 text-[8px] uppercase tracking-widest border transition-all duration-300
+          px-4 py-2 text-[10px] uppercase tracking-widest border transition-all duration-300
           opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
           ${addedFeedback
             ? "bg-verde-ebano text-hueso-seda border-verde-ebano"
@@ -179,20 +179,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </div>
           </motion.div>
 
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 lg:hidden bg-hueso-seda/20 backdrop-blur-md px-3 py-1 text-[8px] uppercase tracking-widest text-verde-ebano/60 border border-verde-ebano/5">
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 lg:hidden bg-hueso-seda/20 backdrop-blur-md px-3 py-1 text-[10px] uppercase tracking-widest text-verde-ebano/60 border border-verde-ebano/5">
             {isFlipped ? "Ver Pieza" : "Ver en Modelo"}
           </div>
         </div>
 
         <div className="flex flex-col gap-2 px-1 pb-4">
-          <span className="text-[9px] uppercase tracking-[0.4em] text-verde-ebano/50">
+          <span className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/50">
             {category}
           </span>
           <div className="flex flex-col gap-1">
-            <h3 className="text-[10px] sm:text-xs tracking-[0.1em] sm:tracking-[0.2em] font-display text-verde-ebano uppercase leading-relaxed">
+            <h3 className="text-xs sm:text-sm tracking-[0.1em] sm:tracking-[0.2em] font-display text-verde-ebano uppercase leading-relaxed">
               {name}
             </h3>
-            <span className="text-[9px] sm:text-[10px] text-oro-profundo tracking-[0.1em] sm:tracking-[0.2em] font-medium">
+            <span className="text-[11px] sm:text-xs text-oro-profundo tracking-[0.1em] sm:tracking-[0.2em] font-medium">
               ${price.toLocaleString()} {currency}
             </span>
           </div>

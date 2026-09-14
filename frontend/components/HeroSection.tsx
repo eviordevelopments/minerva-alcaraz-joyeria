@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import Link from "next/link";
 import { LuxuryButton } from "./DesignSystem";
 import { HaulCarousel } from "./HaulCarousel";
 
@@ -76,17 +77,18 @@ export const HeroSection = () => {
             className="hero-title-no-hyphens text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-oro-antiguo leading-[1.15] sm:leading-tight mb-6 sm:mb-8 px-2 text-center"
             style={{ textShadow: '0 4px 30px rgba(0,0,0,0.7)' }}
           >
-            Donde el <span className="text-hueso-seda font-semibold">arte</span> encuentra su <span className="text-hueso-seda font-semibold">esencia</span><br />
-            y la <span className="text-hueso-seda font-semibold">eternidad</span><br />
-            su <span className="text-hueso-seda font-semibold">presencia</span>.
+            Tu <span className="text-hueso-seda font-semibold">esencia</span>,<br />
+            hecha <span className="text-hueso-seda font-semibold">joya</span>.
           </h1>
 
-          <LuxuryButton 
-            variant="primary" 
-            className="!bg-hueso-seda/10 !text-hueso-seda !border-hueso-seda hover:!bg-hueso-seda hover:!text-verde-ebano backdrop-blur-md shadow-2xl transition-luxury text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] py-3 sm:py-4 px-6 sm:px-10"
-          >
-            Comenzar Experiencia
-          </LuxuryButton>
+          <Link href="/shop">
+            <LuxuryButton 
+              variant="primary" 
+              className="!bg-hueso-seda/10 !text-hueso-seda !border-hueso-seda hover:!bg-hueso-seda hover:!text-verde-ebano backdrop-blur-md shadow-2xl transition-luxury text-sm sm:text-base tracking-[0.2em] sm:tracking-[0.3em] py-3 sm:py-4 px-6 sm:px-10"
+            >
+              Comenzar Experiencia
+            </LuxuryButton>
+          </Link>
         </motion.div>
 
         {/* Initial Scroll Cue Badge — Soft entrance animation */}
@@ -102,7 +104,7 @@ export const HeroSection = () => {
             transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
             className="flex flex-col items-center gap-2"
           >
-            <span className="text-[8px] sm:text-[10px] text-hueso-seda uppercase tracking-[0.3em] sm:tracking-[0.4em] font-light shadow-lg bg-verde-ebano/40 px-3 py-1.5 border border-hueso-seda/20 backdrop-blur-md">
+            <span className="text-[10px] sm:text-xs text-hueso-seda uppercase tracking-[0.3em] sm:tracking-[0.4em] font-light shadow-lg bg-verde-ebano/40 px-3 py-1.5 border border-hueso-seda/20 backdrop-blur-md">
               Desliza para descubrir
             </span>
             <div className="w-[1px] h-8 sm:h-12 bg-gradient-to-b from-oro-antiguo to-transparent" />

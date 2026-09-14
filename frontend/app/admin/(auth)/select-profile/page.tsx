@@ -90,7 +90,7 @@ export default function SelectProfilePage() {
       <div className="absolute top-8 right-8 z-20">
         <button 
           onClick={handleLogout}
-          className="flex items-center gap-2 text-[#8E9A8B] hover:text-[#CBB67B] text-[10px] uppercase tracking-widest transition-colors"
+          className="flex items-center gap-2 text-[#8E9A8B] hover:text-[#CBB67B] text-xs uppercase tracking-widest transition-colors"
         >
           <LogOut size={14} /> Cerrar Sesión
         </button>
@@ -106,13 +106,13 @@ export default function SelectProfilePage() {
           <h1 className="text-4xl md:text-5xl font-display-erp font-bold text-[#E5DBD6] mb-4 tracking-wider">
             ¿Quién está operando?
           </h1>
-          <p className="text-xs uppercase tracking-[0.2em] text-[#CBB67B]">
+          <p className="text-sm uppercase tracking-[0.2em] text-[#CBB67B]">
             Selecciona tu perfil para acceder al Atelier Interno
           </p>
         </div>
 
         {error ? (
-          <div className="bg-red-900/30 border border-red-500/50 text-red-200 p-4 text-sm rounded-none text-center">
+          <div className="bg-red-900/30 border border-red-500/50 text-red-200 p-4 text-base rounded-none text-center">
             {error}
           </div>
         ) : (
@@ -142,7 +142,7 @@ export default function SelectProfilePage() {
                 </div>
                 
                 <h3 className="text-xl font-display-erp text-[#E5DBD6] group-hover:text-white transition-colors">{profile.name}</h3>
-                <p className="text-[10px] uppercase tracking-widest text-[#8E9A8B] group-hover:text-[#CBB67B] mt-1">{profile.role}</p>
+                <p className="text-xs uppercase tracking-widest text-[#8E9A8B] group-hover:text-[#CBB67B] mt-1">{profile.role}</p>
               </motion.div>
             ))}
           </div>

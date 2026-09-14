@@ -101,18 +101,18 @@ export default function AdminOrderDetail() {
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#CBB67B]/20 pb-6">
         <div>
-          <Link href="/admin/pedidos" className="inline-flex items-center gap-2 text-[#8E9A8B] hover:text-[#CBB67B] text-[10px] uppercase tracking-widest transition-colors mb-4">
+          <Link href="/admin/pedidos" className="inline-flex items-center gap-2 text-[#8E9A8B] hover:text-[#CBB67B] text-xs uppercase tracking-widest transition-colors mb-4">
             <ChevronLeft size={14} /> Volver a Pedidos
           </Link>
           <div className="flex items-center gap-3">
             <h1 className="font-display-erp text-3xl text-[#E5DBD6] font-bold">
               Pedido {order.order_number}
             </h1>
-            <span className={`px-3 py-1 text-[9px] uppercase tracking-widest font-bold border ${getStatusColor(order.status)}`}>
+            <span className={`px-3 py-1 text-[11px] uppercase tracking-widest font-bold border ${getStatusColor(order.status)}`}>
               {order.status}
             </span>
           </div>
-          <p className="text-[#8E9A8B] text-xs font-mono mt-2">
+          <p className="text-[#8E9A8B] text-sm font-mono mt-2">
             Realizado el {formatDate(order.placed_at)}
           </p>
         </div>
@@ -127,7 +127,7 @@ export default function AdminOrderDetail() {
           <section className="bg-[#1F271D] border border-[#CBB67B]/20 p-6 sm:p-8">
             <div className="flex items-center gap-2 text-[#CBB67B] border-b border-[#CBB67B]/10 pb-4 mb-6">
               <Package size={16} />
-              <h2 className="text-xs uppercase tracking-[0.2em] font-bold">Desglose de Pedido</h2>
+              <h2 className="text-sm uppercase tracking-[0.2em] font-bold">Desglose de Pedido</h2>
             </div>
             
             <div className="space-y-6">
@@ -144,8 +144,8 @@ export default function AdminOrderDetail() {
                   </div>
                   <div className="flex-1 text-left">
                     <h3 className="text-[#E5DBD6] font-bold">{item.product_name}</h3>
-                    <p className="text-[10px] text-[#CBB67B] font-mono tracking-widest mb-2">SKU: {item.product_sku}</p>
-                    <p className="text-xs text-[#8E9A8B]">Cant: {item.quantity} x {formatPrice(item.unit_price_cents)}</p>
+                    <p className="text-xs text-[#CBB67B] font-mono tracking-widest mb-2">SKU: {item.product_sku}</p>
+                    <p className="text-sm text-[#8E9A8B]">Cant: {item.quantity} x {formatPrice(item.unit_price_cents)}</p>
                   </div>
                   <div className="text-right">
                     <p className="font-mono text-[#CBB67B] font-bold">{formatPrice(item.subtotal_cents)}</p>
@@ -154,7 +154,7 @@ export default function AdminOrderDetail() {
               ))}
             </div>
             
-            <div className="mt-8 pt-6 border-t border-[#CBB67B]/10 flex flex-col items-end gap-2 text-sm">
+            <div className="mt-8 pt-6 border-t border-[#CBB67B]/10 flex flex-col items-end gap-2 text-base">
               <div className="flex justify-between w-64 text-[#8E9A8B]"><span>Subtotal:</span> <span className="font-mono">{formatPrice(order.subtotal_cents)}</span></div>
               <div className="flex justify-between w-64 text-[#8E9A8B]"><span>Envío:</span> <span className="font-mono">{formatPrice(order.shipping_cents)}</span></div>
               <div className="flex justify-between w-64 text-[#8E9A8B]"><span>Descuentos:</span> <span className="font-mono text-green-400">-{formatPrice(order.discount_cents)}</span></div>
@@ -172,25 +172,25 @@ export default function AdminOrderDetail() {
           <section className="bg-[#1F271D] border border-[#CBB67B]/20 p-6">
             <div className="flex items-center gap-2 text-[#CBB67B] border-b border-[#CBB67B]/10 pb-4 mb-4">
               <User size={16} />
-              <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold">Cliente en CRM</h2>
+              <h2 className="text-xs uppercase tracking-[0.2em] font-bold">Cliente en CRM</h2>
             </div>
-            <div className="text-sm space-y-1 mb-8">
+            <div className="text-base space-y-1 mb-8">
               <p className="text-[#E5DBD6] font-bold">{order.profiles?.full_name}</p>
-              <p className="text-[#8E9A8B] font-mono text-xs">{order.profiles?.email}</p>
-              <p className="text-[#8E9A8B] font-mono text-xs">{order.profiles?.phone || "Sin teléfono"}</p>
+              <p className="text-[#8E9A8B] font-mono text-sm">{order.profiles?.email}</p>
+              <p className="text-[#8E9A8B] font-mono text-sm">{order.profiles?.phone || "Sin teléfono"}</p>
             </div>
 
             <div className="flex items-center gap-2 text-[#CBB67B] border-b border-[#CBB67B]/10 pb-4 mb-4">
               <MapPin size={16} />
-              <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold">Datos de Envío</h2>
+              <h2 className="text-xs uppercase tracking-[0.2em] font-bold">Datos de Envío</h2>
             </div>
-            <div className="text-sm space-y-1 text-[#8E9A8B]">
+            <div className="text-base space-y-1 text-[#8E9A8B]">
               <p className="text-[#E5DBD6]">{order.shipping_name}</p>
               <p>{order.shipping_street} {order.shipping_exterior_num} {order.shipping_interior_num}</p>
               <p>Col. {order.shipping_colonia}</p>
               <p>{order.shipping_city}, {order.shipping_state}</p>
               <p>CP {order.shipping_postal_code} - {order.shipping_country}</p>
-              {order.shipping_phone && <p className="mt-2 font-mono text-xs">Tel: {order.shipping_phone}</p>}
+              {order.shipping_phone && <p className="mt-2 font-mono text-sm">Tel: {order.shipping_phone}</p>}
             </div>
           </section>
 
@@ -198,18 +198,18 @@ export default function AdminOrderDetail() {
           <section className="bg-[#2C3729] border border-[#CBB67B]/40 p-6 shadow-xl">
             <div className="flex items-center gap-2 text-[#CBB67B] border-b border-[#CBB67B]/20 pb-4 mb-6">
               <Truck size={16} />
-              <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold">Gestión y Tracking</h2>
+              <h2 className="text-xs uppercase tracking-[0.2em] font-bold">Gestión y Tracking</h2>
             </div>
             
             <form onSubmit={handleUpdate} className="space-y-4">
               <div>
-                <label className="block text-[9px] uppercase tracking-widest text-[#8E9A8B] mb-2">
+                <label className="block text-[11px] uppercase tracking-widest text-[#8E9A8B] mb-2">
                   Actualizar Status
                 </label>
                 <select 
                   value={newStatus}
                   onChange={(e) => setNewStatus(e.target.value)}
-                  className="w-full bg-[#1F271D] border border-[#CBB67B]/30 text-[#E5DBD6] p-2.5 text-xs focus:border-[#CBB67B] outline-none rounded-none"
+                  className="w-full bg-[#1F271D] border border-[#CBB67B]/30 text-[#E5DBD6] p-2.5 text-sm focus:border-[#CBB67B] outline-none rounded-none"
                 >
                   <option value="pending">Pending (Pendiente de pago)</option>
                   <option value="paid">Paid (Pagado)</option>
@@ -222,7 +222,7 @@ export default function AdminOrderDetail() {
               </div>
 
               <div>
-                <label className="block text-[9px] uppercase tracking-widest text-[#8E9A8B] mb-2">
+                <label className="block text-[11px] uppercase tracking-widest text-[#8E9A8B] mb-2">
                   Número de Guía (Tracking)
                 </label>
                 <input 
@@ -230,9 +230,9 @@ export default function AdminOrderDetail() {
                   placeholder="Ej. 1Z999999999"
                   value={newTracking}
                   onChange={(e) => setNewTracking(e.target.value)}
-                  className="w-full bg-[#1F271D] border border-[#CBB67B]/30 text-[#E5DBD6] p-2.5 text-xs font-mono placeholder-[#8E9A8B]/50 focus:border-[#CBB67B] outline-none rounded-none"
+                  className="w-full bg-[#1F271D] border border-[#CBB67B]/30 text-[#E5DBD6] p-2.5 text-sm font-mono placeholder-[#8E9A8B]/50 focus:border-[#CBB67B] outline-none rounded-none"
                 />
-                <p className="text-[8px] text-[#8E9A8B] mt-1.5 leading-relaxed">
+                <p className="text-[10px] text-[#8E9A8B] mt-1.5 leading-relaxed">
                   Al actualizar la guía y el status a "Shipped", el usuario podrá rastrear el pedido desde su cuenta, y el inventario del SKU se descontará automáticamente (marcando "Agotado" si llega a 0).
                 </p>
               </div>
@@ -240,7 +240,7 @@ export default function AdminOrderDetail() {
               <button 
                 type="submit"
                 disabled={isUpdating}
-                className="w-full mt-2 py-3 bg-[#CBB67B] text-[#1F271D] hover:bg-[#E4D5A4] transition-colors text-[10px] uppercase tracking-widest font-bold flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full mt-2 py-3 bg-[#CBB67B] text-[#1F271D] hover:bg-[#E4D5A4] transition-colors text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 {isUpdating ? "Guardando..." : "Guardar Cambios"}
                 {!isUpdating && <CheckCircle size={14} />}

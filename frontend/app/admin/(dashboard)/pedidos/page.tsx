@@ -83,7 +83,7 @@ export default function AdminOrders() {
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-[#CBB67B]/20 pb-6">
         <div>
-          <span className="text-[10px] uppercase tracking-[0.4em] text-[#CBB67B]">
+          <span className="text-xs uppercase tracking-[0.4em] text-[#CBB67B]">
             Logística y Envíos
           </span>
           <h1 className="font-display-erp text-3xl sm:text-4xl text-[#E5DBD6] mt-2 font-bold">
@@ -98,7 +98,7 @@ export default function AdminOrders() {
               placeholder="Buscar por orden, nombre..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-[#1F271D] border border-[#CBB67B]/30 pl-10 pr-4 py-2.5 text-xs text-[#E5DBD6] placeholder-[#8E9A8B]/60 focus:border-[#CBB67B] outline-none w-56 rounded-none"
+              className="bg-[#1F271D] border border-[#CBB67B]/30 pl-10 pr-4 py-2.5 text-sm text-[#E5DBD6] placeholder-[#8E9A8B]/60 focus:border-[#CBB67B] outline-none w-56 rounded-none"
             />
             <Search size={14} className="absolute left-3.5 text-[#8E9A8B]" />
           </div>
@@ -117,8 +117,8 @@ export default function AdminOrders() {
         <div className="bg-red-950/60 border border-red-500/30 p-4 flex items-center gap-3 text-red-300">
           <AlertCircle size={16} className="flex-shrink-0" />
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-wider">Error al cargar pedidos</p>
-            <p className="text-[9px] opacity-80">{error}</p>
+            <p className="text-xs font-bold uppercase tracking-wider">Error al cargar pedidos</p>
+            <p className="text-[11px] opacity-80">{error}</p>
           </div>
         </div>
       )}
@@ -134,7 +134,7 @@ export default function AdminOrders() {
         <div className="bg-[#1F271D] border border-[#CBB67B]/20 overflow-x-auto text-left">
           <table className="w-full border-collapse min-w-[800px]">
             <thead>
-              <tr className="border-b border-[#CBB67B]/20 bg-[#2C3729]/30 text-[#8E9A8B] text-[9px] uppercase tracking-widest">
+              <tr className="border-b border-[#CBB67B]/20 bg-[#2C3729]/30 text-[#8E9A8B] text-[11px] uppercase tracking-widest">
                 <th className="py-4 px-6 text-left font-bold">Orden</th>
                 <th className="py-4 px-6 text-left font-bold">Cliente CRM</th>
                 <th className="py-4 px-6 text-left font-bold">Ubicación</th>
@@ -143,7 +143,7 @@ export default function AdminOrders() {
                 <th className="py-4 px-6 text-center font-bold">Acción</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#CBB67B]/10 text-xs">
+            <tbody className="divide-y divide-[#CBB67B]/10 text-sm">
               <AnimatePresence mode="popLayout">
                 {filteredOrders.length > 0 ? (
                   filteredOrders.map((o) => (
@@ -160,7 +160,7 @@ export default function AdminOrders() {
                           <span className="font-mono font-bold text-[#E5DBD6] tracking-wider">
                             {o.order_number}
                           </span>
-                          <span className="text-[9px] text-[#8E9A8B]">
+                          <span className="text-[11px] text-[#8E9A8B]">
                             {formatDate(o.placed_at)}
                           </span>
                         </div>
@@ -171,13 +171,13 @@ export default function AdminOrders() {
                           <span className="font-semibold text-[#E5DBD6] tracking-wide">
                             {o.profiles?.full_name || "Sin Nombre"}
                           </span>
-                          <span className="text-[10px] text-[#CBB67B] font-mono">
+                          <span className="text-xs text-[#CBB67B] font-mono">
                             {o.profiles?.email}
                           </span>
                         </div>
                       </td>
 
-                      <td className="py-4 px-6 text-[10px] text-[#8E9A8B] uppercase tracking-wider">
+                      <td className="py-4 px-6 text-xs text-[#8E9A8B] uppercase tracking-wider">
                         {o.shipping_state || "No def."} {o.shipping_country ? `(${o.shipping_country})` : ""}
                       </td>
 
@@ -186,7 +186,7 @@ export default function AdminOrders() {
                           <span className="font-mono font-bold text-[#CBB67B]">
                             {formatPrice(o.total_cents)}
                           </span>
-                          <span className="text-[8px] uppercase tracking-widest text-[#8E9A8B]">
+                          <span className="text-[10px] uppercase tracking-widest text-[#8E9A8B]">
                             {o.payment_method || "No def."}
                           </span>
                         </div>
@@ -194,7 +194,7 @@ export default function AdminOrders() {
 
                       <td className="py-4 px-6 text-center">
                         <span
-                          className={`inline-block text-[8px] uppercase tracking-widest px-3 py-1 font-bold border ${getStatusColor(
+                          className={`inline-block text-[10px] uppercase tracking-widest px-3 py-1 font-bold border ${getStatusColor(
                             o.status
                           )}`}
                         >
@@ -205,7 +205,7 @@ export default function AdminOrders() {
                       <td className="py-4 px-6 text-center">
                         <Link
                           href={`/admin/pedidos/${o.id}`}
-                          className="inline-flex items-center gap-2 px-4 py-2 border border-[#CBB67B]/30 hover:border-[#CBB67B] text-[#CBB67B] hover:bg-[#CBB67B] hover:text-[#1F271D] transition-colors text-[9px] uppercase tracking-widest font-bold"
+                          className="inline-flex items-center gap-2 px-4 py-2 border border-[#CBB67B]/30 hover:border-[#CBB67B] text-[#CBB67B] hover:bg-[#CBB67B] hover:text-[#1F271D] transition-colors text-[11px] uppercase tracking-widest font-bold"
                         >
                           Ver Pedido <ArrowRight size={12} />
                         </Link>
@@ -217,7 +217,7 @@ export default function AdminOrders() {
                     <td colSpan={6} className="py-16 text-center text-[#8E9A8B]">
                       <div className="flex flex-col items-center gap-3">
                         <ShoppingBag size={20} className="text-[#CBB67B]/30" />
-                        <span className="text-[9px] uppercase tracking-widest italic">
+                        <span className="text-[11px] uppercase tracking-widest italic">
                           {orders.length === 0
                             ? "Aún no hay pedidos registrados"
                             : "Ningún pedido coincide con la búsqueda"}

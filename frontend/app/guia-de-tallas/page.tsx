@@ -46,27 +46,27 @@ export default function GuiaDeTallasPage() {
       <section className="pt-36 sm:pt-48 pb-16 sm:pb-24 px-4 sm:px-8 md:px-16 border-b border-verde-ebano/10 relative overflow-hidden bg-verde-ebano text-hueso-seda">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
           <div className="max-w-2xl space-y-6 text-center md:text-left">
-            <span className="text-[10px] sm:text-xs uppercase tracking-[0.4em] text-oro-antiguo font-medium">
+            <span className="text-xs sm:text-sm uppercase tracking-[0.4em] text-oro-antiguo font-medium">
               Atelier & Ritual de Medición
             </span>
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-display leading-tight">
               Guía para el Tamaño de Anillos
             </h1>
-            <p className="text-sm sm:text-base font-light text-hueso-seda/80 leading-relaxed max-w-xl">
+            <p className="text-base sm:text-base font-light text-hueso-seda/80 leading-relaxed max-w-xl">
               Cada joya en Minerva Alcaraz es forjada con proporciones anatómicas perfectas. 
               Utiliza esta guía ilustrada para determinar con precisión matemática tu talla de anillo.
             </p>
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-2">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="px-6 py-3.5 bg-oro-antiguo text-verde-ebano text-xs uppercase tracking-[0.25em] font-semibold hover:bg-hueso-seda transition-all shadow-lg flex items-center gap-2"
+                className="px-6 py-3.5 bg-oro-antiguo text-verde-ebano text-sm uppercase tracking-[0.25em] font-semibold hover:bg-hueso-seda transition-all shadow-lg flex items-center gap-2"
               >
                 <Ruler size={16} /> Abrir Modal Interactivo
               </button>
               <a
                 href="/assets/guia-tallas/guia-tallas-completa.png"
                 download="Guia_Tallas_Anillos_Minerva_Alcaraz.png"
-                className="px-6 py-3.5 border border-hueso-seda/40 text-hueso-seda text-xs uppercase tracking-[0.25em] hover:border-oro-antiguo hover:text-oro-antiguo transition-all flex items-center gap-2"
+                className="px-6 py-3.5 border border-hueso-seda/40 text-hueso-seda text-sm uppercase tracking-[0.25em] hover:border-oro-antiguo hover:text-oro-antiguo transition-all flex items-center gap-2"
               >
                 <Download size={16} /> Descargar Infografía PNG
               </a>
@@ -92,9 +92,9 @@ export default function GuiaDeTallasPage() {
         {/* SECTION 1: Método de Medición en 3 Pasos con Diagramas */}
         <section className="space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-[10px] uppercase tracking-[0.4em] text-oro-antiguo font-semibold">Técnica Artesanal</span>
+            <span className="text-xs uppercase tracking-[0.4em] text-oro-antiguo font-semibold">Técnica Artesanal</span>
             <h2 className="text-3xl sm:text-4xl font-display text-verde-ebano">Método de Medición</h2>
-            <p className="text-sm text-verde-ebano/70 font-light">
+            <p className="text-base text-verde-ebano/70 font-light">
               Sigue estos 3 sencillos pasos en casa con una regla milimétrica estándar para medir un anillo actual o el contorno de tu dedo.
             </p>
           </div>
@@ -106,7 +106,7 @@ export default function GuiaDeTallasPage() {
                 1
               </span>
               <h3 className="text-lg font-display text-verde-ebano">Consigue una Regla</h3>
-              <p className="text-xs text-verde-ebano/80 leading-relaxed font-light">
+              <p className="text-sm text-verde-ebano/80 leading-relaxed font-light">
                 De preferencia debe contener graduación limpia en milímetros (mm) o centímetros (cm).
               </p>
             </div>
@@ -117,7 +117,7 @@ export default function GuiaDeTallasPage() {
                 2
               </span>
               <h3 className="text-lg font-display text-verde-ebano">Mide el Interior del Anillo</h3>
-              <p className="text-xs text-verde-ebano/80 leading-relaxed font-light">
+              <p className="text-sm text-verde-ebano/80 leading-relaxed font-light">
                 Colócalo sobre una superficie plana y mide el diámetro interno del anillo con la regla (de borde interno a borde interno).
               </p>
             </div>
@@ -128,7 +128,7 @@ export default function GuiaDeTallasPage() {
                 3
               </span>
               <h3 className="text-lg font-display text-verde-ebano">Busca tu Talla</h3>
-              <p className="text-xs text-verde-ebano/80 leading-relaxed font-light">
+              <p className="text-sm text-verde-ebano/80 leading-relaxed font-light">
                 En la tabla interactiva a continuación encontrarás tu equivalencia exacta en milímetros para México.
               </p>
             </div>
@@ -146,9 +146,9 @@ export default function GuiaDeTallasPage() {
                 />
               </div>
               <div>
-                <span className="text-[9px] uppercase tracking-[0.3em] text-oro-antiguo font-semibold">Diagrama 01</span>
+                <span className="text-[11px] uppercase tracking-[0.3em] text-oro-antiguo font-semibold">Diagrama 01</span>
                 <h4 className="text-xl font-display text-verde-ebano">Medida de Diámetro Interior</h4>
-                <p className="text-xs text-verde-ebano/75 mt-2 leading-relaxed max-w-sm">
+                <p className="text-sm text-verde-ebano/75 mt-2 leading-relaxed max-w-sm">
                   Distancia exacta a través del centro interior del anillo en milímetros.
                 </p>
               </div>
@@ -164,9 +164,9 @@ export default function GuiaDeTallasPage() {
                 />
               </div>
               <div>
-                <span className="text-[9px] uppercase tracking-[0.3em] text-oro-antiguo font-semibold">Diagrama 02</span>
+                <span className="text-[11px] uppercase tracking-[0.3em] text-oro-antiguo font-semibold">Diagrama 02</span>
                 <h4 className="text-xl font-display text-verde-ebano">Medida de Circunferencia del Dedo</h4>
-                <p className="text-xs text-verde-ebano/75 mt-2 leading-relaxed max-w-sm">
+                <p className="text-sm text-verde-ebano/75 mt-2 leading-relaxed max-w-sm">
                   Perímetro completo alrededor del nudillo o base del dedo en milímetros.
                 </p>
               </div>
@@ -178,10 +178,10 @@ export default function GuiaDeTallasPage() {
         <section className="space-y-8 border-t border-verde-ebano/15 pt-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <span className="text-[10px] uppercase tracking-[0.4em] text-oro-antiguo font-semibold">Equivalencias Oficiales</span>
+              <span className="text-xs uppercase tracking-[0.4em] text-oro-antiguo font-semibold">Equivalencias Oficiales</span>
               <h2 className="text-3xl sm:text-4xl font-display text-verde-ebano">Tabla de Tallas de Anillos (México)</h2>
             </div>
-            <p className="text-xs text-verde-ebano/70 max-w-md font-light">
+            <p className="text-sm text-verde-ebano/70 max-w-md font-light">
               Nuestros tamaños corresponden al estándar oficial para México (tallas 3 a 13 con incrementos de media talla).
             </p>
           </div>
@@ -193,10 +193,10 @@ export default function GuiaDeTallasPage() {
                 <Sparkles size={20} className="text-oro-antiguo" />
                 <div>
                   <h3 className="text-lg font-display">Calculadora Interactiva de Talla</h3>
-                  <p className="text-xs text-hueso-seda/70">Ingresa tus milímetros medidos con la regla</p>
+                  <p className="text-sm text-hueso-seda/70">Ingresa tus milímetros medidos con la regla</p>
                 </div>
               </div>
-              <div className="flex bg-hueso-seda/10 p-1 rounded text-xs uppercase tracking-wider">
+              <div className="flex bg-hueso-seda/10 p-1 rounded text-sm uppercase tracking-wider">
                 <button
                   onClick={() => { setCalcType("diameter"); handleCalculate(calcInput); }}
                   className={`px-4 py-1.5 rounded transition-colors ${calcType === "diameter" ? "bg-oro-antiguo text-verde-ebano font-semibold" : "text-hueso-seda/70"}`}
@@ -219,9 +219,9 @@ export default function GuiaDeTallasPage() {
                 placeholder={calcType === "diameter" ? "Ej. 16.5 mm" : "Ej. 51.9 mm"}
                 value={calcInput}
                 onChange={(e) => handleCalculate(e.target.value)}
-                className="w-full sm:w-64 bg-hueso-seda text-verde-ebano px-4 py-3 text-sm font-medium outline-none border border-oro-antiguo focus:ring-2 focus:ring-oro-antiguo"
+                className="w-full sm:w-64 bg-hueso-seda text-verde-ebano px-4 py-3 text-base font-medium outline-none border border-oro-antiguo focus:ring-2 focus:ring-oro-antiguo"
               />
-              <div className="flex-1 text-sm text-hueso-seda/80">
+              <div className="flex-1 text-base text-hueso-seda/80">
                 {highlightedSize ? (
                   <div className="flex items-center gap-3 bg-hueso-seda/10 border border-oro-antiguo/50 px-4 py-2 rounded">
                     <Check className="text-oro-antiguo" size={20} />
@@ -230,7 +230,7 @@ export default function GuiaDeTallasPage() {
                     </span>
                   </div>
                 ) : (
-                  <span className="italic text-xs text-hueso-seda/60">
+                  <span className="italic text-sm text-hueso-seda/60">
                     Ingresa tus mm para resaltar automáticamente tu talla en la tabla de abajo.
                   </span>
                 )}
@@ -242,13 +242,13 @@ export default function GuiaDeTallasPage() {
           <div className="border border-verde-ebano/20 overflow-hidden bg-white/80 shadow-sm">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-verde-ebano text-hueso-seda text-xs uppercase tracking-widest border-b border-verde-ebano">
+                <tr className="bg-verde-ebano text-hueso-seda text-sm uppercase tracking-widest border-b border-verde-ebano">
                   <th className="p-4 text-center font-display">Tamaño México</th>
                   <th className="p-4 text-center font-display">Diámetro Interior (mm)</th>
                   <th className="p-4 text-center font-display">Circunferencia Interior (mm)</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-verde-ebano/10 text-sm">
+              <tbody className="divide-y divide-verde-ebano/10 text-base">
                 {RING_SIZE_DATA.map((item) => {
                   const isHighlighted = highlightedSize === item.size;
                   return (
@@ -276,9 +276,9 @@ export default function GuiaDeTallasPage() {
         {/* SECTION 3: Infografía Completa descargable */}
         <section className="space-y-8 border-t border-verde-ebano/15 pt-16 text-center">
           <div className="max-w-2xl mx-auto space-y-3">
-            <span className="text-[10px] uppercase tracking-[0.4em] text-oro-antiguo font-semibold">Documento Oficial</span>
+            <span className="text-xs uppercase tracking-[0.4em] text-oro-antiguo font-semibold">Documento Oficial</span>
             <h2 className="text-3xl sm:text-4xl font-display text-verde-ebano">Infografía de Guía de Tallas</h2>
-            <p className="text-sm text-verde-ebano/70 font-light">
+            <p className="text-base text-verde-ebano/70 font-light">
               Puedes ver la infografía oficial completa creada para Minerva Alcaraz Joyería o descargar una copia digital.
             </p>
           </div>
@@ -307,7 +307,7 @@ export default function GuiaDeTallasPage() {
               <a
                 href="/assets/guia-tallas/guia-tallas-completa.png"
                 download="Guia_Tallas_Anillos_Minerva_Alcaraz.png"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-verde-ebano text-hueso-seda text-xs uppercase tracking-[0.25em] hover:bg-oro-antiguo hover:text-verde-ebano transition-all shadow-xl"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-verde-ebano text-hueso-seda text-sm uppercase tracking-[0.25em] hover:bg-oro-antiguo hover:text-verde-ebano transition-all shadow-xl"
               >
                 <Download size={16} /> Descargar Infografía Completa
               </a>

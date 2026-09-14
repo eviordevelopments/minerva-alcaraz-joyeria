@@ -95,14 +95,14 @@ function ShopContent() {
         {/* Page Header */}
         <div className="flex flex-col gap-6 mb-16 border-b border-verde-ebano/10 pb-12">
           <div className="flex items-center gap-4">
-            <span className="text-[10px] uppercase tracking-[0.8em] text-oro-antiguo">El Catálogo</span>
+            <span className="text-xs uppercase tracking-[0.8em] text-oro-antiguo">El Catálogo</span>
             {isLoadingDb && (
-              <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-widest text-verde-ebano/40">
+              <span className="flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-verde-ebano/40">
                 <RefreshCw size={10} className="animate-spin" /> Actualizando...
               </span>
             )}
             {!isLoadingDb && dbProducts.length > 0 && (
-              <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-widest text-oro-antiguo bg-oro-antiguo/10 border border-oro-antiguo/30 px-2 py-0.5">
+              <span className="flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-oro-antiguo bg-oro-antiguo/10 border border-oro-antiguo/30 px-2 py-0.5">
                 + {dbProducts.length} Pieza{dbProducts.length > 1 ? "s" : ""}
               </span>
             )}
@@ -121,23 +121,23 @@ function ShopContent() {
                   setIsSidebarOpen(!isSidebarOpen);
                 }
               }}
-              className="flex items-center gap-3 text-[10px] uppercase tracking-widest text-verde-ebano hover:text-oro-antiguo transition-colors"
+              className="flex items-center gap-3 text-xs uppercase tracking-widest text-verde-ebano hover:text-oro-antiguo transition-colors"
             >
               <SlidersHorizontal size={14} /> {isSidebarOpen ? "Ocultar Filtros" : "Mostrar Filtros"}
             </button>
             <div className="hidden md:flex gap-4">
               {activeFilters.map(filter => (
-                <span key={filter} className="flex items-center gap-2 bg-verde-ebano text-hueso-seda text-[9px] px-3 py-1 uppercase tracking-widest">
+                <span key={filter} className="flex items-center gap-2 bg-verde-ebano text-hueso-seda text-[11px] px-3 py-1 uppercase tracking-widest">
                   {filter} <X size={10} className="cursor-pointer" onClick={() => toggleFilter(filter)} />
                 </span>
               ))}
               {activeFilters.length > 0 && (
-                <button onClick={() => setActiveFilters([])} className="text-[9px] uppercase tracking-widest text-oro-antiguo hover:underline">Limpiar todo</button>
+                <button onClick={() => setActiveFilters([])} className="text-[11px] uppercase tracking-widest text-oro-antiguo hover:underline">Limpiar todo</button>
               )}
             </div>
           </div>
           
-          <div className="flex items-center gap-4 text-[10px] uppercase tracking-widest text-verde-ebano">
+          <div className="flex items-center gap-4 text-xs uppercase tracking-widest text-verde-ebano">
             <span className="opacity-40">Ordenar por:</span>
             <select 
               value={sortBy} 
@@ -167,13 +167,13 @@ function ShopContent() {
                 <FilterGroup title="Materiales" items={materials} active={activeFilters} onToggle={toggleFilter} />
                 
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-[11px] uppercase tracking-[0.2em] font-medium text-verde-ebano">Preferencias</h3>
+                  <h3 className="text-sm uppercase tracking-[0.2em] font-medium text-verde-ebano">Preferencias</h3>
                   <div className="flex flex-col gap-2">
                     {["Piezas Únicas", "Edición Limitada", "Diseño de Autor"].map(p => (
                       <label key={p} className="flex items-center gap-3 cursor-pointer group">
                         <input type="checkbox" className="hidden" checked={activeFilters.includes(p)} onChange={() => toggleFilter(p)} />
                         <div className={`w-3 h-3 border border-verde-ebano/30 transition-all ${activeFilters.includes(p) ? 'bg-oro-antiguo border-oro-antiguo' : 'group-hover:border-verde-ebano'}`} />
-                        <span className={`text-[10px] uppercase tracking-widest transition-colors ${activeFilters.includes(p) ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{p}</span>
+                        <span className={`text-xs uppercase tracking-widest transition-colors ${activeFilters.includes(p) ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{p}</span>
                       </label>
                     ))}
                   </div>
@@ -182,8 +182,8 @@ function ShopContent() {
                 <div className="mt-8 p-6 bg-verde-ebano text-hueso-seda relative overflow-hidden group cursor-pointer">
                   <div className="relative z-10 flex flex-col gap-3">
                     <Sparkles size={16} className="text-oro-antiguo" />
-                    <h4 className="text-[10px] uppercase tracking-widest font-medium">Filtro Inteligente</h4>
-                    <p className="text-[9px] font-light leading-relaxed opacity-60">Permita que nuestro Oráculo Digital seleccione la pieza que vibra con su esencia.</p>
+                    <h4 className="text-xs uppercase tracking-widest font-medium">Filtro Inteligente</h4>
+                    <p className="text-[11px] font-light leading-relaxed opacity-60">Permita que nuestro Oráculo Digital seleccione la pieza que vibra con su esencia.</p>
                   </div>
                   <div className="absolute inset-0 bg-oro-antiguo/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
@@ -208,7 +208,7 @@ function ShopContent() {
             </div>
 
             <div className="mt-24 flex flex-col items-center gap-8 border-t border-verde-ebano/5 pt-16">
-              <span className="text-[10px] uppercase tracking-widest text-verde-ebano/40">
+              <span className="text-xs uppercase tracking-widest text-verde-ebano/40">
                 Mostrando {filteredProducts.length} de {allProducts.length} piezas
               </span>
             </div>
@@ -269,7 +269,7 @@ function MobileFilterDrawer({
             className="fixed inset-y-0 right-0 w-[85%] max-w-sm bg-hueso-seda z-[120] flex flex-col shadow-2xl"
           >
             <div className="flex justify-between items-center p-6 border-b border-verde-ebano/10">
-              <h3 className="text-xs uppercase tracking-[0.4em] font-medium text-verde-ebano">Filtros</h3>
+              <h3 className="text-sm uppercase tracking-[0.4em] font-medium text-verde-ebano">Filtros</h3>
               <button onClick={onClose} className="text-verde-ebano p-2">
                 <X size={20} strokeWidth={1} />
               </button>
@@ -281,13 +281,13 @@ function MobileFilterDrawer({
               <FilterGroup title="Materiales" items={materials} active={activeFilters} onToggle={toggleFilter} />
               
               <div className="flex flex-col gap-4">
-                <h3 className="text-[11px] uppercase tracking-[0.2em] font-medium text-verde-ebano">Categoría Especial</h3>
+                <h3 className="text-sm uppercase tracking-[0.2em] font-medium text-verde-ebano">Categoría Especial</h3>
                 <div className="flex flex-col gap-2">
                   {["Piezas Únicas", "Edición Limitada", "Diseño de Autor"].map(p => (
                     <label key={p} className="flex items-center gap-3 cursor-pointer group">
                       <input type="checkbox" className="hidden" checked={activeFilters.includes(p)} onChange={() => toggleFilter(p)} />
                       <div className={`w-3 h-3 border border-verde-ebano/30 transition-all ${activeFilters.includes(p) ? 'bg-oro-antiguo border-oro-antiguo' : 'group-hover:border-verde-ebano'}`} />
-                      <span className={`text-[10px] uppercase tracking-widest transition-colors ${activeFilters.includes(p) ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{p}</span>
+                      <span className={`text-xs uppercase tracking-widest transition-colors ${activeFilters.includes(p) ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{p}</span>
                     </label>
                   ))}
                 </div>
@@ -297,13 +297,13 @@ function MobileFilterDrawer({
             <div className="p-6 border-t border-verde-ebano/10 grid grid-cols-2 gap-4 bg-hueso-seda">
               <button 
                 onClick={clearFilters}
-                className="py-3 text-[9px] uppercase tracking-widest text-verde-ebano border border-verde-ebano/20 hover:bg-verde-ebano hover:text-hueso-seda transition-colors"
+                className="py-3 text-[11px] uppercase tracking-widest text-verde-ebano border border-verde-ebano/20 hover:bg-verde-ebano hover:text-hueso-seda transition-colors"
               >
                 Limpiar
               </button>
               <button 
                 onClick={onClose}
-                className="py-3 text-[9px] uppercase tracking-widest bg-verde-ebano text-hueso-seda hover:bg-oro-antiguo transition-colors"
+                className="py-3 text-[11px] uppercase tracking-widest bg-verde-ebano text-hueso-seda hover:bg-oro-antiguo transition-colors"
               >
                 Aplicar
               </button>
@@ -319,7 +319,7 @@ export default function ShopPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-hueso-seda flex items-center justify-center">
-        <div className="text-oro-antiguo animate-pulse uppercase tracking-[0.5em] text-[10px]">Cargando Legado...</div>
+        <div className="text-oro-antiguo animate-pulse uppercase tracking-[0.5em] text-xs">Cargando Legado...</div>
       </div>
     }>
       <ShopContent />
@@ -336,7 +336,7 @@ function FilterGroup({ title, items, active, onToggle }: { title: string, items:
         onClick={() => setIsOpen(!isOpen)}
         className="flex justify-between items-center w-full group"
       >
-        <h3 className="text-[11px] uppercase tracking-[0.2em] font-medium text-verde-ebano">{title}</h3>
+        <h3 className="text-sm uppercase tracking-[0.2em] font-medium text-verde-ebano">{title}</h3>
         <ChevronDown size={12} className={`transition-transform duration-300 ${isOpen ? '' : '-rotate-90'}`} />
       </button>
       <AnimatePresence>
@@ -351,7 +351,7 @@ function FilterGroup({ title, items, active, onToggle }: { title: string, items:
               <label key={item} className="flex items-center gap-3 cursor-pointer group">
                 <input type="checkbox" className="hidden" checked={active.includes(item)} onChange={() => onToggle(item)} />
                 <div className={`w-3 h-3 border border-verde-ebano/30 transition-all ${active.includes(item) ? 'bg-oro-antiguo border-oro-antiguo' : 'group-hover:border-verde-ebano'}`} />
-                <span className={`text-[10px] uppercase tracking-widest transition-colors ${active.includes(item) ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{item}</span>
+                <span className={`text-xs uppercase tracking-widest transition-colors ${active.includes(item) ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{item}</span>
               </label>
             ))}
           </motion.div>

@@ -91,7 +91,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
         <Header />
         <div className="pt-40 md:pt-56 px-8 md:px-16 pb-32 flex flex-col items-center justify-center gap-6 min-h-[60vh]">
           <Loader2 size={24} className="animate-spin text-oro-antiguo" />
-          <span className="text-[9px] uppercase tracking-[0.5em] text-plata-niebla">
+          <span className="text-[11px] uppercase tracking-[0.5em] text-plata-niebla">
             Cargando pieza...
           </span>
         </div>
@@ -106,7 +106,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
         <Header />
         <div className="pt-40 md:pt-56 px-8 md:px-16 pb-32 flex flex-col items-center gap-6 min-h-[60vh]">
           <h1 className="text-4xl font-display text-verde-ebano">Pieza no encontrada</h1>
-          <p className="text-sm text-plata-niebla">Esta pieza no existe en nuestro atelier.</p>
+          <p className="text-base text-plata-niebla">Esta pieza no existe en nuestro atelier.</p>
         </div>
         <Footer />
       </main>
@@ -128,7 +128,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
               <h2 className="text-4xl font-display text-verde-ebano italic">
                 Complementar el Ritual
               </h2>
-              <p className="text-[10px] uppercase tracking-[0.4em] text-plata-niebla max-w-md">
+              <p className="text-xs uppercase tracking-[0.4em] text-plata-niebla max-w-md">
                 Piezas seleccionadas por el atelier basándose en armonía de proporciones.
               </p>
             </div>

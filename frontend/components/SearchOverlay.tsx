@@ -87,7 +87,7 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
 
               {/* Filters */}
               <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-verde-ebano/60 mb-2">
+                <div className="flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-verde-ebano/60 mb-2">
                   <SlidersHorizontal size={14} /> Filtros de Colección
                 </div>
                 <div className="flex flex-wrap gap-3">
@@ -95,7 +95,7 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
                     <button 
                       key={filter}
                       onClick={() => setActiveFilter(filter)}
-                      className={`px-6 py-2 text-[10px] uppercase tracking-widest border transition-all ${
+                      className={`px-6 py-2 text-xs uppercase tracking-widest border transition-all ${
                         activeFilter === filter 
                           ? "border-verde-ebano bg-verde-ebano text-hueso-seda" 
                           : "border-verde-ebano/20 text-verde-ebano hover:border-oro-antiguo"
@@ -114,7 +114,7 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
                   animate={{ opacity: 1, y: 0 }}
                   className="mt-8"
                 >
-                  <h3 className="text-xs uppercase tracking-[0.3em] text-verde-ebano/60 mb-6">Sugerencias para su Legado</h3>
+                  <h3 className="text-sm uppercase tracking-[0.3em] text-verde-ebano/60 mb-6">Sugerencias para su Legado</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     {results.map((item) => (
                       <Link 
@@ -127,9 +127,9 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
                           <Image src={item.images?.[0] || "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80"} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
                         </div>
                         <div className="flex flex-col gap-2">
-                          <span className="text-[8px] uppercase tracking-[0.3em] text-oro-antiguo font-medium">{item.category}</span>
+                          <span className="text-[10px] uppercase tracking-[0.3em] text-oro-antiguo font-medium">{item.category}</span>
                           <span className="text-base font-display text-verde-ebano leading-tight">{item.name}</span>
-                          <span className="text-[10px] text-verde-ebano/60 tracking-widest">${item.price.toLocaleString()} {item.currency}</span>
+                          <span className="text-xs text-verde-ebano/60 tracking-widest">${item.price.toLocaleString()} {item.currency}</span>
                         </div>
                       </Link>
                     ))}

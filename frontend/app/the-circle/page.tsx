@@ -19,61 +19,61 @@ const benefits = [
   {
     icon: Crown,
     title: "Concierge Dedicado",
-    description: "Un artesano asignado a usted. Responde en menos de 4 horas. Disponible por WhatsApp, correo y cita presencial en el atelier.",
+    description: "Atención personalizada. Respuesta en menos de 4 horas. Disponible por WhatsApp, correo y cita online / presencial en punto de venta.",
     accent: "Exclusivo para Miembros"
   },
   {
     icon: Star,
     title: "Acceso Prioritario",
-    description: "Cada nueva colección llega a usted 72 horas antes de su presentación pública. Las piezas de edición limitada son reservadas con su nombre.",
+    description: "Acceso a cada nueva colección 72 horas antes de su presentación pública. Las piezas de edición limitada pueden ser reservadas con tu nombre.",
     accent: "72h de ventaja"
   },
   {
     icon: Gem,
-    title: "Colecciones Reservadas",
+    title: "Piezas Reservadas",
     description: "Acceso a piezas que nunca se publicarán en el catálogo general. Un universo paralelo, diseñado exclusivamente para The Circle.",
     accent: "Solo aquí"
   },
   {
     icon: Album,
-    title: "Álbumes de Legado",
-    description: "Su colección personal documentada fotográficamente. Historia, cuidado y certificado de autenticidad de cada pieza que ha custodiado.",
+    title: "Registro de Colección",
+    description: "Colección personal documentada fotográficamente en archivo digital. Historia, cuidado y certificado de autenticidad de cada pieza adquirida.",
     accent: "Memoria eterna"
   },
   {
     icon: Heart,
-    title: "Listas de Deseos Curadas",
-    description: "Su lista de deseos es analizada por nuestro equipo. Recibe alertas personalizadas cuando una pieza afín a su gusto está disponible.",
-    accent: "Curaduría humana"
+    title: "Recomendaciones Personalizadas",
+    description: "Alertas personalizadas cuando una pieza afín a tu gusto esté disponible.",
+    accent: "Selección especializada"
   },
   {
     icon: Truck,
     title: "Envíos Prioritarios y Gratuitos",
-    description: "Cada envío es una experiencia. Caja de cedro, papel tisú satinado, sello de lacre. Gratuito y entregado en 48h.",
+    description: "Cada envío es una experiencia. Gratuito y con tiempo de entrega prioritario.",
     accent: "Siempre incluido"
   },
   {
     icon: RotateCcw,
     title: "Devoluciones Extendidas",
-    description: "90 días para reflexionar. Si una pieza no es lo que esperabas, la devuelves sin preguntas. Garantía vitalicia contra defectos.",
-    accent: "90 días + vitalicia"
+    description: "Tiempo extendido a 30 días de garantía en cambios. *Sujeto a términos y condiciones descritos en la página*",
+    accent: "30 días"
   },
   {
     icon: Palette,
     title: "Personalización Total",
-    description: "Modifique cualquier pieza del catálogo: piedras, metales, grabados, dimensiones. Su visión, materializada por manos maestras.",
+    description: "Modificación de cualquier pieza del catálogo: piedras, metales, grabados, dimensiones. Tu visión, materializada por manos maestras.",
     accent: "Sin límite creativo"
   },
   {
     icon: Layers,
     title: "Co-Creación",
-    description: "Diseñe desde cero con Minerva Alcaraz. Un proceso íntimo de cuatro sesiones de diseño para crear la pieza que solo usted existirá.",
+    description: "Crea desde cero con Minerva Alcaraz. Un proceso íntimo de sesiones de diseño para crear la pieza soñada.",
     accent: "Una pieza en el mundo"
   },
   {
     icon: ShieldCheck,
     title: "Garantía de Autenticidad",
-    description: "Certificado NFT y físico de autenticidad para cada pieza. Valor de reventa documentado y asesoría en herencia de joyería.",
+    description: "Certificado digital y físico de autenticidad para cada pieza.",
     accent: "Certificación oficial"
   },
 ];
@@ -119,7 +119,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         onClick={() => setOpen(!open)}
         className="w-full flex justify-between items-start gap-6 py-7 text-left"
       >
-        <span className="text-[11px] md:text-xs uppercase tracking-[0.2em] text-hueso-seda font-light leading-relaxed">{q}</span>
+        <span className="text-sm md:text-sm uppercase tracking-[0.2em] text-hueso-seda font-light leading-relaxed">{q}</span>
         <ChevronDown
           size={14}
           strokeWidth={1}
@@ -132,7 +132,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         transition={{ duration: 0.45, ease: "easeInOut" }}
         className="overflow-hidden"
       >
-        <p className="text-[11px] md:text-xs text-hueso-seda/50 font-light leading-loose italic pb-7 max-w-2xl">
+        <p className="text-sm md:text-base text-hueso-seda/50 font-light leading-loose italic pb-7 max-w-2xl text-justify">
           {a}
         </p>
       </motion.div>
@@ -176,7 +176,7 @@ export default function TheCirclePage() {
                 <Crown size={16} className="text-oro-antiguo" strokeWidth={1} />
               </div>
               <div className="flex flex-col gap-0.5">
-                <span className="text-[8px] uppercase tracking-[0.8em] text-oro-antiguo">Membresía de Élite</span>
+                <span className="text-[10px] uppercase tracking-[0.8em] text-oro-antiguo">Membresía de Élite</span>
               </div>
             </div>
 
@@ -186,26 +186,26 @@ export default function TheCirclePage() {
 
             <div className="flex items-center gap-4">
               <div className="w-12 h-[1px] bg-oro-antiguo/40" />
-              <p className="text-hueso-seda/70 text-xs md:text-sm uppercase tracking-[0.4em] font-light italic">
-                "Para quienes valoran la joyería como una expresión personal"
+              <p className="text-hueso-seda/70 text-base md:text-base uppercase tracking-[0.4em] font-light italic text-justify">
+                PARA QUIENES SABEN QUE SU ESENCIA MERECE PERMANECER
               </p>
             </div>
 
-            <p className="text-hueso-seda/60 text-sm md:text-base font-light leading-loose max-w-xl">
-              Una comunidad para quienes aprecian la joyería artesanal y la experiencia personalizada. Acceso a piezas exclusivas, trato cercano y diseños elaborados pensando en usted.
+            <p className="text-hueso-seda/60 text-base md:text-lg font-light leading-loose max-w-xl text-justify">
+              Una comunidad para quienes saben que el verdadero lujo es tener el poder de expresar su esencia con diseños únicos. Acceso a piezas exclusivas, trato cercano y diseños elaborados pensando en ti.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
               <Link
                 href="/auth"
-                className="flex items-center justify-center gap-3 bg-oro-antiguo text-verde-ebano text-[10px] uppercase tracking-[0.5em] py-4 px-10 hover:bg-hueso-seda transition-colors duration-500 font-medium group"
+                className="flex items-center justify-center gap-3 bg-oro-antiguo text-verde-ebano text-xs uppercase tracking-[0.5em] py-4 px-10 hover:bg-hueso-seda transition-colors duration-500 font-medium group"
               >
                 Solicitar Invitación
                 <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
               </Link>
               <button
                 onClick={() => document.getElementById("beneficios")?.scrollIntoView({ behavior: "smooth" })}
-                className="flex items-center justify-center gap-3 border border-hueso-seda/20 text-hueso-seda text-[10px] uppercase tracking-[0.4em] py-4 px-8 hover:border-oro-antiguo hover:text-oro-antiguo transition-colors duration-500"
+                className="flex items-center justify-center gap-3 border border-hueso-seda/20 text-hueso-seda text-xs uppercase tracking-[0.4em] py-4 px-8 hover:border-oro-antiguo hover:text-oro-antiguo transition-colors duration-500"
               >
                 Descubrir Beneficios
               </button>
@@ -223,12 +223,12 @@ export default function TheCirclePage() {
       {/* LEGACY BADGE STRIP */}
       <div className="w-full border-y border-oro-antiguo/10 bg-verde-ebano py-5 overflow-hidden">
         <div className="flex items-center gap-16 luxury-container">
-          <span className="px-4 py-1.5 border border-oro-antiguo/30 text-[8px] uppercase tracking-[0.6em] text-oro-antiguo font-medium whitespace-nowrap flex items-center gap-2">
+          <span className="px-4 py-1.5 border border-oro-antiguo/30 text-[10px] uppercase tracking-[0.6em] text-oro-antiguo font-medium whitespace-nowrap flex items-center gap-2">
             <Crown size={10} /> Miembro Legacy
           </span>
           <div className="flex items-center gap-10 overflow-x-auto no-scrollbar">
             {["Concierge Dedicado", "Envíos Gratuitos", "90 Días de Devolución", "Co-Creación", "Acceso Reservado"].map((t) => (
-              <span key={t} className="text-[9px] uppercase tracking-[0.4em] text-hueso-seda/30 whitespace-nowrap">{t}</span>
+              <span key={t} className="text-[11px] uppercase tracking-[0.4em] text-hueso-seda/30 whitespace-nowrap">{t}</span>
             ))}
           </div>
         </div>
@@ -240,37 +240,37 @@ export default function TheCirclePage() {
           <div className="flex flex-col gap-5 max-w-2xl">
             <div className="flex items-center gap-4">
               <div className="w-8 h-[1px] bg-oro-antiguo/50" />
-              <span className="text-[9px] uppercase tracking-[0.8em] text-oro-antiguo">Privilegios</span>
+              <span className="text-[11px] uppercase tracking-[0.8em] text-oro-antiguo">Privilegios</span>
             </div>
             <h2 className="font-display text-hueso-seda text-4xl md:text-6xl uppercase leading-tight">
-              Lo Que Recibe<br />Como Miembro
+              Beneficios de ser<br />Miembro
             </h2>
-            <p className="text-hueso-seda/50 text-sm font-light leading-loose italic">
-              "Cada privilegio fue diseñado para honrar la relación entre quienes crean belleza y quienes la custodian."
+            <p className="text-hueso-seda/50 text-base md:text-lg font-light leading-loose italic text-justify">
+              "Cada privilegio fue diseñado para honrar la relación entre quienes crean belleza y quienes la eligen."
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-0 border-t border-l border-oro-antiguo/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-l border-oro-antiguo/10">
             {benefits.map(({ icon: Icon, title, description, accent }, i) => (
               <motion.div
                 key={title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: (i % 3) * 0.1, duration: 0.6 }}
-                className="flex flex-col gap-5 p-8 md:p-10 border-b border-r border-oro-antiguo/10 group hover:bg-hueso-seda/3 transition-colors"
+                transition={{ delay: (i % 2) * 0.1, duration: 0.6 }}
+                className="flex flex-col gap-6 p-10 md:p-14 border-b border-r border-oro-antiguo/10 group hover:bg-hueso-seda/3 transition-colors"
               >
-                <div className="flex items-start justify-between">
-                  <div className="w-10 h-10 border border-oro-antiguo/20 flex items-center justify-center group-hover:border-oro-antiguo/50 transition-colors">
-                    <Icon size={16} className="text-oro-antiguo" strokeWidth={1.2} />
+                <div className="flex items-start justify-between mb-2">
+                  <div className="w-12 h-12 border border-oro-antiguo/20 flex items-center justify-center group-hover:border-oro-antiguo/50 transition-colors">
+                    <Icon size={20} className="text-oro-antiguo" strokeWidth={1.2} />
                   </div>
-                  <span className="text-[8px] uppercase tracking-[0.4em] text-oro-antiguo/50 border border-oro-antiguo/15 px-2 py-1 text-right">
+                  <span className="text-[11px] md:text-xs uppercase tracking-[0.4em] text-oro-antiguo/50 border border-oro-antiguo/15 px-3 py-1.5 text-right">
                     {accent}
                   </span>
                 </div>
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-[11px] md:text-xs uppercase tracking-[0.3em] text-hueso-seda font-medium">{title}</h3>
-                  <p className="text-[10px] md:text-[11px] text-hueso-seda/45 font-light leading-loose">{description}</p>
+                <div className="flex flex-col gap-4">
+                  <h3 className="text-sm md:text-base uppercase tracking-[0.3em] text-hueso-seda font-medium">{title}</h3>
+                  <p className="text-base md:text-lg text-hueso-seda/45 font-light leading-relaxed text-justify">{description}</p>
                 </div>
               </motion.div>
             ))}
@@ -296,12 +296,12 @@ export default function TheCirclePage() {
           <div className="w-full md:w-1/2 bg-hueso-seda/5 border-l border-oro-antiguo/10 flex flex-col justify-center p-12 md:p-16 lg:p-24 gap-8">
             <div className="flex items-center gap-4">
               <div className="w-8 h-[1px] bg-oro-antiguo/50" />
-              <span className="text-[9px] uppercase tracking-[0.8em] text-oro-antiguo">Servicio</span>
+              <span className="text-[11px] uppercase tracking-[0.8em] text-oro-antiguo">Servicio</span>
             </div>
             <h2 className="font-display text-hueso-seda text-3xl md:text-5xl uppercase leading-tight">
               Su Concierge<br />Dedicado
             </h2>
-            <p className="text-hueso-seda/60 text-sm font-light leading-loose">
+            <p className="text-hueso-seda/60 text-base md:text-lg font-light leading-loose text-justify">
               No un bot. No una línea de atención. Una persona que conoce sus preferencias, su historial y su visión estética. Disponible para resolver consultas, organizar visitas al atelier, agendar co-creaciones y coordinar cada detalle de su experiencia.
             </p>
             <div className="flex flex-col gap-4">
@@ -313,13 +313,13 @@ export default function TheCirclePage() {
               ].map((item) => (
                 <div key={item} className="flex items-start gap-3">
                   <div className="w-1 h-1 bg-oro-antiguo mt-2 flex-shrink-0" />
-                  <span className="text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-hueso-seda/60 leading-relaxed">{item}</span>
+                  <span className="text-xs md:text-sm uppercase tracking-[0.2em] text-hueso-seda/60 leading-relaxed">{item}</span>
                 </div>
               ))}
             </div>
             <Link
               href="/personalized"
-              className="flex items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-oro-antiguo border-b border-oro-antiguo/30 pb-1 w-fit hover:border-oro-antiguo transition-colors group"
+              className="flex items-center gap-3 text-xs uppercase tracking-[0.4em] text-oro-antiguo border-b border-oro-antiguo/30 pb-1 w-fit hover:border-oro-antiguo transition-colors group"
             >
               Conocer el Atelier
               <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
@@ -332,8 +332,8 @@ export default function TheCirclePage() {
       <section className="py-16 md:py-24 luxury-container">
         <div className="flex flex-col gap-8">
           <div className="flex items-center justify-between">
-            <span className="text-[9px] uppercase tracking-[0.8em] text-oro-antiguo/60">Colecciones Reservadas</span>
-            <Link href="/shop" className="text-[9px] uppercase tracking-[0.4em] text-hueso-seda/30 hover:text-oro-antiguo transition-colors flex items-center gap-2">
+            <span className="text-[11px] uppercase tracking-[0.8em] text-oro-antiguo/60">Colecciones Reservadas</span>
+            <Link href="/shop" className="text-[11px] uppercase tracking-[0.4em] text-hueso-seda/30 hover:text-oro-antiguo transition-colors flex items-center gap-2">
               Explorar Catálogo <ArrowRight size={10} />
             </Link>
           </div>
@@ -368,7 +368,7 @@ export default function TheCirclePage() {
           <div className="md:col-span-4 flex flex-col gap-6">
             <div className="flex items-center gap-4">
               <div className="w-8 h-[1px] bg-oro-antiguo/50" />
-              <span className="text-[9px] uppercase tracking-[0.8em] text-oro-antiguo">Preguntas</span>
+              <span className="text-[11px] uppercase tracking-[0.8em] text-oro-antiguo">Preguntas</span>
             </div>
             <h2 className="font-display text-hueso-seda text-3xl md:text-4xl uppercase leading-tight">
               Lo Que Desea<br />Saber
@@ -388,18 +388,18 @@ export default function TheCirclePage() {
             <h2 className="font-display text-hueso-seda text-4xl md:text-6xl uppercase leading-tight">
               Su Lugar Está<br />Guardado
             </h2>
-            <p className="text-hueso-seda/50 text-sm font-light leading-loose italic">
+            <p className="text-hueso-seda/50 text-base md:text-lg font-light leading-loose italic text-justify">
               "La pertenencia no se compra. Se cultiva con el tiempo, la belleza y la fe en lo que dura."
             </p>
           </div>
           <Link
             href="/auth"
-            className="flex items-center gap-3 bg-oro-antiguo text-verde-ebano text-[10px] uppercase tracking-[0.5em] py-5 px-14 hover:bg-hueso-seda transition-colors duration-500 font-medium group"
+            className="flex items-center gap-3 bg-oro-antiguo text-verde-ebano text-xs uppercase tracking-[0.5em] py-5 px-14 hover:bg-hueso-seda transition-colors duration-500 font-medium group"
           >
             Unirse a The Circle
             <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
           </Link>
-          <p className="text-[8px] uppercase tracking-[0.4em] text-hueso-seda/20">Gratuito · Por invitación · Sin compromisos</p>
+          <p className="text-[10px] uppercase tracking-[0.4em] text-hueso-seda/20">Gratuito · Por invitación · Sin compromisos</p>
         </div>
       </section>
 

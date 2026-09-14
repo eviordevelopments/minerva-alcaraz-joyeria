@@ -28,13 +28,13 @@ export default function EnviosPage() {
           <ProfileSidebar />
           <div className="flex-1 flex flex-col gap-6">
             <div className="flex flex-col gap-1">
-              <div className="flex items-center gap-2"><Crown size={10} className="text-oro-antiguo" /><p className="text-[9px] uppercase tracking-[0.7em] text-oro-antiguo">The Circle</p></div>
+              <div className="flex items-center gap-2"><Crown size={10} className="text-oro-antiguo" /><p className="text-[11px] uppercase tracking-[0.7em] text-oro-antiguo">The Circle</p></div>
               <h1 className="text-3xl font-display text-verde-ebano">Envíos Prioritarios</h1>
             </div>
 
             <div className="bg-verde-ebano/4 border border-oro-antiguo/10 p-5 flex items-start gap-3">
               <Truck size={14} strokeWidth={1} className="text-oro-antiguo flex-shrink-0 mt-0.5" />
-              <p className="text-[10px] text-verde-ebano/50 leading-loose">
+              <p className="text-xs text-verde-ebano/50 leading-loose">
                 Como miembro de The Circle, todos tus envíos son <strong className="text-verde-ebano/70">completamente gratuitos</strong> y tienen prioridad de despacho. Tu joya llega envuelta como merece.
               </p>
             </div>
@@ -46,16 +46,16 @@ export default function EnviosPage() {
                     <Icon size={14} strokeWidth={1.2} className="text-oro-antiguo" />
                   </div>
                   <div className="flex flex-col gap-1">
-                    <h3 className="text-[9px] uppercase tracking-[0.3em] text-verde-ebano font-medium">{title}</h3>
-                    <p className="text-[9px] text-verde-ebano/40 leading-relaxed">{desc}</p>
+                    <h3 className="text-[11px] uppercase tracking-[0.3em] text-verde-ebano font-medium">{title}</h3>
+                    <p className="text-[11px] text-verde-ebano/40 leading-relaxed">{desc}</p>
                   </div>
                 </div>
               ))}
             </div>
 
             <div className="bg-white border border-verde-ebano/8 p-8 flex flex-col gap-4">
-              <h2 className="text-[10px] uppercase tracking-[0.4em] text-verde-ebano/40 border-b border-verde-ebano/6 pb-4">Mis Envíos Activos</h2>
-              <p className="text-[10px] text-verde-ebano/25 italic">No tienes envíos activos en este momento.</p>
+              <h2 className="text-xs uppercase tracking-[0.4em] text-verde-ebano/40 border-b border-verde-ebano/6 pb-4">Mis Envíos Activos</h2>
+              <p className="text-xs text-verde-ebano/25 italic">No tienes envíos activos en este momento.</p>
             </div>
           </div>
         </div>
