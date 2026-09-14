@@ -472,6 +472,10 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
                 <span className={product.stock <= 2 ? "text-amber-600" : "text-[#2C3729]"}>
                   {product.stock} {product.stock === 1 ? "pieza" : "piezas"}
                 </span>
+                <span className="text-[#C3C9C0]">Devoluciones</span>
+                <span className="text-[#2C3729]">
+                  <a href="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/politica-de-devoluciones.pdf" target="_blank" rel="noopener noreferrer" className="text-[#CBB67B] underline font-semibold hover:text-[#2C3729]">Ver Política</a>
+                </span>
                 {product.long_description && (
                   <div className="col-span-2 mt-3 pt-3 border-t border-[#2C3729]/15">
                     <span className="text-[#CBB67B] font-medium block mb-1">Especificaciones Adicionales</span>

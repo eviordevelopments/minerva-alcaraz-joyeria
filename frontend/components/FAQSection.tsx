@@ -7,7 +7,7 @@ import { LuxuryButton } from "./DesignSystem";
 
 interface FAQItemProps {
   question: string;
-  answer: string;
+  answer: React.ReactNode;
 }
 
 const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
@@ -60,7 +60,11 @@ export const FAQSection = () => {
       items: [
         {
           question: "¿Cuál es la política de devoluciones?",
-          answer: "Las piezas pueden ser devueltas en un plazo de 15 días, siempre que conserven sus sellos de seguridad y empaque original. Para piezas personalizadas, consulte nuestros términos específicos."
+          answer: (
+            <span>
+              Las piezas pueden ser devueltas en un plazo de 15 días, siempre que conserven sus sellos de seguridad y empaque original. Para piezas personalizadas, consulte nuestros términos específicos. Puede leer nuestra <a href="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/politica-de-devoluciones.pdf" target="_blank" rel="noopener noreferrer" className="text-oro-antiguo hover:underline">Política de Devoluciones Completa aquí</a>.
+            </span>
+          )
         },
         {
           question: "¿Hacen envíos internacionales?",

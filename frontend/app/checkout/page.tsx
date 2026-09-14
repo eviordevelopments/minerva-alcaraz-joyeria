@@ -44,6 +44,7 @@ export default function CheckoutPage() {
   const [customerNotes, setCustomerNotes] = useState("");
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [acceptedPolicy, setAcceptedPolicy] = useState(false);
 
   // When there's a single item with a payment_link — use it directly
   const singlePaymentLink =
@@ -58,6 +59,11 @@ export default function CheckoutPage() {
 
   const handleGoToPayment = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!acceptedPolicy) {
+      alert("Debes aceptar la Política de Devoluciones para continuar.");
+      return;
+    }
 
     if (singlePaymentLink) {
       window.open(singlePaymentLink, "_blank", "noopener,noreferrer");
@@ -322,9 +328,23 @@ export default function CheckoutPage() {
                   </section>
 
                   <div className="flex flex-col gap-6 pt-4">
+                    <div className="flex items-start gap-3 bg-hueso-seda/40 p-4 border border-verde-ebano/10">
+                      <input 
+                        type="checkbox" 
+                        id="policy" 
+                        required 
+                        checked={acceptedPolicy}
+                        onChange={(e) => setAcceptedPolicy(e.target.checked)}
+                        className="mt-0.5 accent-oro-antiguo"
+                      />
+                      <label htmlFor="policy" className="text-[11px] uppercase tracking-widest text-verde-ebano/80 leading-relaxed cursor-pointer">
+                        He leído y acepto la <a href="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/politica-de-devoluciones.pdf" target="_blank" rel="noopener noreferrer" className="text-oro-antiguo hover:underline font-semibold">Política de Devoluciones</a> de Minerva Alcaraz.
+                      </label>
+                    </div>
+
                     <button
                       type="submit"
-                      disabled={isLoading}
+                      disabled={isLoading || !acceptedPolicy}
                       className="w-full bg-verde-ebano text-hueso-seda py-7 px-12 flex items-center justify-between border border-verde-ebano hover:bg-hueso-seda hover:text-verde-ebano transition-all duration-700 group overflow-hidden relative"
                     >
                       <span className="text-base uppercase tracking-[0.5em] font-medium z-10">

@@ -84,6 +84,7 @@ export const Footer = () => {
                   <li><Link href="/shop?collection=herencia" className="hover:text-oro-antiguo animated-underline transition-colors">Colecciones</Link></li>
                   <li><Link href="/privacy" className="hover:text-oro-antiguo animated-underline transition-colors">Privacidad</Link></li>
                   <li><Link href="/terms" className="hover:text-oro-antiguo animated-underline transition-colors">Términos</Link></li>
+                  <li><a href="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/politica-de-devoluciones.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-oro-antiguo animated-underline transition-colors">Devoluciones</a></li>
                 </ul>
               </div>
             </div>
