@@ -196,11 +196,11 @@ function LuxuryDropdown({
 
   return (
     <div className={`relative flex flex-col gap-1.5 ${className}`} ref={dropdownRef}>
-      {label && <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">{label}</label>}
+      {label && <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">{label}</label>}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2.5 text-xs text-[#E5DBD6] flex items-center justify-between outline-none focus:border-[#CBB67B] transition-colors"
+        className="w-full bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2.5 text-sm text-[#E5DBD6] flex items-center justify-between outline-none focus:border-[#CBB67B] transition-colors"
       >
         <span className="truncate font-medium">{value || "Seleccionar..."}</span>
         <ChevronDown size={14} className={`text-[#CBB67B] transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
@@ -226,7 +226,7 @@ function LuxuryDropdown({
                       onChange(opt);
                       setIsOpen(false);
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-xs flex items-center justify-between transition-colors ${
+                    className={`w-full text-left px-4 py-2.5 text-sm flex items-center justify-between transition-colors ${
                       isSelected
                         ? "bg-[#CBB67B]/15 text-[#CBB67B] font-bold"
                         : "text-[#E5DBD6] hover:bg-[#CBB67B]/10 hover:text-[#CBB67B]"
@@ -255,20 +255,20 @@ function LuxuryDropdown({
                         }
                       }}
                       placeholder={createPlaceholder}
-                      className="bg-[#1F271D] border border-[#CBB67B]/40 px-3 py-1.5 text-xs text-[#E5DBD6] placeholder-[#8E9A8B]/60 outline-none focus:border-[#CBB67B]"
+                      className="bg-[#1F271D] border border-[#CBB67B]/40 px-3 py-1.5 text-sm text-[#E5DBD6] placeholder-[#8E9A8B]/60 outline-none focus:border-[#CBB67B]"
                     />
                     <div className="flex gap-2">
                       <button
                         type="button"
                         onClick={handleAdd}
-                        className="flex-1 bg-[#CBB67B] text-[#1F271D] text-[9px] uppercase tracking-widest font-bold py-1.5 hover:bg-[#E5DBD6] transition-colors"
+                        className="flex-1 bg-[#CBB67B] text-[#1F271D] text-[11px] uppercase tracking-widest font-bold py-1.5 hover:bg-[#E5DBD6] transition-colors"
                       >
                         + Añadir
                       </button>
                       <button
                         type="button"
                         onClick={() => setIsCreating(false)}
-                        className="px-3 border border-[#CBB67B]/20 text-[#8E9A8B] text-[9px] uppercase tracking-widest hover:text-[#E5DBD6]"
+                        className="px-3 border border-[#CBB67B]/20 text-[#8E9A8B] text-[11px] uppercase tracking-widest hover:text-[#E5DBD6]"
                       >
                         Cancelar
                       </button>
@@ -278,7 +278,7 @@ function LuxuryDropdown({
                   <button
                     type="button"
                     onClick={() => setIsCreating(true)}
-                    className="w-full py-2 px-3 border border-dashed border-[#CBB67B]/40 text-[#CBB67B] hover:bg-[#CBB67B]/15 text-[10px] uppercase tracking-wider font-bold flex items-center justify-center gap-1.5 transition-colors"
+                    className="w-full py-2 px-3 border border-dashed border-[#CBB67B]/40 text-[#CBB67B] hover:bg-[#CBB67B]/15 text-xs uppercase tracking-wider font-bold flex items-center justify-center gap-1.5 transition-colors"
                   >
                     <Plus size={13} /> Añadir Nueva Colección
                   </button>
@@ -327,7 +327,7 @@ function MaterialSelectorGrid({
             type="button"
             key={mat}
             onClick={() => onToggleMaterial(mat)}
-            className={`text-[9px] uppercase tracking-wider p-2.5 border text-center transition-all ${
+            className={`text-[11px] uppercase tracking-wider p-2.5 border text-center transition-all ${
               sel
                 ? "bg-[#CBB67B]/15 border-[#CBB67B] text-[#CBB67B] font-bold"
                 : "bg-[#2C3729]/50 border-[#CBB67B]/10 text-[#8E9A8B] hover:border-[#CBB67B]/40"
@@ -352,20 +352,20 @@ function MaterialSelectorGrid({
               }
             }}
             placeholder="Ej: Ágata Azul, Titanio..."
-            className="bg-[#1F271D] border border-[#CBB67B]/30 px-2.5 py-1.5 text-xs text-[#E5DBD6] placeholder-[#8E9A8B]/50 outline-none focus:border-[#CBB67B]"
+            className="bg-[#1F271D] border border-[#CBB67B]/30 px-2.5 py-1.5 text-sm text-[#E5DBD6] placeholder-[#8E9A8B]/50 outline-none focus:border-[#CBB67B]"
           />
           <div className="flex gap-2">
             <button
               type="button"
               onClick={handleAdd}
-              className="flex-1 bg-[#CBB67B] text-[#1F271D] text-[9px] uppercase tracking-widest font-bold py-1 hover:bg-[#E5DBD6] transition-colors"
+              className="flex-1 bg-[#CBB67B] text-[#1F271D] text-[11px] uppercase tracking-widest font-bold py-1 hover:bg-[#E5DBD6] transition-colors"
             >
               + Añadir
             </button>
             <button
               type="button"
               onClick={() => setIsAdding(false)}
-              className="px-2 border border-[#CBB67B]/20 text-[#8E9A8B] text-[9px] uppercase tracking-widest hover:text-[#E5DBD6]"
+              className="px-2 border border-[#CBB67B]/20 text-[#8E9A8B] text-[11px] uppercase tracking-widest hover:text-[#E5DBD6]"
             >
               Cancelar
             </button>
@@ -375,7 +375,7 @@ function MaterialSelectorGrid({
         <button
           type="button"
           onClick={() => setIsAdding(true)}
-          className="text-[9px] uppercase tracking-wider p-2.5 border border-dashed border-[#CBB67B]/40 text-[#CBB67B] hover:bg-[#CBB67B]/15 transition-all font-bold flex items-center justify-center gap-1"
+          className="text-[11px] uppercase tracking-wider p-2.5 border border-dashed border-[#CBB67B]/40 text-[#CBB67B] hover:bg-[#CBB67B]/15 transition-all font-bold flex items-center justify-center gap-1"
         >
           <Plus size={13} /> Añadir Material
         </button>
@@ -573,7 +573,7 @@ export default function AdminInventario() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...editForm,
-          sku: selectedProduct.sku,
+          sku: editForm.sku ?? selectedProduct.sku,
           price: editForm.price,
           collection: editForm.collection,
           materials: editForm.materials,
@@ -779,7 +779,7 @@ export default function AdminInventario() {
             <Icon size={15} style={{ color }} />
           </div>
           <div>
-            <p className="text-[8px] uppercase tracking-widest text-[#8E9A8B]">{label}</p>
+            <p className="text-[10px] uppercase tracking-widest text-[#8E9A8B]">{label}</p>
             <p className="text-lg font-mono font-bold text-[#E5DBD6] mt-0.5">{value}</p>
           </div>
         </div>
@@ -798,7 +798,7 @@ export default function AdminInventario() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Buscar por nombre o SKU..."
-            className="w-full bg-[#1F271D] border border-[#CBB67B]/20 pl-9 pr-4 py-2.5 text-xs text-[#E5DBD6] placeholder-[#8E9A8B]/50 outline-none focus:border-[#CBB67B]"
+            className="w-full bg-[#1F271D] border border-[#CBB67B]/20 pl-9 pr-4 py-2.5 text-sm text-[#E5DBD6] placeholder-[#8E9A8B]/50 outline-none focus:border-[#CBB67B]"
           />
         </div>
         <LuxuryDropdown
@@ -827,7 +827,7 @@ export default function AdminInventario() {
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-[#CBB67B]/20 text-[9px] uppercase tracking-widest text-[#8E9A8B]">
+            <tr className="border-b border-[#CBB67B]/20 text-[11px] uppercase tracking-widest text-[#8E9A8B]">
               <th className="pb-3 pr-4 w-16">Imagen</th>
               <th className="pb-3 pr-4 cursor-pointer hover:text-[#CBB67B] transition-colors" onClick={() => toggleSort("name")}>
                 <span className="flex items-center gap-1">Nombre <SortIcon field="name" /></span>
@@ -858,7 +858,7 @@ export default function AdminInventario() {
               ))
             ) : filtered.length === 0 ? (
               <tr>
-                <td colSpan={7} className="py-16 text-center text-[#8E9A8B] text-[10px] uppercase tracking-widest">
+                <td colSpan={7} className="py-16 text-center text-[#8E9A8B] text-xs uppercase tracking-widest">
                   No se encontraron productos
                 </td>
               </tr>
@@ -892,36 +892,36 @@ export default function AdminInventario() {
 
                     {/* Name + category */}
                     <td className="py-3 pr-4">
-                      <p className="text-xs font-medium text-[#E5DBD6] leading-snug">{p.name}</p>
-                      <span className="text-[8px] uppercase tracking-widest text-[#8E9A8B]">{p.category}</span>
+                      <p className="text-sm font-medium text-[#E5DBD6] leading-snug">{p.name}</p>
+                      <span className="text-[10px] uppercase tracking-widest text-[#8E9A8B]">{p.category}</span>
                     </td>
 
                     {/* SKU / Collection */}
                     <td className="py-3 pr-4 hidden sm:table-cell">
-                      <p className="text-[9px] font-mono text-[#CBB67B]/80">{p.sku}</p>
-                      <p className="text-[8px] text-[#8E9A8B] mt-0.5">{p.collection}</p>
+                      <p className="text-[11px] font-mono text-[#CBB67B]/80">{p.sku}</p>
+                      <p className="text-[10px] text-[#8E9A8B] mt-0.5">{p.collection}</p>
                     </td>
 
                     {/* Price */}
                     <td className="py-3 pr-4 hidden md:table-cell">
-                      <span className="text-xs font-mono text-[#E5DBD6]">
+                      <span className="text-sm font-mono text-[#E5DBD6]">
                         ${p.price.toLocaleString("es-MX")}
                       </span>
                     </td>
 
                     {/* Stock */}
                     <td className="py-3 pr-4">
-                      <span className={`text-xs font-mono font-bold ${stockStatus}`}>
+                      <span className={`text-sm font-mono font-bold ${stockStatus}`}>
                         {p.stock}
                       </span>
                       {p.stock_reserved > 0 && (
-                        <span className="text-[8px] text-[#8E9A8B] ml-1">({p.stock_reserved} res.)</span>
+                        <span className="text-[10px] text-[#8E9A8B] ml-1">({p.stock_reserved} res.)</span>
                       )}
                     </td>
 
                     {/* Sold */}
                     <td className="py-3 pr-4 hidden lg:table-cell">
-                      <span className="text-xs font-mono text-[#E5DBD6]">{p.sold}</span>
+                      <span className="text-sm font-mono text-[#E5DBD6]">{p.sold}</span>
                     </td>
 
                     {/* Actions */}
@@ -969,7 +969,7 @@ export default function AdminInventario() {
 
       {/* Footer count */}
       {!isLoading && (
-        <p className="text-[9px] text-[#8E9A8B] uppercase tracking-widest text-right">
+        <p className="text-[11px] text-[#8E9A8B] uppercase tracking-widest text-right">
           Mostrando {filtered.length} de {products.length} productos
         </p>
       )}
@@ -993,7 +993,7 @@ export default function AdminInventario() {
           <button
             type="button"
             onClick={() => setShowNewPreview(!showNewPreview)}
-            className={`flex items-center gap-2 border px-5 py-2.5 text-xs uppercase tracking-widest transition-all font-semibold ${
+            className={`flex items-center gap-2 border px-5 py-2.5 text-sm uppercase tracking-widest transition-all font-semibold ${
               showNewPreview
                 ? "bg-[#CBB67B] border-[#CBB67B] text-[#1F271D]"
                 : "border-[#CBB67B] bg-[#CBB67B]/10 text-[#CBB67B] hover:bg-[#CBB67B] hover:text-[#1F271D]"
@@ -1002,7 +1002,7 @@ export default function AdminInventario() {
             <Eye size={14} />
             {showNewPreview ? "Volver al Formulario" : "Previsualizar PDP"}
           </button>
-          <span className="text-[9px] uppercase tracking-widest text-[#8E9A8B]">
+          <span className="text-[11px] uppercase tracking-widest text-[#8E9A8B]">
             La vista previa refleja exactamente cómo se verá en la tienda
           </span>
         </div>
@@ -1025,21 +1025,21 @@ export default function AdminInventario() {
               <div className="lg:col-span-8 space-y-5">
                 {/* Basic */}
                 <div className="bg-[#1F271D] border border-[#CBB67B]/15 p-6 space-y-4">
-                  <h3 className="text-xs uppercase tracking-widest text-[#CBB67B] font-bold border-b border-[#CBB67B]/10 pb-2">
+                  <h3 className="text-sm uppercase tracking-widest text-[#CBB67B] font-bold border-b border-[#CBB67B]/10 pb-2">
                     Especificaciones Básicas
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">Nombre de la Pieza *</label>
+                      <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">Nombre de la Pieza *</label>
                       <input type="text" value={form.nombre} onChange={(e) => setForm((f) => ({ ...f, nombre: e.target.value }))}
                         placeholder="Ej: Collar Serpiente Sagrada"
-                        className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-xs focus:border-[#CBB67B] outline-none text-[#E5DBD6] placeholder-[#8E9A8B]/50" required />
+                        className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6] placeholder-[#8E9A8B]/50" required />
                     </div>
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">Precio de Venta (MXN) *</label>
+                      <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">Precio de Venta (MXN) *</label>
                       <input type="number" value={form.precio} onChange={(e) => setForm((f) => ({ ...f, precio: e.target.value }))}
                         placeholder="Ej: 64000"
-                        className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-xs focus:border-[#CBB67B] outline-none text-[#E5DBD6] font-mono placeholder-[#8E9A8B]/50" required />
+                        className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6] font-mono placeholder-[#8E9A8B]/50" required />
                     </div>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -1069,26 +1069,26 @@ export default function AdminInventario() {
 
                 {/* Narrativa */}
                 <div className="bg-[#1F271D] border border-[#CBB67B]/15 p-6 space-y-4">
-                  <h3 className="text-xs uppercase tracking-widest text-[#CBB67B] font-bold border-b border-[#CBB67B]/10 pb-2">
+                  <h3 className="text-sm uppercase tracking-widest text-[#CBB67B] font-bold border-b border-[#CBB67B]/10 pb-2">
                     Narrativa & Detalles Técnicos
                   </h3>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">Narrativa Emocional *</label>
+                    <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">Narrativa Emocional *</label>
                     <textarea rows={3} value={form.narrativa} onChange={(e) => setForm((f) => ({ ...f, narrativa: e.target.value }))}
                       placeholder="Esculpido a mano en honor a la deidad primordial del renacimiento..."
-                      className="bg-[#2C3729] border border-[#CBB67B]/20 p-3 text-xs focus:border-[#CBB67B] outline-none text-[#E5DBD6] leading-relaxed placeholder-[#8E9A8B]/50" required />
+                      className="bg-[#2C3729] border border-[#CBB67B]/20 p-3 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6] leading-relaxed placeholder-[#8E9A8B]/50" required />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">Detalles Técnicos *</label>
+                    <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">Detalles Técnicos *</label>
                     <textarea rows={3} value={form.detalles} onChange={(e) => setForm((f) => ({ ...f, detalles: e.target.value }))}
                       placeholder="Plata Ley .950 texturizada a fuego, engaste manual de..."
-                      className="bg-[#2C3729] border border-[#CBB67B]/20 p-3 text-xs focus:border-[#CBB67B] outline-none text-[#E5DBD6] leading-relaxed placeholder-[#8E9A8B]/50" required />
+                      className="bg-[#2C3729] border border-[#CBB67B]/20 p-3 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6] leading-relaxed placeholder-[#8E9A8B]/50" required />
                   </div>
                 </div>
 
                 {/* Materiales */}
                 <div className="bg-[#1F271D] border border-[#CBB67B]/15 p-6 space-y-4">
-                  <h3 className="text-xs uppercase tracking-widest text-[#CBB67B] font-bold border-b border-[#CBB67B]/10 pb-2">
+                  <h3 className="text-sm uppercase tracking-widest text-[#CBB67B] font-bold border-b border-[#CBB67B]/10 pb-2">
                     Materiales
                   </h3>
                   <MaterialSelectorGrid
@@ -1104,24 +1104,24 @@ export default function AdminInventario() {
               <div className="lg:col-span-4 space-y-5">
                 {/* SKU */}
                 <div className="bg-[#1F271D] border border-[#CBB67B]/15 p-6 space-y-4">
-                  <h3 className="text-xs uppercase tracking-widest text-[#CBB67B] font-bold border-b border-[#CBB67B]/10 pb-2">
+                  <h3 className="text-sm uppercase tracking-widest text-[#CBB67B] font-bold border-b border-[#CBB67B]/10 pb-2">
                     Serialización
                   </h3>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">Correlativo / Lote</label>
+                    <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">Correlativo / Lote</label>
                     <input type="text" value={form.baseSku} maxLength={4}
                       onChange={(e) => setForm((f) => ({ ...f, baseSku: e.target.value }))}
-                      className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-xs focus:border-[#CBB67B] outline-none text-[#E5DBD6] font-mono text-center" />
+                      className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6] font-mono text-center" />
                   </div>
                   <div className="bg-[#2C3729] border border-[#CBB67B]/10 p-4 text-center space-y-1">
-                    <span className="text-[8px] uppercase tracking-[0.3em] text-[#8E9A8B]">SKU Generado</span>
-                    <p className="text-sm font-bold font-mono text-[#CBB67B] break-words">{form.sku}</p>
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-[#8E9A8B]">SKU Generado</span>
+                    <p className="text-base font-bold font-mono text-[#CBB67B] break-words">{form.sku}</p>
                   </div>
                 </div>
 
                 {/* Images */}
                 <div className="bg-[#1F271D] border border-[#CBB67B]/15 p-6 space-y-4">
-                  <h3 className="text-xs uppercase tracking-widest text-[#CBB67B] font-bold border-b border-[#CBB67B]/10 pb-2">
+                  <h3 className="text-sm uppercase tracking-widest text-[#CBB67B] font-bold border-b border-[#CBB67B]/10 pb-2">
                     Imágenes
                   </h3>
                   <input ref={fileInputRef} type="file" accept="image/*" multiple className="hidden" onChange={handleFileSelect} />
@@ -1138,11 +1138,11 @@ export default function AdminInventario() {
                         </div>
                         <div className="flex-1 min-w-0">
                           {img.error ? (
-                            <span className="text-[8px] text-red-400 truncate block">{img.error}</span>
+                            <span className="text-[10px] text-red-400 truncate block">{img.error}</span>
                           ) : img.uploading ? (
-                            <span className="text-[8px] text-[#CBB67B]">Subiendo...</span>
+                            <span className="text-[10px] text-[#CBB67B]">Subiendo...</span>
                           ) : (
-                            <span className="text-[8px] text-emerald-400">✓ Lista</span>
+                            <span className="text-[10px] text-emerald-400">✓ Lista</span>
                           )}
                         </div>
                         <button type="button" onClick={() => setForm((f) => ({ ...f, imagenes: f.imagenes.filter((_, j) => j !== i) }))}
@@ -1154,10 +1154,10 @@ export default function AdminInventario() {
                     <button type="button" onClick={() => fileInputRef.current?.click()}
                       className="border border-dashed border-[#CBB67B]/40 hover:border-[#CBB67B] py-6 flex flex-col items-center gap-2 text-[#8E9A8B] hover:text-[#CBB67B] transition-all bg-[#2C3729]/30">
                       <ImagePlus size={20} />
-                      <span className="text-[9px] uppercase tracking-widest">Seleccionar fotos</span>
+                      <span className="text-[11px] uppercase tracking-widest">Seleccionar fotos</span>
                     </button>
                     {uploadedUrls.length > 0 && (
-                      <p className="text-[8px] text-center text-[#8E9A8B] uppercase tracking-widest">
+                      <p className="text-[10px] text-center text-[#8E9A8B] uppercase tracking-widest">
                         {uploadedUrls.length} / {form.imagenes.length} listas
                       </p>
                     )}
@@ -1166,13 +1166,13 @@ export default function AdminInventario() {
 
                 {/* Flags */}
                 <div className="bg-[#1F271D] border border-[#CBB67B]/15 p-6 space-y-4">
-                  <h3 className="text-xs uppercase tracking-widest text-[#CBB67B] font-bold border-b border-[#CBB67B]/10 pb-2">
+                  <h3 className="text-sm uppercase tracking-widest text-[#CBB67B] font-bold border-b border-[#CBB67B]/10 pb-2">
                     Configuración
                   </h3>
                   <div className="flex items-center justify-between">
                     <div className="flex flex-col">
-                      <span className="text-xs font-semibold text-[#E5DBD6]">Exclusivo The Circle</span>
-                      <span className="text-[8px] text-[#8E9A8B]">Requiere membresía activa</span>
+                      <span className="text-sm font-semibold text-[#E5DBD6]">Exclusivo The Circle</span>
+                      <span className="text-[10px] text-[#8E9A8B]">Requiere membresía activa</span>
                     </div>
                     <button type="button" onClick={() => setForm((f) => ({ ...f, isExclusive: !f.isExclusive }))}
                       className={`w-12 h-6 flex items-center p-0.5 transition-all ${form.isExclusive ? "bg-[#CBB67B]" : "bg-[#2C3729] border border-[#CBB67B]/20"}`}>
@@ -1180,20 +1180,20 @@ export default function AdminInventario() {
                     </button>
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">SEO Keywords</label>
+                    <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">SEO Keywords</label>
                     <input type="text" value={form.seoKeywords} onChange={(e) => setForm((f) => ({ ...f, seoKeywords: e.target.value }))}
                       placeholder="collar plata, joyería artesanal..."
-                      className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-xs focus:border-[#CBB67B] outline-none text-[#E5DBD6] placeholder-[#8E9A8B]/50" />
+                      className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6] placeholder-[#8E9A8B]/50" />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B] flex items-center gap-1.5">
+                    <label className="text-xs uppercase tracking-wider text-[#8E9A8B] flex items-center gap-1.5">
                       🔗 Link de Pago
-                      <span className="text-[8px] text-[#CBB67B]/60 normal-case">(MercadoPago, Stripe, etc.)</span>
+                      <span className="text-[10px] text-[#CBB67B]/60 normal-case">(MercadoPago, Stripe, etc.)</span>
                     </label>
                     <input type="url" value={form.paymentLink} onChange={(e) => setForm((f) => ({ ...f, paymentLink: e.target.value }))}
                       placeholder="https://mpago.la/... o https://buy.stripe.com/..."
-                      className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-xs focus:border-[#CBB67B] outline-none text-[#E5DBD6] placeholder-[#8E9A8B]/50 font-mono" />
-                    <span className="text-[8px] text-[#8E9A8B] leading-relaxed">
+                      className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6] placeholder-[#8E9A8B]/50 font-mono" />
+                    <span className="text-[10px] text-[#8E9A8B] leading-relaxed">
                       Al confirmar el checkout, el cliente será redirigido a este enlace de pago.
                     </span>
                   </div>
@@ -1202,13 +1202,13 @@ export default function AdminInventario() {
                 {/* Save */}
                 <div className="space-y-3">
                   <button type="submit" disabled={isSaving}
-                    className="w-full py-4 bg-[#CBB67B] hover:bg-[#E4D5A4] disabled:opacity-50 text-[#1F271D] font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2">
+                    className="w-full py-4 bg-[#CBB67B] hover:bg-[#E4D5A4] disabled:opacity-50 text-[#1F271D] font-bold text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-2">
                     {isSaving ? <><Loader2 size={13} className="animate-spin" /> Guardando...</> : <>Publicar en Tienda <ArrowRight size={13} /></>}
                   </button>
                   <AnimatePresence>
                     {saveSuccess && (
                       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                        className="bg-emerald-950 border border-emerald-500/30 p-3 flex items-center gap-2 text-emerald-300 text-[10px] uppercase tracking-wider">
+                        className="bg-emerald-950 border border-emerald-500/30 p-3 flex items-center gap-2 text-emerald-300 text-xs uppercase tracking-wider">
                         <Check size={13} /> ¡Producto publicado con éxito!
                       </motion.div>
                     )}
@@ -1216,7 +1216,7 @@ export default function AdminInventario() {
                       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
                         className="bg-red-950 border border-red-500/30 p-3 flex items-start gap-2 text-red-300">
                         <AlertCircle size={13} className="flex-shrink-0 mt-0.5" />
-                        <div className="flex-1 text-[9px]">
+                        <div className="flex-1 text-[11px]">
                           <span className="font-bold uppercase tracking-wider block">Error</span>
                           <span className="opacity-80">{saveError}</span>
                         </div>
@@ -1243,7 +1243,7 @@ export default function AdminInventario() {
         {isStatic && (
           <div className="bg-amber-950/60 border border-amber-500/30 p-4 flex items-start gap-3 text-amber-300">
             <AlertCircle size={15} className="flex-shrink-0 mt-0.5" />
-            <p className="text-[10px] leading-relaxed uppercase tracking-wider">
+            <p className="text-xs leading-relaxed uppercase tracking-wider">
               Este producto proviene del catálogo estático. Para editarlo permanentemente, actualiza <code className="lowercase font-mono">constants/products.ts</code>.
               Los cambios aquí solo aplican a la sesión activa.
             </p>
@@ -1252,24 +1252,31 @@ export default function AdminInventario() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {/* Name */}
-          <div className="flex flex-col gap-1.5 sm:col-span-2">
-            <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">Nombre</label>
+          <div className="flex flex-col gap-1.5 sm:col-span-1">
+            <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">Nombre</label>
             <input type="text" value={editForm.name ?? ""} onChange={(e) => setEditForm((f) => ({ ...f, name: e.target.value }))}
-              className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2.5 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6]" />
+              className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2.5 text-base focus:border-[#CBB67B] outline-none text-[#E5DBD6]" />
+          </div>
+
+          {/* SKU */}
+          <div className="flex flex-col gap-1.5 sm:col-span-1">
+            <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">SKU</label>
+            <input type="text" value={editForm.sku ?? ""} onChange={(e) => setEditForm((f) => ({ ...f, sku: e.target.value }))}
+              className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2.5 text-base focus:border-[#CBB67B] outline-none text-[#E5DBD6] font-mono" />
           </div>
 
           {/* Price */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">Precio (MXN)</label>
+            <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">Precio (MXN)</label>
             <input type="number" value={editForm.price ?? ""} onChange={(e) => setEditForm((f) => ({ ...f, price: parseFloat(e.target.value) }))}
-              className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2.5 text-sm font-mono focus:border-[#CBB67B] outline-none text-[#E5DBD6]" />
+              className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2.5 text-base font-mono focus:border-[#CBB67B] outline-none text-[#E5DBD6]" />
           </div>
 
           {/* Stock */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">Stock (piezas)</label>
+            <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">Stock (piezas)</label>
             <input type="number" min={0} value={editForm.stock ?? 0} onChange={(e) => setEditForm((f) => ({ ...f, stock: parseInt(e.target.value) }))}
-              className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2.5 text-sm font-mono focus:border-[#CBB67B] outline-none text-[#E5DBD6]" />
+              className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2.5 text-base font-mono focus:border-[#CBB67B] outline-none text-[#E5DBD6]" />
           </div>
 
           {/* Category */}
@@ -1293,43 +1300,43 @@ export default function AdminInventario() {
 
           {/* Description */}
           <div className="flex flex-col gap-1.5 sm:col-span-2">
-            <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">Descripción / Narrativa</label>
+            <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">Descripción / Narrativa</label>
             <textarea rows={3} value={editForm.description ?? ""} onChange={(e) => setEditForm((f) => ({ ...f, description: e.target.value }))}
-              className="bg-[#2C3729] border border-[#CBB67B]/20 p-3 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6] leading-relaxed" />
+              className="bg-[#2C3729] border border-[#CBB67B]/20 p-3 text-base focus:border-[#CBB67B] outline-none text-[#E5DBD6] leading-relaxed" />
           </div>
 
           {/* Detalles Técnicos & Especificaciones */}
           <div className="flex flex-col gap-1.5 sm:col-span-2">
-            <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">Detalles Técnicos &amp; Especificaciones</label>
+            <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">Detalles Técnicos &amp; Especificaciones</label>
             <textarea rows={3} value={editForm.long_description ?? ""} onChange={(e) => setEditForm((f) => ({ ...f, long_description: e.target.value }))}
               placeholder="Dimensiones, peso, aleación de metal, engaste de gemas y detalles de orfebrería..."
-              className="bg-[#2C3729] border border-[#CBB67B]/20 p-3 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6] leading-relaxed font-mono text-xs" />
+              className="bg-[#2C3729] border border-[#CBB67B]/20 p-3 text-base focus:border-[#CBB67B] outline-none text-[#E5DBD6] leading-relaxed font-mono text-sm" />
           </div>
 
           {/* Significado */}
           <div className="flex flex-col gap-1.5 sm:col-span-2">
-            <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">El Significado</label>
+            <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">El Significado</label>
             <textarea rows={2} value={editForm.significado ?? ""} onChange={(e) => setEditForm((f) => ({ ...f, significado: e.target.value }))}
-              className="bg-[#2C3729] border border-[#CBB67B]/20 p-3 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6] leading-relaxed" />
+              className="bg-[#2C3729] border border-[#CBB67B]/20 p-3 text-base focus:border-[#CBB67B] outline-none text-[#E5DBD6] leading-relaxed" />
           </div>
 
           {/* Payment Link */}
           <div className="flex flex-col gap-1.5 sm:col-span-2">
-            <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B] flex items-center gap-1.5">
+            <label className="text-xs uppercase tracking-wider text-[#8E9A8B] flex items-center gap-1.5">
               🔗 Link de Pago
-              <span className="text-[8px] text-[#CBB67B]/60 normal-case">(MercadoPago, Stripe, etc.)</span>
+              <span className="text-[10px] text-[#CBB67B]/60 normal-case">(MercadoPago, Stripe, etc.)</span>
             </label>
             <input type="url" value={editForm.payment_link ?? ""} onChange={(e) => setEditForm((f) => ({ ...f, payment_link: e.target.value }))}
               placeholder="https://mpago.la/... o https://buy.stripe.com/..."
-              className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2.5 text-sm focus:border-[#CBB67B] outline-none text-[#E5DBD6] font-mono" />
-            <span className="text-[8px] text-[#8E9A8B]">
+              className="bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-2.5 text-base focus:border-[#CBB67B] outline-none text-[#E5DBD6] font-mono" />
+            <span className="text-[10px] text-[#8E9A8B]">
               Al confirmar el checkout, el cliente será redirigido a este enlace.
             </span>
           </div>
 
           {/* Materials */}
           <div className="flex flex-col gap-2 sm:col-span-2">
-            <label className="text-[10px] uppercase tracking-wider text-[#8E9A8B]">Materiales</label>
+            <label className="text-xs uppercase tracking-wider text-[#8E9A8B]">Materiales</label>
             <MaterialSelectorGrid
               selectedMaterials={editForm.materials ?? []}
               onToggleMaterial={(m) =>
@@ -1351,17 +1358,17 @@ export default function AdminInventario() {
           <div className="flex flex-col gap-3 sm:col-span-2 bg-[#1F271D] border border-[#CBB67B]/20 p-5 mt-2">
             <div className="flex items-center justify-between border-b border-[#CBB67B]/10 pb-3 flex-wrap gap-2">
               <div className="flex flex-col">
-                <span className="text-xs uppercase tracking-widest text-[#CBB67B] font-bold flex items-center gap-2">
+                <span className="text-sm uppercase tracking-widest text-[#CBB67B] font-bold flex items-center gap-2">
                   <ImagePlus size={15} /> Gestor de Fotografías ({editForm.images?.length ?? 0})
                 </span>
-                <span className="text-[9px] text-[#8E9A8B] mt-0.5">
+                <span className="text-[11px] text-[#8E9A8B] mt-0.5">
                   Foto #1 = <strong>Vista Normal (Frontal)</strong> · Foto #2 = <strong>Vista Hover (Al pasar el cursor)</strong>
                 </span>
               </div>
               <button
                 type="button"
                 onClick={() => editFileInputRef.current?.click()}
-                className="flex items-center gap-1.5 bg-[#CBB67B] hover:bg-[#E4D5A4] text-[#1F271D] text-[9px] font-bold uppercase tracking-widest px-3.5 py-2 transition-all cursor-pointer"
+                className="flex items-center gap-1.5 bg-[#CBB67B] hover:bg-[#E4D5A4] text-[#1F271D] text-[11px] font-bold uppercase tracking-widest px-3.5 py-2 transition-all cursor-pointer"
               >
                 <ImagePlus size={13} /> Subir desde Equipo
               </button>
@@ -1378,7 +1385,7 @@ export default function AdminInventario() {
 
             {/* Progress indicator */}
             {isUploadingEditImages && (
-              <div className="bg-[#2C3729] border border-[#CBB67B]/30 p-2.5 flex items-center gap-2 text-[10px] text-[#CBB67B] uppercase tracking-wider animate-pulse">
+              <div className="bg-[#2C3729] border border-[#CBB67B]/30 p-2.5 flex items-center gap-2 text-xs text-[#CBB67B] uppercase tracking-wider animate-pulse">
                 <Loader2 size={13} className="animate-spin" /> Subiendo fotografías a Cloudinary...
               </div>
             )}
@@ -1493,7 +1500,7 @@ export default function AdminInventario() {
                 className="border border-dashed border-[#CBB67B]/40 hover:border-[#CBB67B] min-h-[170px] flex flex-col items-center justify-center gap-2 text-[#8E9A8B] hover:text-[#CBB67B] transition-all bg-[#2C3729]/20 hover:bg-[#2C3729]/40 p-3 cursor-pointer"
               >
                 <ImagePlus size={20} />
-                <span className="text-[8px] uppercase tracking-widest font-medium text-center">Subir más fotografías</span>
+                <span className="text-[10px] uppercase tracking-widest font-medium text-center">Subir más fotografías</span>
               </button>
             </div>
 
@@ -1510,12 +1517,12 @@ export default function AdminInventario() {
                     handleAddUrlImage();
                   }
                 }}
-                className="flex-1 bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-1.5 text-xs font-mono focus:border-[#CBB67B] outline-none text-[#E5DBD6] placeholder-[#8E9A8B]/50"
+                className="flex-1 bg-[#2C3729] border border-[#CBB67B]/20 px-3 py-1.5 text-sm font-mono focus:border-[#CBB67B] outline-none text-[#E5DBD6] placeholder-[#8E9A8B]/50"
               />
               <button
                 type="button"
                 onClick={handleAddUrlImage}
-                className="bg-[#2C3729] hover:bg-[#CBB67B] hover:text-[#1F271D] text-[#CBB67B] border border-[#CBB67B]/40 px-3 py-1.5 text-[8px] uppercase tracking-widest font-semibold transition-all flex-shrink-0 cursor-pointer"
+                className="bg-[#2C3729] hover:bg-[#CBB67B] hover:text-[#1F271D] text-[#CBB67B] border border-[#CBB67B]/40 px-3 py-1.5 text-[10px] uppercase tracking-widest font-semibold transition-all flex-shrink-0 cursor-pointer"
               >
                 + Añadir URL
               </button>
@@ -1538,14 +1545,14 @@ export default function AdminInventario() {
                     ? <ToggleRight size={22} />
                     : <ToggleLeft size={22} className="text-[#8E9A8B]" />}
                 </button>
-                <span className="text-[10px] uppercase tracking-wider text-[#E5DBD6]">{label}</span>
+                <span className="text-xs uppercase tracking-wider text-[#E5DBD6]">{label}</span>
               </label>
             ))}
           </div>
         </div>
 
         {updateError && (
-          <div className="bg-red-950 border border-red-500/30 p-3 flex items-center gap-2 text-red-300 text-[10px] uppercase tracking-wider">
+          <div className="bg-red-950 border border-red-500/30 p-3 flex items-center gap-2 text-red-300 text-xs uppercase tracking-wider">
             <AlertCircle size={13} /> {updateError}
           </div>
         )}
@@ -1555,7 +1562,7 @@ export default function AdminInventario() {
             type="button"
             onClick={handleUpdate}
             disabled={isUpdating || isStatic}
-            className="flex items-center gap-2 bg-[#CBB67B] hover:bg-[#E4D5A4] disabled:opacity-50 text-[#1F271D] font-bold text-xs uppercase tracking-widest px-8 py-3 transition-all"
+            className="flex items-center gap-2 bg-[#CBB67B] hover:bg-[#E4D5A4] disabled:opacity-50 text-[#1F271D] font-bold text-sm uppercase tracking-widest px-8 py-3 transition-all"
           >
             {isUpdating ? <><Loader2 size={13} className="animate-spin" /> Guardando...</> : <><Check size={13} /> Guardar Cambios</>}
           </button>
@@ -1565,7 +1572,7 @@ export default function AdminInventario() {
               setSelectedProduct(p => p);
               setView("preview");
             }}
-            className="flex items-center gap-2 border border-[#CBB67B]/30 text-[#CBB67B] hover:border-[#CBB67B] px-8 py-3 text-xs uppercase tracking-widest transition-all"
+            className="flex items-center gap-2 border border-[#CBB67B]/30 text-[#CBB67B] hover:border-[#CBB67B] px-8 py-3 text-sm uppercase tracking-widest transition-all"
           >
             <Eye size={13} /> Ver PDP
           </button>
@@ -1590,7 +1597,7 @@ export default function AdminInventario() {
             </button>
           )}
           <div>
-            <span className="text-[10px] uppercase tracking-[0.4em] text-[#CBB67B]">
+            <span className="text-xs uppercase tracking-[0.4em] text-[#CBB67B]">
               {view === "list" && "Inventario Completo · CRUD en Tiempo Real"}
               {view === "new" && "Ingesta de Producto"}
               {view === "edit" && `Editando · ${selectedProduct?.name}`}
@@ -1608,7 +1615,7 @@ export default function AdminInventario() {
         {view === "list" && (
           <button
             onClick={() => { setForm(EMPTY_FORM); setView("new"); }}
-            className="flex items-center gap-2 bg-[#CBB67B] hover:bg-[#E4D5A4] text-[#1F271D] font-bold text-xs uppercase tracking-widest px-6 py-3 transition-all"
+            className="flex items-center gap-2 bg-[#CBB67B] hover:bg-[#E4D5A4] text-[#1F271D] font-bold text-sm uppercase tracking-widest px-6 py-3 transition-all"
           >
             <Plus size={14} /> Nuevo Producto
           </button>
@@ -1619,7 +1626,7 @@ export default function AdminInventario() {
       {loadError && (
         <div className="bg-red-950/60 border border-red-500/30 p-4 flex items-center gap-3 text-red-300">
           <AlertCircle size={15} className="flex-shrink-0" />
-          <p className="text-[10px] uppercase tracking-wider">{loadError}</p>
+          <p className="text-xs uppercase tracking-wider">{loadError}</p>
         </div>
       )}
 
@@ -1653,11 +1660,11 @@ export default function AdminInventario() {
               className="relative bg-[#1F271D] border border-red-500/30 p-8 max-w-md w-full space-y-6 shadow-2xl"
             >
               <div className="flex flex-col gap-2">
-                <span className="text-[10px] uppercase tracking-widest text-red-400 font-bold">
+                <span className="text-xs uppercase tracking-widest text-red-400 font-bold">
                   Confirmar Eliminación
                 </span>
                 <h3 className="text-lg font-display-erp text-[#E5DBD6]">{deleteTarget.name}</h3>
-                <p className="text-[10px] text-[#8E9A8B] leading-relaxed uppercase tracking-wider">
+                <p className="text-xs text-[#8E9A8B] leading-relaxed uppercase tracking-wider">
                   Esta acción desactivará el producto (soft delete) y lo ocultará de la tienda inmediatamente.
                   El registro permanece en la base de datos para preservar el historial de ventas.
                 </p>
@@ -1666,14 +1673,14 @@ export default function AdminInventario() {
                 <button
                   onClick={handleDelete}
                   disabled={isDeleting}
-                  className="flex-1 py-3 bg-red-700 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2"
+                  className="flex-1 py-3 bg-red-700 hover:bg-red-600 text-white font-bold text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-2"
                 >
                   {isDeleting ? <Loader2 size={13} className="animate-spin" /> : <Trash2 size={13} />}
                   {isDeleting ? "Eliminando..." : "Confirmar"}
                 </button>
                 <button
                   onClick={() => setDeleteTarget(null)}
-                  className="flex-1 py-3 border border-[#CBB67B]/30 text-[#CBB67B] hover:border-[#CBB67B] text-xs uppercase tracking-widest transition-all"
+                  className="flex-1 py-3 border border-[#CBB67B]/30 text-[#CBB67B] hover:border-[#CBB67B] text-sm uppercase tracking-widest transition-all"
                 >
                   Cancelar
                 </button>
