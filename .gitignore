@@ -44,3 +44,7 @@ SERPIENTES/
 *.png
 Colección nueva imagen/
 empaques/
+
+# Ignored Assets
+Productos disponibles/
+fotos taller -minerva/

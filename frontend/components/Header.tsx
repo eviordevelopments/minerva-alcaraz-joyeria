@@ -107,7 +107,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
           </div>
 
           {/* Main Navigation - Left (Desktop) */}
-          <nav className={`hidden lg:flex gap-10 items-center ${textColor} transition-all duration-700`}>
+          <nav className={`hidden lg:flex gap-4 xl:gap-10 items-center ${textColor} transition-all duration-700`}>
             <div className="relative group">
               <Link href="/shop" className="nav-link flex items-center gap-2">
                 Joyas <ChevronDown size={10} className="group-hover:rotate-180 transition-transform" />
@@ -180,7 +180,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
           </div>
 
           {/* Utility Icons - Right */}
-          <div className={`flex gap-4 md:gap-10 items-center ${textColor}`}>
+          <div className={`flex gap-4 lg:gap-6 xl:gap-10 items-center ${textColor}`}>
             <button 
               onClick={() => setIsSearchOpen(true)}
               className={`${hoverColor} transition-colors hidden sm:block relative group`}

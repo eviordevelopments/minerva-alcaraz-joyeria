@@ -29,7 +29,7 @@ export default function StoryPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.2 }}
-            className="text-hueso-seda text-6xl md:text-8xl lg:text-9xl font-display leading-tight italic"
+            className="text-hueso-seda text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-display leading-tight italic"
           >
             Nuestra Historia
           </motion.h1>
@@ -72,7 +72,7 @@ export default function StoryPage() {
           >
             Artesanía Pura
           </motion.span>
-          <h2 className="text-hueso-seda text-5xl md:text-7xl lg:text-8xl font-display mb-16 italic">El Silencio del Martillo</h2>
+          <h2 className="text-hueso-seda text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-display mb-16 italic">El Silencio del Martillo</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 w-full mt-12">
             {[
               { title: "Inspiración", desc: "El momento donde el concepto se encuentra con la intuición." },

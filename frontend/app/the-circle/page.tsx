@@ -180,7 +180,7 @@ export default function TheCirclePage() {
               </div>
             </div>
 
-            <h1 className="font-display text-hueso-seda text-6xl md:text-8xl lg:text-[120px] leading-none uppercase tracking-wider">
+            <h1 className="font-display text-hueso-seda text-5xl md:text-7xl lg:text-[100px] xl:text-[120px] leading-none uppercase tracking-wider">
               The<br />Circle
             </h1>
 
