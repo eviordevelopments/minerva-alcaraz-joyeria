@@ -8,7 +8,8 @@ import { Header } from "../../components/Header";
 import { LuxuryButton } from "../../components/DesignSystem";
 import {
   ShieldCheck, Lock, Globe, ArrowRight, CheckCircle,
-  Package, ExternalLink, ShoppingBag, CreditCard, ChevronLeft
+  Package, ExternalLink, ShoppingBag, CreditCard, ChevronLeft,
+  Minus, Plus, Trash2
 } from "lucide-react";
 import { useAuthStore } from "../../lib/store/useAuthStore";
 import { useCartStore } from "../../lib/store/useCartStore";
@@ -24,15 +25,27 @@ export default function CheckoutPage() {
   const [step, setStep] = useState<1 | 2>(1);
   const [isFinished, setIsFinished] = useState(false);
   const { user } = useAuthStore();
-  const { items, subtotal, clearCart } = useCartStore();
+  const { items, subtotal, clearCart, updateQuantity, removeItem } = useCartStore();
+  const [isFirstPurchase, setIsFirstPurchase] = useState(false);
   
   // Totals calculations
   const rawSubtotal = subtotal();
   const isCircleMember = user?.isCircleMember || false;
-  const shippingCost = 0; // Envío sin costo
-  const taxableAmount = rawSubtotal; // IVA solo sobre productos
-  const iva = Math.round(taxableAmount * 0.16);
-  const total = taxableAmount + iva + shippingCost;
+  
+  let shippingCost = 200;
+  if (isCircleMember && rawSubtotal >= 2000) {
+    shippingCost = 0;
+  } else if (!isCircleMember && rawSubtotal >= 5000) {
+    shippingCost = 0;
+  }
+
+  const discount = isFirstPurchase ? rawSubtotal * 0.10 : 0;
+  const discountedSubtotal = rawSubtotal - discount;
+  
+  // Totals already include IVA. We just break it down for display.
+  const total = discountedSubtotal + shippingCost;
+  const iva = total * 0.16;
+  const subtotalSinIva = total * 0.84;
 
   // Pre-fill form with user data
   const [shippingEmail, setShippingEmail] = useState(user?.email ?? "");
@@ -55,6 +68,12 @@ export default function CheckoutPage() {
     if (user?.email && !shippingEmail) setShippingEmail(user.email);
     if (user?.fullName && !shippingName) setShippingName(user.fullName);
     if (user?.phone && !shippingPhone) setShippingPhone(user.phone);
+
+    // Check first purchase
+    const hasPurchased = localStorage.getItem("minerva-has-purchased");
+    if (!hasPurchased) {
+      setIsFirstPurchase(true);
+    }
   }, [user, shippingEmail, shippingName, shippingPhone]);
 
   const handleGoToPayment = async (e: React.FormEvent) => {
@@ -413,7 +432,10 @@ export default function CheckoutPage() {
                       >
                         <StripeCheckoutForm
                           amount={total}
-                          onSuccess={() => setIsFinished(true)}
+                          onSuccess={() => {
+                            setIsFinished(true);
+                            localStorage.setItem("minerva-has-purchased", "true");
+                          }}
                         />
                       </Elements>
                     </div>
@@ -466,13 +488,38 @@ export default function CheckoutPage() {
                           Talla: {item.size}
                         </span>
                       )}
-                      <span className="text-[10px] text-hueso-seda/50 uppercase tracking-widest mt-0.5">
-                        Cantidad: {String(item.quantity).padStart(2, "0")}
-                      </span>
+                      <div className="flex items-center gap-3 mt-2">
+                        <div className="flex items-center border border-hueso-seda/20 rounded-none w-fit">
+                          <button
+                            type="button"
+                            onClick={() => updateQuantity(item.productId, item.quantity - 1)}
+                            className="p-1.5 text-hueso-seda/60 hover:text-hueso-seda transition-colors"
+                          >
+                            <Minus size={12} strokeWidth={1} />
+                          </button>
+                          <span className="text-[10px] w-6 text-center text-hueso-seda font-mono">
+                            {String(item.quantity).padStart(2, "0")}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => updateQuantity(item.productId, item.quantity + 1)}
+                            className="p-1.5 text-hueso-seda/60 hover:text-hueso-seda transition-colors"
+                          >
+                            <Plus size={12} strokeWidth={1} />
+                          </button>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => removeItem(item.productId)}
+                          className="p-1.5 text-hueso-seda/40 hover:text-red-400 transition-colors"
+                        >
+                          <Trash2 size={12} strokeWidth={1} />
+                        </button>
+                      </div>
                     </div>
 
                     <span className="text-sm font-mono text-hueso-seda flex-shrink-0 mt-1">
-                      ${(item.price * item.quantity).toLocaleString("es-MX")}
+                      ${(item.price * item.quantity).toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </span>
                   </div>
                 ))}
@@ -482,19 +529,26 @@ export default function CheckoutPage() {
               <div className="flex flex-col gap-3 pt-6 border-t border-hueso-seda/20">
                 <div className="flex justify-between text-xs uppercase tracking-widest text-hueso-seda/60">
                   <span>Subtotal ({items.reduce((s, i) => s + i.quantity, 0)} piezas)</span>
-                  <span>${rawSubtotal.toLocaleString("es-MX")}</span>
+                  <span>${subtotalSinIva.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                 </div>
+                
+                {isFirstPurchase && (
+                  <div className="flex justify-between text-xs uppercase tracking-widest text-oro-antiguo">
+                    <span>Cortesía Primera Compra (10%)</span>
+                    <span>-${discount.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                  </div>
+                )}
                 
                 <div className="flex justify-between text-xs uppercase tracking-widest text-hueso-seda/60">
                   <span>Envío Asegurado {isCircleMember ? '(THE CIRCLE)' : ''}</span>
-                  <span className={isCircleMember ? "text-oro-antiguo" : ""}>
-                    {isCircleMember ? "Cortesía" : `$${shippingCost.toLocaleString("es-MX")}`}
+                  <span className={shippingCost === 0 ? "text-oro-antiguo" : ""}>
+                    {shippingCost === 0 ? "Cortesía" : `$${shippingCost.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                   </span>
                 </div>
                 
                 <div className="flex justify-between text-xs uppercase tracking-widest text-hueso-seda/60">
                   <span>IVA (16%)</span>
-                  <span>${iva.toLocaleString("es-MX")}</span>
+                  <span>${iva.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                 </div>
 
                 <div className="h-px bg-hueso-seda/10 my-3" />
@@ -505,7 +559,7 @@ export default function CheckoutPage() {
                       Total Final
                     </span>
                     <span className="text-3xl text-hueso-seda tracking-tighter font-display">
-                      ${total.toLocaleString("es-MX")}
+                      ${total.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </span>
                   </div>
                   <span className="text-xs uppercase tracking-widest text-oro-antiguo pb-1">
