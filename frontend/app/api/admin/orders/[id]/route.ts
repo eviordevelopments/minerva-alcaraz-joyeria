@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { sendEmail } from "../../../../../lib/email/resend";
+import { getOrderDeliveredTemplate } from "../../../../../lib/email/templates";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -101,6 +103,28 @@ export async function PATCH(
                 .eq("id", item.product_id);
             }
           }
+        }
+      }
+    // If transitioned to delivered, send email
+    if (currentOrder && currentOrder.status !== "delivered" && status === "delivered") {
+      const customerName = updatedOrder.shipping_name || "Cliente";
+      const customerEmail = updatedOrder.shipping_email;
+      
+      if (customerEmail) {
+        try {
+          const deliveredTemplate = getOrderDeliveredTemplate({
+            customerName,
+            orderId: id
+          });
+          
+          await sendEmail({
+            to: customerEmail,
+            subject: deliveredTemplate.subject,
+            html: deliveredTemplate.html,
+          });
+          console.log(`Delivered email sent for order ${id}`);
+        } catch (emailErr) {
+          console.error("Error sending delivered email:", emailErr);
         }
       }
     }

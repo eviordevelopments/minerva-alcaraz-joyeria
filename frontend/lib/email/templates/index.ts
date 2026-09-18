@@ -283,16 +283,23 @@ export function getPurchaseConfirmationTemplate({
 }: {
   customerName: string;
   orderId: string;
-  items: { name: string; price: number; quantity: number }[];
+  items: { name: string; price: number; quantity: number; image?: string }[];
   totalAmount: number;
 }) {
   const itemsListHtml = items
     .map(
       (item) => `
-      <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(203, 182, 123, 0.15); padding: 10px 0; font-size: 11px;">
-        <span style="color: #E5DBD6;">${item.name} (x${item.quantity})</span>
-        <span style="color: #CBB67B; font-family: monospace;">$${item.price.toLocaleString("es-MX")} MXN</span>
-      </div>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: rgba(31, 39, 29, 0.7); border: 1px solid rgba(203, 182, 123, 0.35); margin-bottom: 12px;">
+        <tr>
+          <td width="25%" style="padding: 12px; vertical-align: middle;">
+            ${item.image ? `<img src="${item.image}" alt="${item.name}" width="100%" style="display: block; border: 1px solid rgba(203, 182, 123, 0.3); max-width: 80px; height: auto;" />` : ''}
+          </td>
+          <td width="75%" style="padding: 12px; vertical-align: middle;">
+            <h3 style="font-size: 14px; color: #E5DBD6; font-family: 'Cormorant Garamond', Georgia, serif; margin: 0 0 6px 0; font-weight: 400;">${item.name} (x${item.quantity})</h3>
+            <span style="font-size: 12px; color: #CBB67B; font-weight: 600; font-family: monospace;">$${(item.price * item.quantity).toLocaleString("es-MX")} MXN</span>
+          </td>
+        </tr>
+      </table>
     `
     )
     .join("");
@@ -315,14 +322,25 @@ export function getPurchaseConfirmationTemplate({
     <p style="font-size: 12px; line-height: 1.8; color: rgba(229, 219, 214, 0.85); font-weight: 300;">
       Hemos registrado tu pago exitosamente. Tus piezas han entrado al proceso de empaque en nuestro Atelier en San Miguel de Allende con todos los sellos de autenticidad.
     </p>
+    
+    <p style="font-size: 12px; line-height: 1.8; color: rgba(229, 219, 214, 0.85); font-weight: 300;">
+      Un <strong>Concierge Privado</strong> ha sido asignado a tu orden. Se pondrá en contacto contigo a la brevedad para brindarte atención personalizada y confirmar los detalles de entrega.
+    </p>
 
     <div style="background-color: rgba(31, 39, 29, 0.5); border: 1px solid rgba(203, 182, 123, 0.2); padding: 20px; margin: 25px 0;">
       <div style="font-size: 9px; letter-spacing: 0.3em; color: #CBB67B; text-transform: uppercase; margin-bottom: 15px;">Resumen de Joyas:</div>
       ${itemsListHtml}
-      <div style="display: flex; justify-content: space-between; margin-top: 15px; pt: 10px; font-weight: bold; font-size: 12px; color: #CBB67B;">
+      <div style="display: flex; justify-content: space-between; margin-top: 15px; pt: 10px; font-weight: bold; font-size: 14px; color: #CBB67B; border-top: 1px solid rgba(203, 182, 123, 0.2); padding-top: 15px;">
         <span>Total:</span>
         <span style="font-family: monospace;">$${totalAmount.toLocaleString("es-MX")} MXN</span>
       </div>
+    </div>
+    
+    <div style="margin-top: 25px; padding: 15px; border: 1px dashed rgba(203, 182, 123, 0.3); text-align: center;">
+      <h4 style="font-size: 11px; color: #CBB67B; text-transform: uppercase; letter-spacing: 0.2em; margin: 0 0 10px 0;">Política de Devoluciones</h4>
+      <p style="font-size: 10px; line-height: 1.6; color: rgba(229, 219, 214, 0.7); margin: 0;">
+        Garantizamos la excelencia de nuestras piezas. Si por alguna razón tu joya no cumple con tus expectativas, cuentas con <strong>30 días naturales</strong> desde la recepción para solicitar una devolución o cambio, siempre y cuando la pieza se encuentre en su estado original, sin uso y con sus certificados de autenticidad intactos. Tu concierge te asistirá en este proceso.
+      </p>
     </div>
 
     <div style="text-align: center; margin-top: 30px;">
@@ -334,7 +352,110 @@ export function getPurchaseConfirmationTemplate({
 
   return wrapBaseEmailTemplate({
     title: `💎 Confirmación de Compra · Orden ${orderId} ✨`,
-    preheader: `Hemos recibido tu pedido ${orderId} en Minerva Alcaraz.`,
+    preheader: `Hemos recibido tu pedido ${orderId} en Minerva Alcaraz. Un concierge te atenderá pronto.`,
+    contentHtml,
+  });
+}
+
+export function getAdminPurchaseNotificationTemplate({
+  orderId,
+  customerName,
+  customerEmail,
+  totalAmount,
+  items,
+}: {
+  orderId: string;
+  customerName: string;
+  customerEmail: string;
+  totalAmount: number;
+  items: { name: string; quantity: number }[];
+}) {
+  const itemsListHtml = items
+    .map(
+      (item) => `
+      <div style="margin-bottom: 5px; font-size: 12px; color: #E5DBD6;">
+        • ${item.name} (x${item.quantity})
+      </div>
+    `
+    )
+    .join("");
+
+  const contentHtml = `
+    <div style="text-align: left; margin-bottom: 25px;">
+      <span style="font-size: 9px; letter-spacing: 0.4em; color: #CBB67B; text-transform: uppercase;">Notificación de Administrador</span>
+      <h2 style="font-size: 20px; color: #E5DBD6; font-weight: 400; margin: 10px 0;">Nueva Orden Ingresada</h2>
+    </div>
+
+    <p style="font-size: 13px; line-height: 1.8; color: #E5DBD6;">
+      Se ha procesado un nuevo pedido en el sistema. Es necesario asignar un concierge e iniciar el proceso de empaque.
+    </p>
+
+    <div style="background-color: rgba(31, 39, 29, 0.5); border: 1px solid rgba(203, 182, 123, 0.2); padding: 20px; margin: 20px 0;">
+      <ul style="list-style: none; padding: 0; margin: 0; font-size: 12px; color: #E5DBD6; line-height: 2;">
+        <li><strong style="color: #CBB67B;">Orden ID:</strong> ${orderId}</li>
+        <li><strong style="color: #CBB67B;">Cliente:</strong> ${customerName}</li>
+        <li><strong style="color: #CBB67B;">Email:</strong> ${customerEmail}</li>
+        <li><strong style="color: #CBB67B;">Total:</strong> $${totalAmount.toLocaleString("es-MX")} MXN</li>
+      </ul>
+      
+      <div style="margin-top: 15px; border-top: 1px solid rgba(203, 182, 123, 0.2); padding-top: 15px;">
+        <strong style="color: #CBB67B; font-size: 12px; display: block; margin-bottom: 10px;">Artículos:</strong>
+        ${itemsListHtml}
+      </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px;">
+      <a href="https://minervaalcarazjoyeria.mx/admin/orders/${orderId}" class="btn">Ver Detalles de la Orden</a>
+    </div>
+  `;
+
+  return wrapBaseEmailTemplate({
+    title: `💰 Nueva Compra Recibida - Orden ${orderId}`,
+    preheader: `El cliente ${customerName} ha realizado una nueva compra.`,
+    contentHtml,
+  });
+}
+
+export function getOrderDeliveredTemplate({
+  customerName,
+  orderId,
+}: {
+  customerName: string;
+  orderId: string;
+}) {
+  const contentHtml = `
+    <div style="text-align: center; margin-bottom: 25px;">
+      <span style="font-size: 9px; letter-spacing: 0.4em; color: #CBB67B; text-transform: uppercase;">Legado Entregado</span>
+      <h2 style="font-size: 26px; color: #E5DBD6; font-style: italic; font-weight: 300; margin: 10px 0; font-family: 'Cormorant Garamond', Georgia, serif;">Tu Pieza ha Llegado</h2>
+      <div style="font-family: monospace; font-size: 11px; color: #CBB67B; letter-spacing: 0.2em;">Orden: ${orderId}</div>
+    </div>
+
+    <p style="font-size: 14px; line-height: 1.8; color: #E5DBD6;">
+      Hola <strong>${customerName}</strong>,
+    </p>
+
+    <p style="font-size: 13px; line-height: 1.8; color: rgba(229, 219, 214, 0.9); font-weight: 300; font-style: italic; font-family: 'Cormorant Garamond', Georgia, serif; border-left: 2px solid #CBB67B; padding-left: 15px; margin: 20px 0;">
+      "Cada joya cuenta una historia. Ahora es momento de que comiences a escribir la tuya con esta pieza."
+    </p>
+
+    <p style="font-size: 12px; line-height: 1.8; color: rgba(229, 219, 214, 0.85); font-weight: 300;">
+      Nos complace informarte que tu pedido <strong>${orderId}</strong> ha sido entregado exitosamente. Esperamos que esta joya cumpla con todas tus expectativas y se convierta en un tesoro invaluable para ti.
+    </p>
+    
+    <p style="font-size: 12px; line-height: 1.8; color: rgba(229, 219, 214, 0.85); font-weight: 300;">
+      Tu concierge sigue a tu disposición para cualquier duda sobre el cuidado de tu pieza, mantenimientos futuros o políticas de garantía.
+    </p>
+
+    <div style="text-align: center; margin-top: 30px;">
+      <a href="https://minervaalcarazjoyeria.mx/perfil/cuidado-ritual" class="btn">Conocer el Ritual de Cuidado</a>
+    </div>
+
+    ${BRAND_SIGNATURE}
+  `;
+
+  return wrapBaseEmailTemplate({
+    title: `📦 Tu Pedido de Minerva Alcaraz ha sido entregado ✨`,
+    preheader: `Tu orden ${orderId} ha llegado a su destino.`,
     contentHtml,
   });
 }

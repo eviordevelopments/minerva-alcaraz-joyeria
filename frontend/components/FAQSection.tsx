@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus, MessageCircle } from "lucide-react";
 import { LuxuryButton } from "./DesignSystem";
+import Link from "next/link";
 
 interface FAQItemProps {
   question: string;
@@ -47,7 +48,7 @@ export const FAQSection = () => {
       items: [
         {
           question: "¿Qué métodos de pago aceptan?",
-          answer: "Aceptamos tarjetas de crédito/débito (Visa, Mastercard, Amex), PayPal y transferencias bancarias protegidas para su total comodidad y seguridad."
+          answer: "Aceptamos tarjetas de crédito/débito (Visa, Mastercard, Amex) y PayPal. Los pagos se hacen únicamente a través de la tienda en línea gracias a la incorporación de Stripe que proporciona seguridad y rapidez en las transacciones dentro de la tienda para comprar con total tranquilidad."
         },
         {
           question: "¿Es seguro comprar en línea?",
@@ -60,15 +61,11 @@ export const FAQSection = () => {
       items: [
         {
           question: "¿Cuál es la política de devoluciones?",
-          answer: (
-            <span>
-              Las piezas pueden ser devueltas en un plazo de 15 días, siempre que conserven sus sellos de seguridad y empaque original. Para piezas personalizadas, consulte nuestros términos específicos. Puede leer nuestra <a href="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/politica-de-devoluciones.pdf" target="_blank" rel="noopener noreferrer" className="text-oro-antiguo hover:underline">Política de Devoluciones Completa aquí</a>.
-            </span>
-          )
+          answer: "Las piezas pueden ser devueltas en un plazo de 10 días naturales, siempre que conserven sus sellos de seguridad y empaque original. Para piezas personalizadas, consulte nuestros términos específicos."
         },
         {
           question: "¿Hacen envíos internacionales?",
-          answer: "Sí, llevamos la elegancia de Minerva Alcaraz a cualquier parte del mundo a través de servicios de mensajería premium que garantizan la integridad de su tesoro."
+          answer: "No hay envíos internacionales."
         }
       ]
     },
@@ -77,11 +74,15 @@ export const FAQSection = () => {
       items: [
         {
           question: "¿Cómo sé cuál es mi talla?",
-          answer: "Visite nuestra Guía de Tallas donde encontrará un instructivo detallado para medir su dedo, muñeca o elegir el largo de cadena ideal para su fisonomía."
+          answer: (
+            <span>
+              Visite nuestra <Link href="/guia-de-tallas" className="text-oro-antiguo hover:underline">Guía de Tallas</Link> donde encontrará un instructivo detallado para medir su dedo, muñeca o elegir el largo de cadena ideal para su fisonomía en un solo hub en pantalla flotante.
+            </span>
+          )
         },
         {
           question: "¿Cómo cuido mi joyería?",
-          answer: "Recomendamos evitar el contacto con químicos y seguir nuestro Ritual de Cuidados incluido en la sección principal para mantener el brillo y la esencia de su pieza de por vida."
+          answer: "Recomendamos evitar el contacto con químicos y seguir nuestro Ritual de Cuidados incluido en la sección de cada joya para mantener el brillo y la esencia de su pieza de por vida."
         }
       ]
     },
@@ -90,7 +91,11 @@ export const FAQSection = () => {
       items: [
         {
           question: "¿Puedo diseñar una pieza desde cero?",
-          answer: "Absolutamente. La cocreación es parte de nuestro ADN. Contáctenos vía WhatsApp para agendar una cita de diseño con nuestros maestros joyeros."
+          answer: (
+            <span>
+              Absolutamente. La cocreación es parte de nuestro ADN. Contáctenos vía WhatsApp para agendar una cita de diseño con nuestros maestros joyeros o desde nuestro <Link href="/concierge" className="text-oro-antiguo hover:underline">concierge</Link>.
+            </span>
+          )
         }
       ]
     }
@@ -126,7 +131,11 @@ export const FAQSection = () => {
             <h4 className="text-lg sm:text-xl md:text-2xl font-display text-oro-antiguo">¿Aún tiene dudas?</h4>
             <p className="text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.2em] text-hueso-seda/80">Nuestro Concierge Digital está a su disposición</p>
           </div>
-          <LuxuryButton variant="gold" className="!py-2.5 !px-5 flex items-center justify-center gap-2.5 text-xs uppercase tracking-[0.2em] w-full sm:w-auto flex-shrink-0">
+          <LuxuryButton 
+            variant="gold" 
+            className="!py-2.5 !px-5 flex items-center justify-center gap-2.5 text-xs uppercase tracking-[0.2em] w-full sm:w-auto flex-shrink-0"
+            onClick={() => window.open('https://wa.me/', '_blank')}
+          >
             <MessageCircle size={15} className="flex-shrink-0" /> Contactar a Concierge
           </LuxuryButton>
         </div>

@@ -32,10 +32,10 @@ export const Newsletter = () => {
             className="flex flex-col items-center gap-6"
           >
             <Mail className="text-oro-profundo" size={28} strokeWidth={1} />
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.4em] sm:tracking-[0.8em] text-oro-profundo font-semibold">La Cofradía</span>
+            <span className="text-[11px] sm:text-xs uppercase tracking-[0.4em] sm:tracking-[0.8em] text-oro-profundo font-semibold">Exclusivo</span>
             <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-display italic px-4 !text-verde-ebano">Únete a Nuestra Herencia</h2>
             <p className="text-sm sm:text-base md:text-base text-verde-ebano/70 font-light leading-relaxed max-w-2xl uppercase tracking-[0.1em] sm:tracking-[0.2em] px-4">
-              Recibe invitaciones exclusivas a rituales de diseño privado y sé el primero en descubrir nuestras piezas únicas de edición limitada.
+              Recibe invitaciones exclusivas y sé el primero en descubrir nuestras piezas únicas de edición limitada.
             </p>
           </motion.div>
 
@@ -53,7 +53,7 @@ export const Newsletter = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="TU CORREO ELECTRÓNICO" 
-                  className="bg-transparent w-full sm:flex-1 text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.4em] text-verde-ebano outline-none placeholder:text-verde-ebano/35 py-2 text-center sm:text-left font-medium"
+                  className="bg-transparent w-full sm:flex-1 text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em] text-verde-ebano outline-none placeholder:text-verde-ebano/35 py-2 text-center sm:text-left font-medium min-w-0"
                   required
                 />
                 <button 

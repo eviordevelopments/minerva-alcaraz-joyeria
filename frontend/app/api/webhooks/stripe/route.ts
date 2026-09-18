@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
+import { sendEmail } from "../../../../lib/email/resend";
+import { getPurchaseConfirmationTemplate, getAdminPurchaseNotificationTemplate } from "../../../../lib/email/templates";
 
 // Webhook secret will be checked at runtime
 
@@ -56,7 +58,68 @@ export async function POST(req: NextRequest) {
           console.error(`Failed to update order ${orderId} to paid:`, updateError);
         } else {
           console.log(`Order ${orderId} marked as paid successfully`);
-          // Optionally: Send confirmation email here using Resend
+          
+          try {
+            // Fetch order and user details
+            const { data: orderData } = await supabaseAdmin
+              .from("orders")
+              .select("*, profiles(full_name, email)")
+              .eq("id", orderId)
+              .single();
+
+            const { data: itemsData } = await supabaseAdmin
+              .from("order_items")
+              .select("*, products(name, images)")
+              .eq("order_id", orderId);
+
+            if (orderData && itemsData) {
+              const customerName = orderData.shipping_name || orderData.profiles?.full_name || "Cliente";
+              const customerEmail = orderData.shipping_email || orderData.profiles?.email;
+              const totalAmount = orderData.total;
+              
+              const formattedItems = itemsData.map((item: any) => ({
+                name: item.products?.name || "Producto",
+                price: item.price,
+                quantity: item.quantity,
+                image: item.products?.images?.[0] || undefined
+              }));
+
+              // Send Customer Confirmation Email
+              if (customerEmail) {
+                const customerTemplate = getPurchaseConfirmationTemplate({
+                  customerName,
+                  orderId,
+                  items: formattedItems,
+                  totalAmount
+                });
+
+                await sendEmail({
+                  to: customerEmail,
+                  subject: customerTemplate.subject,
+                  html: customerTemplate.html,
+                });
+              }
+
+              // Send Admin Notification Email
+              const adminTemplate = getAdminPurchaseNotificationTemplate({
+                orderId,
+                customerName,
+                customerEmail: customerEmail || "No proporcionado",
+                totalAmount,
+                items: formattedItems,
+              });
+
+              await sendEmail({
+                to: "minerva.alcaraz.joyeria@gmail.com",
+                subject: adminTemplate.subject,
+                html: adminTemplate.html,
+              });
+              
+              console.log(`Emails sent for order ${orderId}`);
+            }
+          } catch (emailErr) {
+            console.error("Error sending order confirmation emails:", emailErr);
+          }
         }
 
         break;
