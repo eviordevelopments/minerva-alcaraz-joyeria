@@ -11,6 +11,7 @@ import { WelcomePopup } from "../components/WelcomePopup";
 import { AccessibilityProvider } from "../components/AccessibilityProvider";
 import { AccessibilityFAB } from "../components/AccessibilityFAB";
 import { AccessibilityPanel } from "../components/AccessibilityPanel";
+import { AdminEditWrapper } from "../components/AdminEditWrapper";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://minervaalcarazjoyeria.mx'),
@@ -62,16 +63,18 @@ export default function RootLayout({
         <AccessibilityProvider>
           <DesignSystemProvider>
             <AuthProvider>
-              {children}
-              <MentalStateOverlay />
-              <WhatsAppFAB />
-              <CookieBanner />
-              <AIConcierge />
-              <NewsletterBanner />
-              <TheCircleBanner />
-              <WelcomePopup />
-              <AccessibilityFAB />
-              <AccessibilityPanel />
+              <AdminEditWrapper>
+                {children}
+                <MentalStateOverlay />
+                <WhatsAppFAB />
+                <CookieBanner />
+                <AIConcierge />
+                <NewsletterBanner />
+                <TheCircleBanner />
+                <WelcomePopup />
+                <AccessibilityFAB />
+                <AccessibilityPanel />
+              </AdminEditWrapper>
             </AuthProvider>
           </DesignSystemProvider>
         </AccessibilityProvider>

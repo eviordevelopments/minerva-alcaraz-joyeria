@@ -97,6 +97,12 @@ export default function AdminLayout({
       path: "/admin/pedidos",
       icon: ShoppingBag,
       description: "Logística y Envíos"
+    },
+    {
+      name: "Contenidos",
+      path: "/admin/content",
+      icon: Sparkles, // reusing Sparkles or another icon
+      description: "Textos y Narrativas"
     }
   ];
 
