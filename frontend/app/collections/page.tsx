@@ -74,11 +74,33 @@ export default function CollectionsPage() {
       theme: "bone" as const
     },
     {
+      title: "Renacer",
+      subtitle: "Nueva Colección",
+      description: "Nuevos comienzos plasmados en metal. Piezas que simbolizan la transformación personal y la belleza de reinventarse a uno mismo.",
+      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/anillos-piedras/SMA_MINERVA-5.JPG",
+      align: "right" as const,
+      theme: "green" as const
+    },
+    {
+      title: "Latidos",
+      subtitle: "Pulso de Vida",
+      description: "Diseños enfocados en las emociones más sinceras. Formas cálidas y orgánicas que celebran el sentimiento puro y el amor auténtico.",
+      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva2-10.JPG",
+      theme: "gold" as const
+    },
+    {
+      title: "Instinto",
+      subtitle: "Fuerza Interior",
+      description: "Una conexión con nuestra naturaleza más profunda. Joyería con carácter, texturas únicas y determinación, hecha para destacar.",
+      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/ecos-tierra/DSCF4196%20(1).JPG",
+      align: "right" as const,
+      theme: "bone" as const
+    },
+    {
       title: "Escencia",
       subtitle: "Misticismo Metálico",
       description: "Un viaje al corazón del misticismo mexicano. Los Milagritos transformados en reliquias de oro y plata, portadores de fe, esperanza y devoción eterna.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778279752/minerva_joyeria/products/escencia/s5lcje72gpht7y1eh2nw.jpg",
-      align: "right" as const,
       theme: "green" as const
     },
     {
@@ -86,6 +108,7 @@ export default function CollectionsPage() {
       subtitle: "El Flujo Vital",
       description: "Celebración de la vitalidad y el número 18. Líneas fluidas y grabados ancestrales que honran el flujo constante de la vida en todas sus formas.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778275631/minerva_joyeria/products/chai/CHAI-21.jpg",
+      align: "right" as const,
       theme: "gold" as const
     },
     {
@@ -93,7 +116,6 @@ export default function CollectionsPage() {
       subtitle: "Transformación Eterna",
       description: "Símbolo de renovación perpetua. La serpiente que muda su piel es el eco de nuestra propia capacidad de transformación y sabiduría interior.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778275755/minerva_joyeria/products/serpientes/SMA_MINERVA-102.jpg",
-      align: "right" as const,
       theme: "bone" as const
     },
     {
@@ -101,6 +123,7 @@ export default function CollectionsPage() {
       subtitle: "Alma Irrepetible",
       description: "Objetos de deseo irrepetibles. Piedras seleccionadas por su alma y monturas forjadas para jamás ser replicadas. Una joya que solo pertenece a un portador.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/individuales/MINE-52.jpg",
+      align: "right" as const,
       theme: "green" as const
     },
     {
@@ -108,7 +131,6 @@ export default function CollectionsPage() {
       subtitle: "Suspiro de Luz",
       description: "Minimalismo que roza lo divino. Formas que parecen levitar y capturar la luz del viento, diseñadas para elevar la esencia de quien las porta.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva2-3.JPG",
-      align: "right" as const,
       theme: "gold" as const
     },
     {
@@ -116,6 +138,7 @@ export default function CollectionsPage() {
       subtitle: "Geometría Orgánica",
       description: "La geología convertida en arte táctil. Texturas brutales y formas orgánicas que resuenan con la fuerza primordial de nuestro planeta.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/ecos-tierra/DSCF4318.JPG",
+      align: "right" as const,
       theme: "bone" as const
     },
     {
@@ -123,7 +146,6 @@ export default function CollectionsPage() {
       subtitle: "Naturaleza Inmortal",
       description: "La botánica mexicana preservada en metales preciosos. Un jardín eterno donde la fragilidad de la naturaleza se vuelve inmortalidad.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778280270/minerva_joyeria/products/floral/Coleccio_n_3_3.jpg",
-      align: "right" as const,
       theme: "green" as const
     }
   ];
