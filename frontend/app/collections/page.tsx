@@ -69,14 +69,14 @@ export default function CollectionsPage() {
     {
       title: "Diseños de Autor",
       subtitle: "Escultura Portable",
-      description: "La cumbre de la expresión artística de Minerva Alcaraz. Piezas escultóricas que desafían la joyería convencional, nacidas de una visión pura y sin compromisos.",
+      description: "Minerva Alcaraz transforma símbolos, naturaleza y memoria en joyería única. Cada pieza nace de una mirada, una historia y una forma distinta de entender la belleza.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/individuales/MINE-51.JPG",
       theme: "bone" as const
     },
     {
       title: "Renacer",
       subtitle: "Nueva Colección",
-      description: "Nuevos comienzos plasmados en metal. Piezas que simbolizan la transformación personal y la belleza de reinventarse a uno mismo.",
+      description: "Inspirada en la belleza que emerge después de cada transformación.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/anillos-piedras/SMA_MINERVA-5.JPG",
       align: "right" as const,
       theme: "green" as const
@@ -84,14 +84,14 @@ export default function CollectionsPage() {
     {
       title: "Latidos",
       subtitle: "Pulso de Vida",
-      description: "Diseños enfocados en las emociones más sinceras. Formas cálidas y orgánicas que celebran el sentimiento puro y el amor auténtico.",
+      description: "Honramos el corazón que nos acompaña desde el primer instante, el que guarda nuestras emociones, nuestra fuerza y nuestra historia. Cada pieza es un homenaje a la vida que llevamos dentro.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva2-10.JPG",
       theme: "gold" as const
     },
     {
       title: "Instinto",
       subtitle: "Fuerza Interior",
-      description: "Una conexión con nuestra naturaleza más profunda. Joyería con carácter, texturas únicas y determinación, hecha para destacar.",
+      description: "Inspirada en la fuerza que nace desde el interior, donde cada pieza celebra el poder y la naturaleza más auténtica de quien la porta.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/ecos-tierra/DSCF4196%20(1).JPG",
       align: "right" as const,
       theme: "bone" as const
@@ -99,14 +99,14 @@ export default function CollectionsPage() {
     {
       title: "Escencia",
       subtitle: "Misticismo Metálico",
-      description: "Un viaje al corazón del misticismo mexicano. Los Milagritos transformados en reliquias de oro y plata, portadores de fe, esperanza y devoción eterna.",
+      description: "La esencia del amor convertida en joya.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778279752/minerva_joyeria/products/escencia/s5lcje72gpht7y1eh2nw.jpg",
       theme: "green" as const
     },
     {
       title: "Chai",
       subtitle: "El Flujo Vital",
-      description: "Celebración de la vitalidad y el número 18. Líneas fluidas y grabados ancestrales que honran el flujo constante de la vida en todas sus formas.",
+      description: "La verdadera fuerza no se presume… se habita.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778275631/minerva_joyeria/products/chai/CHAI-21.jpg",
       align: "right" as const,
       theme: "gold" as const
@@ -129,14 +129,14 @@ export default function CollectionsPage() {
     {
       title: "Etérea",
       subtitle: "Suspiro de Luz",
-      description: "Minimalismo que roza lo divino. Formas que parecen levitar y capturar la luz del viento, diseñadas para elevar la esencia de quien las porta.",
+      description: "Inspirada en la ligereza del alma y la belleza de lo efímero, donde cada joya celebra la libertad de transformarse.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva2-3.JPG",
       theme: "gold" as const
     },
     {
       title: "Ecos de la Tierra",
       subtitle: "Geometría Orgánica",
-      description: "La geología convertida en arte táctil. Texturas brutales y formas orgánicas que resuenan con la fuerza primordial de nuestro planeta.",
+      description: "No busca adornar, busca conectar: unir tu esencia con la naturaleza. Porque si la Tierra creó la piedra, nosotros creamos la pieza que contará su historia contigo.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/ecos-tierra/DSCF4318.JPG",
       align: "right" as const,
       theme: "bone" as const
@@ -144,7 +144,7 @@ export default function CollectionsPage() {
     {
       title: "Floral",
       subtitle: "Naturaleza Inmortal",
-      description: "La botánica mexicana preservada en metales preciosos. Un jardín eterno donde la fragilidad de la naturaleza se vuelve inmortalidad.",
+      description: "Admiramos la belleza de lo delicado, creamos piezas que acompañan con gracia y feminidad.",
       image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778280270/minerva_joyeria/products/floral/Coleccio_n_3_3.jpg",
       theme: "green" as const
     }
@@ -172,7 +172,7 @@ export default function CollectionsPage() {
             Colecciones
           </motion.h1>
           <p className="mt-8 text-xs md:text-sm uppercase tracking-[0.4em] text-verde-ebano/60 max-w-2xl leading-loose">
-            Cada colección es un capítulo en la historia de Minerva Alcaraz. Descubre los universos que dan forma a su obra.
+            Minerva Alcaraz transforma símbolos, naturaleza y memoria en joyería única. Cada pieza nace de una mirada, una historia y una forma distinta de entender la belleza.
           </p>
         </div>
       </div>
