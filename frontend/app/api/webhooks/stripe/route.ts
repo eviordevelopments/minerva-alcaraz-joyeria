@@ -95,8 +95,8 @@ export async function POST(req: NextRequest) {
 
                 await sendEmail({
                   to: customerEmail,
-                  subject: customerTemplate.subject,
-                  html: customerTemplate.html,
+                  subject: `💎 Confirmación de Compra · Orden ${orderId} ✨`,
+                  html: customerTemplate,
                 });
               }
 
@@ -111,8 +111,8 @@ export async function POST(req: NextRequest) {
 
               await sendEmail({
                 to: "minerva.alcaraz.joyeria@gmail.com",
-                subject: adminTemplate.subject,
-                html: adminTemplate.html,
+                subject: `💰 Nueva Compra Recibida - Orden ${orderId}`,
+                html: adminTemplate,
               });
               
               console.log(`Emails sent for order ${orderId}`);

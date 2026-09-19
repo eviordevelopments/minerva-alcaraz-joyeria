@@ -105,6 +105,7 @@ export async function PATCH(
           }
         }
       }
+    }
     // If transitioned to delivered, send email
     if (currentOrder && currentOrder.status !== "delivered" && status === "delivered") {
       const customerName = updatedOrder.shipping_name || "Cliente";
@@ -119,8 +120,8 @@ export async function PATCH(
           
           await sendEmail({
             to: customerEmail,
-            subject: deliveredTemplate.subject,
-            html: deliveredTemplate.html,
+            subject: `📦 Tu Pedido de Minerva Alcaraz ha sido entregado ✨`,
+            html: deliveredTemplate,
           });
           console.log(`Delivered email sent for order ${id}`);
         } catch (emailErr) {
