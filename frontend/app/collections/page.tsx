@@ -171,7 +171,7 @@ export default function CollectionsPage() {
           >
             Colecciones
           </motion.h1>
-          <p className="mt-8 text-sm md:text-base uppercase tracking-[0.4em] text-verde-ebano/60 max-w-2xl leading-loose">
+          <p className="mt-8 text-xs md:text-sm uppercase tracking-[0.4em] text-verde-ebano/60 max-w-2xl leading-loose">
             Cada colección es un capítulo en la historia de Minerva Alcaraz. Descubre los universos que dan forma a su obra.
           </p>
         </div>
