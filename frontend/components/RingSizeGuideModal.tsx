@@ -263,7 +263,6 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
                       />
                     </div>
                     <div>
-                      <span className="text-[11px] uppercase tracking-[0.3em] text-oro-antiguo font-semibold">Diagrama 01</span>
                       <h4 className="text-lg font-display text-verde-ebano">Diámetro Interior (mm)</h4>
                       <p className="text-sm text-verde-ebano/70 mt-1 leading-relaxed">
                         Mide la distancia recta pasando por el centro exacto entre los bordes internos del anillo.
@@ -282,7 +281,6 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
                       />
                     </div>
                     <div>
-                      <span className="text-[11px] uppercase tracking-[0.3em] text-oro-antiguo font-semibold">Diagrama 02</span>
                       <h4 className="text-lg font-display text-verde-ebano">Circunferencia del Dedo (mm)</h4>
                       <p className="text-sm text-verde-ebano/70 mt-1 leading-relaxed">
                         Mide el perímetro o contorno completo del dedo rodeándolo con una tira de papel o cinta.

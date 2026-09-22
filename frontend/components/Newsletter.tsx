@@ -6,13 +6,36 @@ import { ArrowRight, Mail } from "lucide-react";
 
 export const Newsletter = () => {
   const [email, setEmail] = useState("");
-  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      setIsSubscribed(true);
-      setEmail("");
+    if (!email) return;
+
+    setStatus("loading");
+    setMessage("");
+
+    try {
+      const res = await fetch("/api/newsletter/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setStatus("success");
+        setMessage("¡Suscripción exitosa!");
+        setEmail("");
+      } else {
+        setStatus("error");
+        setMessage(data.error || "Error al suscribirse.");
+      }
+    } catch (err) {
+      setStatus("error");
+      setMessage("Error de conexión.");
     }
   };
 
@@ -32,14 +55,14 @@ export const Newsletter = () => {
             className="flex flex-col items-center gap-6"
           >
             <Mail className="text-oro-profundo" size={28} strokeWidth={1} />
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.4em] sm:tracking-[0.8em] text-oro-profundo font-semibold">Exclusivo</span>
-            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-display italic px-4 !text-verde-ebano">Únete a Nuestra Herencia</h2>
+            <span className="text-[11px] sm:text-xs uppercase tracking-[0.4em] sm:tracking-[0.8em] text-oro-profundo font-semibold">THE CIRCLE</span>
+            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-display italic px-4 !text-verde-ebano">FORMA PARTE DE NUESTRO UNIVERSO</h2>
             <p className="text-sm sm:text-base md:text-base text-verde-ebano/70 font-light leading-relaxed max-w-2xl uppercase tracking-[0.1em] sm:tracking-[0.2em] px-4">
-              Recibe invitaciones exclusivas y sé el primero en descubrir nuestras piezas únicas de edición limitada.
+              RECIBE INVITACIONES EXCLUSIVAS A COLECCIONES DE DISEÑO PRIVADO Y SÉ EL PRIMERO EN DESCUBRIR NUESTRAS PIEZAS ÚNICAS DE EDICIÓN LIMITADA.
             </p>
           </motion.div>
 
-          {!isSubscribed ? (
+          {status !== "success" ? (
             <motion.form 
               onSubmit={handleSubmit}
               initial={{ opacity: 0 }}
@@ -52,17 +75,24 @@ export const Newsletter = () => {
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  disabled={status === "loading"}
                   placeholder="TU CORREO ELECTRÓNICO" 
                   className="bg-transparent w-full sm:flex-1 text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em] text-verde-ebano outline-none placeholder:text-verde-ebano/35 py-2 text-center sm:text-left font-medium min-w-0"
                   required
                 />
                 <button 
                   type="submit"
-                  className="flex items-center gap-4 text-[11px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] text-oro-profundo hover:text-verde-ebano transition-colors pb-2 whitespace-nowrap font-bold"
+                  disabled={status === "loading"}
+                  className="flex items-center gap-4 text-[11px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] text-oro-profundo hover:text-verde-ebano transition-colors pb-2 whitespace-nowrap font-bold disabled:opacity-50"
                 >
-                  Suscribirse <ArrowRight size={16} strokeWidth={1} />
+                  {status === "loading" ? "Procesando..." : "Suscribirse"} <ArrowRight size={16} strokeWidth={1} />
                 </button>
               </div>
+              {message && status === "error" && (
+                <p className="text-[11px] text-red-500 uppercase tracking-widest mt-4 text-left leading-relaxed">
+                  {message}
+                </p>
+              )}
               <p className="text-[11px] text-verde-ebano/40 uppercase tracking-widest mt-6 text-left leading-relaxed">
                 Al suscribirte, aceptas nuestra política de privacidad y el tratamiento de tus datos para fines exclusivos de la marca.
               </p>

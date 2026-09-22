@@ -30,7 +30,7 @@ export const MentalStateOverlay = () => {
             onClick={handleDismiss}
             className="absolute top-10 right-10 text-hueso-seda/40 hover:text-oro-antiguo transition-colors uppercase tracking-[0.3em] text-xs flex items-center gap-2"
           >
-            Cerrar [esc]
+            Cerrar
           </button>
 
           {/* Subtle background texture or element */}
@@ -45,16 +45,14 @@ export const MentalStateOverlay = () => {
             transition={{ delay: 0.5, duration: 1 }}
             className="max-w-2xl relative z-10"
           >
-            <span className="text-oro-antiguo text-xs uppercase tracking-[0.5em] mb-8 block">
-              Vínculo Ancestral
-            </span>
+
             
             <h2 className="text-hueso-seda text-4xl md:text-6xl font-display italic mb-12 leading-tight">
-              ¿Deseas continuar tu viaje a través del arte?
+              ENCUENTRA LA JOYA PERFECTA PARA TI…..
             </h2>
             
             <p className="text-hueso-seda/60 text-base md:text-base font-light tracking-widest mb-16 italic max-w-md mx-auto leading-relaxed">
-              Permite que la herencia de Minerva Alcaraz guíe tu búsqueda de la pieza perfecta.
+              Deja que Minerva Alcaraz te acompañe a descubrir una pieza especial.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">

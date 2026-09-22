@@ -65,7 +65,7 @@ export default function PersonalizedPage() {
               Tu Historia en Metales Preciosos
             </h1>
             <p className="text-lg md:text-xl leading-relaxed text-verde-ebano/80 font-light">
-              El servicio Concierge de Minerva Alcaraz permite a nuestros clientes participar en el ritual de diseño. Desde la selección de gemas únicas hasta la conceptualización de formas que capturen momentos irrepetibles.
+              El servicio Concierge de Minerva Alcaraz permite a nuestros clientes participar en la experiencia de diseño. Desde la selección de gemas únicas hasta la conceptualización de formas que capturen momentos irrepetibles.
             </p>
             
             <div className="flex flex-col gap-10 mt-10 border-l-2 border-oro-antiguo pl-10">
@@ -84,7 +84,7 @@ export default function PersonalizedPage() {
                 </div>
                 <div>
                   <h4 className="text-base md:text-base uppercase tracking-widest text-verde-ebano mb-3">Presencial o Digital</h4>
-                  <p className="text-sm md:text-base opacity-60 leading-relaxed uppercase tracking-wider">Disponible en nuestro atelier o vía Zoom.</p>
+                  <p className="text-sm md:text-base opacity-60 leading-relaxed uppercase tracking-wider">DISPONIBLE EN NUESTRO PUNTO DE VENTA O VÍA ZOOM.</p>
                 </div>
               </div>
             </div>

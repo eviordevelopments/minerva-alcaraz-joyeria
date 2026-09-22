@@ -165,7 +165,7 @@ export default function AtelierPage() {
             </div>
             
             <div className="flex flex-col gap-2 md:gap-3">
-              <span className="text-[10px] sm:text-xs uppercase tracking-[0.4em] sm:tracking-[0.8em] text-oro-antiguo">El Santuario Privado</span>
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.4em] sm:tracking-[0.8em] text-oro-antiguo">ACCEDER A TU CUENTA</span>
               <h1 className="text-xl sm:text-3xl md:text-5xl font-display text-hueso-seda leading-tight hero-title-no-hyphens">Atelier Minerva Alcaraz</h1>
             </div>
 

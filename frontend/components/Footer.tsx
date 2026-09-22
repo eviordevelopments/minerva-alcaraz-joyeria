@@ -1,12 +1,46 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Instagram, Linkedin } from "lucide-react";
 import { Newsletter } from "./Newsletter";
 
 export const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    
+    setStatus("loading");
+    setMessage("");
+
+    try {
+      const res = await fetch("/api/newsletter/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setStatus("success");
+        setMessage("¡Suscripción exitosa!");
+        setEmail("");
+      } else {
+        setStatus("error");
+        setMessage(data.error || "Error al suscribirse.");
+      }
+    } catch (err) {
+      setStatus("error");
+      setMessage("Error de conexión.");
+    }
+  };
+
   return (
     <footer className="border-t border-hueso-seda/5">
       <Newsletter />
@@ -25,26 +59,46 @@ export const Footer = () => {
               <div className="flex flex-col gap-8">
                 <div className="flex flex-col gap-4">
                   <p className="text-base opacity-60 font-light leading-loose max-w-sm italic">
-                    &quot;Donde el tiempo se detiene para forjar la belleza eterna. Nuestra cofradía custodia el secreto del metal y la piedra.&quot;
+                    &quot;Donde el tiempo se detiene para forjar la belleza eterna. THE CIRCLE lleva conexión en cada pieza.&quot;
                   </p>
                 </div>
                 
                 {/* Legacy Inline Newsletter */}
                 <div className="flex flex-col gap-5 mt-4">
-                  <h4 className="text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.4em] text-oro-antiguo">Únete a la Herencia</h4>
+                  <h4 className="text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.4em] text-oro-antiguo">FORMA PARTE DE NUESTRO UNIVERSO</h4>
                   <p className="text-xs sm:text-sm opacity-50 font-light leading-relaxed max-w-xs">
                     Recibe invitaciones exclusivas a lanzamientos y rituales privados.
                   </p>
-                  <div className="flex border-b border-hueso-seda/20 pb-3 group max-w-xs transition-colors focus-within:border-oro-antiguo">
-                    <input 
-                      type="email" 
-                      placeholder="TU CORREO ELECTRÓNICO" 
-                      className="bg-transparent flex-1 text-[11px] sm:text-xs uppercase tracking-[0.1em] sm:tracking-widest outline-none placeholder:opacity-20"
-                    />
-                    <button className="text-oro-antiguo hover:translate-x-2 transition-transform">
-                      <ArrowRight size={14} sm-size={16} strokeWidth={1} />
-                    </button>
-                  </div>
+                  
+                  {status === "success" ? (
+                    <div className="text-oro-antiguo text-xs uppercase tracking-widest border border-oro-antiguo/30 p-3 text-center max-w-xs">
+                      ¡Gracias por unirte!
+                    </div>
+                  ) : (
+                    <form onSubmit={handleSubscribe} className="flex flex-col gap-2 max-w-xs">
+                      <div className="flex border-b border-hueso-seda/20 pb-3 group transition-colors focus-within:border-oro-antiguo">
+                        <input 
+                          type="email" 
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          disabled={status === "loading"}
+                          required
+                          placeholder="TU CORREO ELECTRÓNICO" 
+                          className="bg-transparent flex-1 text-[11px] sm:text-xs uppercase tracking-[0.1em] sm:tracking-widest outline-none placeholder:opacity-20"
+                        />
+                        <button 
+                          type="submit" 
+                          disabled={status === "loading"}
+                          className="text-oro-antiguo hover:translate-x-2 transition-transform disabled:opacity-50 disabled:hover:translate-x-0"
+                        >
+                          <ArrowRight size={14} sm-size={16} strokeWidth={1} />
+                        </button>
+                      </div>
+                      {message && status === "error" && (
+                        <p className="text-[10px] text-red-400 opacity-80 mt-1">{message}</p>
+                      )}
+                    </form>
+                  )}
                 </div>
               </div>
             </div>
@@ -92,7 +146,7 @@ export const Footer = () => {
 
           <div className="pt-8 border-t border-hueso-seda/5 flex flex-col md:flex-row justify-between items-center gap-6">
             <p className="text-sm uppercase tracking-[0.3em] opacity-40 font-light text-center md:text-left">
-              Minerva Alcaraz Joyería © 2026 | El Arte de Habitar en la Eternidad
+              MINERVA ALCARAZ JOYERÍA © 2026 | TU ESENCIA HECHA JOYA
             </p>
           </div>
         </div>

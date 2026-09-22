@@ -22,7 +22,7 @@ const ShortPhilosophySection = () => (
         transition={{ duration: 1 }}
         viewport={{ once: true }}
       >
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-display text-verde-ebano mb-6 md:mb-10">Nuestra Filosofía</h2>
+
         <p className="text-base sm:text-lg md:text-2xl lg:text-3xl text-verde-ebano font-sans font-light leading-relaxed max-w-4xl mx-auto uppercase tracking-[0.05em] md:tracking-[0.1em]">
           &ldquo;CREAMOS PARA QUE PUEDAS EXPRESAR LO QUE SIENTES. CADA PIEZA ES UNA FORMA DE AMOR, IDENTIDAD Y CONEXIÓN CON QUIENES MÁS IMPORTAN.&rdquo;
         </p>
@@ -50,8 +50,9 @@ const LongPhilosophySection = () => (
         transition={{ duration: 1 }}
         viewport={{ once: true }}
       >
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-display text-verde-ebano mb-6 md:mb-10 uppercase">NUESTRA FILOSOFÍA</h2>
         <p className="text-base sm:text-lg md:text-2xl lg:text-4xl text-verde-ebano font-sans font-light leading-relaxed max-w-5xl mx-auto uppercase tracking-[0.05em] md:tracking-[0.1em]">
-          &ldquo;CREEMOS QUE LA JOYERÍA ES UNA FORMA ESENCIAL DE CONEXIÓN Y EXPRESIÓN PERSONAL. CADA PIEZA QUE CREAMOS NACE DE UN PROCESO ARTESANAL COMPARTIDO, ELABORADA ENTRE NOSOTROS Y TÚ.&rdquo;
+          &ldquo;CREEMOS QUE LA JOYERÍA ES CONEXIÓN CONTIGO, UNA FORMA DE EXPRESAR TU IDENTIDAD Y CREAR VÍNCULOS CON OTROS. POR ESO, CREAMOS PIEZAS ÚNICAS DE ELABORACIÓN ARTESANAL EN PLATA Y ORO PARA PORTAR TU ESENCIA.&rdquo;
         </p>
         <span className="block mt-8 md:mt-12 text-xs md:text-sm tracking-[0.3em] md:tracking-[0.5em] text-oro-antiguo font-sans uppercase">
           - Minerva Alcaraz
@@ -107,7 +108,7 @@ export default function Home() {
           <span className="text-xs sm:text-base md:text-base uppercase tracking-[0.3em] sm:tracking-[0.6em] text-verde-ebano/60 mb-3 md:mb-4">Catálogo Exclusivo</span>
           <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-display text-verde-ebano mb-4 md:mb-6">Piezas Únicas &amp; Sets</h2>
           <p className="text-base md:text-lg lg:text-xl text-verde-ebano/80 italic font-light max-w-2xl px-2">
-            &ldquo;Descubre nuestra curaduría de objetos preciosos. Cada joya es una obra irrepetible. Adquiérela como pieza individual o completa tu legado con nuestros sets completos diseñados en perfecta armonía.&rdquo;
+            &ldquo;Descubre nuestro universo de piezas únicas. Cada joya es una obra irrepetible. Adquierela como pieza individual o completa tu historia con nuestros sets completos diseñados para acompañarse en perfecta armonía.&rdquo;
           </p>
         </div>
         

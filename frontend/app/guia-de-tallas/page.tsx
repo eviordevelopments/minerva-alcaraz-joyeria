@@ -146,7 +146,6 @@ export default function GuiaDeTallasPage() {
                 />
               </div>
               <div>
-                <span className="text-[11px] uppercase tracking-[0.3em] text-oro-antiguo font-semibold">Diagrama 01</span>
                 <h4 className="text-xl font-display text-verde-ebano">Medida de Diámetro Interior</h4>
                 <p className="text-sm text-verde-ebano/75 mt-2 leading-relaxed max-w-sm">
                   Distancia exacta a través del centro interior del anillo en milímetros.
@@ -164,7 +163,6 @@ export default function GuiaDeTallasPage() {
                 />
               </div>
               <div>
-                <span className="text-[11px] uppercase tracking-[0.3em] text-oro-antiguo font-semibold">Diagrama 02</span>
                 <h4 className="text-xl font-display text-verde-ebano">Medida de Circunferencia del Dedo</h4>
                 <p className="text-sm text-verde-ebano/75 mt-2 leading-relaxed max-w-sm">
                   Perímetro completo alrededor del nudillo o base del dedo en milímetros.

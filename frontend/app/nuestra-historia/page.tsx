@@ -52,12 +52,29 @@ export default function StoryPage() {
         <div className="flex flex-col gap-12">
           <span className="text-oro-antiguo text-xs uppercase tracking-[0.6em]">El Origen</span>
           <h2 className="text-4xl md:text-6xl font-display text-verde-ebano italic">La Materia que Respira</h2>
-          <p className="text-lg md:text-xl text-verde-ebano/80 font-light leading-loose italic">
-            "Mi historia no comienza en un boceto, sino en el murmullo del metal siendo transformado por el fuego en los antiguos talleres de México. Crecí entre el polvo de plata de Taxco y la luz dorada de Zacatecas, aprendiendo que una joya no es un adorno, sino un recipiente de la memoria."
-          </p>
-          <p className="text-base md:text-base text-verde-ebano/70 leading-relaxed font-sans max-w-lg">
-            Para Minerva Alcaraz, la joyería es un ejercicio de arqueología emocional. Cada técnica utilizada —desde la filigrana más delicada hasta el martillado más rudo— es una conversación con las manos de quienes nos precedieron.
-          </p>
+          <div className="flex flex-col gap-6 max-w-xl text-base text-verde-ebano/80 leading-relaxed font-sans font-light">
+            <p className="text-lg md:text-xl text-verde-ebano font-light leading-loose italic mb-2">
+              "MI HISTORIA NO COMENZÓ CON LA CERTEZA DE SER JOYERA, SINO CON EL DESCUBRIMIENTO DE QUE CREAR CON MIS MANOS SE SENTÍA NATURAL EN MÍ."
+            </p>
+            <p>
+              En San Miguel de Allende entendí que la joyería era mi manera de transmutar, que una joya puede ser mucho más que un objeto; es una forma de hablar sin palabras.
+            </p>
+            <p>
+              Han pasado diez años de aprender y experimentar, dando vida a la manera en que observo mí entorno y percibo la belleza: imperfecta, sensible y profundamente conectada con lo esencial.
+            </p>
+            <p>
+              La joyería me concede el honor de trabajar con mis manos un pequeño fragmento de la tierra, sentir su vida a través del metal y las piedras. Porque la tierra guarda historias. Y nuestras manos pueden darles forma.
+            </p>
+            <p>
+              He aprendido que una joya nunca termina cuando sale del taller, comienza cuando encuentra a la persona para quien fue creada. Porque, al final, crear una joya es tocar la historia de alguien y darle un lugar donde perdurar. Ahí es cuando la materia continúa: en un amor, un vínculo, una identidad, un recuerdo o un momento que merece permanecer. Se convierte en algo íntimo, tangible y profundamente personal.
+            </p>
+            <p>
+              Eso es lo que más amo de hacer joyería: transformar la materia con mis manos y después tener el privilegio de verla formar parte de la vida de alguien más.
+            </p>
+            <p>
+              Para mí, cada pieza es un acto de conexión: entre la materia y la emoción; entre lo que la tierra nos ofrece y aquello que llevamos dentro. Es mi manera de hacer tangible lo que sentimos, de celebrar quiénes somos y de dejar una pequeña huella de nuestra historia en el mundo.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -104,10 +121,10 @@ export default function StoryPage() {
         <div className="max-w-4xl mx-auto text-center flex flex-col gap-12">
            <span className="text-oro-antiguo text-xs uppercase tracking-[0.6em]">Nuestra Visión</span>
            <h2 className="text-5xl md:text-7xl font-display text-verde-ebano leading-tight italic">
-             "Crear objetos que el tiempo no pueda borrar, sino enriquecer."
+             "Convertir la esencia en joyas que expresen, conecten y trasciendan"
            </h2>
            <p className="text-base md:text-lg text-verde-ebano/70 font-sans leading-loose max-w-2xl mx-auto">
-             En Minerva Alcaraz no diseñamos para temporadas. Cada pieza nace de un proceso artesanal cuidadoso, elaborada para acompañarte generación tras generación. Trabajamos de la mano con cada cliente para co-crear diseños que reflejen quién eres y conecten con lo que más te importa.
+             En Minerva Alcaraz no diseñamos para temporadas. Cada pieza nace de un proceso artesanal cuidadoso, elaborada para acompañarte en tu historia. Trabajamos piezas únicas para crear diseños que reflejen quién eres y conecten con lo que más te importa.
            </p>
            <div className="mt-8 flex justify-center">
              <div className="w-32 h-[1px] bg-oro-antiguo" />

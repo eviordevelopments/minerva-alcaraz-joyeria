@@ -57,7 +57,9 @@ export const EditableText = ({
     } catch (e) {
       console.error("Failed to save content", e);
       // Revert on failure
-      contentRef.current.innerText = content;
+      if (contentRef.current) {
+        contentRef.current.innerText = content;
+      }
     } finally {
       setIsSaving(false);
     }
@@ -71,7 +73,7 @@ export const EditableText = ({
   };
 
   if (!isEditing) {
-    return <Component className={className} {...rest}>{content}</Component>;
+    return <Component className={className} {...rest} dangerouslySetInnerHTML={{ __html: content }} />;
   }
 
   return (
@@ -84,15 +86,9 @@ export const EditableText = ({
       className={`${className} outline-none transition-all duration-200 
         hover:ring-2 hover:ring-oro-antiguo hover:ring-offset-2 hover:ring-offset-hueso-seda
         focus:ring-2 focus:ring-verde-ebano focus:ring-offset-2 focus:ring-offset-hueso-seda
-        bg-oro-antiguo/10 rounded px-1 cursor-text relative group`}
+        bg-oro-antiguo/10 rounded px-1 cursor-text relative group ${isSaving ? 'animate-pulse ring-2 ring-oro-antiguo' : ''}`}
       {...rest}
-    >
-      {content}
-      
-      {/* Indicador de guardado opcional, pero mejor mantenerlo limpio */}
-      {isSaving && (
-        <span className="absolute -top-3 -right-3 w-2 h-2 rounded-full bg-oro-antiguo animate-ping" />
-      )}
-    </Component>
+      dangerouslySetInnerHTML={{ __html: content }}
+    />
   );
 };

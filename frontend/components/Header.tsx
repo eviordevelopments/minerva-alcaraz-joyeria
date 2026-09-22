@@ -181,6 +181,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
 
           {/* Utility Icons - Right */}
           <div className={`flex gap-4 lg:gap-6 xl:gap-10 items-center ${textColor}`}>
+            <Link href="/nuestra-historia" className="nav-link hidden lg:block">Historia</Link>
             <button 
               onClick={() => setIsSearchOpen(true)}
               className={`${hoverColor} transition-colors hidden sm:block relative group`}
@@ -264,6 +265,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
                 <Link onClick={() => setIsMobileMenuOpen(false)} href="/collections" className="text-2xl font-display text-verde-ebano italic">Colecciones</Link>
                 <Link onClick={() => setIsMobileMenuOpen(false)} href="/atelier" className="text-2xl font-display text-verde-ebano italic">Atelier</Link>
                 <Link onClick={() => setIsMobileMenuOpen(false)} href="/personalized" className="text-2xl font-display text-verde-ebano italic">Concierge</Link>
+                <Link onClick={() => setIsMobileMenuOpen(false)} href="/nuestra-historia" className="text-2xl font-display text-verde-ebano italic">Historia</Link>
               </div>
 
               <div className="flex flex-col gap-4 mt-4">
@@ -313,7 +315,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
             </div>
 
             <div className="mt-auto pt-12 pb-4">
-               <p className="text-[11px] uppercase tracking-[0.3em] text-verde-ebano/40 text-center">Minerva Alcaraz © 2026</p>
+               <p className="text-[11px] uppercase tracking-[0.3em] text-verde-ebano/40 text-center">MINERVA ALCARAZ JOYERÍA © 2026 | TU ESENCIA HECHA JOYA</p>
             </div>
           </motion.div>
         )}
