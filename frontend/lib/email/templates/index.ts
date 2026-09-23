@@ -74,7 +74,7 @@ export function getNewsletterWelcomeTemplate({ email }: { email: string }) {
   const contentHtml = `
     <div style="text-align: center; margin-bottom: 25px;">
       <span style="font-size: 9px; letter-spacing: 0.4em; color: #CBB67B; text-transform: uppercase;">Suscripción Confirmada</span>
-      <h2 style="font-size: 26px; color: #E5DBD6; font-style: italic; font-weight: 300; margin: 10px 0; font-family: 'Cormorant Garamond', Georgia, serif;">Bienvenido a la Herencia</h2>
+      <h2 style="font-size: 26px; color: #E5DBD6; font-style: italic; font-weight: 300; margin: 10px 0; font-family: 'Cormorant Garamond', Georgia, serif;">Bienvenido a THE CIRCLE</h2>
     </div>
 
     <p style="font-size: 14px; line-height: 1.8; color: rgba(229, 219, 214, 0.9); font-weight: 300; font-style: italic; text-align: center; font-family: 'Cormorant Garamond', Georgia, serif; border-left: 2px solid #CBB67B; padding-left: 15px; margin: 20px 0;">
@@ -82,7 +82,7 @@ export function getNewsletterWelcomeTemplate({ email }: { email: string }) {
     </p>
 
     <p style="font-size: 12px; line-height: 1.8; color: rgba(229, 219, 214, 0.85); text-align: center;">
-      Tu correo electrónico (<strong>${email}</strong>) ha sido inscrito en nuestro registro privado de San Miguel de Allende. A partir de hoy, recibirás de primera mano la historia de nuestras piezas cápsula, revelaciones de gemas extraordinarias e invitaciones a rituales de selección.
+      Tu correo electrónico (<strong>${email}</strong>) ha sido inscrito en nuestro registro privado de San Miguel de Allende. A partir de hoy, recibirás de primera mano la historia de nuestras piezas cápsula y revelaciones de gemas extraordinarias.
     </p>
 
     <div style="text-align: center; margin-top: 30px;">
@@ -93,7 +93,7 @@ export function getNewsletterWelcomeTemplate({ email }: { email: string }) {
   `;
 
   return wrapBaseEmailTemplate({
-    title: "🌹 Bienvenido a la Herencia · Minerva Alcaraz ✨",
+    title: "🌹 Bienvenido a THE CIRCLE · Minerva Alcaraz ✨",
     preheader: "Tu acceso privado a piezas exclusivas e historia de orfebrería.",
     contentHtml,
   });

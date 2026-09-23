@@ -103,7 +103,7 @@ export const Newsletter = () => {
               animate={{ opacity: 1, scale: 1 }}
               className="bg-verde-ebano/5 border border-oro-profundo/30 p-12 mt-8 text-center"
             >
-              <h3 className="text-xl font-display text-oro-profundo mb-4 italic">Bienvenido a la Herencia</h3>
+              <h3 className="text-xl font-display text-oro-profundo mb-4 italic">Bienvenido a THE CIRCLE</h3>
               <p className="text-sm text-verde-ebano/85 uppercase tracking-[0.2em]">
                 Un correo de confirmación ha sido enviado a tu estancia digital.
               </p>

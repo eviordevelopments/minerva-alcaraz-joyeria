@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     const emailHtml = getNewsletterWelcomeTemplate({ email });
     await sendEmail({
       to: email,
-      subject: "Bienvenido a la Herencia · Minerva Alcaraz",
+      subject: "Bienvenido a THE CIRCLE · Minerva Alcaraz",
       html: emailHtml,
     });
 
