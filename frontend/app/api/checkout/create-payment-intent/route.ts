@@ -60,6 +60,22 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    let discountCents = 0;
+
+    // Check if it's their first purchase
+    if (userId) {
+      const { data: pastOrders, error: pastOrdersError } = await supabaseAdmin
+        .from("orders")
+        .select("id")
+        .eq("user_id", userId)
+        .in("status", ["paid", "completed", "shipped", "delivered"]);
+        
+      if (!pastOrdersError && (!pastOrders || pastOrders.length === 0)) {
+        // First purchase! Apply 10% discount on the subtotal.
+        discountCents = Math.round(subtotalCents * 0.10);
+      }
+    }
+
     if (subtotalCents === 0) {
       return NextResponse.json({ error: "El total es 0" }, { status: 400 });
     }
@@ -68,8 +84,8 @@ export async function POST(req: NextRequest) {
     // Free shipping for everyone now
     const shippingCents = 0;
     
-    // IVA is 16% on top of the product price ONLY
-    const taxableAmount = subtotalCents;
+    // IVA is 16% on top of the product price ONLY (after discounts are applied)
+    const taxableAmount = subtotalCents - discountCents;
     const taxCents = Math.round(taxableAmount * 0.16);
     
     const totalCents = taxableAmount + taxCents + shippingCents;
@@ -84,6 +100,7 @@ export async function POST(req: NextRequest) {
         status: "pending",
         payment_method: "card",
         subtotal_cents: subtotalCents,
+        discount_cents: discountCents,
         shipping_cents: shippingCents,
         tax_cents: taxCents,
         total_cents: totalCents,
@@ -132,6 +149,7 @@ export async function POST(req: NextRequest) {
       clientSecret: paymentIntent.client_secret,
       breakdown: {
         subtotalCents,
+        discountCents,
         shippingCents,
         taxCents,
         totalCents

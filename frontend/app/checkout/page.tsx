@@ -16,6 +16,7 @@ import { useCartStore } from "../../lib/store/useCartStore";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import StripeCheckoutForm from "../../components/StripeCheckoutForm";
+import { supabase } from "../../lib/supabase";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
@@ -69,11 +70,29 @@ export default function CheckoutPage() {
     if (user?.fullName && !shippingName) setShippingName(user.fullName);
     if (user?.phone && !shippingPhone) setShippingPhone(user.phone);
 
-    // Check first purchase
-    const hasPurchased = localStorage.getItem("minerva-has-purchased");
-    if (!hasPurchased) {
-      setIsFirstPurchase(true);
-    }
+    // Check first purchase securely via DB
+    const checkFirstPurchase = async () => {
+      if (user?.id) {
+        try {
+          const { data, error } = await supabase
+            .from("orders")
+            .select("id")
+            .eq("user_id", user.id)
+            .in("status", ["paid", "completed", "shipped", "delivered"])
+            .limit(1);
+            
+          if (!error) {
+            setIsFirstPurchase(!data || data.length === 0);
+          }
+        } catch(e) {
+          console.error("Error checking first purchase:", e);
+        }
+      } else {
+        // Guests or unauthenticated users don't get the first purchase discount
+        setIsFirstPurchase(false);
+      }
+    };
+    checkFirstPurchase();
   }, [user, shippingEmail, shippingName, shippingPhone]);
 
   const handleGoToPayment = async (e: React.FormEvent) => {
