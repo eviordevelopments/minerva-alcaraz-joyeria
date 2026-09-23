@@ -6,12 +6,18 @@ import { getSiteContent, updateSiteContent } from "../../app/actions/content";
 import { motion } from "framer-motion";
 import { Pencil } from "lucide-react";
 
-interface EditableTextProps extends React.HTMLAttributes<HTMLElement> {
+interface EditableTextProps extends Omit<React.HTMLAttributes<HTMLElement>, 'onAnimationStart'> {
   page: string;
   section: string;
   textKey: string;
   fallback: string;
   as?: any;
+  initial?: any;
+  animate?: any;
+  transition?: any;
+  whileInView?: any;
+  viewport?: any;
+  exit?: any;
 }
 
 export const EditableText = ({
