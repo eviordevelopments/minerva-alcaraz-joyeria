@@ -341,26 +341,59 @@ export const AIConcierge = () => {
         streaming: false,
       };
 
-      setMessages((prev) => [...prev, userMsg]);
+      setMessages((prev) => {
+        const newMessages = [...prev, userMsg];
+        
+        // Asynchronously fetch response from our API Route
+        (async () => {
+          try {
+            // Retain local filtering logic to update recommended products
+            const { filter } = getResponse(trimmed);
+            const filtered = allProducts.filter(filter).slice(0, 6);
+            setRecommended(filtered.length >= 2 ? filtered : allProducts.filter(p => p.featured).slice(0, 6));
+
+            const apiMessages = newMessages.map(m => ({
+              role: m.role,
+              content: m.content
+            }));
+            
+            const res = await fetch("/api/chat", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ messages: apiMessages })
+            });
+            const data = await res.json();
+            
+            let responseText = "El Oráculo Digital está meditando. Por favor, intenta de nuevo.";
+            if (data.choices && data.choices[0] && data.choices[0].message) {
+              responseText = data.choices[0].message.content;
+            }
+
+            const assistantMsg: ChatMessage = {
+              id: `a-${Date.now()}`,
+              role: "assistant",
+              content: responseText,
+              streaming: true,
+            };
+
+            setMessages((prevMsgs) => [...prevMsgs, assistantMsg]);
+          } catch (err) {
+            console.error("Error communicating with AI Concierge:", err);
+            const assistantMsg: ChatMessage = {
+              id: `a-${Date.now()}`,
+              role: "assistant",
+              content: "Hubo un error de conexión con el Oráculo Digital. Por favor, intenta de nuevo.",
+              streaming: true,
+            };
+            setMessages((prevMsgs) => [...prevMsgs, assistantMsg]);
+          } finally {
+            setIsTyping(false);
+          }
+        })();
+
+        return newMessages;
+      });
       setIsTyping(true);
-
-      const delay = 900 + Math.random() * 600;
-      setTimeout(() => {
-        const { text: responseText, filter } = getResponse(trimmed);
-        const filtered = allProducts.filter(filter).slice(0, 6);
-        setRecommended(filtered.length >= 2 ? filtered : allProducts.filter(p => p.featured).slice(0, 6));
-
-        const assistantId = `a-${Date.now()}`;
-        const assistantMsg: ChatMessage = {
-          id: assistantId,
-          role: "assistant",
-          content: responseText,
-          streaming: true,
-        };
-
-        setMessages((prev) => [...prev, assistantMsg]);
-        setIsTyping(false);
-      }, delay);
     },
     [isTyping, allProducts]
   );
