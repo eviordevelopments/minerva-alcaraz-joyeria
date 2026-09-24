@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useAuthStore } from "../lib/store/useAuthStore";
 import { PRODUCTS, type Product } from "../constants/products";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -284,6 +285,7 @@ const SidebarProduct = ({ product, index }: { product: Product; index: number })
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export const AIConcierge = () => {
+  const { user } = useAuthStore();
   const [allProducts, setAllProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -360,13 +362,29 @@ export const AIConcierge = () => {
             const res = await fetch("/api/chat", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ messages: apiMessages })
+              body: JSON.stringify({ 
+                messages: apiMessages,
+                userName: user?.fullName || user?.displayName || ""
+              })
             });
             const data = await res.json();
             
             let responseText = "El Oráculo Digital está meditando. Por favor, intenta de nuevo.";
             if (data.choices && data.choices[0] && data.choices[0].message) {
               responseText = data.choices[0].message.content;
+              
+              // Parse <recommend>ID1, ID2</recommend>
+              const recMatch = responseText.match(/<recommend>(.*?)<\/recommend>/i);
+              if (recMatch) {
+                const ids = recMatch[1].split(",").map((id: string) => id.trim());
+                const recommendedProds = allProducts.filter(p => ids.includes(p.id));
+                if (recommendedProds.length > 0) {
+                  setRecommended(recommendedProds);
+                  setActiveTab("products"); // Switch to products tab if mobile
+                }
+                // Remove the tags from the displayed text
+                responseText = responseText.replace(/<recommend>.*?<\/recommend>/gi, "").trim();
+              }
             }
 
             const assistantMsg: ChatMessage = {
