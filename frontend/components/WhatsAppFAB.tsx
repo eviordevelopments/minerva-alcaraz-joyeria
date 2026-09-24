@@ -15,14 +15,13 @@ export const WhatsAppFAB = () => {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 20, scale: 0.8 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[100000]"
+        className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[100010]"
       >
         <a
           href={WHATSAPP_LINK}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-3 group text-decoration-none"
-          title="Contactar a Minerva Alcaraz vía WhatsApp (+52 462 621 7960)"
         >
           <div className="bg-hueso-seda px-4 py-2 shadow-xl border border-oro-antiguo/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block">
             <span className="text-xs uppercase tracking-widest text-verde-ebano whitespace-nowrap font-medium">
