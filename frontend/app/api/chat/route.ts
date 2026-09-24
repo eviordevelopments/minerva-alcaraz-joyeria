@@ -36,7 +36,7 @@ REGLAS IMPORTANTES:
         "X-Title": "Minerva Alcaraz Joyería"
       },
       body: JSON.stringify({
-        model: "meta-llama/llama-3.1-8b-instruct:free",
+        model: "nvidia/nemotron-3.5-lightning:free",
         messages: openRouterMessages,
       })
     });

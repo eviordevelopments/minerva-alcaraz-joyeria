@@ -6,12 +6,14 @@ import { Header } from "../../../components/Header";
 import { Footer } from "../../../components/Footer";
 import { ProfileSidebar } from "../../../components/ProfileSidebar";
 import { useAuthStore } from "../../../lib/store/useAuthStore";
+import { useAccessibilityStore } from "../../../lib/store/useAccessibilityStore";
 import { supabase } from "../../../lib/supabase";
 import { compressImageIfNeeded } from "@/lib/image-utils";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
-  Camera, Save, Loader2, CheckCircle2, Plus, X, MapPin
+  Camera, Save, Loader2, CheckCircle2, Plus, X, MapPin,
+  Moon, Sun, Type, Contrast, Volume2, VolumeX
 } from "lucide-react";
 
 const COLLECTIONS = ["Amatista","Chai","Escencia","Etérea","Serpientes","Floral","Ecos de la Tierra","Anillos de Piedras","Diseños de Autor","Piezas Únicas"];
@@ -45,6 +47,12 @@ const inputClass = "bg-transparent border-b border-verde-ebano/12 py-2.5 text-ba
 
 export default function CuentaPage() {
   const { user, isAuthenticated, refreshProfile } = useAuthStore();
+  const { 
+    theme, setTheme, 
+    fontSize, setFontSize, 
+    highContrast, setHighContrast, 
+    voiceReader, setVoiceReader 
+  } = useAccessibilityStore();
   const router = useRouter();
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -284,6 +292,70 @@ export default function CuentaPage() {
                   ))}
                 </div>
               </Field>
+            </Section>
+
+            {/* Accessibility Settings */}
+            <Section title="Accesibilidad y Preferencias de Lectura">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Theme Toggle */}
+                <div className="flex items-center justify-between border-b border-verde-ebano/10 pb-4">
+                  <div className="flex items-center gap-3 text-verde-ebano">
+                    {theme === 'dark' ? <Moon size={18} /> : <Sun size={18} />}
+                    <span className="text-[11px] uppercase tracking-widest font-medium">Modo Oscuro</span>
+                  </div>
+                  <button 
+                    onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+                    className={`w-12 h-6 rounded-full flex items-center p-1 transition-colors ${theme === 'dark' ? 'bg-oro-antiguo' : 'bg-verde-ebano/20'}`}
+                  >
+                    <div className={`w-4 h-4 rounded-full bg-white transition-transform ${theme === 'dark' ? 'translate-x-6' : 'translate-x-0'}`} />
+                  </button>
+                </div>
+
+                {/* Font Size Toggle */}
+                <div className="flex items-center justify-between border-b border-verde-ebano/10 pb-4">
+                  <div className="flex items-center gap-3 text-verde-ebano">
+                    <Type size={18} />
+                    <span className="text-[11px] uppercase tracking-widest font-medium">Texto Grande</span>
+                  </div>
+                  <button 
+                    onClick={() => setFontSize(fontSize === 'normal' ? 'large' : 'normal')}
+                    className={`w-12 h-6 rounded-full flex items-center p-1 transition-colors ${fontSize === 'large' ? 'bg-oro-antiguo' : 'bg-verde-ebano/20'}`}
+                  >
+                    <div className={`w-4 h-4 rounded-full bg-white transition-transform ${fontSize === 'large' ? 'translate-x-6' : 'translate-x-0'}`} />
+                  </button>
+                </div>
+
+                {/* High Contrast Toggle */}
+                <div className="flex items-center justify-between border-b border-verde-ebano/10 pb-4">
+                  <div className="flex items-center gap-3 text-verde-ebano">
+                    <Contrast size={18} />
+                    <span className="text-[11px] uppercase tracking-widest font-medium">Alto Contraste</span>
+                  </div>
+                  <button 
+                    onClick={() => setHighContrast(!highContrast)}
+                    className={`w-12 h-6 rounded-full flex items-center p-1 transition-colors ${highContrast ? 'bg-oro-antiguo' : 'bg-verde-ebano/20'}`}
+                  >
+                    <div className={`w-4 h-4 rounded-full bg-white transition-transform ${highContrast ? 'translate-x-6' : 'translate-x-0'}`} />
+                  </button>
+                </div>
+
+                {/* Voice Reader Toggle */}
+                <div className="flex items-center justify-between border-b border-verde-ebano/10 pb-4">
+                  <div className="flex items-center gap-3 text-verde-ebano">
+                    {voiceReader ? <Volume2 size={18} /> : <VolumeX size={18} />}
+                    <div className="flex flex-col">
+                      <span className="text-[11px] uppercase tracking-widest font-medium">Lectura por Voz</span>
+                      <span className="text-[9px] text-verde-ebano/50 tracking-wider">Haz clic en textos para leer</span>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => setVoiceReader(!voiceReader)}
+                    className={`w-12 h-6 rounded-full flex items-center p-1 transition-colors ${voiceReader ? 'bg-oro-antiguo' : 'bg-verde-ebano/20'}`}
+                  >
+                    <div className={`w-4 h-4 rounded-full bg-white transition-transform ${voiceReader ? 'translate-x-6' : 'translate-x-0'}`} />
+                  </button>
+                </div>
+              </div>
             </Section>
 
             {/* Save profile button */}

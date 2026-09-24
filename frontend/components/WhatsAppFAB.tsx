@@ -23,7 +23,7 @@ export const WhatsAppFAB = () => {
           rel="noopener noreferrer"
           className="flex items-center gap-3 group text-decoration-none"
         >
-          <div className="bg-hueso-seda px-4 py-2 shadow-xl border border-oro-antiguo/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block">
+          <div className="bg-hueso-seda px-4 py-2 shadow-xl border border-oro-antiguo/30 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-300 hidden md:block">
             <span className="text-xs uppercase tracking-widest text-verde-ebano whitespace-nowrap font-medium">
               Deseo asesoría experta
             </span>
