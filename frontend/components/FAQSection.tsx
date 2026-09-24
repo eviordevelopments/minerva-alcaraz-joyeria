@@ -139,7 +139,7 @@ export const FAQSection = () => {
         },
         {
           question: "¿Es seguro comprar en línea?",
-          answer: "Absolutamente. Contamos con certificados SSL de alta seguridad y procesamiento de pagos encriptado para garantizar que su privacidad y datos financieros estén siempre protegidos."
+          answer: "Absolutamente. Contamos con certificados SSL de alta seguridad y procesamiento de pagos encriptado para garantizar que tu privacidad y datos financieros estén siempre protegidos."
         }
       ]
     },
@@ -223,8 +223,8 @@ export const FAQSection = () => {
 
         <div className="mt-6 md:mt-8 bg-authority py-5 px-6 sm:py-6 sm:px-8 md:py-7 md:px-12 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-8 shadow-xl border border-oro-antiguo/20 max-w-4xl mx-auto w-full">
           <div className="flex flex-col gap-1.5 text-center sm:text-left">
-            <h4 className="text-lg sm:text-xl md:text-2xl font-display text-oro-antiguo">¿Aún tiene dudas?</h4>
-            <p className="text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.2em] text-hueso-seda/80">Nuestro Concierge Digital está a su disposición</p>
+            <h4 className="text-lg sm:text-xl md:text-2xl font-display text-oro-antiguo">¿Aún tienes dudas?</h4>
+            <p className="text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.2em] text-hueso-seda/80">Nuestro Concierge Digital está a tu disposición</p>
           </div>
           <LuxuryButton 
             variant="gold" 
