@@ -41,7 +41,7 @@ export function WelcomePopup() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="bg-hueso-seda w-full max-w-lg relative overflow-hidden flex flex-col p-8 md:p-12 text-center"
+            className="bg-hueso-seda w-full max-w-lg max-h-[90vh] relative overflow-y-auto flex flex-col p-8 md:p-12 text-center shadow-2xl"
           >
             <button
               onClick={handleClose}

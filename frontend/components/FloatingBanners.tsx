@@ -55,9 +55,9 @@ export const NewsletterBanner = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 16 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-x-4 top-1/2 -translate-y-1/2 z-[201] max-w-4xl mx-auto"
+            className="fixed inset-x-4 top-1/2 -translate-y-1/2 z-[201] max-w-4xl mx-auto max-h-[90vh] overflow-y-auto shadow-2xl"
           >
-            <div className="relative flex flex-col md:flex-row overflow-hidden shadow-2xl border border-verde-ebano/20">
+            <div className="relative flex flex-col md:flex-row overflow-hidden border border-verde-ebano/20">
 
               {/* Close Button */}
               <button
@@ -220,9 +220,9 @@ export const TheCircleBanner = () => {
           animate={{ opacity: 1, x: 0, y: 0 }}
           exit={{ opacity: 0, x: 60 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed bottom-6 right-4 md:right-8 z-[150] w-[calc(100vw-2rem)] max-w-sm"
+          className="fixed bottom-6 right-4 md:right-8 z-[150] w-[calc(100vw-2rem)] max-w-sm max-h-[85vh] overflow-y-auto shadow-2xl"
         >
-          <div className="relative bg-verde-ebano border border-oro-antiguo/20 shadow-2xl overflow-hidden">
+          <div className="relative bg-verde-ebano border border-oro-antiguo/20 overflow-hidden">
 
             {/* Decorative corner accent */}
             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-oro-antiguo to-transparent" />
