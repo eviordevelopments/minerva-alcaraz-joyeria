@@ -21,15 +21,15 @@ export const WhatsAppFAB = () => {
           href={WHATSAPP_LINK}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-3 group text-decoration-none"
+          className="relative block group text-decoration-none"
         >
-          <div className="bg-hueso-seda px-4 py-2 shadow-xl border border-oro-antiguo/30 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-300 hidden md:block">
+          <div className="absolute right-full top-1/2 -translate-y-1/2 mr-3 bg-hueso-seda px-4 py-2 shadow-xl border border-oro-antiguo/30 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 hidden md:block">
             <span className="text-xs uppercase tracking-widest text-verde-ebano whitespace-nowrap font-medium">
               Deseo asesoría experta
             </span>
           </div>
           
-          <div className="w-12 h-12 md:w-16 md:h-16 bg-oro-antiguo text-verde-ebano shadow-2xl flex items-center justify-center rounded-full group-hover:scale-105 transition-transform">
+          <div className="w-12 h-12 md:w-16 md:h-16 bg-oro-antiguo text-verde-ebano shadow-2xl flex items-center justify-center rounded-full group-hover:scale-105 transition-transform relative z-10">
             <MessageCircle className="w-5 h-5 md:w-7 md:h-7" strokeWidth={1.5} />
           </div>
         </a>
