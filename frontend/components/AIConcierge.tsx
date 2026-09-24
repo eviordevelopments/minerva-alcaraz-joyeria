@@ -369,7 +369,7 @@ export const AIConcierge = () => {
             });
             const data = await res.json();
             
-            let responseText = "El Oráculo Digital está meditando. Por favor, intenta de nuevo.";
+            let responseText = "El Concierge Digital está meditando. Por favor, intenta de nuevo.";
             if (data.choices && data.choices[0] && data.choices[0].message) {
               responseText = data.choices[0].message.content;
               
@@ -400,7 +400,7 @@ export const AIConcierge = () => {
             const assistantMsg: ChatMessage = {
               id: `a-${Date.now()}`,
               role: "assistant",
-              content: "Hubo un error de conexión con el Oráculo Digital. Por favor, intenta de nuevo.",
+              content: "Hubo un error de conexión con el Concierge Digital. Por favor, intenta de nuevo.",
               streaming: true,
             };
             setMessages((prevMsgs) => [...prevMsgs, assistantMsg]);

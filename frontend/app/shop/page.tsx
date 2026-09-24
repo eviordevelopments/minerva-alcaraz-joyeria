@@ -183,7 +183,7 @@ function ShopContent() {
                   <div className="relative z-10 flex flex-col gap-3">
                     <Sparkles size={16} className="text-oro-antiguo" />
                     <h4 className="text-sm uppercase tracking-widest font-medium">Filtro Inteligente</h4>
-                    <p className="text-xs font-light leading-relaxed opacity-75">Permita que nuestro Oráculo Digital seleccione la pieza que vibra con su esencia.</p>
+                    <p className="text-xs font-light leading-relaxed opacity-75">Permita que nuestro Concierge Digital seleccione la pieza que vibra con su esencia.</p>
                   </div>
                   <div className="absolute inset-0 bg-oro-antiguo/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
