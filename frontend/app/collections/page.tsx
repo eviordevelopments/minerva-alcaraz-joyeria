@@ -50,7 +50,9 @@ const CollectionCard = ({ title, subtitle, description, image, align = "left", t
         {/* Contenido Narrativo */}
         <div className={`w-full md:w-1/2 flex flex-col justify-center gap-8 p-12 md:p-24 lg:p-32 ${themeStyles.textMain}`}>
           <span className="text-xs md:text-sm uppercase tracking-[0.8em] opacity-60">{subtitle}</span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-8xl font-display leading-tight italic uppercase">{title}</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-display leading-tight italic uppercase break-keep">
+            {title}
+          </h2>
           <p className={`text-base md:text-xl lg:text-2xl leading-loose font-light max-w-xl italic ${themeStyles.textSub}`}>
             &quot;{description}&quot;
           </p>
