@@ -148,7 +148,11 @@ export const FAQSection = () => {
       items: [
         {
           question: "¿Cuál es la política de devoluciones?",
-          answer: "Las piezas pueden ser devueltas en un plazo de 10 días naturales, siempre que conserven sus sellos de seguridad y empaque original. Para piezas personalizadas, consulte nuestros términos específicos."
+          answer: (
+            <span>
+              Las piezas pueden ser devueltas en un plazo de 10 días naturales, siempre que conserven sus sellos de seguridad y empaque original. Para piezas personalizadas, consulte nuestros <a href="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/politica-de-devoluciones.pdf" target="_blank" rel="noopener noreferrer" className="text-oro-antiguo hover:underline">términos de devoluciones</a>.
+            </span>
+          )
         },
         {
           question: "¿HACEN ENVÍOS NACIONALES?",
