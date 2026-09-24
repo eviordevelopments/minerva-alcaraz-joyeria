@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
             // Fetch order and user details
             const { data: orderData } = await supabaseAdmin
               .from("orders")
-              .select("*, profiles(full_name, email)")
+              .select("*, profiles(full_name, email, circle_points, is_circle_member, circle_tier)")
               .eq("id", orderId)
               .single();
 
@@ -75,7 +75,40 @@ export async function POST(req: NextRequest) {
             if (orderData && itemsData) {
               const customerName = orderData.shipping_name || orderData.profiles?.full_name || "Cliente";
               const customerEmail = orderData.shipping_email || orderData.profiles?.email;
-              const totalAmount = orderData.total;
+              const totalAmount = orderData.total_cents ? orderData.total_cents / 100 : orderData.total;
+              
+              // Automatically award points and update THE CIRCLE membership if user is logged in
+              if (orderData.user_id) {
+                const currentPoints = orderData.profiles?.circle_points || 0;
+                let addedPoints = 0;
+                
+                // Add 1000 points if the total purchase is strictly greater than 2000 MXN
+                if (orderData.total_cents > 200000) {
+                  addedPoints = 1000;
+                }
+                
+                const newPoints = currentPoints + addedPoints;
+                
+                // Determine new tier
+                let newTier = orderData.profiles?.circle_tier || "Observer";
+                if (newPoints >= 20000) newTier = "Eternal";
+                else if (newPoints >= 10000) newTier = "Keeper";
+                else if (newPoints >= 3000) newTier = "Devotee";
+                else if (newPoints >= 1000) newTier = "Initiate";
+
+                // They become a member if points >= 1000 or if this is their first purchase
+                // "automaticamente en la primera compra se convierten en miembros THE CIRCLE"
+                const isMember = true; // Always becomes a member on first purchase
+
+                await supabaseAdmin
+                  .from("profiles")
+                  .update({
+                    is_circle_member: isMember,
+                    circle_points: newPoints,
+                    circle_tier: newTier
+                  })
+                  .eq("id", orderData.user_id);
+              }
               
               const formattedItems = itemsData.map((item: any) => ({
                 name: item.products?.name || "Producto",

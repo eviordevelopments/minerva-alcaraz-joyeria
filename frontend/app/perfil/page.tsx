@@ -85,7 +85,6 @@ export default function PerfilPage() {
 
   const [recentOrders, setRecentOrders] = useState<Order[]>([]);
   const [address, setAddress] = useState<Address | null>(null);
-  const [isSimulating, setIsSimulating] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isLoadingSummary, setIsLoadingSummary] = useState(true);
 
@@ -138,85 +137,6 @@ export default function PerfilPage() {
     }
   };
 
-  const handleSimulatePurchase = async () => {
-    if (!user || isSimulating) return;
-    setIsSimulating(true);
-
-    try {
-      const currentPoints = user.circlePoints || 0;
-      const newPoints = currentPoints + 1000;
-
-      let newTier: "Observer" | "Initiate" | "Devotee" | "Keeper" | "Eternal" = "Observer";
-      if (newPoints >= 20000) newTier = "Eternal";
-      else if (newPoints >= 10000) newTier = "Keeper";
-      else if (newPoints >= 3000) newTier = "Devotee";
-      else if (newPoints >= 1000) newTier = "Initiate";
-
-      setToastMessage("Procesando adquisición en el atelier...");
-
-      const { error } = await supabase
-        .from("profiles")
-        .update({
-          circle_points: newPoints,
-          is_circle_member: newPoints >= 1000,
-          circle_tier: newTier,
-        })
-        .eq("id", user.id);
-
-      if (error) throw error;
-
-      const mockOrderNumber = `MA-SIM-${Math.floor(1000 + Math.random() * 9000)}`;
-      const { data: insertedOrder } = await supabase
-        .from("orders")
-        .insert({
-          order_number: mockOrderNumber,
-          user_id: user.id,
-          status: "paid",
-          payment_method: "card",
-          subtotal_cents: 950000,
-          tax_cents: 152000,
-          total_cents: 1102000,
-          currency: "MXN",
-          points_earned: 1000,
-          shipping_name: user.fullName,
-          shipping_street: "Bulevar de las Lomas",
-          shipping_exterior_num: "450",
-          shipping_colonia: "Lomas de Chapultepec",
-          shipping_city: "Ciudad de México",
-          shipping_state: "Ciudad de México",
-          shipping_postal_code: "11000",
-        })
-        .select()
-        .single();
-
-      if (insertedOrder) {
-        await supabase.from("order_items").insert({
-          order_id: insertedOrder.id,
-          product_sku: "MA-SIM-JEWEL",
-          product_name: "Gema del Destino (Simulada)",
-          unit_price_cents: 950000,
-          quantity: 1,
-          subtotal_cents: 950000,
-        });
-      }
-
-      await refreshProfile();
-      await fetchDashboardSummary();
-
-      const wasObserver = currentPoints < 1000;
-      if (wasObserver && newPoints >= 1000) {
-        setToastMessage("¡Bienvenida a THE CIRCLE! Tu legado comienza aquí. (+1,000 pts)");
-      } else {
-        setToastMessage(`Adquisición exitosa (+1,000 pts) · Saldo: ${newPoints.toLocaleString("es-MX")} pts`);
-      }
-    } catch (err) {
-      console.error("Simulation failed:", err);
-      setToastMessage("No se pudo simular la compra. Inténtalo de nuevo.");
-    } finally {
-      setIsSimulating(false);
-      setTimeout(() => setToastMessage(null), 5500);
-    }
-  };
 
   if (!user) return null;
 
@@ -418,48 +338,6 @@ export default function PerfilPage() {
                 </p>
               </div>
 
-              {/* Simulator block */}
-              <div
-                className={`pt-4 border-t flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-5 z-10 ${
-                  isCircleActive ? "border-[#E5DBD6]/10" : "border-[#2C3729]/8"
-                }`}
-              >
-                <div className="flex flex-col gap-1">
-                  <span
-                    className={`text-[10px] uppercase tracking-widest ${
-                      isCircleActive ? "text-[#CBB67B]" : "text-[#2C3729]/40"
-                    }`}
-                  >
-                    Sandbox de Simulación
-                  </span>
-                  <p
-                    className={`text-xs font-light ${
-                      isCircleActive ? "text-[#E5DBD6]/35" : "text-[#2C3729]/35"
-                    }`}
-                  >
-                    Cada compra otorga 1,000 puntos y te promueve en el Círculo.
-                  </p>
-                </div>
-
-                <button
-                  onClick={handleSimulatePurchase}
-                  disabled={isSimulating}
-                  className={`flex-shrink-0 text-[11px] uppercase tracking-[0.4em] px-7 py-3.5 transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 group ${
-                    isCircleActive
-                      ? "bg-[#CBB67B] text-[#2C3729] hover:bg-[#E5DBD6] hover:text-[#2C3729]"
-                      : "bg-[#2C3729] text-[#E5DBD6] hover:bg-[#CBB67B] hover:text-[#2C3729]"
-                  }`}
-                >
-                  {isSimulating ? (
-                    "Procesando..."
-                  ) : (
-                    <>
-                      Simular Adquisición{" "}
-                      <ArrowRight size={10} className="group-hover:translate-x-0.5 transition-transform" />
-                    </>
-                  )}
-                </button>
-              </div>
             </motion.div>
 
             {/* Quick links grid ------------------------------------------ */}
