@@ -167,13 +167,13 @@ function ShopContent() {
                 <FilterGroup title="Materiales" items={materials} active={activeFilters} onToggle={toggleFilter} />
                 
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-sm uppercase tracking-[0.2em] font-medium text-verde-ebano">Preferencias</h3>
+                  <h3 className="text-base uppercase tracking-[0.2em] font-medium text-verde-ebano">Preferencias</h3>
                   <div className="flex flex-col gap-2">
                     {["Piezas Únicas", "Edición Limitada", "Diseño de Autor"].map(p => (
                       <label key={p} className="flex items-center gap-3 cursor-pointer group">
                         <input type="checkbox" className="hidden" checked={activeFilters.includes(p)} onChange={() => toggleFilter(p)} />
                         <div className={`w-3 h-3 border border-verde-ebano/30 transition-all ${activeFilters.includes(p) ? 'bg-oro-antiguo border-oro-antiguo' : 'group-hover:border-verde-ebano'}`} />
-                        <span className={`text-xs uppercase tracking-widest transition-colors ${activeFilters.includes(p) ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{p}</span>
+                        <span className={`text-sm uppercase tracking-widest transition-colors ${activeFilters.includes(p) ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{p}</span>
                       </label>
                     ))}
                   </div>
@@ -182,8 +182,8 @@ function ShopContent() {
                 <div className="mt-8 p-6 bg-verde-ebano text-hueso-seda relative overflow-hidden group cursor-pointer">
                   <div className="relative z-10 flex flex-col gap-3">
                     <Sparkles size={16} className="text-oro-antiguo" />
-                    <h4 className="text-xs uppercase tracking-widest font-medium">Filtro Inteligente</h4>
-                    <p className="text-[11px] font-light leading-relaxed opacity-60">Permita que nuestro Oráculo Digital seleccione la pieza que vibra con su esencia.</p>
+                    <h4 className="text-sm uppercase tracking-widest font-medium">Filtro Inteligente</h4>
+                    <p className="text-xs font-light leading-relaxed opacity-75">Permita que nuestro Oráculo Digital seleccione la pieza que vibra con su esencia.</p>
                   </div>
                   <div className="absolute inset-0 bg-oro-antiguo/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
@@ -281,13 +281,13 @@ function MobileFilterDrawer({
               <FilterGroup title="Materiales" items={materials} active={activeFilters} onToggle={toggleFilter} />
               
               <div className="flex flex-col gap-4">
-                <h3 className="text-sm uppercase tracking-[0.2em] font-medium text-verde-ebano">Categoría Especial</h3>
+                <h3 className="text-base uppercase tracking-[0.2em] font-medium text-verde-ebano">Preferencias</h3>
                 <div className="flex flex-col gap-2">
                   {["Piezas Únicas", "Edición Limitada", "Diseño de Autor"].map(p => (
                     <label key={p} className="flex items-center gap-3 cursor-pointer group">
                       <input type="checkbox" className="hidden" checked={activeFilters.includes(p)} onChange={() => toggleFilter(p)} />
                       <div className={`w-3 h-3 border border-verde-ebano/30 transition-all ${activeFilters.includes(p) ? 'bg-oro-antiguo border-oro-antiguo' : 'group-hover:border-verde-ebano'}`} />
-                      <span className={`text-xs uppercase tracking-widest transition-colors ${activeFilters.includes(p) ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{p}</span>
+                      <span className={`text-sm uppercase tracking-widest transition-colors ${activeFilters.includes(p) ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{p}</span>
                     </label>
                   ))}
                 </div>
@@ -336,7 +336,7 @@ function FilterGroup({ title, items, active, onToggle }: { title: string, items:
         onClick={() => setIsOpen(!isOpen)}
         className="flex justify-between items-center w-full group"
       >
-        <h3 className="text-sm uppercase tracking-[0.2em] font-medium text-verde-ebano">{title}</h3>
+        <h3 className="text-base uppercase tracking-[0.2em] font-medium text-verde-ebano">{title}</h3>
         <ChevronDown size={12} className={`transition-transform duration-300 ${isOpen ? '' : '-rotate-90'}`} />
       </button>
       <AnimatePresence>
@@ -351,7 +351,7 @@ function FilterGroup({ title, items, active, onToggle }: { title: string, items:
               <label key={item} className="flex items-center gap-3 cursor-pointer group">
                 <input type="checkbox" className="hidden" checked={active.includes(item)} onChange={() => onToggle(item)} />
                 <div className={`w-3 h-3 border border-verde-ebano/30 transition-all ${active.includes(item) ? 'bg-oro-antiguo border-oro-antiguo' : 'group-hover:border-verde-ebano'}`} />
-                <span className={`text-xs uppercase tracking-widest transition-colors ${active.includes(item) ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{item}</span>
+                <span className={`text-sm uppercase tracking-widest transition-colors ${active.includes(item) ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{item}</span>
               </label>
             ))}
           </motion.div>
