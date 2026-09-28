@@ -35,7 +35,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
   const { items: favItems } = useFavoritesStore();
 
   const categories = ["Anillos", "Collares", "Pulseras", "Pendientes", "Sets", "Broches"];
-  const collections = ["Chai", "Serpientes", "Escencia", "Etérea", "Floral", "Ecos de la Tierra"];
+  const collections = ["Renacer", "Latidos", "Instinto", "Escencia", "Chai", "Etérea", "Ecos de la Tierra", "Floral"];
 
   useEffect(() => {
     setMounted(true);
@@ -97,7 +97,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
         <div className={`luxury-container flex justify-between items-center relative transition-all duration-700 ${isScrolled ? 'h-16 md:h-20' : 'h-24 md:h-36'}`}>
           
           {/* Mobile Menu Button - Left */}
-          <div className="flex lg:hidden items-center">
+          <div className="flex flex-1 lg:hidden items-center justify-start">
             <button 
               onClick={() => setIsMobileMenuOpen(true)}
               className={`${textColor} p-2 -ml-2`}
@@ -107,7 +107,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
           </div>
 
           {/* Main Navigation - Left (Desktop) */}
-          <nav className={`hidden lg:flex gap-4 xl:gap-10 items-center ${textColor} transition-all duration-700`}>
+          <nav className={`hidden lg:flex flex-1 justify-start gap-4 lg:gap-6 xl:gap-10 items-center ${textColor} transition-all duration-700`}>
             <div className="relative group">
               <Link href="/shop" className="nav-link flex items-center gap-2">
                 Joyas <ChevronDown size={10} className="group-hover:rotate-180 transition-transform" />
@@ -158,7 +158,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
           </nav>
 
           {/* Symmetrical Logo - Center */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <div className="flex-shrink-0 flex justify-center">
             <Link href="/">
               <div className={`relative transition-all duration-700 ease-in-out ${
                 isScrolled
@@ -180,7 +180,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
           </div>
 
           {/* Utility Icons - Right */}
-          <div className={`flex gap-4 lg:gap-6 xl:gap-10 items-center ${textColor}`}>
+          <div className={`flex flex-1 justify-end gap-4 lg:gap-6 xl:gap-10 items-center ${textColor}`}>
             <Link href="/nuestra-historia" className="nav-link hidden lg:block">Historia</Link>
             <button 
               onClick={() => setIsSearchOpen(true)}

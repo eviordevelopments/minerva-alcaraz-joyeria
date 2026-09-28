@@ -210,7 +210,7 @@ FROM (
   ('MA-PIE-001', 'anillo-ritual-de-cristal', 'Anillo Ritual de Cristal',
    'Anillo de gran formato con un cuarzo maestro en bruto. La piedra dicta la forma del metal.',
    'Una pieza para canalizar energía. El cristal es el guardián de la luz.',
-   1150000, 'Piezas Únicas', 'Anillos de Piedras',
+   1150000, 'Piezas Únicas', 'Latidos',
    ARRAY['Plata .925', 'Cuarzo Hialino'],
    'Plata .925', '.925', FALSE, 1,
    ARRAY[
@@ -243,3 +243,22 @@ WHERE category = 'Piezas Únicas' OR stock = 1;
 UPDATE public.products
 SET is_author_design = TRUE
 WHERE collection_name = 'Diseños de Autor';
+
+-- ============================================================
+-- UPDATE: Asignación automática de tallas según categoría
+-- ============================================================
+UPDATE public.products
+SET available_sizes = ARRAY['5', '5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9']
+WHERE category = 'Anillos';
+
+UPDATE public.products
+SET available_sizes = ARRAY['15 cm', '16 cm', '17 cm', '18 cm', '19 cm', '20 cm']
+WHERE category = 'Pulseras';
+
+UPDATE public.products
+SET available_sizes = ARRAY['40 cm', '45 cm', '50 cm', '60 cm']
+WHERE category = 'Collares';
+
+UPDATE public.products
+SET available_sizes = NULL
+WHERE category IN ('Pendientes', 'Sets', 'Broches');

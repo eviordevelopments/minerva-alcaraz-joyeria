@@ -59,41 +59,28 @@ export const BraceletSizeGuideModal: React.FC<BraceletSizeGuideModalProps> = ({
             </div>
 
             <div className="flex flex-col gap-8">
-              {/* Image 1 */}
-              <div className="relative w-full bg-white border border-[#2C3729]/20 shadow-lg p-2 group">
-                <Image
-                  src="/assets/guia-tallas/guia-pulseras-1.png"
-                  alt="Guía de Medida Pulseras 1"
-                  width={900}
-                  height={1200}
-                  className="w-full h-auto object-contain"
-                />
-                <button
-                  onClick={() => setPreviewImage("/assets/guia-tallas/guia-pulseras-1.png")}
-                  className="absolute top-4 right-4 bg-[#2C3729]/80 text-[#E5DBD6] p-2.5 rounded-full backdrop-blur-md opacity-90 hover:opacity-100 transition-opacity"
-                  title="Ampliar pantalla completa"
-                >
-                  <Maximize2 size={16} />
-                </button>
-              </div>
-
-              {/* Image 2 */}
-              <div className="relative w-full bg-white border border-[#2C3729]/20 shadow-lg p-2 group">
-                <Image
-                  src="/assets/guia-tallas/guia-pulseras-2.png"
-                  alt="Guía de Medida Pulseras 2"
-                  width={900}
-                  height={1200}
-                  className="w-full h-auto object-contain"
-                />
-                <button
-                  onClick={() => setPreviewImage("/assets/guia-tallas/guia-pulseras-2.png")}
-                  className="absolute top-4 right-4 bg-[#2C3729]/80 text-[#E5DBD6] p-2.5 rounded-full backdrop-blur-md opacity-90 hover:opacity-100 transition-opacity"
-                  title="Ampliar pantalla completa"
-                >
-                  <Maximize2 size={16} />
-                </button>
-              </div>
+              {[
+                "https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/GUIA%20DE%20MEDIDA%20PULSERAS%20(3).png",
+                "https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/GUIA%20DE%20MEDIDA%20PULSERAS%20(1).png"
+              ].map((src, idx) => (
+                <div key={idx} className="relative w-full group mix-blend-multiply">
+                  <Image
+                    src={src}
+                    alt={`Guía de Medida Pulseras ${idx + 1}`}
+                    width={1200}
+                    height={900}
+                    className="w-full h-auto object-contain"
+                    unoptimized
+                  />
+                  <button
+                    onClick={() => setPreviewImage(src)}
+                    className="absolute top-4 right-4 bg-[#2C3729]/80 text-[#E5DBD6] p-2.5 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity"
+                    title="Ampliar pantalla completa"
+                  >
+                    <Maximize2 size={16} />
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
 

@@ -255,7 +255,7 @@ VALUES
    'https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/ecos-tierra/ANILLO 1.jpg',
    'bone', FALSE, 7),
 
-  ('anillos-de-piedras', 'Anillos de Piedras', 'Anillos de Piedras',
+  ('latidos', 'Latidos', 'Latidos',
    'Cuarzo maestro, piedras en bruto. La naturaleza dicta la forma del metal.',
    'Donde la tierra susurra secretos de eternidad a través del cristal.',
    'https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/anillos-piedras/SMA_MINERVA-7.JPG',

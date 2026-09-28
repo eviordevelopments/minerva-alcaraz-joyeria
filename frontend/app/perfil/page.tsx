@@ -689,10 +689,6 @@ export default function PerfilPage() {
                 />
                 <ul className="flex flex-col gap-3 pt-1">
                   {[
-                    "Estuche rígido forrado en seda hueso",
-                    "Interiores de terciopelo verde ébano",
-                    "Certificado de autenticidad seriado",
-                    "Cinta de cierre con sello lacrado",
                     "Garantía vitalicia para miembros del Círculo",
                   ].map((item) => (
                     <li

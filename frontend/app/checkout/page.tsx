@@ -25,7 +25,7 @@ const stripePromise = loadStripe(
 export default function CheckoutPage() {
   const [step, setStep] = useState<1 | 2>(1);
   const [isFinished, setIsFinished] = useState(false);
-  const { user } = useAuthStore();
+  const { user, isAuthenticated, isLoading: authLoading } = useAuthStore();
   const { items, subtotal, clearCart, updateQuantity, removeItem } = useCartStore();
   const [isFirstPurchase, setIsFirstPurchase] = useState(false);
   
@@ -40,11 +40,11 @@ export default function CheckoutPage() {
     shippingCost = 0;
   }
 
-  const discount = isFirstPurchase ? rawSubtotal * 0.10 : 0;
-  const discountedSubtotal = rawSubtotal - discount;
+  const rawTotal = rawSubtotal + shippingCost;
+  const discount = isFirstPurchase ? rawTotal * 0.10 : 0;
+  const total = rawTotal - discount;
   
   // Totals already include IVA. We just break it down for display.
-  const total = discountedSubtotal + shippingCost;
   const iva = total * 0.16;
   const subtotalSinIva = total * 0.84;
 
@@ -59,10 +59,23 @@ export default function CheckoutPage() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [acceptedPolicy, setAcceptedPolicy] = useState(false);
+  const [saveToProfile, setSaveToProfile] = useState(false);
 
   // When there's a single item with a payment_link — use it directly
   const singlePaymentLink =
     items.length === 1 && items[0].paymentLink ? items[0].paymentLink : null;
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted && !authLoading && !isAuthenticated) {
+      window.location.href = "/auth";
+    }
+  }, [mounted, authLoading, isAuthenticated]);
 
   useEffect(() => {
     // If the user's details load late
@@ -109,6 +122,28 @@ export default function CheckoutPage() {
     }
 
     setIsLoading(true);
+
+    if (user && saveToProfile) {
+      await supabase.from("profiles").update({
+        full_name: shippingName,
+        phone: shippingPhone,
+      }).eq("id", user.id);
+      
+      await supabase.from("addresses").insert({
+        user_id: user.id,
+        recipient_name: shippingName,
+        phone: shippingPhone,
+        street: shippingAddress,
+        exterior_num: "S/N",
+        colonia: "No especificada",
+        municipality: shippingCity,
+        city: shippingCity,
+        state: shippingCity,
+        postal_code: shippingPostal,
+        country: "México",
+        is_default: true,
+      });
+    }
 
     try {
       const res = await fetch("/api/checkout/create-payment-intent", {
@@ -273,7 +308,7 @@ export default function CheckoutPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-7">
                       <div className="col-span-full group">
-                        <label className="text-xs uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
+                        <label className="text-xs uppercase tracking-widest text-verde-ebano/80 mb-2 block group-focus-within:text-oro-antiguo transition-colors">
                           Correo Electrónico *
                         </label>
                         <input
@@ -286,7 +321,7 @@ export default function CheckoutPage() {
                         />
                       </div>
                       <div className="group">
-                        <label className="text-xs uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
+                        <label className="text-xs uppercase tracking-widest text-verde-ebano/80 mb-2 block group-focus-within:text-oro-antiguo transition-colors">
                           Nombre Completo *
                         </label>
                         <input
@@ -299,7 +334,7 @@ export default function CheckoutPage() {
                         />
                       </div>
                       <div className="group">
-                        <label className="text-xs uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
+                        <label className="text-xs uppercase tracking-widest text-verde-ebano/80 mb-2 block group-focus-within:text-oro-antiguo transition-colors">
                           Teléfono de Contacto *
                         </label>
                         <input
@@ -312,7 +347,7 @@ export default function CheckoutPage() {
                         />
                       </div>
                       <div className="col-span-full group">
-                        <label className="text-xs uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
+                        <label className="text-xs uppercase tracking-widest text-verde-ebano/80 mb-2 block group-focus-within:text-oro-antiguo transition-colors">
                           Dirección de Entrega *
                         </label>
                         <input
@@ -325,7 +360,7 @@ export default function CheckoutPage() {
                         />
                       </div>
                       <div className="group">
-                        <label className="text-xs uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
+                        <label className="text-xs uppercase tracking-widest text-verde-ebano/80 mb-2 block group-focus-within:text-oro-antiguo transition-colors">
                           Ciudad / Estado *
                         </label>
                         <input
@@ -338,7 +373,7 @@ export default function CheckoutPage() {
                         />
                       </div>
                       <div className="group">
-                        <label className="text-xs uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
+                        <label className="text-xs uppercase tracking-widest text-verde-ebano/80 mb-2 block group-focus-within:text-oro-antiguo transition-colors">
                           Código Postal *
                         </label>
                         <input
@@ -351,7 +386,7 @@ export default function CheckoutPage() {
                         />
                       </div>
                       <div className="col-span-full group">
-                        <label className="text-xs uppercase tracking-widest text-plata-niebla mb-2 block group-focus-within:text-oro-antiguo transition-colors">
+                        <label className="text-xs uppercase tracking-widest text-verde-ebano/80 mb-2 block group-focus-within:text-oro-antiguo transition-colors">
                           Nota Personalizada / Instrucciones
                         </label>
                         <textarea
@@ -366,6 +401,21 @@ export default function CheckoutPage() {
                   </section>
 
                   <div className="flex flex-col gap-6 pt-4">
+                    {user && (
+                      <div className="flex items-start gap-3 bg-hueso-seda/40 p-4 border border-verde-ebano/10">
+                        <input 
+                          type="checkbox" 
+                          id="saveProfile" 
+                          checked={saveToProfile}
+                          onChange={(e) => setSaveToProfile(e.target.checked)}
+                          className="mt-0.5 accent-oro-antiguo"
+                        />
+                        <label htmlFor="saveProfile" className="text-[11px] uppercase tracking-widest text-verde-ebano/80 leading-relaxed cursor-pointer">
+                          Guardar estos datos de entrega en mi perfil para futuras adquisiciones.
+                        </label>
+                      </div>
+                    )}
+
                     <div className="flex items-start gap-3 bg-hueso-seda/40 p-4 border border-verde-ebano/10">
                       <input 
                         type="checkbox" 
@@ -616,7 +666,7 @@ export default function CheckoutPage() {
           border-color: #CBB67B;
         }
         .checkout-input::placeholder {
-          color: rgba(195, 201, 192, 0.7);
+          color: rgba(44, 55, 41, 0.5);
           font-size: 11px;
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }

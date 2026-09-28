@@ -98,7 +98,7 @@ const CLD = {
     d317:  "v1778295671/minerva_joyeria/products/ecos-tierra/DSCF4317.jpg",   // POST-UPLOAD
     d318:  "v1778295673/minerva_joyeria/products/ecos-tierra/DSCF4318.jpg",   // POST-UPLOAD
   },
-  // ANILLOS DE PIEDRAS — pendiente upload
+  // LATIDOS — pendiente upload
   piedras: {
     s4:   "v1778294411/minerva_joyeria/products/anillos-piedras/SMA_MINERVA-4.jpg",  // POST-UPLOAD
     s5:   "v1778294412/minerva_joyeria/products/anillos-piedras/SMA_MINERVA-5.jpg",  // POST-UPLOAD
@@ -359,7 +359,7 @@ export const PRODUCTS: Product[] = [
     significado: "Nuestra historia está escrita en los estratos del tiempo. Portar esta pieza es portar memoria.",
   },
 
-  // ── ANILLOS DE PIEDRAS ─────────────────────────────────────
+  // ── LATIDOS ─────────────────────────────────────
   {
     id: "pie-anillo-ritual",
     sku: "MA-PIE-001",
@@ -368,7 +368,7 @@ export const PRODUCTS: Product[] = [
     price: 11500,
     currency: "MXN",
     category: "Piezas Únicas",
-    collection: "Anillos de Piedras",
+    collection: "Latidos",
     images: [
       cdn(CLD.piedras.s4),
       cdn(CLD.piedras.s7),

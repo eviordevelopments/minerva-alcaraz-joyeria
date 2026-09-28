@@ -331,23 +331,21 @@ export const RingSizeGuideModal: React.FC<RingSizeGuideModalProps> = ({
 
                 {/* Infografías principales: ancho completo, apiladas */}
                 {[
-                  { src: "/assets/guia-tallas/guia-anillos-1.png", label: "Infografía 01" },
-                  { src: "/assets/guia-tallas/guia-anillos-3.png", label: "Infografía 02" },
-                ].map((item, idx) => (
-                  <div key={idx} className="w-full relative bg-white border border-verde-ebano/20 shadow-md group">
-                    <div className="absolute top-3 left-3 z-10 bg-verde-ebano/70 backdrop-blur-sm px-3 py-1">
-                      <span className="text-[11px] uppercase tracking-[0.3em] text-oro-antiguo">{item.label}</span>
-                    </div>
+                  "https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/GUIA%20DE%20ANILLOS%202.png",
+                  "https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/GUIA%20DE%20ANILLOS%203.png",
+                ].map((src, idx) => (
+                  <div key={idx} className="w-full relative group mix-blend-multiply">
                     <Image
-                      src={item.src}
-                      alt={item.label}
+                      src={src}
+                      alt={`Guía de Anillos ${idx + 1}`}
                       width={1200}
                       height={900}
                       className="w-full h-auto object-contain"
+                      unoptimized
                     />
                     <button
-                      onClick={() => setPreviewImage(item.src)}
-                      className="absolute top-3 right-3 z-10 bg-verde-ebano/80 text-hueso-seda p-2.5 rounded-full backdrop-blur-md opacity-80 group-hover:opacity-100 transition-opacity"
+                      onClick={() => setPreviewImage(src)}
+                      className="absolute top-3 right-3 z-10 bg-verde-ebano/80 text-hueso-seda p-2.5 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity"
                       title="Ampliar en pantalla completa"
                     >
                       <Maximize2 size={16} />

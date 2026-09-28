@@ -38,7 +38,7 @@ CREATE TYPE product_collection AS ENUM (
   'Serpientes',
   'Floral',
   'Ecos de la Tierra',
-  'Anillos de Piedras',
+  'Latidos',
   'Diseños de Autor',
   'Piezas Únicas'
 );

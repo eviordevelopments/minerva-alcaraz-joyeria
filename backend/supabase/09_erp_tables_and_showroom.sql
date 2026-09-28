@@ -15,7 +15,7 @@ BEGIN
     IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'coleccion_joya') THEN
         CREATE TYPE coleccion_joya AS ENUM (
             'Amatista', 'Chai', 'Escencia', 'Diseños de Autor', 'Piezas Únicas', 
-            'Etérea', 'Serpientes', 'Floral', 'Ecos de la Tierra', 'Anillos de Piedras'
+            'Etérea', 'Serpientes', 'Floral', 'Ecos de la Tierra', 'Latidos'
         );
     END IF;
 

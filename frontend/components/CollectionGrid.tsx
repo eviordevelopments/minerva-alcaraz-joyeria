@@ -74,7 +74,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ title, narrative, image
         {/* Narrative Overlay */}
         <div className={`absolute inset-0 ${themeStyles.overlay} opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center p-6 sm:p-10 md:p-12 text-center transition-all duration-700`}>
           <h3 className={`${themeStyles.textMain} text-2xl sm:text-3xl md:text-5xl lg:text-7xl mb-4 md:mb-8 font-display tracking-[0.05em] md:tracking-widest transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700`}>{title}</h3>
-          <p className={`${themeStyles.textSub} text-base md:text-xl lg:text-2xl italic font-light tracking-wide leading-relaxed max-w-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700 delay-100`}>
+          <p className={`${themeStyles.textSub} text-base md:text-xl lg:text-2xl italic !font-light tracking-wide leading-relaxed max-w-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700 delay-100`}>
             &quot;{narrative}&quot;
           </p>
           <div className={`mt-6 md:mt-10 w-16 md:w-24 h-[2px] ${themeStyles.line} transition-transform duration-1000 origin-left scale-x-0 group-hover:scale-x-100 delay-200`} />
@@ -87,29 +87,29 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ title, narrative, image
 export const CollectionGrid = () => {
   const collections: CollectionItemProps[] = [
     {
-      title: "Anillos de Piedras",
-      narrative: "Donde la tierra susurra secretos de eternidad a través del cristal.",
+      title: "Latidos",
+      narrative: "Honramos el corazón que nos acompaña desde el primer instante, el que guarda nuestras emociones, nuestra fuerza y nuestra historia. Cada pieza es un homenaje a la vida que llevamos dentro.",
       imagePath: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/anillos-piedras/SMA_MINERVA-7.JPG",
       size: "large",
       theme: "bone"
     },
     {
       title: "Chai",
-      narrative: "La vitalidad del metal enlazada en el ciclo infinito de la vida.",
+      narrative: "La verdadera fuerza no se presume… se habita.",
       imagePath: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778275627/minerva_joyeria/products/chai/CHAI-18.jpg",
       size: "small",
       theme: "green"
     },
     {
       title: "Etérea",
-      narrative: "Formas que desafían la gravedad, capturando la esencia del viento.",
+      narrative: "Inspirada en la ligereza del alma y la belleza de lo efímero, donde cada joya celebra la libertad de transformarse.",
       imagePath: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva2-3.JPG",
       size: "small",
       theme: "gold"
     },
     {
       title: "Floral",
-      narrative: "La belleza efímera de la naturaleza inmortalizada en oro.",
+      narrative: "Admiramos la belleza de lo delicado, creamos piezas que acompañan con gracia y feminidad.",
       imagePath: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1778280270/minerva_joyeria/products/floral/Coleccio_n_3_3.jpg",
       size: "large",
       theme: "silver"

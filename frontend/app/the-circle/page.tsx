@@ -299,17 +299,17 @@ export default function TheCirclePage() {
               <span className="text-[11px] uppercase tracking-[0.8em] text-oro-antiguo">Servicio</span>
             </div>
             <h2 className="font-display text-hueso-seda text-3xl md:text-5xl uppercase leading-tight">
-              Su Concierge<br />Dedicado
+              Tu Concierge<br />Dedicado
             </h2>
             <p className="text-hueso-seda/60 text-base md:text-lg font-light leading-loose text-justify">
-              No un bot. No una línea de atención. Una persona que conoce sus preferencias, su historial y su visión estética. Disponible para resolver consultas, organizar visitas al atelier, agendar co-creaciones y coordinar cada detalle de su experiencia.
+              No soy un bot ni una línea de atención. Soy una persona que conoce tus preferencias, tu historial y tu visión estética. Estoy a tu entera disposición para resolver tus consultas, organizar tus visitas al atelier, agendar tus co-creaciones y coordinar cada detalle de tu experiencia.
             </p>
             <div className="flex flex-col gap-4">
               {[
-                "Respuesta en menos de 4 horas en días hábiles",
-                "Comunicación directa por WhatsApp o correo dedicado",
-                "Acompañamiento en el proceso de co-creación",
-                "Coordinación de envíos y mantenimiento de piezas",
+                "Responderé a tus mensajes en menos de 4 horas en días hábiles",
+                "Me comunicaré directamente contigo por WhatsApp o correo",
+                "Te acompañaré en cada paso del proceso de co-creación",
+                "Coordinaré personalmente tus envíos y el mantenimiento de tus joyas",
               ].map((item) => (
                 <div key={item} className="flex items-start gap-3">
                   <div className="w-1 h-1 bg-oro-antiguo mt-2 flex-shrink-0" />

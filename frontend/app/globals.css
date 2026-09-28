@@ -310,22 +310,7 @@ h1, h2, h3, h4, h5, h6, .font-display {
   }
 }
 
-/* 
-   LEGACY OVERRIDE: FORCE BOLD ON BRAND COLORS
-   Targets gold and light gray texts to ensure readability 
-   even in small sizes. Excludes h1-h6 to avoid visual fatigue.
-*/
-.text-oro-antiguo, 
-.text-oro-profundo, 
-.text-plata-niebla,
-.text-hueso-seda,
-.text-hueso-seda\/60,
-.text-hueso-seda\/40,
-.text-hueso-seda\/30,
-.text-verde-ebano\/60,
-.text-verde-ebano\/70 {
-  font-weight: 700 !important;
-}
+
 
 /* Cache Bust: 2026-05-15-T01:08 */
 
@@ -490,4 +475,48 @@ body.theme-dark [style*="background-image"] {
 
 html.text-large {
   font-size: 115% !important;
+}
+@layer base {
+  p:not(:is([class*="text-center"] *)):not([class*="text-center"]) {
+    text-align: justify;
+  }
+}
+
+@layer utilities {
+  .text-left { text-align: justify !important; }
+  
+  @media (min-width: 640px) {
+    .sm\:text-left { text-align: justify !important; }
+  }
+  @media (min-width: 768px) {
+    .md\:text-left { text-align: justify !important; }
+  }
+  @media (min-width: 1024px) {
+    .lg\:text-left { text-align: justify !important; }
+  }
+  @media (min-width: 1280px) {
+    .xl\:text-left { text-align: justify !important; }
+  }
+
+  .text-right { text-align: justify !important; }
+  
+  @media (min-width: 640px) {
+    .sm\:text-right { text-align: justify !important; }
+  }
+  @media (min-width: 768px) {
+    .md\:text-right { text-align: justify !important; }
+  }
+  @media (min-width: 1024px) {
+    .lg\:text-right { text-align: justify !important; }
+  }
+  @media (min-width: 1280px) {
+    .xl\:text-right { text-align: justify !important; }
+  }
+
+  th.text-left, td.text-left, table .text-left {
+    text-align: left !important;
+  }
+  th.text-right, td.text-right, table .text-right {
+    text-align: right !important;
+  }
 }

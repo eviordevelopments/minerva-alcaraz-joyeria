@@ -62,18 +62,18 @@ export const NecklaceSizeGuideModal: React.FC<NecklaceSizeGuideModalProps> = ({
             </div>
 
             <div className="flex flex-col gap-8">
-              {/* Image 1 */}
-              <div className="relative w-full bg-white border border-[#2C3729]/20 shadow-lg p-2 group">
+              <div className="relative w-full group mix-blend-multiply">
                 <Image
-                  src="/assets/guia-tallas/medida-collares.png"
+                  src="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/MEDIDA%20COLLARES%20MUJER%20(1).png"
                   alt="Guía de Medida Collares"
-                  width={900}
-                  height={1200}
+                  width={1200}
+                  height={900}
                   className="w-full h-auto object-contain"
+                  unoptimized
                 />
                 <button
-                  onClick={() => setPreviewImage("/assets/guia-tallas/medida-collares.png")}
-                  className="absolute top-4 right-4 bg-[#2C3729]/80 text-[#E5DBD6] p-2.5 rounded-full backdrop-blur-md opacity-90 hover:opacity-100 transition-opacity"
+                  onClick={() => setPreviewImage("https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/MEDIDA%20COLLARES%20MUJER%20(1).png")}
+                  className="absolute top-4 right-4 bg-[#2C3729]/80 text-[#E5DBD6] p-2.5 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity"
                   title="Ampliar pantalla completa"
                 >
                   <Maximize2 size={16} />

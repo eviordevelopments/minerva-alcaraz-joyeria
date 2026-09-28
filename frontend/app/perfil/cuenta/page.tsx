@@ -16,7 +16,7 @@ import {
   Moon, Sun, Type, Contrast, Volume2, VolumeX
 } from "lucide-react";
 
-const COLLECTIONS = ["Chai","Escencia","Etérea","Serpientes","Floral","Ecos de la Tierra","Anillos de Piedras","Diseños de Autor","Piezas Únicas"];
+const COLLECTIONS = ["Chai","Escencia","Etérea","Serpientes","Floral","Ecos de la Tierra","Latidos","Diseños de Autor","Piezas Únicas"];
 const MATERIALS = ["Plata .925","Plata .950","Oro 14k","Oro 18k","Oro Blanco 14k","Baño de Oro 24k"];
 const RING_SIZES = ["5","5.5","6","6.5","7","7.5","8","8.5","9","9.5","10"];
 const BRACELET_SIZES = ["XS (14cm)","S (16cm)","M (17cm)","L (18cm)","XL (19cm)"];
