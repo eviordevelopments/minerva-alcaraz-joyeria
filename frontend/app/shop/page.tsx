@@ -46,11 +46,9 @@ function ShopContent() {
     const filters: string[] = [];
     if (initialCollection) filters.push(initialCollection);
     if (initialCategory) filters.push(initialCategory);
+    
     if (filters.length > 0) {
-      setActiveFilters(prev => {
-        const newFilters = [...new Set([...prev, ...filters])];
-        return newFilters;
-      });
+      setActiveFilters(filters);
     }
   }, [initialCollection, initialCategory]);
 

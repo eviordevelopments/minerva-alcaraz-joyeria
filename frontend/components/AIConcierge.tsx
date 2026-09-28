@@ -99,12 +99,7 @@ const KB: KBEntry[] = [
       "La colección Etérea traduce lo ligero y delicado en formas únicas. Perfecta para quienes buscan presencia suave pero poderosa:",
     filter: (p) => p.collection === "Etérea",
   },
-  {
-    pattern: /amatista/i,
-    response:
-      "La colección Amatista incorpora esta piedra natural en piezas diseñadas para transmitir calma y claridad:",
-    filter: (p) => p.collection === "Amatista",
-  },
+
   {
     pattern: /chai/i,
     response:

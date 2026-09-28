@@ -17,7 +17,7 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
   const [query, setQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("Todo");
 
-  const filters = ["Todo", "Piezas Únicas", "Sets", "Anillos", "Collares", "Amatista", "Chai"];
+  const filters = ["Todo", "Piezas Únicas", "Sets", "Anillos", "Collares", "Chai"];
 
   const [products, setProducts] = useState<any[]>([]);
 

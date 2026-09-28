@@ -31,6 +31,33 @@ interface AuthState {
   refreshProfile: () => Promise<void>;
 }
 
+import { createJSONStorage, StateStorage } from 'zustand/middleware';
+
+const consentAwareStorage: StateStorage = {
+  getItem: (name) => {
+    // Try sessionStorage first, fallback to localStorage
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem(name) || localStorage.getItem(name);
+    }
+    return null;
+  },
+  setItem: (name, value) => {
+    if (typeof window !== 'undefined') {
+      if (localStorage.getItem('cookiesAccepted') === 'true') {
+        localStorage.setItem(name, value);
+      } else {
+        sessionStorage.setItem(name, value);
+      }
+    }
+  },
+  removeItem: (name) => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(name);
+      sessionStorage.removeItem(name);
+    }
+  },
+};
+
 export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
@@ -45,9 +72,10 @@ export const useAuthStore = create<AuthState>()(
         await supabase.auth.signOut();
         // Clear in-memory state
         set({ user: null, isAuthenticated: false });
-        // Clear persisted localStorage so stale data isn't rehydrated on next load
+        // Clear persisted storage so stale data isn't rehydrated
         if (typeof window !== 'undefined') {
           localStorage.removeItem('minerva-auth-storage');
+          sessionStorage.removeItem('minerva-auth-storage');
         }
       },
 
@@ -85,6 +113,9 @@ export const useAuthStore = create<AuthState>()(
         }
       },
     }),
-    { name: 'minerva-auth-storage' }
+    { 
+      name: 'minerva-auth-storage',
+      storage: createJSONStorage(() => consentAwareStorage)
+    }
   )
 );

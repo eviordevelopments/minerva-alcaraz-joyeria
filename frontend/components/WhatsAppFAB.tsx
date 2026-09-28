@@ -4,7 +4,7 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
-export const WHATSAPP_PHONE = "524626217960";
+export const WHATSAPP_PHONE = "524623327546";
 export const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_PHONE}?text=Hola%20Minerva%20Alcaraz,%20deseo%20asesor%C3%ADa%20personalizada%20sobre%20las%20piezas%20de%20alta%20joyer%C3%ADa.`;
 
 export const WhatsAppFAB = () => {

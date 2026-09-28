@@ -54,7 +54,7 @@ interface AdminProduct {
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const CATEGORIAS = ["Anillos", "Collares", "Pendientes", "Piezas Únicas", "Sets", "Pulseras", "Edición Limitada", "Broches"];
-const COLECCIONES = ["Amatista", "Chai", "Escencia", "Diseños de Autor", "Piezas Únicas", "Etérea", "Serpientes", "Floral", "Ecos de la Tierra", "Anillos de Piedras"];
+const COLECCIONES = ["Chai", "Escencia", "Diseños de Autor", "Piezas Únicas", "Etérea", "Serpientes", "Floral", "Ecos de la Tierra", "Anillos de Piedras"];
 const MATERIALES = [
   "Plata .925", "Amatista Natural", "Baño de Oro 24k", "Oro 14k", "Rubíes",
   "Detalles en Oro 14k", "Oro Amarillo 18k", "Texturizado a mano", "Plata Ley .950",

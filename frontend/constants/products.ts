@@ -36,13 +36,7 @@ const cdn = (path: string, w = 800) =>
 
 // ─── Colecciones con timestamps verificados (200 OK) ──────
 const CLD = {
-  // AMATISTA ─ v1778280176..177..174..175
-  amatista: {
-    c1_4: "v1778280176/minerva_joyeria/products/amatista/Coleccio_n_1_4.jpg",
-    c1_5: "v1778280177/minerva_joyeria/products/amatista/Coleccio_n_1_5.jpg",
-    c1_1: "v1778280174/minerva_joyeria/products/amatista/Coleccio_n_1_1.jpg",
-    c1_2: "v1778280175/minerva_joyeria/products/amatista/Coleccio_n_1_2.jpg",
-  },
+
   // CHAI ─ v1778275655..629..631..627..646..648..649
   chai: {
     main:  "v1778275655/minerva_joyeria/products/chai/CHAI.jpg",
@@ -113,30 +107,6 @@ const CLD = {
 };
 
 export const PRODUCTS: Product[] = [
-  // ── AMATISTA ──────────────────────────────────────────────
-  {
-    id: "amatista-luz-01",
-    sku: "MA-AMA-001",
-    name: "Anillo Amatista de Luz",
-    description: "Una pieza que captura la esencia de la transmutación. Amatista tallada a mano con montura en plata .925 envejecida.",
-    price: 3800,
-    currency: "MXN",
-    category: "Anillos",
-    collection: "Amatista",
-    images: [
-      cdn(CLD.amatista.c1_4),
-      cdn(CLD.amatista.c1_5),
-      cdn(CLD.amatista.c1_1),
-      cdn(CLD.amatista.c1_2),
-    ],
-    materials: ["Plata .925", "Amatista Natural"],
-    stock: 5,
-    featured: true,
-    significado: "La amatista es la piedra de la sabiduría y la transmutación, permitiendo que el portador conecte con su paz interior.",
-    occasions: ["Gala", "Ritual", "Meditación"],
-    outfits: ["Seda Cruda", "Lino Blanco"],
-    tags: ["Atelier"],
-  },
 
   // ── CHAI ───────────────────────────────────────────────────
   {

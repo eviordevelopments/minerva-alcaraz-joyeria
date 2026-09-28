@@ -35,7 +35,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
   const { items: favItems } = useFavoritesStore();
 
   const categories = ["Anillos", "Collares", "Pulseras", "Pendientes", "Sets", "Broches"];
-  const collections = ["Amatista", "Chai", "Serpientes", "Escencia", "Etérea", "Floral", "Ecos de la Tierra"];
+  const collections = ["Chai", "Serpientes", "Escencia", "Etérea", "Floral", "Ecos de la Tierra"];
 
   useEffect(() => {
     setMounted(true);

@@ -20,7 +20,7 @@ export const HaulCarousel: React.FC = () => {
         if (res.ok) {
           const { products } = await res.json();
           const items = (products || [])
-            .filter((p: Product) => p.featured || ["Amatista", "Chai", "Escencia", "Diseños de Autor", "Etérea", "Serpientes"].includes(p.collection))
+            .filter((p: Product) => p.featured || ["Chai", "Escencia", "Diseños de Autor", "Etérea", "Serpientes"].includes(p.collection))
             .slice(0, 6);
           setHaulItems(items);
         }
