@@ -89,7 +89,7 @@ export default function CollectionsPage() {
       title: "Latidos",
       subtitle: "Pulso de Vida",
       description: "Honramos el corazón que nos acompaña desde el primer instante, el que guarda nuestras emociones, nuestra fuerza y nuestra historia. Cada pieza es un homenaje a la vida que llevamos dentro.",
-      image: "https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/product-images/products/1789394446618-qbhcjc.jpg",
+      image: "/assets/colecciones/latidos-minerva.jpg",
       theme: "gold" as const
     },
     {
