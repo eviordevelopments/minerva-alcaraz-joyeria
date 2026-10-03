@@ -687,25 +687,7 @@ export default function PerfilPage() {
                     isCircleActive ? "border-[#CBB67B]/15" : "border-[#2C3729]/8"
                   }`}
                 />
-                <ul className="flex flex-col gap-3 pt-1">
-                  {[
-                    "Garantía vitalicia para miembros del Círculo",
-                  ].map((item) => (
-                    <li
-                      key={item}
-                      className={`flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] ${
-                        isCircleActive ? "text-[#E5DBD6]/55" : "text-[#2C3729]/55"
-                      }`}
-                    >
-                      <span
-                        className={`w-4 h-[1px] flex-shrink-0 ${
-                          isCircleActive ? "bg-[#CBB67B]" : "bg-[#CBB67B]"
-                        }`}
-                      />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+
               </div>
             </motion.div>
 

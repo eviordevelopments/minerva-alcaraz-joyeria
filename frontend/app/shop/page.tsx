@@ -53,9 +53,14 @@ function ShopContent() {
   }, [initialCollection, initialCategory]);
 
   const toggleFilter = (filter: string) => {
-    setActiveFilters(prev =>
-      prev.includes(filter) ? prev.filter(f => f !== filter) : [...prev, filter]
-    );
+    setActiveFilters(prev => {
+      const isCurrentlyActive = prev.some(f => f.toLowerCase() === filter.toLowerCase());
+      if (isCurrentlyActive) {
+        return prev.filter(f => f.toLowerCase() !== filter.toLowerCase());
+      } else {
+        return [...prev, filter];
+      }
+    });
   };
 
   // Products loaded dynamically from /api/products (excludes deleted products)
@@ -67,12 +72,16 @@ function ShopContent() {
   const materials   = Array.from(new Set(allProducts.flatMap(p => p.materials)));
 
   // Filter logic
+  const normalizedFilters = activeFilters.map(f => f.toLowerCase());
   let filteredProducts = allProducts.filter(p => {
-    if (activeFilters.length === 0) return true;
+    if (normalizedFilters.length === 0) return true;
     return (
-      activeFilters.includes(p.collection) ||
-      activeFilters.includes(p.category) ||
-      p.materials.some(m => activeFilters.includes(m))
+      normalizedFilters.includes((p.collection || "").toLowerCase()) ||
+      normalizedFilters.includes((p.category || "").toLowerCase()) ||
+      (p.materials || []).some(m => normalizedFilters.includes((m || "").toLowerCase())) ||
+      (normalizedFilters.includes("piezas únicas") && p.is_unique_piece) ||
+      (normalizedFilters.includes("edición limitada") && p.is_limited_edition) ||
+      (normalizedFilters.includes("diseño de autor") && p.is_author_design)
     );
   });
 
@@ -167,13 +176,16 @@ function ShopContent() {
                 <div className="flex flex-col gap-4">
                   <h3 className="text-base uppercase tracking-[0.2em] font-medium text-verde-ebano">Preferencias</h3>
                   <div className="flex flex-col gap-2">
-                    {["Piezas Únicas", "Edición Limitada", "Diseño de Autor"].map(p => (
-                      <label key={p} className="flex items-center gap-3 cursor-pointer group">
-                        <input type="checkbox" className="hidden" checked={activeFilters.includes(p)} onChange={() => toggleFilter(p)} />
-                        <div className={`w-3 h-3 border border-verde-ebano/30 transition-all ${activeFilters.includes(p) ? 'bg-oro-antiguo border-oro-antiguo' : 'group-hover:border-verde-ebano'}`} />
-                        <span className={`text-sm uppercase tracking-widest transition-colors ${activeFilters.includes(p) ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{p}</span>
-                      </label>
-                    ))}
+                    {["Piezas Únicas", "Edición Limitada", "Diseño de Autor"].map(p => {
+                      const isActive = activeFilters.some(a => a.toLowerCase() === p.toLowerCase());
+                      return (
+                        <label key={p} className="flex items-center gap-3 cursor-pointer group">
+                          <input type="checkbox" className="hidden" checked={isActive} onChange={() => toggleFilter(p)} />
+                          <div className={`w-3 h-3 border border-verde-ebano/30 transition-all ${isActive ? 'bg-oro-antiguo border-oro-antiguo' : 'group-hover:border-verde-ebano'}`} />
+                          <span className={`text-sm uppercase tracking-widest transition-colors ${isActive ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{p}</span>
+                        </label>
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -281,13 +293,16 @@ function MobileFilterDrawer({
               <div className="flex flex-col gap-4">
                 <h3 className="text-base uppercase tracking-[0.2em] font-medium text-verde-ebano">Preferencias</h3>
                 <div className="flex flex-col gap-2">
-                  {["Piezas Únicas", "Edición Limitada", "Diseño de Autor"].map(p => (
-                    <label key={p} className="flex items-center gap-3 cursor-pointer group">
-                      <input type="checkbox" className="hidden" checked={activeFilters.includes(p)} onChange={() => toggleFilter(p)} />
-                      <div className={`w-3 h-3 border border-verde-ebano/30 transition-all ${activeFilters.includes(p) ? 'bg-oro-antiguo border-oro-antiguo' : 'group-hover:border-verde-ebano'}`} />
-                      <span className={`text-sm uppercase tracking-widest transition-colors ${activeFilters.includes(p) ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{p}</span>
-                    </label>
-                  ))}
+                  {["Piezas Únicas", "Edición Limitada", "Diseño de Autor"].map(p => {
+                    const isActive = activeFilters.some(a => a.toLowerCase() === p.toLowerCase());
+                    return (
+                      <label key={p} className="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" className="hidden" checked={isActive} onChange={() => toggleFilter(p)} />
+                        <div className={`w-3 h-3 border border-verde-ebano/30 transition-all ${isActive ? 'bg-oro-antiguo border-oro-antiguo' : 'group-hover:border-verde-ebano'}`} />
+                        <span className={`text-sm uppercase tracking-widest transition-colors ${isActive ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{p}</span>
+                      </label>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -345,13 +360,16 @@ function FilterGroup({ title, items, active, onToggle }: { title: string, items:
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden flex flex-col gap-2"
           >
-            {items.map(item => (
-              <label key={item} className="flex items-center gap-3 cursor-pointer group">
-                <input type="checkbox" className="hidden" checked={active.includes(item)} onChange={() => onToggle(item)} />
-                <div className={`w-3 h-3 border border-verde-ebano/30 transition-all ${active.includes(item) ? 'bg-oro-antiguo border-oro-antiguo' : 'group-hover:border-verde-ebano'}`} />
-                <span className={`text-sm uppercase tracking-widest transition-colors ${active.includes(item) ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{item}</span>
-              </label>
-            ))}
+            {items.map(item => {
+              const isActive = active.some(a => a.toLowerCase() === item.toLowerCase());
+              return (
+                <label key={item} className="flex items-center gap-3 cursor-pointer group">
+                  <input type="checkbox" className="hidden" checked={isActive} onChange={() => onToggle(item)} />
+                  <div className={`w-3 h-3 border border-verde-ebano/30 transition-all ${isActive ? 'bg-oro-antiguo border-oro-antiguo' : 'group-hover:border-verde-ebano'}`} />
+                  <span className={`text-sm uppercase tracking-widest transition-colors ${isActive ? 'text-verde-ebano' : 'text-verde-ebano/50'}`}>{item}</span>
+                </label>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>

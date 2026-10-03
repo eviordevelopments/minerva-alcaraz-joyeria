@@ -282,7 +282,6 @@ export default function GuiaDeTallasPage() {
 
           <div className="flex flex-col gap-12">
             {[
-              "https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/GUIA%20DE%20MEDIDA%20PULSERAS%20(3).png",
               "https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/GUIA%20DE%20MEDIDA%20PULSERAS%20(1).png"
             ].map((src, idx) => (
               <div key={idx} className="relative w-full group mix-blend-multiply flex justify-center">

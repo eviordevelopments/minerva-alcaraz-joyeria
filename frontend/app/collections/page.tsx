@@ -81,7 +81,7 @@ export default function CollectionsPage() {
       title: "Renacer",
       subtitle: "Nueva Colección",
       description: "Inspirada en la belleza que emerge después de cada transformación.",
-      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/anillos-piedras/SMA_MINERVA-5.JPG",
+      image: "/assets/colecciones/renacer-modelo.jpg",
       align: "right" as const,
       theme: "green" as const
     },
@@ -89,7 +89,7 @@ export default function CollectionsPage() {
       title: "Latidos",
       subtitle: "Pulso de Vida",
       description: "Honramos el corazón que nos acompaña desde el primer instante, el que guarda nuestras emociones, nuestra fuerza y nuestra historia. Cada pieza es un homenaje a la vida que llevamos dentro.",
-      image: "https://res.cloudinary.com/dlsc3ova5/image/upload/f_auto,q_auto/v1/minerva_joyeria/products/eterea/Minerva2-10.JPG",
+      image: "https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/product-images/products/1789394446618-qbhcjc.jpg",
       theme: "gold" as const
     },
     {
@@ -172,7 +172,7 @@ export default function CollectionsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-5xl md:text-6xl lg:text-7xl xl:text-9xl font-display text-verde-ebano uppercase"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-9xl font-display text-verde-ebano uppercase"
           />
           <EditableText 
             as="p"

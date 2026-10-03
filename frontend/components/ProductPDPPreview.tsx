@@ -541,10 +541,8 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { icon: Box, title: "Empaque de Lujo", desc: "Estuche rígido forrado en seda hueso con interiores de terciopelo verde." },
                 { icon: ClipboardCheck, title: "Certificado", desc: "Documento seriado que avala el material, quilataje y carácter único." },
                 { icon: Truck, title: "Envíos Asegurados", desc: "Logística de alta seguridad con rastreo en tiempo real." },
-                { icon: ShieldCheck, title: "Garantía Vitalicia", desc: "Mantenimiento anual incluido para miembros de The Circle." },
               ].map(({ icon: Icon, title, desc }) => (
                 <div
                   key={title}
@@ -554,7 +552,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
                   <h3 className="text-xs uppercase tracking-widest text-[#2C3729] font-medium">
                     {title}
                   </h3>
-                  <p className="text-sm text-[#C3C9C0] leading-relaxed font-light">{desc}</p>
+                  <p className="text-sm text-[#2C3729] leading-relaxed font-light">{desc}</p>
                 </div>
               ))}
             </div>
@@ -582,7 +580,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
               El Ritual del Atuendo
             </h2>
             <p className="text-base font-light text-[#E5DBD6]/65 leading-relaxed max-w-md">
-              Nuestro curador ha analizado la caída de la luz sobre el metal y sugiere portar
+              Nuestro concierge ha analizado la caída de la luz sobre el metal y sugiere portar
               esta pieza con texturas orgánicas. Ideal para un vestido de seda cruda o un traje
               de lino minimalista.
             </p>

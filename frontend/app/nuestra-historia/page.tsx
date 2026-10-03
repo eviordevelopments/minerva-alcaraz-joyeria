@@ -120,7 +120,7 @@ export default function StoryPage() {
       <section className="py-48 luxury-container">
         <div className="max-w-4xl mx-auto text-center flex flex-col gap-12">
            <span className="text-oro-antiguo text-xs uppercase tracking-[0.6em]">Nuestra Visión</span>
-           <h2 className="text-5xl md:text-7xl font-display text-verde-ebano leading-tight italic">
+           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-verde-ebano leading-tight italic break-keep">
              "Convertir la esencia en joyas que expresen, conecten y trasciendan"
            </h2>
            <p className="text-base md:text-lg text-verde-ebano/70 font-sans leading-loose max-w-2xl mx-auto">

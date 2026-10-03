@@ -101,12 +101,12 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
         <section className="mt-48 p-12 md:p-24 bg-verde-ebano text-hueso-seda relative overflow-hidden">
           <div className="relative z-10 flex flex-col items-center text-center gap-8 max-w-3xl mx-auto">
             <Sparkles className="text-oro-antiguo" size={32} strokeWidth={1} />
-            <h2 className="text-4xl font-display uppercase tracking-widest italic">¿Busca una pieza irrepetible?</h2>
+            <h2 className="text-4xl font-display uppercase tracking-widest italic">¿Buscas una pieza irrepetible?</h2>
             <p className="text-base font-light opacity-70 leading-relaxed uppercase tracking-widest">
-              Nuestra IA ha seleccionado estas piezas para usted basándose en la armonía de su estilo.
+              Nuestra IA ha seleccionado estas piezas para ti basándose en la armonía de tu estilo.
             </p>
             <button className="px-12 py-4 bg-oro-antiguo text-verde-ebano text-xs uppercase tracking-[0.4em] hover:bg-hueso-seda transition-all">
-              Consultar al Oráculo
+              Consultar al Agente
             </button>
           </div>
           <div className="absolute top-0 right-0 w-64 h-64 border border-oro-antiguo/10 rounded-full -mr-32 -mt-32" />

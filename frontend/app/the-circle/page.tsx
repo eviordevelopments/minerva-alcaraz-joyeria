@@ -103,7 +103,7 @@ const faqs = [
   },
   {
     q: "¿Los envíos prioritarios aplican en todo México?",
-    a: "Sí. Ciudad de México en 24h, resto del país en 48–72h. Para envíos internacionales, coordinamos con servicios de valija diplomática en casos especiales."
+    a: "Sí, llevamos la elegancia de Minerva Alcaraz a cualquier parte del México a través de servicios de mensajería que garantizan la integridad de su pieza."
   },
   {
     q: "¿Cómo accedo a las Colecciones Reservadas?",

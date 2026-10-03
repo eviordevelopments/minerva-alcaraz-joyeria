@@ -31,7 +31,7 @@ interface EmpaqueCarouselProps {
 }
 
 export const EmpaqueCarousel: React.FC<EmpaqueCarouselProps> = ({
-  interval = 2000,
+  interval = 4000,
   aspectClass = "aspect-square",
   className = "",
   showDots = true,
@@ -66,13 +66,13 @@ export const EmpaqueCarousel: React.FC<EmpaqueCarouselProps> = ({
     >
       {/* ── Main image viewport ────────────────────────────────────────────── */}
       <div className={`relative w-full ${aspectClass} bg-[#2C3729]/5`}>
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           <motion.div
             key={current}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
             className="absolute inset-0"
           >
             <Image
@@ -82,9 +82,21 @@ export const EmpaqueCarousel: React.FC<EmpaqueCarouselProps> = ({
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
               priority={current === 0}
+              quality={90}
             />
           </motion.div>
         </AnimatePresence>
+
+        {/* ── Preload Next Image ───────────────────────────────────────────── */}
+        <div className="absolute inset-0 -z-10 opacity-0 pointer-events-none">
+          <Image
+            src={EMPAQUE_IMAGES[(current + 1) % EMPAQUE_IMAGES.length]}
+            alt="Preload next empaque"
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            quality={90}
+          />
+        </div>
 
         {/* Pause indicator — visible on hover */}
         {paused && (
