@@ -21,6 +21,9 @@ export interface Product {
   occasions?: string[];
   outfits?: string[];
   tags?: string[];
+  is_unique_piece?: boolean;
+  is_limited_edition?: boolean;
+  is_author_design?: boolean;
   metadata?: {
     stone?: string;
     occasion?: string[];
