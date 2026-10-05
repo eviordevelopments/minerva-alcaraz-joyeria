@@ -49,7 +49,7 @@ const benefits = [
   {
     icon: Truck,
     title: "Envíos Prioritarios y Gratuitos",
-    description: "Cada envío es una experiencia. Gratuito y con tiempo de entrega prioritario.",
+    description: "Cada envío es una experiencia. Gratuito y con tiempo de entrega prioritario. Tienen envío prioritario gratis en todas sus compras que sean iguales o superiores a $2,000 MXN.",
     accent: "Siempre incluido"
   },
   {
@@ -95,7 +95,7 @@ const galleryPieces = [
 const faqs = [
   {
     q: "¿Cuál es el costo de la membresía The Circle?",
-    a: "La membresía The Circle es completamente gratuita. Está disponible por invitación o al realizar su primera adquisición. Los privilegios se activan de forma inmediata."
+    a: "La membresía The Circle es completamente gratuita. Está disponible por invitación o al realizar su primera adquisición mayor a $2,000 MXN. Los privilegios se activan de forma inmediata."
   },
   {
     q: "¿Cómo funciona el servicio de Co-Creación?",
@@ -143,9 +143,22 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 /* ─────────────────────────────────────────
    PAGE
 ───────────────────────────────────────── */
+import { useAuthStore } from "../../lib/store/useAuthStore";
+
 export default function TheCirclePage() {
+  const { user, isAuthenticated } = useAuthStore();
+  const [showIneligibleMsg, setShowIneligibleMsg] = useState(false);
+
+  const handleJoinClick = (e: React.MouseEvent) => {
+    if (isAuthenticated && !user?.isCircleMember) {
+      e.preventDefault();
+      setShowIneligibleMsg(true);
+      setTimeout(() => setShowIneligibleMsg(false), 5000);
+    }
+  };
+
   return (
-    <main className="min-h-screen bg-verde-ebano">
+    <main className="min-h-screen bg-verde-ebano relative">
       <Header theme="dark" />
 
       {/* HERO — Full Bleed Invitation */}
@@ -197,7 +210,8 @@ export default function TheCirclePage() {
 
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
               <Link
-                href="/auth"
+                href={isAuthenticated && user?.isCircleMember ? "/perfil" : "/auth"}
+                onClick={handleJoinClick}
                 className="flex items-center justify-center gap-3 bg-oro-antiguo text-verde-ebano text-xs uppercase tracking-[0.5em] py-4 px-10 hover:bg-hueso-seda transition-colors duration-500 font-medium group"
               >
                 Solicitar Invitación
@@ -393,17 +407,39 @@ export default function TheCirclePage() {
             </p>
           </div>
           <Link
-            href="/auth"
+            href={isAuthenticated && user?.isCircleMember ? "/perfil" : "/auth"}
+            onClick={handleJoinClick}
             className="flex items-center gap-3 bg-oro-antiguo text-verde-ebano text-xs uppercase tracking-[0.5em] py-5 px-14 hover:bg-hueso-seda transition-colors duration-500 font-medium group"
           >
             Unirse a The Circle
             <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
           </Link>
-          <p className="text-[10px] uppercase tracking-[0.4em] text-hueso-seda/20">Gratuito · Por invitación · Sin compromisos</p>
+          <p className="text-[10px] uppercase tracking-[0.4em] text-hueso-seda/20">Gratuita · Por invitación o compras mayores a $2,000 MXN · Sin compromisos</p>
         </div>
       </section>
 
       <Footer />
+
+      {/* Ineligible Toast */}
+      {showIneligibleMsg && (
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 50 }}
+          className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 bg-hueso-seda border border-oro-antiguo/30 p-6 shadow-2xl max-w-md w-[90%]"
+        >
+          <div className="flex flex-col items-center text-center gap-4">
+            <Crown size={24} className="text-oro-antiguo" strokeWidth={1} />
+            <h3 className="text-sm font-display text-verde-ebano uppercase tracking-widest">Aún no calificas</h3>
+            <p className="text-xs text-verde-ebano/70 font-light leading-relaxed">
+              Para ser miembro de THE CIRCLE es necesario realizar una primera compra mayor a $2,000 MXN. Te invitamos a descubrir nuestra colección.
+            </p>
+            <Link href="/shop" className="text-[10px] uppercase tracking-[0.3em] text-oro-antiguo border-b border-oro-antiguo/30 hover:border-oro-antiguo pb-1 mt-2 transition-colors">
+              Explorar Catálogo
+            </Link>
+          </div>
+        </motion.div>
+      )}
     </main>
   );
 }

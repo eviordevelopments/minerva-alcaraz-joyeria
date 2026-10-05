@@ -486,9 +486,17 @@ export default function AdminInventario() {
       await Promise.all(
         files.map(async (file) => {
           const compressed = await compressImageIfNeeded(file);
+          if (compressed.size > 4 * 1024 * 1024) {
+            throw new Error(`La imagen ${file.name} sigue siendo mayor a 4MB tras compresión. Intenta con una imagen más pequeña.`);
+          }
           const fd = new FormData();
           fd.append("file", compressed);
           const res = await fetch("/api/admin/upload-image", { method: "POST", body: fd });
+          const contentType = res.headers.get("content-type");
+          if (!contentType || !contentType.includes("application/json")) {
+            const text = await res.text();
+            throw new Error(res.status === 413 ? "La imagen es demasiado grande para el servidor (Max 4MB)." : "Error en el servidor: " + res.status);
+          }
           const json = await res.json();
           if (!res.ok || json.error) throw new Error(json.error ?? "Error al subir imagen");
           if (json.url) {
@@ -671,9 +679,16 @@ export default function AdminInventario() {
     await Promise.all(files.map(async (file, i) => {
       try {
         const compressed = await compressImageIfNeeded(file);
+        if (compressed.size > 4 * 1024 * 1024) {
+          throw new Error(`La imagen sigue siendo mayor a 4MB. Intenta con otra imagen.`);
+        }
         const fd = new FormData();
         fd.append("file", compressed);
         const res = await fetch("/api/admin/upload-image", { method: "POST", body: fd });
+        const contentType = res.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new Error(res.status === 413 ? "La imagen es demasiado grande para el servidor (Max 4MB)." : "Error en el servidor: " + res.status);
+        }
         const json = await res.json();
         if (!res.ok || json.error) throw new Error(json.error ?? "Error");
         setForm((f) => {

@@ -101,7 +101,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
         <section className="mt-48 p-12 md:p-24 bg-verde-ebano text-hueso-seda relative overflow-hidden">
           <div className="relative z-10 flex flex-col items-center text-center gap-8 max-w-3xl mx-auto">
             <Sparkles className="text-oro-antiguo" size={32} strokeWidth={1} />
-            <h2 className="text-4xl font-display uppercase tracking-widest italic">¿Buscas una pieza irrepetible?</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-widest italic">¿Buscas una pieza irrepetible?</h2>
             <p className="text-base font-light opacity-70 leading-relaxed uppercase tracking-widest">
               Nuestra IA ha seleccionado estas piezas para ti basándose en la armonía de tu estilo.
             </p>

@@ -115,7 +115,7 @@ export const Footer = () => {
                 </ul>
               </div>
               <div className="flex flex-col gap-8">
-                <h4 className="text-sm uppercase tracking-[0.4em] text-oro-antiguo font-medium">Servicios</h4>
+                <h4 className="text-sm uppercase tracking-[0.4em] text-oro-antiguo font-medium">Servicio</h4>
                 <ul className="flex flex-col gap-5 text-sm opacity-60 tracking-[0.15em] font-light uppercase">
                   <li><Link href="/personalized" className="hover:text-oro-antiguo animated-underline transition-colors">Concierge Digital</Link></li>
                   <li><Link href="/atelier" className="hover:text-oro-antiguo animated-underline transition-colors">Atelier</Link></li>

@@ -249,24 +249,7 @@ export default function GuiaDeTallasPage() {
               ))}
             </div>
 
-            {/* Guías Extendidas */}
-            <div className="flex flex-col gap-12 mt-8">
-              {[
-                "https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/GUIA%20DE%20ANILLOS%202.png",
-                "https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/GUIA%20DE%20ANILLOS%203.png",
-              ].map((src, idx) => (
-                <div key={idx} className="w-full relative group mix-blend-multiply flex justify-center">
-                  <Image
-                    src={src}
-                    alt={`Guía de Anillos ${idx + 1}`}
-                    width={1200}
-                    height={900}
-                    className="w-full h-auto object-contain max-w-4xl"
-                    unoptimized
-                  />
-                </div>
-              ))}
-            </div>
+
           </div>
         </section>
 

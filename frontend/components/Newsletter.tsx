@@ -42,9 +42,9 @@ export const Newsletter = () => {
   return (
     <section className="bg-hueso-seda py-32 relative overflow-hidden border-t border-verde-ebano/10">
       {/* Background Ornaments */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
+      <div className="absolute inset-0 opacity-5 pointer-events-none hidden md:block">
         <div className="absolute top-0 left-0 w-96 h-96 border border-verde-ebano rounded-full -ml-48 -mt-48" />
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] border border-verde-ebano rounded-full -mr-250 -mb-250" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] border border-verde-ebano rounded-full -mr-[250px] -mb-[250px]" />
       </div>
 
       <div className="luxury-container relative z-10">

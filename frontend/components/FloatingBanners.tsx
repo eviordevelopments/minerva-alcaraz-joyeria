@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { X, Mail, ArrowRight, Star, ShieldCheck, Gem, Sparkles, Crown } from "lucide-react";
+import { useAuthStore } from "../lib/store/useAuthStore";
 
 /* ─────────────────────────────────────────
    NEWSLETTER BANNER — appears on first visit
@@ -13,14 +14,20 @@ export const NewsletterBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const { isAuthenticated } = useAuthStore();
 
   useEffect(() => {
+    if (isAuthenticated) return;
+    const hasTriggered = localStorage.getItem("ma_newsletter_triggered");
     const dismissed = localStorage.getItem("ma_newsletter_dismissed");
-    if (!dismissed) {
-      const timer = setTimeout(() => setIsVisible(true), 60000); // 1 minute
+    if (!hasTriggered && !dismissed) {
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+        localStorage.setItem("ma_newsletter_triggered", "true");
+      }, 10000); // 10 seconds
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [isAuthenticated]);
 
   const handleDismiss = () => {
     setIsVisible(false);
@@ -103,7 +110,7 @@ export const NewsletterBanner = () => {
                       {/* Title */}
                       <div className="flex flex-col gap-2">
                         <h2 className="font-display text-hueso-seda text-3xl md:text-4xl leading-tight uppercase">
-                          Únase al<br />Legado
+                          Únete al<br />Legado
                         </h2>
                         <p className="text-hueso-seda/60 text-sm md:text-sm font-light leading-relaxed max-w-xs italic">
                           "Las piezas más extraordinarias nunca llegan al catálogo público. Son reservadas para quienes custodian la herencia."
@@ -192,20 +199,21 @@ export const NewsletterBanner = () => {
 ───────────────────────────────────────── */
 export const TheCircleBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { isAuthenticated } = useAuthStore();
 
   useEffect(() => {
+    if (isAuthenticated) return;
+    const hasTriggered = localStorage.getItem("ma_circle_triggered");
     const dismissed = localStorage.getItem("ma_circle_dismissed");
-    const visits = parseInt(localStorage.getItem("ma_visit_count") || "0") + 1;
-    localStorage.setItem("ma_visit_count", String(visits));
 
-    if (dismissed) return;
-
-    // Show on any visit after 60s
-    const delay = 60000;
-
-    const timer = setTimeout(() => setIsVisible(true), delay);
-    return () => clearTimeout(timer);
-  }, []);
+    if (!hasTriggered && !dismissed) {
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+        localStorage.setItem("ma_circle_triggered", "true");
+      }, 30000); // 30 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [isAuthenticated]);
 
   const handleDismiss = () => {
     setIsVisible(false);
