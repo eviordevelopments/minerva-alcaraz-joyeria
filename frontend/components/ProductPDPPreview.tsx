@@ -18,7 +18,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import {
-  ShoppingBag, Heart, Ruler, Info,
+  ShoppingBag, Heart, Info,
   Box, BookOpen, ClipboardCheck, Truck, ShieldCheck,
   ChevronLeft, ChevronRight, Play, Pause,
 } from "lucide-react";
@@ -65,7 +65,6 @@ interface ProductPDPPreviewProps {
   onFavorite?: () => void;
 }
 
-const FALLBACK_SIZES = ["5", "6", "7", "8", "9"];
 const AUTO_PLAY_INTERVAL = 4000; // 4 seconds per image fade
 
 export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
@@ -77,7 +76,6 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
   const [selectedImage, setSelectedImage] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isAutoPlayActive, setIsAutoPlayActive] = useState(true);
-  const [selectedSize, setSelectedSize] = useState("");
   const [isFavorite, setIsFavorite] = useState(false);
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
   
@@ -133,15 +131,12 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
       image: product.images[0] || "",
       price: product.price,
       currency: product.currency,
-      size: selectedSize || undefined,
       paymentLink: product.payment_link
     });
     openCart();
   };
 
-  const sizes = product.available_sizes?.length
-    ? product.available_sizes
-    : FALLBACK_SIZES;
+
 
   const occasions = product.occasions?.length
     ? product.occasions
@@ -379,35 +374,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
             </div>
           )}
 
-          {/* Size selector */}
-          <div className="flex flex-col gap-3">
-            <div className="flex justify-between items-center">
-              <span className="text-xs uppercase tracking-widest text-[#2C3729]">
-                Seleccionar Talla
-              </span>
-              <button 
-                onClick={() => setIsSizeGuideOpen(true)}
-                className="text-xs uppercase tracking-widest flex items-center gap-1.5 text-[#CBB67B] hover:text-[#2C3729] transition-colors font-medium"
-              >
-                <Ruler size={12} /> Guía de Tallas
-              </button>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {sizes.map((size) => (
-                <button
-                  key={size}
-                  onClick={() => setSelectedSize(size)}
-                  className={`w-11 h-11 border text-sm transition-all ${
-                    selectedSize === size
-                      ? "border-[#2C3729] bg-[#2C3729] text-[#E5DBD6]"
-                      : "border-[#C3C9C0]/40 text-[#2C3729] hover:border-[#CBB67B]"
-                  }`}
-                >
-                  {size}
-                </button>
-              ))}
-            </div>
-          </div>
+
 
           {/* CTAs */}
           <div className="flex flex-col gap-3">
@@ -444,35 +411,35 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
                 Detalle Técnico
               </span>
               <div className="grid grid-cols-2 gap-y-3 text-[11px] uppercase tracking-wider">
-                <span className="text-[#C3C9C0]">Material</span>
+                <span className="text-[#2C3729]">Material</span>
                 <span className="text-[#2C3729]">
                   {product.materials.join(", ") || "—"}
                 </span>
                 {product.purity && (
                   <>
-                    <span className="text-[#C3C9C0]">Pureza</span>
+                    <span className="text-[#2C3729]">Pureza</span>
                     <span className="text-[#2C3729]">{product.purity}</span>
                   </>
                 )}
-                <span className="text-[#C3C9C0]">Estilo</span>
+                <span className="text-[#2C3729]">Estilo</span>
                 <span className="text-[#2C3729]">
                   {product.style || "Clásico Atemporal"}
                 </span>
-                <span className="text-[#C3C9C0]">Guía de Tallas</span>
+                <span className="text-[#2C3729]">Medida</span>
                 <span className="text-[#2C3729]">
-                  Méx. 3–13{" "}
+                  Ajustable
                   <button 
                     onClick={() => setIsSizeGuideOpen(true)}
                     className="text-[#CBB67B] underline font-semibold hover:text-[#2C3729] ml-1"
                   >
-                    (Ver Medidas)
+                    (Guía de Tallas)
                   </button>
                 </span>
-                <span className="text-[#C3C9C0]">Existencias</span>
+                <span className="text-[#2C3729]">Existencias</span>
                 <span className={product.stock <= 2 ? "text-amber-600" : "text-[#2C3729]"}>
                   {product.stock} {product.stock === 1 ? "pieza" : "piezas"}
                 </span>
-                <span className="text-[#C3C9C0]">Devoluciones</span>
+                <span className="text-[#2C3729]">Devoluciones</span>
                 <span className="text-[#2C3729]">
                   <a href="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/politica-de-devoluciones.pdf" target="_blank" rel="noopener noreferrer" className="text-[#CBB67B] underline font-semibold hover:text-[#2C3729]">Ver Política</a>
                 </span>
@@ -516,7 +483,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
                   </span>
                 ))}
               </div>
-              <p className="text-xs text-[#C3C9C0] italic">
+              <p className="text-xs text-[#2C3729] italic">
                 Ideal con: {outfits.join(", ")}.
               </p>
             </div>
@@ -605,6 +572,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
         </div>
       </section>
 
+
       {/* Conditionally render the correct Size Guide Modal based on category */}
       {product.category?.toLowerCase().includes("pulsera") ? (
         <BraceletSizeGuideModal
@@ -620,8 +588,6 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
         <RingSizeGuideModal
           isOpen={isSizeGuideOpen}
           onClose={() => setIsSizeGuideOpen(false)}
-          onSelectSize={(size) => setSelectedSize(size)}
-          currentSelectedSize={selectedSize}
         />
       )}
     </>

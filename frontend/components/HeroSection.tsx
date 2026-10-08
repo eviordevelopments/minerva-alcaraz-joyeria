@@ -74,11 +74,11 @@ export const HeroSection = () => {
           className="relative z-10 flex flex-col items-center justify-center text-center px-4 sm:px-6 max-w-5xl mx-auto mt-12 md:mt-0"
         >
           <h1 
-            className="hero-title-no-hyphens text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-oro-antiguo leading-[1.15] sm:leading-tight mb-6 sm:mb-8 px-2 text-center"
+            className="hero-title-no-hyphens text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-white leading-[1.15] sm:leading-tight mb-6 sm:mb-8 px-2 text-center"
             style={{ textShadow: '0 4px 30px rgba(0,0,0,0.7)' }}
           >
-            Tu <span className="text-hueso-seda font-semibold">esencia</span>,<br />
-            hecha <span className="text-hueso-seda font-semibold">joya</span>.
+            Tu <span className="text-white font-semibold">esencia</span>,<br />
+            hecha <span className="text-white font-semibold">joya</span>.
           </h1>
 
           <Link href="/shop">

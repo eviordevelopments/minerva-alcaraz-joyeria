@@ -153,7 +153,6 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
               </div>
             </div>
             <Link href="/collections" className="nav-link">Colecciones</Link>
-            <Link href="/atelier" className="nav-link">Atelier</Link>
             <Link href="/personalized" className="nav-link">Concierge</Link>
           </nav>
 
@@ -263,7 +262,6 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
                 <span className="text-xs uppercase tracking-[0.4em] text-oro-antiguo">Menú Principal</span>
                 <Link onClick={() => setIsMobileMenuOpen(false)} href="/shop" className="text-2xl font-display text-verde-ebano italic">Explorar Joyas</Link>
                 <Link onClick={() => setIsMobileMenuOpen(false)} href="/collections" className="text-2xl font-display text-verde-ebano italic">Colecciones</Link>
-                <Link onClick={() => setIsMobileMenuOpen(false)} href="/atelier" className="text-2xl font-display text-verde-ebano italic">Atelier</Link>
                 <Link onClick={() => setIsMobileMenuOpen(false)} href="/personalized" className="text-2xl font-display text-verde-ebano italic">Concierge</Link>
                 <Link onClick={() => setIsMobileMenuOpen(false)} href="/nuestra-historia" className="text-2xl font-display text-verde-ebano italic">Historia</Link>
               </div>

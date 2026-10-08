@@ -108,7 +108,7 @@ export const HaulCarousel: React.FC = () => {
               className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center"
             >
               {/* Product Image — Exactly 50% (Half Page/Card Width) */}
-              <div className="lg:col-span-1 relative w-full aspect-square lg:aspect-[4/3.5] overflow-hidden bg-hueso-seda/5 border border-oro-antiguo/30 shadow-2xl group">
+              <Link href={`/product/${currentItem.id}`} className="lg:col-span-1 relative w-full aspect-square lg:aspect-[4/3.5] overflow-hidden bg-hueso-seda/5 border border-oro-antiguo/30 shadow-2xl group block cursor-pointer">
                 <Image
                   src={currentItem.images[0]}
                   alt={currentItem.name}
@@ -122,7 +122,7 @@ export const HaulCarousel: React.FC = () => {
                 <span className="absolute bottom-4 right-4 bg-hueso-seda/95 backdrop-blur-md text-verde-ebano px-4 py-1.5 text-xs uppercase tracking-widest font-semibold shadow-lg">
                   ${currentItem.price.toLocaleString("es-MX")} {currentItem.currency}
                 </span>
-              </div>
+              </Link>
 
               {/* Product Content Details — Exactly 50% */}
               <div className="lg:col-span-1 flex flex-col space-y-6 text-left">
