@@ -9,7 +9,7 @@ import { LuxuryButton } from "../../components/DesignSystem";
 import {
   ShieldCheck, Lock, Globe, ArrowRight, CheckCircle,
   Package, ExternalLink, ShoppingBag, CreditCard, ChevronLeft,
-  Minus, Plus, Trash2
+  Minus, Plus, Trash2, Sparkles
 } from "lucide-react";
 import { useAuthStore } from "../../lib/store/useAuthStore";
 import { useCartStore } from "../../lib/store/useCartStore";
@@ -73,7 +73,7 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     if (mounted && !authLoading && !isAuthenticated) {
-      window.location.href = "/auth";
+      window.location.href = "/auth?next=/checkout";
     }
   }, [mounted, authLoading, isAuthenticated]);
 
@@ -240,6 +240,54 @@ export default function CheckoutPage() {
             Regresar al Atelier
           </LuxuryButton>
         </motion.div>
+      </main>
+    );
+  }
+
+  // ── Unauthenticated guard ──────────────────────────────────────────────────
+  if (mounted && !authLoading && !isAuthenticated) {
+    return (
+      <main className="min-h-screen bg-hueso-seda flex flex-col">
+        <Header />
+        <div className="flex-1 flex flex-col items-center justify-center px-4 py-36 max-w-xl mx-auto text-center">
+          <div className="w-16 h-16 border border-oro-antiguo/40 flex items-center justify-center mb-6">
+            <ShieldCheck size={28} className="text-oro-antiguo" strokeWidth={1.5} />
+          </div>
+          <span className="text-[11px] uppercase tracking-[0.6em] text-oro-antiguo font-medium mb-3">
+            Custodia &amp; Autenticidad
+          </span>
+          <h1 className="text-3xl md:text-4xl font-display text-verde-ebano uppercase mb-4">
+            Inicio de Sesión Requerido
+          </h1>
+          <p className="text-sm text-verde-ebano/80 font-light leading-relaxed mb-6">
+            Para mantener tus compras debidamente aseguradas y poder ofrecerte atención personalizada durante tu proceso de compra, es necesario contar con una cuenta activa antes de continuar.
+          </p>
+
+          <div className="bg-verde-ebano text-hueso-seda p-6 border border-oro-antiguo/25 mb-8 text-left w-full flex flex-col gap-4 shadow-xl">
+            <div className="flex items-start gap-3">
+              <ShieldCheck size={18} className="text-oro-antiguo flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs uppercase tracking-wider text-oro-antiguo font-medium">Compras Aseguradas</p>
+                <p className="text-[11px] text-hueso-seda/70 font-light leading-relaxed">Cada joya es una pieza de autor. Tu cuenta vincula tu certificado de autenticidad y garantiza la póliza de entrega asegurada a tu nombre.</p>
+              </div>
+            </div>
+            <div className="h-px bg-oro-antiguo/15 my-1" />
+            <div className="flex items-start gap-3">
+              <Sparkles size={18} className="text-oro-antiguo flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs uppercase tracking-wider text-oro-antiguo font-medium">Atención Personalizada</p>
+                <p className="text-[11px] text-hueso-seda/70 font-light leading-relaxed">Nuestro equipo y concierge brindan seguimiento directo a tus piezas, confirmación de medidas y soporte exclusivo en cada etapa.</p>
+              </div>
+            </div>
+          </div>
+
+          <Link
+            href="/auth?next=/checkout"
+            className="w-full bg-verde-ebano text-hueso-seda py-4 px-8 text-xs uppercase tracking-[0.4em] font-medium hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-300 shadow-lg text-center"
+          >
+            Iniciar Sesión o Registrarse
+          </Link>
+        </div>
       </main>
     );
   }

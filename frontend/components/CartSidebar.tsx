@@ -2,13 +2,15 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, Package } from "lucide-react";
+import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, Package, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useCartStore } from "../lib/store/useCartStore";
+import { useAuthStore } from "../lib/store/useAuthStore";
 
 export const CartSidebar: React.FC = () => {
   const { items, isOpen, closeCart, removeItem, updateQuantity, subtotal } = useCartStore();
+  const { isAuthenticated } = useAuthStore();
   const total = subtotal();
 
   return (
@@ -190,10 +192,22 @@ export const CartSidebar: React.FC = () => {
                   </div>
                 </div>
 
-                <Link href="/checkout" onClick={closeCart}>
+                {!isAuthenticated && (
+                  <div className="bg-hueso-seda/5 border border-oro-antiguo/30 p-3.5 flex flex-col gap-1.5 text-left">
+                    <div className="flex items-center gap-2 text-oro-antiguo text-[10px] uppercase tracking-[0.25em] font-medium">
+                      <ShieldCheck size={13} strokeWidth={1.5} className="flex-shrink-0" />
+                      <span>Compras Aseguradas &amp; Atención Personalizada</span>
+                    </div>
+                    <p className="text-[11px] text-hueso-seda/75 font-light leading-relaxed">
+                      Para mantener tus compras 100% aseguradas con trazabilidad de piezas únicas y poder ofrecerte atención personalizada durante todo tu proceso de compra, se requiere iniciar sesión o crear tu cuenta antes de proceder al pago.
+                    </p>
+                  </div>
+                )}
+
+                <Link href={isAuthenticated ? "/checkout" : "/auth?next=/checkout"} onClick={closeCart}>
                   <button className="w-full bg-hueso-seda text-verde-ebano py-4 px-8 flex items-center justify-between hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-500">
-                    <span className="text-sm uppercase tracking-[0.4em] font-medium">
-                      Proceder al Pago
+                    <span className="text-xs md:text-sm uppercase tracking-[0.35em] font-medium">
+                      {isAuthenticated ? "Proceder al Pago" : "Iniciar Sesión para Comprar"}
                     </span>
                     <div className="flex items-center gap-3">
                       <div className="w-6 h-px bg-current" />

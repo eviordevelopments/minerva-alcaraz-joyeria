@@ -54,7 +54,7 @@ const CollectionCard = ({ title, subtitle, description, image, align = "left", t
             {title}
           </h2>
           <p className={`text-base md:text-xl lg:text-2xl leading-loose font-light max-w-xl italic ${themeStyles.textSub}`}>
-            &quot;{description}&quot;
+            {description}
           </p>
           <Link 
             href={`/shop?collection=${encodeURIComponent(title)}`} 
@@ -173,14 +173,6 @@ export default function CollectionsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-9xl font-display text-verde-ebano uppercase"
-          />
-          <EditableText 
-            as="p"
-            page="collections"
-            section="header"
-            textKey="description"
-            fallback="Minerva Alcaraz transforma símbolos, naturaleza y memoria en joyería única. Cada pieza nace de una mirada, una historia y una forma distinta de entender la belleza."
-            className="mt-8 text-xs md:text-sm uppercase tracking-[0.4em] text-verde-ebano/60 max-w-2xl leading-loose"
           />
         </div>
       </div>

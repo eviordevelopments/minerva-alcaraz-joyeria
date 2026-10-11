@@ -6,7 +6,7 @@ import { MentalStateOverlay } from "../components/MentalStateOverlay";
 import { WhatsAppFAB } from "../components/WhatsAppFAB";
 import { CookieBanner } from "../components/CookieBanner";
 import { AIConcierge } from "../components/AIConcierge";
-import { NewsletterBanner, TheCircleBanner } from "../components/FloatingBanners";
+import { TheCircleBanner } from "../components/FloatingBanners";
 import { WelcomePopup } from "../components/WelcomePopup";
 import { AccessibilityProvider } from "../components/AccessibilityProvider";
 import { AccessibilityFAB } from "../components/AccessibilityFAB";
@@ -69,7 +69,6 @@ export default function RootLayout({
                 <WhatsAppFAB />
                 <CookieBanner />
                 <AIConcierge />
-                <NewsletterBanner />
                 <TheCircleBanner />
                 <WelcomePopup />
                 <AccessibilityFAB />

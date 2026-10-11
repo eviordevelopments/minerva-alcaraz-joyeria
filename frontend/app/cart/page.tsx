@@ -6,8 +6,11 @@ import { Header } from "../../components/Header";
 import { FAQSection } from "../../components/FAQSection";
 import { LuxuryButton } from "../../components/DesignSystem";
 import { Trash2, ShoppingBag, ShieldCheck, CreditCard, Lock, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { useAuthStore } from "../../lib/store/useAuthStore";
 
 export default function CartPage() {
+  const { isAuthenticated } = useAuthStore();
   const cartItems = [
     {
       id: 1,
@@ -81,10 +84,24 @@ export default function CartPage() {
                   </div>
                 </div>
 
+                {!isAuthenticated && (
+                  <div className="bg-verde-ebano/80 text-hueso-seda p-4 border border-oro-antiguo/30 flex flex-col gap-2">
+                    <div className="flex items-center gap-2 text-oro-antiguo text-xs uppercase tracking-widest font-medium">
+                      <ShieldCheck size={14} className="flex-shrink-0" />
+                      <span>Compras Aseguradas &amp; Atención Personalizada</span>
+                    </div>
+                    <p className="text-xs text-hueso-seda/75 font-light leading-relaxed">
+                      Para mantener tus compras 100% aseguradas con póliza de entrega y ofrecerte atención personalizada durante tu proceso de compra, es necesario iniciar sesión o crear tu cuenta antes de proceder al pago.
+                    </p>
+                  </div>
+                )}
+
                 <div className="flex flex-col gap-4">
-                   <LuxuryButton variant="secondary" className="w-full flex items-center justify-center gap-2">
-                     Pagar Ahora <ArrowRight size={14} />
-                   </LuxuryButton>
+                   <Link href={isAuthenticated ? "/checkout" : "/auth?next=/checkout"}>
+                     <LuxuryButton variant="secondary" className="w-full flex items-center justify-center gap-2">
+                       {isAuthenticated ? "Pagar Ahora" : "Iniciar Sesión para Comprar"} <ArrowRight size={14} />
+                     </LuxuryButton>
+                   </Link>
                    <p className="text-[10px] uppercase tracking-[0.2em] text-hueso-seda/40 text-center">
                      Membresía THE CIRCLE disponible en el siguiente paso
                    </p>

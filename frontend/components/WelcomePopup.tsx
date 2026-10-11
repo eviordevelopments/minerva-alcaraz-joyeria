@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { LuxuryButton } from "./DesignSystem";
 
+const THREE_MINUTES_MS = 3 * 60 * 1000; // 180,000 ms (3 minutos)
+
 export function WelcomePopup() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -13,18 +15,44 @@ export function WelcomePopup() {
     const hasSeenPopup = localStorage.getItem("minerva-has-seen-welcome");
     const hasPurchased = localStorage.getItem("minerva-has-purchased");
 
-    if (!hasSeenPopup && !hasPurchased) {
-      // Delay showing the popup slightly for better UX
-      const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 1500);
-      return () => clearTimeout(timer);
+    if (hasSeenPopup || hasPurchased) return;
+
+    // Track when user first visited the site
+    let visitStart = Number(localStorage.getItem("ma_first_visit_time"));
+    if (!visitStart) {
+      visitStart = Date.now();
+      localStorage.setItem("ma_first_visit_time", visitStart.toString());
     }
+
+    const elapsed = Date.now() - visitStart;
+    const initialDelay = Math.max(0, THREE_MINUTES_MS - elapsed);
+
+    const checkAndShow = () => {
+      const lastPopup = Number(localStorage.getItem("ma_last_popup_time") || 0);
+      const timeSinceLastPopup = Date.now() - lastPopup;
+
+      if (lastPopup > 0 && timeSinceLastPopup < THREE_MINUTES_MS) {
+        // Enforce 3-minute margin if another popup was triggered recently
+        const remaining = THREE_MINUTES_MS - timeSinceLastPopup;
+        const retryTimer = setTimeout(() => {
+          setIsVisible(true);
+          localStorage.setItem("ma_last_popup_time", Date.now().toString());
+        }, remaining);
+        return () => clearTimeout(retryTimer);
+      }
+
+      setIsVisible(true);
+      localStorage.setItem("ma_last_popup_time", Date.now().toString());
+    };
+
+    const timer = setTimeout(checkAndShow, initialDelay);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleClose = () => {
     setIsVisible(false);
     localStorage.setItem("minerva-has-seen-welcome", "true");
+    localStorage.setItem("ma_last_popup_time", Date.now().toString());
   };
 
   return (
@@ -45,6 +73,7 @@ export function WelcomePopup() {
           >
             <button
               onClick={handleClose}
+              aria-label="Cerrar ventana de bienvenida"
               className="absolute top-4 right-4 p-2 text-verde-ebano/50 hover:text-verde-ebano transition-colors"
             >
               <X size={20} strokeWidth={1} />

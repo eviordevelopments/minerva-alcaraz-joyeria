@@ -29,6 +29,7 @@ import { NecklaceSizeGuideModal } from "./NecklaceSizeGuideModal";
 import { useCartStore } from "../lib/store/useCartStore";
 import { useFavoritesStore } from "../lib/store/useFavoritesStore";
 import { useAuthStore } from "../lib/store/useAuthStore";
+import { getConciergeStylingRecommendation } from "../lib/concierge/outfitStylingEngine";
 
 export interface PDPProduct {
   id: string;
@@ -142,9 +143,11 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
     ? product.occasions
     : ["Gala", "Ritual", "Legado"];
 
-  const outfits = product.outfits?.length
-    ? product.outfits
-    : ["Seda Cruda", "Lino Minimalista"];
+  const conciergeStyling = React.useMemo(() => {
+    return getConciergeStylingRecommendation(product);
+  }, [product.id, product.sku, product.name, product.category, product.collection, product.materials, product.outfits]);
+
+  const outfits = conciergeStyling.outfits;
 
   // ── Admin preview frame ──────────────────────────────────────────────────
   const wrapper = (content: React.ReactNode) =>
@@ -540,22 +543,25 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
       <section className="mt-16 bg-[#2C3729] text-[#E5DBD6] p-8 md:p-16 lg:p-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="flex flex-col gap-6">
-            <span className="text-xs uppercase tracking-[0.6em] text-[#CBB67B]">
-              Armonía de Estilo
-            </span>
+            <div className="flex items-center gap-3">
+              <span className="text-xs uppercase tracking-[0.6em] text-[#CBB67B]">
+                Armonía de Estilo
+              </span>
+              <span className="text-[10px] uppercase tracking-[0.3em] text-[#E5DBD6]/40 border-l border-[#CBB67B]/30 pl-3 hidden sm:inline-block">
+                {conciergeStyling.stylingNote}
+              </span>
+            </div>
             <h2 className="text-4xl md:text-5xl font-display leading-tight italic">
               El Ritual del Atuendo
             </h2>
-            <p className="text-base font-light text-[#E5DBD6]/65 leading-relaxed max-w-md">
-              Nuestro concierge ha analizado la caída de la luz sobre el metal y sugiere portar
-              esta pieza con texturas orgánicas. Ideal para un vestido de seda cruda o un traje
-              de lino minimalista.
+            <p className="text-base font-light text-[#E5DBD6]/75 leading-relaxed max-w-md">
+              {conciergeStyling.narrative}
             </p>
             <div className="flex flex-wrap gap-2">
               {outfits.map((outfit) => (
                 <span
                   key={outfit}
-                  className="px-3 py-1.5 border border-[#CBB67B]/30 text-[11px] uppercase tracking-widest text-[#CBB67B]"
+                  className="px-3 py-1.5 border border-[#CBB67B]/30 text-[11px] uppercase tracking-widest text-[#CBB67B] bg-[#CBB67B]/5 transition-colors hover:border-[#CBB67B]"
                 >
                   {outfit}
                 </span>
