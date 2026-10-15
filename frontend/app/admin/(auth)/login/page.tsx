@@ -110,18 +110,6 @@ export default function AdminLoginPage() {
               )}
             </button>
           </form>
-
-          <div className="mt-8 pt-6 border-t border-[#CBB67B]/10 text-center space-y-4">
-            <p className="text-[#8E9A8B] text-sm">
-              ¿No tienes una cuenta de equipo?
-            </p>
-            <Link
-              href="/admin/register"
-              className="inline-block border border-[#CBB67B]/30 text-[#CBB67B] px-6 py-2 text-xs uppercase tracking-widest hover:bg-[#CBB67B]/10 transition-colors"
-            >
-              Registrar Nueva Cuenta
-            </Link>
-          </div>
         </div>
       </motion.div>
     </div>

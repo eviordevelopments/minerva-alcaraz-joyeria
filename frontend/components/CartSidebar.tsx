@@ -10,8 +10,17 @@ import { useAuthStore } from "../lib/store/useAuthStore";
 
 export const CartSidebar: React.FC = () => {
   const { items, isOpen, closeCart, removeItem, updateQuantity, subtotal } = useCartStore();
-  const { isAuthenticated } = useAuthStore();
-  const total = subtotal();
+  const { isAuthenticated, user } = useAuthStore();
+  const rawSubtotal = subtotal();
+  const isCircleMember = user?.isCircleMember || false;
+
+  let shippingCost = 200;
+  if (isCircleMember && rawSubtotal >= 2000) {
+    shippingCost = 0;
+  } else if (!isCircleMember && rawSubtotal >= 5000) {
+    shippingCost = 0;
+  }
+  const finalTotal = rawSubtotal + shippingCost;
 
   return (
     <AnimatePresence>
@@ -179,16 +188,18 @@ export const CartSidebar: React.FC = () => {
                 <div className="flex flex-col gap-2">
                   <div className="flex justify-between text-xs uppercase tracking-widest text-hueso-seda/50">
                     <span>Subtotal</span>
-                    <span>${total.toLocaleString("es-MX")} MXN</span>
+                    <span>${rawSubtotal.toLocaleString("es-MX")} MXN</span>
                   </div>
                   <div className="flex justify-between text-xs uppercase tracking-widest text-oro-antiguo">
-                    <span>Envío</span>
-                    <span>Cortesía</span>
+                    <span>Envío Asegurado {isCircleMember ? "(THE CIRCLE)" : ""}</span>
+                    <span>
+                      {shippingCost === 0 ? "Cortesía" : `$${shippingCost.toLocaleString("es-MX")} MXN`}
+                    </span>
                   </div>
                   <div className="h-px bg-hueso-seda/10 my-1" />
                   <div className="flex justify-between text-base uppercase tracking-widest text-hueso-seda font-medium">
                     <span>Total</span>
-                    <span>${total.toLocaleString("es-MX")} MXN</span>
+                    <span>${finalTotal.toLocaleString("es-MX")} MXN</span>
                   </div>
                 </div>
 

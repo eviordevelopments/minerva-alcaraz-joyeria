@@ -118,7 +118,6 @@ export const Footer = () => {
                 <h4 className="text-sm uppercase tracking-[0.4em] text-oro-antiguo font-medium">Servicio</h4>
                 <ul className="flex flex-col gap-5 text-sm opacity-60 tracking-[0.15em] font-light uppercase">
                   <li><Link href="/personalized" className="hover:text-oro-antiguo animated-underline transition-colors">Concierge Digital</Link></li>
-                  <li><Link href="/atelier" className="hover:text-oro-antiguo animated-underline transition-colors">Atelier</Link></li>
                   <li><Link href="/care-ritual" className="hover:text-oro-antiguo animated-underline transition-colors">Cuidado Eterno</Link></li>
                   <li><Link href="/size-guide" className="hover:text-oro-antiguo animated-underline transition-colors">Guía de Tallas</Link></li>
                 </ul>

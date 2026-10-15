@@ -9,6 +9,10 @@ import { Loader2, Plus, Trash2, Camera, CheckCircle } from "lucide-react";
 
 export default function AdminRegisterPage() {
   const router = useRouter();
+
+  React.useEffect(() => {
+    router.replace("/admin/login");
+  }, [router]);
   
   // Account State
   const [email, setEmail] = useState("");

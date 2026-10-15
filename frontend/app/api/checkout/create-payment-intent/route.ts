@@ -81,8 +81,14 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Calculate Shipping & IVA
-    // Free shipping for everyone now
-    const shippingCents = 0;
+    const rawSubtotalMxn = subtotalCents / 100;
+    let shippingCostMxn = 200;
+    if (isTheCircleMember && rawSubtotalMxn >= 2000) {
+      shippingCostMxn = 0;
+    } else if (!isTheCircleMember && rawSubtotalMxn >= 5000) {
+      shippingCostMxn = 0;
+    }
+    const shippingCents = shippingCostMxn * 100;
     
     // IVA is 16% on top of the product price ONLY (after discounts are applied)
     const taxableAmount = subtotalCents - discountCents;

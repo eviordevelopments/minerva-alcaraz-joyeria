@@ -433,18 +433,6 @@ export default function CheckoutPage() {
                           className="checkout-input w-full"
                         />
                       </div>
-                      <div className="col-span-full group">
-                        <label className="text-xs uppercase tracking-widest text-verde-ebano/80 mb-2 block group-focus-within:text-oro-antiguo transition-colors">
-                          Nota Personalizada / Instrucciones
-                        </label>
-                        <textarea
-                          rows={2}
-                          value={customerNotes}
-                          onChange={(e) => setCustomerNotes(e.target.value)}
-                          placeholder="Si es un regalo, escribe una dedicatoria aquí. O añade instrucciones de entrega."
-                          className="checkout-input w-full resize-none"
-                        />
-                      </div>
                     </div>
                   </section>
 

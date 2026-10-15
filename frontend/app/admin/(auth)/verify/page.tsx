@@ -87,8 +87,8 @@ function VerifyContent() {
         <AlertTriangle size={48} className="text-red-400 mb-4" />
         <h1 className="text-2xl font-display-erp text-[#CBB67B] mb-2">Enlace Inválido</h1>
         <p className="text-base text-[#8E9A8B] mb-8">No se encontró un token válido en la URL.</p>
-        <Link href="/admin/register" className="text-xs uppercase tracking-[0.2em] text-[#CBB67B] border border-[#CBB67B]/30 px-6 py-3 hover:bg-[#CBB67B]/10 transition-colors">
-          Volver a Registrarse
+        <Link href="/admin/login" className="text-xs uppercase tracking-[0.2em] text-[#CBB67B] border border-[#CBB67B]/30 px-6 py-3 hover:bg-[#CBB67B]/10 transition-colors">
+          Volver al Inicio de Sesión
         </Link>
       </div>
     );
