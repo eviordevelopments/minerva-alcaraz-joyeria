@@ -13,7 +13,7 @@ import Link from "next/link";
 import {
   Package, Settings,
   Crown, Images, Gem, ArrowRight, Sparkles, MapPin,
-  ShoppingBag, Star, ChevronRight
+  ShoppingBag, Star, ChevronRight, ShieldCheck, X,
 } from "lucide-react";
 
 // ─── Tier metadata ──────────────────────────────────────────────────────────
@@ -87,6 +87,12 @@ export default function PerfilPage() {
   const [address, setAddress] = useState<Address | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isLoadingSummary, setIsLoadingSummary] = useState(true);
+  const [showSecurityModal, setShowSecurityModal] = useState(false);
+
+  useEffect(() => {
+    // Show pop-up notice upon entering perfil page
+    setShowSecurityModal(true);
+  }, []);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -696,6 +702,79 @@ export default function PerfilPage() {
       </div>
 
       <Footer />
+
+      {/* Pop-up: Compras Aseguradas & Atención Personalizada */}
+      <AnimatePresence>
+        {showSecurityModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowSecurityModal(false)}
+              className="absolute inset-0 bg-black/75 backdrop-blur-sm cursor-pointer"
+            />
+
+            {/* Modal Card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.25 }}
+              className="relative w-full max-w-lg bg-verde-ebano text-hueso-seda border border-oro-antiguo/40 p-6 sm:p-8 shadow-2xl z-10"
+            >
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setShowSecurityModal(false)}
+                className="absolute top-4 right-4 w-8 h-8 border border-oro-antiguo/30 hover:border-oro-antiguo flex items-center justify-center text-oro-antiguo transition-colors"
+                aria-label="Cerrar"
+              >
+                <X size={15} />
+              </button>
+
+              <div className="flex items-center gap-2.5 mb-3">
+                <div className="w-8 h-8 border border-oro-antiguo/40 flex items-center justify-center bg-black/20">
+                  <ShieldCheck size={16} className="text-oro-antiguo" strokeWidth={1.5} />
+                </div>
+                <span className="text-xs uppercase tracking-[0.25em] text-oro-antiguo font-semibold">
+                  Compras Aseguradas &amp; Atención Personalizada
+                </span>
+              </div>
+
+              <p className="text-xs sm:text-sm text-hueso-seda/85 font-light leading-relaxed mb-5">
+                Para mantener tus compras debidamente aseguradas y poder ofrecerte atención personalizada durante todo tu proceso de compra, es necesario iniciar sesión o crear tu cuenta antes de proceder al pago.
+              </p>
+
+              <div className="flex flex-col gap-3.5 py-4 border-y border-oro-antiguo/15 text-xs text-hueso-seda/80 font-light">
+                <div className="flex items-start gap-2.5">
+                  <span className="text-oro-antiguo font-bold flex-shrink-0 mt-0.5">✓</span>
+                  <span className="leading-relaxed">
+                    <strong className="text-hueso-seda font-medium">Compras Aseguradas:</strong> Cada pieza de autor se vincula a tu nombre con certificado de autenticidad, garantía y póliza de envío seguro con custodia completa.
+                  </span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <span className="text-oro-antiguo font-bold flex-shrink-0 mt-0.5">✓</span>
+                  <span className="leading-relaxed">
+                    <strong className="text-hueso-seda font-medium">Atención Personalizada:</strong> Nuestro Concierge y maestros artesanos te asisten directamente con tus medidas, detalles especiales y seguimiento prioritario.
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-6 flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => setShowSecurityModal(false)}
+                  className="w-full sm:w-auto px-6 py-3 bg-oro-antiguo hover:bg-hueso-seda text-verde-ebano text-xs uppercase tracking-widest font-bold transition-all shadow-md"
+                >
+                  Entendido · Continuar a Mi Perfil
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

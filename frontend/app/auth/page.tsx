@@ -98,39 +98,6 @@ function AuthForm() {
         </div>
       </motion.div>
 
-      {/* Explicit Notice: Why an account is required before purchasing */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-8 p-5 md:p-6 bg-verde-ebano text-hueso-seda border border-oro-antiguo/30 shadow-xl"
-      >
-        <div className="flex items-center gap-2.5 mb-2.5">
-          <ShieldCheck size={16} className="text-oro-antiguo flex-shrink-0" strokeWidth={1.5} />
-          <span className="text-[10px] uppercase tracking-[0.3em] text-oro-antiguo font-medium">
-            Compras Aseguradas &amp; Atención Personalizada
-          </span>
-        </div>
-        
-        <p className="text-xs text-hueso-seda/80 font-light leading-relaxed mb-4">
-          Para mantener tus compras debidamente aseguradas y poder ofrecerte atención personalizada durante todo tu proceso de compra, es necesario iniciar sesión o crear tu cuenta antes de proceder al pago.
-        </p>
-
-        <div className="flex flex-col gap-3 pt-3 border-t border-oro-antiguo/15 text-[11px] text-hueso-seda/75 font-light">
-          <div className="flex items-start gap-2.5">
-            <span className="text-oro-antiguo font-semibold flex-shrink-0">✓</span>
-            <span>
-              <strong className="text-hueso-seda font-medium">Compras Aseguradas:</strong> Cada pieza de autor se vincula a tu nombre con certificado de autenticidad, garantía y póliza de envío seguro con custodia completa.
-            </span>
-          </div>
-          <div className="flex items-start gap-2.5">
-            <span className="text-oro-antiguo font-semibold flex-shrink-0">✓</span>
-            <span>
-              <strong className="text-hueso-seda font-medium">Atención Personalizada:</strong> Nuestro Concierge y maestros artesanos te asisten directamente con tus medidas, detalles especiales y seguimiento prioritario.
-            </span>
-          </div>
-        </div>
-      </motion.div>
-
       {/* Mode tabs */}
       <div className="flex border-b border-verde-ebano/10 mb-8">
         {(["login", "register"] as AuthMode[]).map((m) => (
