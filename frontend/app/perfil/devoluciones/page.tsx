@@ -48,26 +48,40 @@ export default function DevolucionesPage() {
           <div className="flex-1 flex flex-col gap-6">
             <div className="flex flex-col gap-1">
               <p className="text-[11px] uppercase tracking-[0.7em] text-oro-antiguo">Gestión</p>
-              <h1 className="text-3xl font-display text-verde-ebano">Devoluciones</h1>
+              <h1 className={`text-3xl font-display ${user?.isCircleMember ? "text-white" : "text-verde-ebano"}`}>
+                Devoluciones
+              </h1>
             </div>
 
             {/* Policy card */}
-            <div className="bg-verde-ebano/4 border border-verde-ebano/8 p-6 flex flex-col gap-3">
+            <div className={`border p-6 flex flex-col gap-3 ${
+              user?.isCircleMember
+                ? "bg-[#1E261C] border-[#CBB67B]/25 text-white"
+                : "bg-verde-ebano/4 border-verde-ebano/8"
+            }`}>
               <div className="flex items-center gap-2">
                 <RotateCcw size={13} strokeWidth={1.2} className="text-oro-antiguo" />
-                <span className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/60">Política de Devoluciones</span>
+                <span className={`text-[11px] uppercase tracking-[0.4em] ${
+                  user?.isCircleMember ? "text-[#CBB67B] font-semibold" : "text-verde-ebano/60"
+                }`}>
+                  Política de Devoluciones
+                </span>
               </div>
-              <p className="text-sm text-verde-ebano/50 leading-loose">
-                Tienes <strong className="text-verde-ebano/70">30 días naturales</strong> desde la recepción de tu pedido para solicitar una devolución. Los miembros de <strong className="text-oro-antiguo">THE CIRCLE</strong> tienen 90 días. Las piezas únicas y personalizadas no son reembolsables, pero ofrecemos cambio de talla sin costo.
+              <p className={`text-sm leading-loose ${
+                user?.isCircleMember ? "text-white/90" : "text-verde-ebano/70"
+              }`}>
+                Tienes <strong className="text-white font-bold bg-black/20 px-1 py-0.5 border border-white/20">30 días naturales</strong> desde la recepción de tu pedido para solicitar una devolución. Los miembros de <strong className="text-oro-antiguo font-bold">THE CIRCLE</strong> tienen 90 días. Las piezas únicas y personalizadas no son reembolsables, pero ofrecemos cambio de talla sin costo.
               </p>
             </div>
 
             {success ? (
-              <div className="bg-white border border-verde-ebano/8 p-12 flex flex-col items-center gap-5 text-center">
-                <CheckCircle2 size={32} strokeWidth={1} className="text-green-500" />
+              <div className={`border p-12 flex flex-col items-center gap-5 text-center ${
+                user?.isCircleMember ? "bg-[#1E261C] border-[#CBB67B]/20 text-white" : "bg-white border-verde-ebano/8"
+              }`}>
+                <CheckCircle2 size={32} strokeWidth={1} className="text-emerald-400" />
                 <div className="flex flex-col gap-2">
-                  <p className="text-base font-display text-verde-ebano">Solicitud Enviada</p>
-                  <p className="text-xs text-verde-ebano/40 leading-relaxed max-w-xs">
+                  <p className="text-base font-display text-white">Solicitud Enviada</p>
+                  <p className="text-xs text-white/70 leading-relaxed max-w-xs">
                     Nuestro equipo revisará tu solicitud y se pondrá en contacto en un plazo de 24–48 horas hábiles.
                   </p>
                 </div>
@@ -76,40 +90,66 @@ export default function DevolucionesPage() {
                 </button>
               </div>
             ) : (
-              <div className="bg-white border border-verde-ebano/8 p-8">
+              <div className={`border p-8 ${
+                user?.isCircleMember ? "bg-[#1E261C] border-[#CBB67B]/20 text-white" : "bg-white border-verde-ebano/8"
+              }`}>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                   <div className="flex flex-col gap-2">
-                    <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Número de Pedido *</label>
+                    <label className={`text-[11px] uppercase tracking-[0.4em] ${
+                      user?.isCircleMember ? "text-[#CBB67B] font-semibold" : "text-verde-ebano/60"
+                    }`}>
+                      Número de Pedido *
+                    </label>
                     <input
                       value={orderNum} onChange={e => setOrderNum(e.target.value)} required
-                      className="bg-transparent border-b border-verde-ebano/12 py-2.5 text-base text-verde-ebano outline-none focus:border-oro-antiguo transition-colors placeholder:text-verde-ebano/20"
+                      className={`bg-transparent border-b py-2.5 text-base outline-none transition-colors ${
+                        user?.isCircleMember
+                          ? "text-white border-[#CBB67B]/30 focus:border-[#CBB67B] placeholder:text-white/60"
+                          : "text-verde-ebano border-verde-ebano/20 focus:border-oro-antiguo placeholder:text-verde-ebano/40"
+                      }`}
                       placeholder="MA-2025-0001"
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Motivo de Devolución *</label>
+                    <label className={`text-[11px] uppercase tracking-[0.4em] ${
+                      user?.isCircleMember ? "text-[#CBB67B] font-semibold" : "text-verde-ebano/60"
+                    }`}>
+                      Motivo de Devolución *
+                    </label>
                     <select value={reason} onChange={e => setReason(e.target.value)} required
-                      className="bg-transparent border-b border-verde-ebano/12 py-2.5 text-base text-verde-ebano outline-none focus:border-oro-antiguo transition-colors cursor-pointer"
+                      className={`bg-transparent border-b py-2.5 text-base outline-none transition-colors cursor-pointer ${
+                        user?.isCircleMember
+                          ? "text-white border-[#CBB67B]/30 focus:border-[#CBB67B]"
+                          : "text-verde-ebano border-verde-ebano/20 focus:border-oro-antiguo"
+                      }`}
                     >
-                      <option value="">Seleccionar motivo</option>
-                      <option>Cambio de talla</option>
-                      <option>Pieza dañada al recibir</option>
-                      <option>No es lo que esperaba</option>
-                      <option>Pedido incorrecto</option>
-                      <option>Regalo no aceptado</option>
-                      <option>Otro</option>
+                      <option value="" className={user?.isCircleMember ? "bg-[#1E261C] text-white" : "bg-white text-verde-ebano"}>Seleccionar motivo</option>
+                      <option className={user?.isCircleMember ? "bg-[#1E261C] text-white" : "bg-white text-verde-ebano"}>Cambio de talla</option>
+                      <option className={user?.isCircleMember ? "bg-[#1E261C] text-white" : "bg-white text-verde-ebano"}>Pieza dañada al recibir</option>
+                      <option className={user?.isCircleMember ? "bg-[#1E261C] text-white" : "bg-white text-verde-ebano"}>No es lo que esperaba</option>
+                      <option className={user?.isCircleMember ? "bg-[#1E261C] text-white" : "bg-white text-verde-ebano"}>Pedido incorrecto</option>
+                      <option className={user?.isCircleMember ? "bg-[#1E261C] text-white" : "bg-white text-verde-ebano"}>Regalo no aceptado</option>
+                      <option className={user?.isCircleMember ? "bg-[#1E261C] text-white" : "bg-white text-verde-ebano"}>Otro</option>
                     </select>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Detalles adicionales</label>
+                    <label className={`text-[11px] uppercase tracking-[0.4em] ${
+                      user?.isCircleMember ? "text-[#CBB67B] font-semibold" : "text-verde-ebano/60"
+                    }`}>
+                      Detalles adicionales
+                    </label>
                     <textarea
                       value={details} onChange={e => setDetails(e.target.value)} rows={3}
-                      className="bg-transparent border-b border-verde-ebano/12 py-2.5 text-base text-verde-ebano outline-none focus:border-oro-antiguo transition-colors resize-none placeholder:text-verde-ebano/20"
+                      className={`bg-transparent border-b py-2.5 text-base outline-none transition-colors resize-none ${
+                        user?.isCircleMember
+                          ? "text-white border-[#CBB67B]/30 focus:border-[#CBB67B] placeholder:text-white/60"
+                          : "text-verde-ebano border-verde-ebano/20 focus:border-oro-antiguo placeholder:text-verde-ebano/40"
+                      }`}
                       placeholder="Cuéntanos más sobre tu situación..."
                     />
                   </div>
                   <button type="submit" disabled={isSubmitting}
-                    className="flex items-center justify-center gap-3 bg-verde-ebano text-hueso-seda text-xs uppercase tracking-[0.5em] py-4 hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-500 disabled:opacity-60 group"
+                    className="flex items-center justify-center gap-3 bg-oro-antiguo text-verde-ebano text-xs uppercase tracking-[0.5em] py-4 hover:bg-hueso-seda transition-all duration-500 font-bold disabled:opacity-60 group shadow-md"
                   >
                     {isSubmitting ? <Loader2 size={14} className="animate-spin" /> : <><span>Enviar Solicitud</span><ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" /></>}
                   </button>

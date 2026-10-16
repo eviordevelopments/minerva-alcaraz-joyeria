@@ -39,7 +39,6 @@ const STANDARD_NAV: NavItem[] = [
 const CIRCLE_NAV: NavItem[] = [
   { href: "/perfil/albumes",              label: "Mis Álbumes",         icon: Images },
   { href: "/perfil/colecciones-privadas", label: "Colecciones Privadas", icon: Gem },
-  { href: "/perfil/eventos",              label: "Eventos Atelier",     icon: CalendarDays },
   { href: "/perfil/concierge",            label: "Concierge Privado",   icon: Sparkles },
   { href: "/perfil/cuidado-ritual",       label: "Cuidado y Ritual",    icon: BookOpen },
   { href: "/perfil/envios",               label: "Envíos Prioritarios", icon: Truck },

@@ -347,19 +347,106 @@ export async function GET() {
       chartData: yearChartData,
     };
 
+    // ── 5. TRIMESTRAL (ÚLTIMOS 90 DÍAS) ──────────────────────────────────
+    const ninetyDaysAgo = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000);
+    const quarterOrders = allOrders.filter(
+      (o) => new Date(o.placed_at || o.created_at) >= ninetyDaysAgo
+    );
+    // 12 weekly blocks for trimestral
+    const quarterChartData = Array.from({ length: 12 }, (_, i) => {
+      const endBlock = new Date(now.getTime() - (11 - i) * 7 * 24 * 60 * 60 * 1000);
+      const startBlock = new Date(endBlock.getTime() - 7 * 24 * 60 * 60 * 1000);
+      const weekLabel = `S${i + 1}`;
+
+      const blockOrders = quarterOrders.filter((o) => {
+        const od = new Date(o.placed_at || o.created_at);
+        return od >= startBlock && od <= endBlock;
+      });
+      const totalCents = blockOrders.reduce(
+        (sum, o) => (o.status !== "cancelled" ? sum + (o.total_cents || 0) : sum),
+        0
+      );
+
+      return {
+        label: weekLabel,
+        dateStr: getMexicoDateStr(endBlock),
+        totalCents,
+        orderCount: blockOrders.length,
+      };
+    });
+
+    const quarterTotalCents = quarterOrders.reduce(
+      (sum, o) => (o.status !== "cancelled" ? sum + (o.total_cents || 0) : sum),
+      0
+    );
+
+    const trimestralSales = {
+      label: "Trimestre",
+      subLabel: "Últimos 90 Días",
+      totalCents: quarterTotalCents,
+      orderCount: quarterOrders.length,
+      paidCount: quarterOrders.filter((o) =>
+        ["paid", "processing", "shipped", "delivered"].includes(o.status)
+      ).length,
+      averageTicketCents: quarterOrders.length > 0 ? Math.round(quarterTotalCents / quarterOrders.length) : 0,
+      orders: quarterOrders.map(formatOrder),
+      chartData: quarterChartData,
+    };
+
+    // ── 6. TOTAL (HISTÓRICO COMPLETO) ─────────────────────────────────────
+    const totalOrders = allOrders;
+    const totalOrdersPaidCount = totalOrders.filter((o) =>
+      ["paid", "processing", "shipped", "delivered"].includes(o.status)
+    ).length;
+    const totalRevenueCents = totalOrders.reduce(
+      (sum, o) => (o.status !== "cancelled" ? sum + (o.total_cents || 0) : sum),
+      0
+    );
+
+    // Group total by month
+    const totalChartData = yearChartData; // uses 12-month curve or full set
+
+    const totalSales = {
+      label: "Total",
+      subLabel: "Histórico Completo",
+      totalCents: totalRevenueCents,
+      orderCount: totalOrders.length,
+      paidCount: totalOrdersPaidCount,
+      averageTicketCents: totalOrders.length > 0 ? Math.round(totalRevenueCents / totalOrders.length) : 0,
+      orders: totalOrders.map(formatOrder),
+      chartData: totalChartData,
+    };
+
     // ── PERIOD AGGREGATES FOR CARDS ────────────────────────────────────────
     const filterByDate = (list: any[], cutoff: Date) =>
       list.filter((x) => new Date(x.created_at) >= cutoff).length;
 
     const startOfTodayUtc = new Date(`${todayStr}T00:00:00-06:00`);
+    const startOfYesterdayUtc = new Date(`${yesterdayStr}T00:00:00-06:00`);
 
     const periods = {
-      Diario: {
+      Hoy: {
         sales: diarioSales,
         usersCount: filterByDate(allProfiles, startOfTodayUtc),
         newsletterCount: filterByDate(allNewsletter, startOfTodayUtc),
         conciergeCount: filterByDate(allRequests, startOfTodayUtc),
         activeDescription: "Registrados hoy (CDMX)",
+      },
+      Ayer: {
+        sales: yesterdaySales,
+        usersCount: allProfiles.filter((x) => {
+          const d = new Date(x.created_at);
+          return d >= startOfYesterdayUtc && d < startOfTodayUtc;
+        }).length,
+        newsletterCount: allNewsletter.filter((x) => {
+          const d = new Date(x.created_at);
+          return d >= startOfYesterdayUtc && d < startOfTodayUtc;
+        }).length,
+        conciergeCount: allRequests.filter((x) => {
+          const d = new Date(x.created_at);
+          return d >= startOfYesterdayUtc && d < startOfTodayUtc;
+        }).length,
+        activeDescription: "Jornada de ayer",
       },
       Semanal: {
         sales: semanalSales,
@@ -375,12 +462,26 @@ export async function GET() {
         conciergeCount: filterByDate(allRequests, thirtyDaysAgo),
         activeDescription: "En los últimos 30 días",
       },
+      Trimestral: {
+        sales: trimestralSales,
+        usersCount: filterByDate(allProfiles, ninetyDaysAgo),
+        newsletterCount: filterByDate(allNewsletter, ninetyDaysAgo),
+        conciergeCount: filterByDate(allRequests, ninetyDaysAgo),
+        activeDescription: "En los últimos 90 días",
+      },
       Anual: {
         sales: anualSales,
         usersCount: filterByDate(allProfiles, oneYearAgo),
         newsletterCount: filterByDate(allNewsletter, oneYearAgo),
         conciergeCount: filterByDate(allRequests, oneYearAgo),
         activeDescription: "En los últimos 12 meses",
+      },
+      Total: {
+        sales: totalSales,
+        usersCount: allProfiles.length,
+        newsletterCount: allNewsletter.length,
+        conciergeCount: allRequests.length,
+        activeDescription: "Histórico acumulado de la marca",
       },
     };
 
@@ -393,11 +494,8 @@ export async function GET() {
         openRequests: allRequests.filter(
           (r) => r.status !== "delivered" && r.status !== "cancelled"
         ).length,
-        allTimeRevenueCents: allOrders.reduce(
-          (sum, o) => (o.status !== "cancelled" ? sum + (o.total_cents || 0) : sum),
-          0
-        ),
-        allTimeOrdersCount: allOrders.length,
+        allTimeRevenueCents: totalRevenueCents,
+        allTimeOrdersCount: totalOrders.length,
       },
       periods,
       yesterdaySales,

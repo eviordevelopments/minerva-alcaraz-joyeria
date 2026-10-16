@@ -59,30 +59,37 @@ export default function SoportePage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {channels.map(({ icon: Icon, label, value, href, color }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer"
-                  className="bg-white border border-verde-ebano/8 p-5 flex flex-col gap-3 hover:border-verde-ebano/25 transition-colors group"
+                  className="bg-[#1E261C] border border-[#CBB67B]/25 p-5 flex flex-col gap-3 hover:border-[#CBB67B] transition-colors group shadow-md"
                 >
-                  <Icon size={16} strokeWidth={1.2} className={color} />
-                  <div className="flex flex-col gap-0.5">
-                    <p className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">{label}</p>
-                    <p className="text-xs text-verde-ebano/70 group-hover:text-verde-ebano transition-colors">{value}</p>
+                  <Icon size={18} strokeWidth={1.5} className={color === "text-green-500" ? "text-emerald-400" : color === "text-oro-antiguo" ? "text-[#CBB67B]" : "text-white"} />
+                  <div className="flex flex-col gap-1">
+                    <p className="text-[11px] uppercase tracking-[0.35em] text-[#CBB67B] font-semibold">{label}</p>
+                    <p className="text-xs sm:text-sm text-white font-medium tracking-wide group-hover:text-[#CBB67B] transition-colors">{value}</p>
                   </div>
                 </a>
               ))}
             </div>
 
+            {/* Guarantee badge */}
+            <div className="bg-[#1E261C] border border-white/15 px-4 py-3 text-center">
+              <p className="text-xs uppercase tracking-[0.3em] text-white font-semibold">
+                Respuesta garantizada en menos de 4 horas en días hábiles
+              </p>
+            </div>
+
             {/* Form */}
-            <div className="bg-white border border-verde-ebano/8 p-8">
+            <div className="bg-[#1E261C] border border-[#CBB67B]/20 p-8 shadow-xl">
               <div className="flex items-center gap-3 mb-6">
-                <HeadphonesIcon size={14} strokeWidth={1.2} className="text-oro-antiguo" />
-                <h2 className="text-xs uppercase tracking-[0.4em] text-verde-ebano/60">Enviar Mensaje</h2>
+                <HeadphonesIcon size={16} strokeWidth={1.5} className="text-[#CBB67B]" />
+                <h2 className="text-xs uppercase tracking-[0.4em] text-[#CBB67B] font-bold">Enviar Mensaje</h2>
               </div>
 
               {success ? (
                 <div className="flex flex-col items-center gap-5 py-10 text-center">
-                  <CheckCircle2 size={28} strokeWidth={1} className="text-green-500" />
+                  <CheckCircle2 size={32} strokeWidth={1} className="text-emerald-400" />
                   <div className="flex flex-col gap-2">
-                    <p className="text-base font-display text-verde-ebano">Mensaje Enviado</p>
-                    <p className="text-xs text-verde-ebano/40 leading-relaxed max-w-xs">
+                    <p className="text-base font-display text-white">Mensaje Enviado</p>
+                    <p className="text-xs text-white/80 leading-relaxed max-w-xs">
                       Te responderemos en tu correo en un plazo de 24 horas hábiles.
                     </p>
                   </div>
@@ -90,21 +97,21 @@ export default function SoportePage() {
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                   <div className="flex flex-col gap-2">
-                    <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Asunto *</label>
+                    <label className="text-[11px] uppercase tracking-[0.4em] text-[#CBB67B] font-semibold">Asunto *</label>
                     <input value={subject} onChange={e => setSubject(e.target.value)} required
-                      className="bg-transparent border-b border-verde-ebano/12 py-2.5 text-base text-verde-ebano outline-none focus:border-oro-antiguo transition-colors placeholder:text-verde-ebano/20"
+                      className="bg-transparent border-b border-[#CBB67B]/30 py-2.5 text-base text-white outline-none focus:border-[#CBB67B] transition-colors placeholder:text-white/60"
                       placeholder="¿En qué podemos ayudarte?"
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Mensaje *</label>
+                    <label className="text-[11px] uppercase tracking-[0.4em] text-[#CBB67B] font-semibold">Mensaje *</label>
                     <textarea value={message} onChange={e => setMessage(e.target.value)} required rows={5}
-                      className="bg-transparent border-b border-verde-ebano/12 py-2.5 text-base text-verde-ebano outline-none focus:border-oro-antiguo transition-colors resize-none placeholder:text-verde-ebano/20"
+                      className="bg-transparent border-b border-[#CBB67B]/30 py-2.5 text-base text-white outline-none focus:border-[#CBB67B] transition-colors resize-none placeholder:text-white/60"
                       placeholder="Cuéntanos con detalle tu consulta..."
                     />
                   </div>
                   <button type="submit" disabled={isSubmitting}
-                    className="flex items-center justify-center gap-3 bg-verde-ebano text-hueso-seda text-xs uppercase tracking-[0.5em] py-4 hover:bg-oro-antiguo hover:text-verde-ebano transition-all duration-500 disabled:opacity-60 group"
+                    className="flex items-center justify-center gap-3 bg-[#CBB67B] text-[#1F271D] text-xs uppercase tracking-[0.5em] py-4 hover:bg-[#E5DBD6] transition-all duration-500 font-bold disabled:opacity-60 group shadow-md"
                   >
                     {isSubmitting ? <Loader2 size={14} className="animate-spin" /> : <><span>Enviar</span><ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" /></>}
                   </button>

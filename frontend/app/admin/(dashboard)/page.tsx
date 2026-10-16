@@ -23,7 +23,7 @@ import {
   BarChart3,
 } from "lucide-react";
 
-type PeriodType = "Diario" | "Semanal" | "Mensual" | "Anual";
+type PeriodType = "Hoy" | "Ayer" | "Semanal" | "Mensual" | "Trimestral" | "Anual" | "Total";
 
 interface DashboardStats {
   totalProducts: number;
@@ -133,15 +133,13 @@ function getOrderStatusBadge(status: string) {
 }
 
 export default function AdminDashboard() {
-  const [period, setPeriod] = useState<PeriodType>("Diario");
-  const [dailySubTab, setDailySubTab] = useState<"today" | "yesterday">("today");
+  const [period, setPeriod] = useState<PeriodType>("Hoy");
   const [salesMetric, setSalesMetric] = useState<"revenue" | "count">("revenue");
   const [salesSearch, setSalesSearch] = useState("");
   const [hoveredPoint, setHoveredPoint] = useState<ChartPoint | null>(null);
 
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [periodsData, setPeriodsData] = useState<Record<PeriodType, PeriodPayload> | null>(null);
-  const [yesterdaySales, setYesterdaySales] = useState<SalesPeriodData | null>(null);
   const [currentDateMexico, setCurrentDateMexico] = useState("");
   const [activity, setActivity] = useState<ActivityEntry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -171,7 +169,6 @@ export default function AdminDashboard() {
       if (!res.ok || json.error) throw new Error(json.error ?? "Error de carga");
       setStats(json.stats);
       setPeriodsData(json.periods ?? null);
-      setYesterdaySales(json.yesterdaySales ?? null);
       setCurrentDateMexico(json.currentDateMexico ?? "");
       setActivity(json.recentActivity ?? []);
       setLastRefresh(new Date());
@@ -189,17 +186,14 @@ export default function AdminDashboard() {
   // Currently active period data payload
   const currentPeriodPayload: PeriodPayload | null = useMemo(() => {
     if (!periodsData) return null;
-    return periodsData[period] ?? periodsData["Diario"];
+    return periodsData[period] ?? periodsData["Hoy"] ?? null;
   }, [periodsData, period]);
 
-  // Active sales data (supports "Ayer" when in "Diario")
+  // Active sales data for the selected period
   const activeSales: SalesPeriodData | null = useMemo(() => {
     if (!currentPeriodPayload) return null;
-    if (period === "Diario" && dailySubTab === "yesterday" && yesterdaySales) {
-      return yesterdaySales;
-    }
     return currentPeriodPayload.sales;
-  }, [currentPeriodPayload, period, dailySubTab, yesterdaySales]);
+  }, [currentPeriodPayload]);
 
   // Filtered orders in the active period
   const filteredSalesOrders = useMemo(() => {
@@ -277,17 +271,14 @@ export default function AdminDashboard() {
           )}
         </div>
 
-        {/* Global Period Selector (Diario, Semanal, Mensual, Anual) */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1 bg-[#1F271D] border border-[#CBB67B]/30 p-1">
-            {(["Diario", "Semanal", "Mensual", "Anual"] as PeriodType[]).map((p) => (
+        {/* Global Period Selector: Hoy, Ayer, Semanal, Mensual, Trimestral, Anual, Total */}
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-1 bg-[#1F271D] border border-[#CBB67B]/30 p-1">
+            {(["Hoy", "Ayer", "Semanal", "Mensual", "Trimestral", "Anual", "Total"] as PeriodType[]).map((p) => (
               <button
                 key={p}
-                onClick={() => {
-                  setPeriod(p);
-                  setDailySubTab("today");
-                }}
-                className={`text-[11px] uppercase tracking-widest px-4 py-2 transition-all font-semibold ${
+                onClick={() => setPeriod(p)}
+                className={`text-[11px] uppercase tracking-widest px-3 sm:px-4 py-2 transition-all font-semibold ${
                   period === p
                     ? "bg-[#CBB67B] text-[#1F271D] font-bold shadow-md"
                     : "text-[#8E9A8B] hover:text-[#E5DBD6]"
@@ -377,13 +368,19 @@ export default function AdminDashboard() {
               </span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-display-erp text-[#E5DBD6] font-bold mt-1">
-              {period === "Diario"
-                ? `Ventas del Día (${dailySubTab === "today" ? "Hoy" : "Ayer"})`
+              {period === "Hoy"
+                ? "Ventas del Día (Hoy · En Directo)"
+                : period === "Ayer"
+                ? "Ventas de Ayer (Jornada Anterior)"
                 : period === "Semanal"
                 ? "Ventas de la Semana (Últimos 7 Días)"
                 : period === "Mensual"
                 ? "Ventas del Mes (Últimos 30 Días)"
-                : "Ventas del Año (Últimos 12 Meses)"}
+                : period === "Trimestral"
+                ? "Ventas del Trimestre (Últimos 90 Días)"
+                : period === "Anual"
+                ? "Ventas del Año (Últimos 12 Meses)"
+                : "Ventas Totales (Histórico Completo)"}
             </h2>
             <p className="text-xs text-[#8E9A8B] mt-1 flex items-center gap-2">
               <Clock size={12} className="text-[#CBB67B]" />
@@ -391,46 +388,22 @@ export default function AdminDashboard() {
               <span className="text-[#E5DBD6] font-mono">
                 {currentDateMexico || "Hoy"}
               </span>
+              {activeSales?.subLabel && (
+                <span className="text-[#CBB67B] ml-2 font-mono">
+                  · {activeSales.subLabel}
+                </span>
+              )}
             </p>
           </div>
 
-          {/* Sub-tabs for Diario (Hoy vs Ayer) or Quick Period Switcher */}
+          {/* Unified active period indicator */}
           <div className="flex items-center gap-2">
-            {period === "Diario" ? (
-              <div className="flex items-center bg-[#2C3729]/80 border border-[#CBB67B]/30 p-1">
-                <button
-                  type="button"
-                  onClick={() => setDailySubTab("today")}
-                  className={`text-xs uppercase tracking-wider px-4 py-2 font-semibold transition-all ${
-                    dailySubTab === "today"
-                      ? "bg-[#CBB67B] text-[#1F271D] font-bold shadow-md"
-                      : "text-[#8E9A8B] hover:text-[#E5DBD6]"
-                  }`}
-                >
-                  Hoy (En Directo)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setDailySubTab("yesterday")}
-                  className={`text-xs uppercase tracking-wider px-4 py-2 font-semibold transition-all ${
-                    dailySubTab === "yesterday"
-                      ? "bg-[#CBB67B] text-[#1F271D] font-bold shadow-md"
-                      : "text-[#8E9A8B] hover:text-[#E5DBD6]"
-                  }`}
-                >
-                  Ayer
-                </button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <span className="text-[11px] uppercase tracking-widest text-[#8E9A8B]">
-                  Vista Activa:
-                </span>
-                <span className="text-xs uppercase tracking-widest px-3 py-1 bg-[#2C3729] border border-[#CBB67B]/40 text-[#CBB67B] font-bold">
-                  {period}
-                </span>
-              </div>
-            )}
+            <span className="text-[11px] uppercase tracking-widest text-[#8E9A8B]">
+              Periodo Seleccionado:
+            </span>
+            <span className="text-xs uppercase tracking-widest px-3 py-1 bg-[#2C3729] border border-[#CBB67B]/40 text-[#CBB67B] font-bold">
+              {period}
+            </span>
           </div>
         </div>
 
@@ -445,7 +418,7 @@ export default function AdminDashboard() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Total Vendido */}
             <motion.div
-              key={"total-" + period + dailySubTab}
+              key={"total-" + period}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               className="bg-[#2C3729]/50 border border-[#CBB67B]/20 p-5 flex flex-col justify-between"
@@ -470,7 +443,7 @@ export default function AdminDashboard() {
 
             {/* Órdenes */}
             <motion.div
-              key={"orders-" + period + dailySubTab}
+              key={"orders-" + period}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.05 }}
@@ -497,7 +470,7 @@ export default function AdminDashboard() {
 
             {/* Ticket Promedio */}
             <motion.div
-              key={"ticket-" + period + dailySubTab}
+              key={"ticket-" + period}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
@@ -523,7 +496,7 @@ export default function AdminDashboard() {
 
             {/* Eficiencia de Cobro */}
             <motion.div
-              key={"efficiency-" + period + dailySubTab}
+              key={"efficiency-" + period}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15 }}
@@ -560,13 +533,19 @@ export default function AdminDashboard() {
               </span>
               <h3 className="text-sm font-semibold uppercase tracking-wider text-[#E5DBD6] mt-0.5 flex items-center gap-2">
                 <BarChart3 size={14} className="text-[#CBB67B]" />
-                {period === "Diario"
-                  ? `Curva Horaria · ${dailySubTab === "today" ? "Hoy" : "Ayer"} (00:00 - 23:00 hrs)`
+                {period === "Hoy"
+                  ? "Curva Horaria · Hoy en Directo (00:00 - 23:00 hrs)"
+                  : period === "Ayer"
+                  ? "Curva Horaria · Ayer Jornada Completa (00:00 - 23:00 hrs)"
                   : period === "Semanal"
                   ? "Evolución Diaria (Últimos 7 Días)"
                   : period === "Mensual"
                   ? "Evolución Diaria (Últimos 30 Días)"
-                  : "Evolución Mensual (Últimos 12 Meses)"}
+                  : period === "Trimestral"
+                  ? "Evolución Semanal (Últimos 90 Días)"
+                  : period === "Anual"
+                  ? "Evolución Mensual (Últimos 12 Meses)"
+                  : "Evolución Histórica Total"}
               </h3>
             </div>
 
@@ -656,15 +635,15 @@ export default function AdminDashboard() {
 
                       {/* X Label */}
                       <span className="text-[9px] font-mono text-[#8E9A8B] mt-2 block truncate">
-                        {period === "Diario"
+                        {["Hoy", "Ayer"].includes(period)
                           ? idx % 3 === 0
                             ? pt.label.slice(0, 2)
                             : ""
                           : period === "Semanal"
                           ? pt.label
-                          : period === "Mensual"
+                          : ["Mensual", "Trimestral"].includes(period)
                           ? idx % 4 === 0
-                            ? pt.label.slice(0, 2)
+                            ? pt.label
                             : ""
                           : pt.label.slice(0, 3)}
                       </span>
@@ -676,19 +655,23 @@ export default function AdminDashboard() {
 
             <div className="flex justify-between items-center text-[10px] text-[#8E9A8B] uppercase tracking-widest border-t border-[#CBB67B]/10 pt-3 mt-1">
               <span>
-                {period === "Diario"
+                {["Hoy", "Ayer"].includes(period)
                   ? "00:00 hrs"
                   : period === "Semanal"
                   ? "Hace 7 días"
                   : period === "Mensual"
                   ? "Hace 30 días"
-                  : "Hace 12 meses"}
+                  : period === "Trimestral"
+                  ? "Hace 90 días"
+                  : period === "Anual"
+                  ? "Hace 12 meses"
+                  : "Histórico"}
               </span>
               <span className="text-[#CBB67B]">
                 {salesMetric === "revenue" ? "Escala: Monto Recaudado ($ MXN)" : "Escala: Volumen de Órdenes"}
               </span>
               <span>
-                {period === "Diario"
+                {["Hoy", "Ayer"].includes(period)
                   ? "23:59 hrs"
                   : "Hoy / Periodo Actual"}
               </span>
@@ -851,11 +834,11 @@ export default function AdminDashboard() {
                                 : "Las compras procesadas por Stripe en la boutique aparecerán aquí inmediatamente con su flujo temporal."}
                             </p>
                           </div>
-                          {period === "Diario" && dailySubTab === "today" && (
+                          {period === "Hoy" && (
                             <div className="flex gap-2 mt-2">
                               <button
                                 type="button"
-                                onClick={() => setDailySubTab("yesterday")}
+                                onClick={() => setPeriod("Ayer")}
                                 className="px-3 py-1.5 border border-[#CBB67B]/40 text-[#CBB67B] hover:bg-[#CBB67B] hover:text-[#1F271D] text-[10px] uppercase tracking-widest font-bold transition-all"
                               >
                                 Ver Ventas de Ayer

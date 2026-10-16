@@ -358,7 +358,7 @@ export default function PedidosPage() {
               <div className="bg-[#2C3729] text-[#E5DBD6] p-6 sm:p-8 flex items-start justify-between border-b border-oro-antiguo/30">
                 <div>
                   <span className="text-[10px] uppercase tracking-[0.4em] text-oro-antiguo block font-bold mb-1">
-                    Atelier Minerva Alcaraz · San Miguel de Allende
+                    Atelier Minerva Alcaraz
                   </span>
                   <h2 className="text-2xl font-display font-bold">
                     Rastreo de Joya de Autor
@@ -378,12 +378,12 @@ export default function PedidosPage() {
               <div className="p-6 sm:p-8 space-y-8">
                 {/* Desglose del Producto Principal */}
                 {trackingOrder.order_items?.[0] && (
-                  <div className="bg-white border border-verde-ebano/10 p-4 flex items-center gap-4 shadow-sm">
-                    <div className="w-20 h-20 bg-verde-ebano/5 border border-oro-antiguo/30 relative flex-shrink-0 overflow-hidden">
+                  <div className="bg-[#242D22] border border-oro-antiguo/30 p-4 flex items-center gap-4 shadow-sm text-white">
+                    <div className="w-20 h-20 bg-black/30 border border-oro-antiguo/40 relative flex-shrink-0 overflow-hidden">
                       {trackingOrder.order_items[0].product_image ? (
                         <Image src={trackingOrder.order_items[0].product_image} alt="" fill className="object-cover" />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-verde-ebano/30">
+                        <div className="w-full h-full flex items-center justify-center text-[#8E9A8B]">
                           <Package size={24} />
                         </div>
                       )}
@@ -392,11 +392,11 @@ export default function PedidosPage() {
                       <span className="text-[9px] uppercase tracking-[0.3em] text-oro-antiguo font-bold block">
                         Pieza en Custodia
                       </span>
-                      <h3 className="text-base font-display text-verde-ebano font-bold truncate">
+                      <h3 className="text-base font-display text-white font-bold truncate">
                         {trackingOrder.order_items[0].product_name}
                       </h3>
-                      <p className="text-xs font-mono text-verde-ebano/60 mt-1">
-                        SKU Serializado: <strong className="text-verde-ebano">{trackingOrder.order_items[0].product_sku}</strong>
+                      <p className="text-xs font-mono text-white/90 mt-1">
+                        SKU Serializado: <strong className="text-white font-mono font-bold">{trackingOrder.order_items[0].product_sku}</strong>
                       </p>
                     </div>
                   </div>
@@ -404,11 +404,11 @@ export default function PedidosPage() {
 
                 {/* ANIMACIÓN Y STEPPER DEL ESTADO DE ENVÍO */}
                 <div className="space-y-6">
-                  <h3 className="text-xs uppercase tracking-[0.25em] text-verde-ebano font-bold border-b border-verde-ebano/10 pb-2">
+                  <h3 className="text-xs uppercase tracking-[0.25em] text-[#2C3729] font-bold border-b border-[#2C3729]/15 pb-2">
                     Progreso de Creación y Entrega
                   </h3>
 
-                  <div className="relative pl-6 space-y-8 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-verde-ebano/15">
+                  <div className="relative pl-6 space-y-8 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#2C3729]/20">
                     {STEP_DEFINITIONS.map((step, idx) => {
                       const currentIdx = getStepIndex(trackingOrder.status);
                       const isCompleted = idx <= currentIdx;
@@ -425,21 +425,21 @@ export default function PedidosPage() {
                             }}
                             transition={{ repeat: isCurrent ? Infinity : 0, duration: 2.5 }}
                             className={`w-6 h-6 rounded-full border-2 flex items-center justify-center text-[10px] -ml-[31px] z-10 flex-shrink-0 ${
-                              isCompleted ? "text-oro-antiguo shadow-md" : "text-verde-ebano/40"
+                              isCompleted ? "text-oro-antiguo shadow-md" : "text-[#2C3729]/50"
                             }`}
                           >
                             {isCompleted ? <Check size={12} strokeWidth={3} /> : idx + 1}
                           </motion.div>
 
                           <div className="flex-1">
-                            <h4 className={`text-sm font-bold ${isCurrent ? "text-verde-ebano" : isCompleted ? "text-verde-ebano/80" : "text-verde-ebano/40"}`}>
+                            <h4 className="text-sm font-bold text-[#2C3729]">
                               {step.title}
                             </h4>
-                            <p className="text-xs text-verde-ebano/60 mt-0.5 leading-relaxed font-light">
+                            <p className="text-xs text-[#2C3729]/80 mt-0.5 leading-relaxed font-light">
                               {step.subtitle}
                             </p>
                             {step.key === "shipped" && trackingOrder.tracking_number && (
-                              <div className="mt-2 p-2.5 bg-oro-antiguo/10 border border-oro-antiguo/30 text-xs font-mono text-verde-ebano">
+                              <div className="mt-2 p-2.5 bg-oro-antiguo/15 border border-oro-antiguo/40 text-xs font-mono text-[#2C3729]">
                                 Guía de Custodia: <strong>{trackingOrder.tracking_number}</strong> ({trackingOrder.carrier || "DHL Express"})
                               </div>
                             )}

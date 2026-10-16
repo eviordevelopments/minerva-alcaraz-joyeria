@@ -187,33 +187,33 @@ function AlbumDetailContent() {
 
             {/* Album header */}
             {isEditing ? (
-              <div className="bg-white border border-verde-ebano/8 p-6 flex flex-col gap-5">
+              <div className="bg-[#1E261C] border border-[#CBB67B]/25 p-6 flex flex-col gap-5 text-white shadow-xl">
                 <div className="flex flex-col gap-2">
-                  <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Nombre del Álbum</label>
+                  <label className="text-[11px] uppercase tracking-[0.4em] text-[#CBB67B] font-semibold">Nombre del Álbum</label>
                   <input value={editTitle} onChange={e => setEditTitle(e.target.value)}
-                    className="text-2xl font-display text-verde-ebano bg-transparent outline-none border-b border-verde-ebano/12 pb-2 focus:border-oro-antiguo transition-colors"
+                    className="text-2xl font-display text-white bg-transparent outline-none border-b border-[#CBB67B]/30 pb-2 focus:border-[#CBB67B] transition-colors placeholder:text-white/40"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Descripción</label>
+                  <label className="text-[11px] uppercase tracking-[0.4em] text-[#CBB67B] font-semibold">Descripción Mi Lista de Deseos</label>
                   <textarea value={editDesc} onChange={e => setEditDesc(e.target.value)} rows={2}
-                    className="text-base text-verde-ebano/60 bg-transparent outline-none border-b border-verde-ebano/12 pb-2 focus:border-oro-antiguo transition-colors resize-none"
+                    className="text-base text-white bg-transparent outline-none border-b border-[#CBB67B]/30 pb-2 focus:border-[#CBB67B] transition-colors resize-none placeholder:text-white/60 font-light"
                     placeholder="Una narrativa de tu colección..."
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Visibilidad</label>
+                  <label className="text-[11px] uppercase tracking-[0.4em] text-[#CBB67B] font-semibold">Visibilidad</label>
                   <div className="flex gap-2">
                     {(["private", "shared_link", "public"] as AlbumVisibility[]).map(v => {
                       const vis = VISIBILITY_MAP[v];
                       const VIcon = vis.icon;
                       return (
                         <button key={v} onClick={() => setEditVisibility(v)}
-                          className={`flex-1 flex flex-col items-center gap-1 py-3 border text-center transition-all text-[7px] uppercase tracking-[0.3em] ${
-                            editVisibility === v ? "bg-verde-ebano text-hueso-seda border-verde-ebano" : "border-verde-ebano/10 text-verde-ebano/40 hover:border-verde-ebano/25"
+                          className={`flex-1 flex flex-col items-center gap-1.5 py-3 border text-center transition-all text-[8px] uppercase tracking-[0.25em] ${
+                            editVisibility === v ? "bg-[#CBB67B] text-[#1F271D] border-[#CBB67B] font-bold" : "border-white/15 text-white/70 hover:border-white/35"
                           }`}
                         >
-                          <VIcon size={11} strokeWidth={1.5} className={editVisibility === v ? "text-oro-antiguo" : ""} />
+                          <VIcon size={12} strokeWidth={1.5} className={editVisibility === v ? "text-[#1F271D]" : "text-[#CBB67B]"} />
                           {vis.label}
                         </button>
                       );
@@ -221,9 +221,9 @@ function AlbumDetailContent() {
                   </div>
                 </div>
                 <div className="flex gap-3">
-                  <button onClick={() => setIsEditing(false)} className="flex-1 border border-verde-ebano/12 text-verde-ebano/40 text-[11px] uppercase tracking-[0.4em] py-2.5 hover:border-verde-ebano/25 transition-colors">Cancelar</button>
+                  <button onClick={() => setIsEditing(false)} className="flex-1 border border-white/20 text-white/70 text-[11px] uppercase tracking-[0.4em] py-2.5 hover:border-white/40 transition-colors">Cancelar</button>
                   <button onClick={saveAlbum} disabled={isSaving}
-                    className="flex-1 flex items-center justify-center gap-2 bg-oro-antiguo text-verde-ebano text-[11px] uppercase tracking-[0.4em] py-2.5 hover:bg-verde-ebano hover:text-hueso-seda transition-all disabled:opacity-50"
+                    className="flex-1 flex items-center justify-center gap-2 bg-[#CBB67B] text-[#1F271D] text-[11px] uppercase tracking-[0.4em] py-2.5 hover:bg-white transition-all font-bold disabled:opacity-50 shadow-md"
                   >
                     {isSaving ? <Loader2 size={12} className="animate-spin" /> : <><Save size={12} /> Guardar</>}
                   </button>
@@ -236,14 +236,14 @@ function AlbumDetailContent() {
                     <Crown size={9} strokeWidth={1.5} className="text-oro-antiguo" />
                     <p className="text-[10px] uppercase tracking-[0.6em] text-oro-antiguo">Álbum Personal</p>
                   </div>
-                  <h1 className="text-3xl font-display text-verde-ebano">{album.title}</h1>
-                  {album.description && <p className="text-base text-verde-ebano/40 italic font-light max-w-lg">{album.description}</p>}
+                  <h1 className="text-3xl font-display text-white">{album.title}</h1>
+                  {album.description && <p className="text-base text-white/80 italic font-light max-w-lg">{album.description}</p>}
                   <div className="flex items-center gap-3 mt-1">
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-verde-ebano/30">
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-[#8E9A8B]">
                       {items.length} {items.length === 1 ? "pieza" : "piezas"}
                     </span>
-                    <span className="text-verde-ebano/15">·</span>
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-verde-ebano/30">
+                    <span className="text-white/20">·</span>
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-[#CBB67B]">
                       {VISIBILITY_MAP[album.visibility].label}
                     </span>
                   </div>
@@ -367,42 +367,42 @@ function AlbumDetailContent() {
               initial={{ opacity: 0, y: 20, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20 }}
-              className="bg-hueso-seda w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden"
+              className="bg-[#1E261C] border border-[#CBB67B]/30 w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden text-white shadow-2xl"
             >
               {/* Modal header */}
-              <div className="flex items-center justify-between p-6 border-b border-verde-ebano/8">
+              <div className="flex items-center justify-between p-6 border-b border-[#CBB67B]/20">
                 <div className="flex flex-col gap-0.5">
                   <p className="text-[10px] uppercase tracking-[0.5em] text-oro-antiguo">Catálogo</p>
-                  <h2 className="text-lg font-display text-verde-ebano">Agregar al Álbum</h2>
+                  <h2 className="text-lg font-display text-white">Agregar al Álbum</h2>
                 </div>
-                <button onClick={() => setShowAddModal(false)} className="w-8 h-8 border border-verde-ebano/10 flex items-center justify-center">
-                  <X size={13} strokeWidth={1.5} className="text-verde-ebano/40" />
+                <button onClick={() => setShowAddModal(false)} className="w-8 h-8 border border-white/20 flex items-center justify-center text-[#CBB67B] hover:border-[#CBB67B] transition-colors">
+                  <X size={13} strokeWidth={1.5} />
                 </button>
               </div>
 
               {/* Search */}
-              <div className="p-4 border-b border-verde-ebano/6">
-                <div className="flex items-center gap-3 border-b border-verde-ebano/15 pb-2">
-                  <Search size={13} strokeWidth={1.5} className="text-verde-ebano/30 flex-shrink-0" />
+              <div className="p-4 border-b border-[#CBB67B]/15">
+                <div className="flex items-center gap-3 border-b border-[#CBB67B]/30 pb-2">
+                  <Search size={14} strokeWidth={1.5} className="text-[#CBB67B] flex-shrink-0" />
                   <input
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
                     placeholder="Buscar pieza por nombre o colección..."
-                    className="flex-1 bg-transparent text-base text-verde-ebano outline-none placeholder:text-verde-ebano/25"
+                    className="flex-1 bg-transparent text-base text-white outline-none placeholder:text-white/60"
                     autoFocus
                   />
-                  {isSearching && <Loader2 size={12} className="animate-spin text-verde-ebano/30" />}
+                  {isSearching && <Loader2 size={12} className="animate-spin text-[#CBB67B]" />}
                 </div>
               </div>
 
               {/* Results */}
               <div className="flex-1 overflow-y-auto p-4">
                 {!searchQuery ? (
-                  <p className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/25 text-center py-10">
+                  <p className="text-xs uppercase tracking-[0.3em] text-[#8E9A8B] text-center py-10 font-medium">
                     Escribe para buscar piezas del catálogo
                   </p>
                 ) : searchResults.length === 0 && !isSearching ? (
-                  <p className="text-[11px] uppercase tracking-[0.3em] text-verde-ebano/25 text-center py-10">
+                  <p className="text-xs uppercase tracking-[0.3em] text-[#8E9A8B] text-center py-10 font-medium">
                     Sin resultados para "{searchQuery}"
                   </p>
                 ) : (
@@ -416,28 +416,28 @@ function AlbumDetailContent() {
                           disabled={alreadyAdded || addingId === product.id}
                           className={`text-left flex flex-col overflow-hidden border transition-all duration-200 ${
                             alreadyAdded
-                              ? "border-verde-ebano/20 opacity-50 cursor-not-allowed"
-                              : "border-verde-ebano/8 hover:border-oro-antiguo/40 cursor-pointer"
+                              ? "border-[#CBB67B]/40 opacity-60 cursor-not-allowed bg-black/40"
+                              : "border-white/15 hover:border-[#CBB67B] bg-black/25 cursor-pointer shadow-md"
                           }`}
                         >
-                          <div className="relative h-32 bg-verde-ebano/4">
+                          <div className="relative h-32 bg-black/30">
                             {product.primary_image && (
                               <Image src={product.primary_image} alt={product.name} fill className="object-cover" />
                             )}
                             {alreadyAdded && (
-                              <div className="absolute inset-0 bg-white/60 flex items-center justify-center">
-                                <Check size={16} strokeWidth={2} className="text-verde-ebano/40" />
+                              <div className="absolute inset-0 bg-[#2C3729]/80 flex items-center justify-center">
+                                <Check size={18} strokeWidth={2.5} className="text-oro-antiguo" />
                               </div>
                             )}
                             {addingId === product.id && (
-                              <div className="absolute inset-0 bg-white/60 flex items-center justify-center">
-                                <Loader2 size={16} className="animate-spin text-oro-antiguo" />
+                              <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                                <Loader2 size={18} className="animate-spin text-oro-antiguo" />
                               </div>
                             )}
                           </div>
                           <div className="p-3 flex flex-col gap-0.5">
-                            <p className="text-[10px] uppercase tracking-[0.2em] text-verde-ebano leading-tight">{product.name}</p>
-                            <p className="text-[7px] text-verde-ebano/35">{formatPrice(product.price_cents)}</p>
+                            <p className="text-xs uppercase tracking-[0.2em] text-white leading-tight font-medium">{product.name}</p>
+                            <p className="text-[11px] font-mono text-[#CBB67B]">{formatPrice(product.price_cents)}</p>
                           </div>
                         </button>
                       );

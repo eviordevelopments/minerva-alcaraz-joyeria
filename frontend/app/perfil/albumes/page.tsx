@@ -277,24 +277,24 @@ export default function AlbumesPage() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-hueso-seda w-full max-w-md p-8 flex flex-col gap-6"
+              className="bg-[#1E261C] border border-[#CBB67B]/30 w-full max-w-md p-8 flex flex-col gap-6 shadow-2xl text-white"
             >
               <div className="flex items-center justify-between">
                 <div className="flex flex-col gap-1">
                   <p className="text-[10px] uppercase tracking-[0.6em] text-oro-antiguo">The Circle</p>
-                  <h2 className="text-xl font-display text-verde-ebano">Nuevo Álbum</h2>
+                  <h2 className="text-xl font-display text-white">Nuevo Álbum</h2>
                 </div>
-                <button onClick={() => setShowCreateModal(false)} className="w-8 h-8 border border-verde-ebano/10 flex items-center justify-center hover:border-verde-ebano/30 transition-colors">
-                  <X size={13} strokeWidth={1.5} className="text-verde-ebano/40" />
+                <button onClick={() => setShowCreateModal(false)} className="w-8 h-8 border border-white/20 flex items-center justify-center hover:border-[#CBB67B] text-[#CBB67B] transition-colors">
+                  <X size={13} strokeWidth={1.5} />
                 </button>
               </div>
 
               <div className="flex flex-col gap-5">
                 <div className="flex flex-col gap-2">
-                  <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Nombre del Álbum *</label>
+                  <label className="text-[11px] uppercase tracking-[0.4em] text-[#CBB67B] font-semibold">Nombre del Álbum *</label>
                   <input
                     value={newTitle} onChange={e => setNewTitle(e.target.value)}
-                    className="bg-transparent border-b border-verde-ebano/15 py-2.5 text-base text-verde-ebano outline-none focus:border-oro-antiguo transition-colors placeholder:text-verde-ebano/25"
+                    className="bg-transparent border-b border-[#CBB67B]/30 py-2.5 text-base text-white outline-none focus:border-[#CBB67B] transition-colors placeholder:text-white/60"
                     placeholder="Mi Colección de Oro..."
                     autoFocus
                     onKeyDown={e => { if (e.key === "Enter" && newTitle.trim()) createAlbum(); }}
@@ -302,16 +302,16 @@ export default function AlbumesPage() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Descripción</label>
+                  <label className="text-[11px] uppercase tracking-[0.4em] text-[#CBB67B] font-semibold">Descripción Mi Lista de Deseos</label>
                   <textarea
                     value={newDesc} onChange={e => setNewDesc(e.target.value)} rows={2}
-                    className="bg-transparent border-b border-verde-ebano/15 py-2.5 text-base text-verde-ebano outline-none focus:border-oro-antiguo transition-colors resize-none placeholder:text-verde-ebano/25"
+                    className="bg-transparent border-b border-[#CBB67B]/30 py-2.5 text-base text-white outline-none focus:border-[#CBB67B] transition-colors resize-none placeholder:text-white/60"
                     placeholder="Una narrativa de este álbum..."
                   />
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-[11px] uppercase tracking-[0.4em] text-verde-ebano/40">Visibilidad</label>
+                  <label className="text-[11px] uppercase tracking-[0.4em] text-[#CBB67B] font-semibold">Visibilidad</label>
                   <div className="flex gap-2">
                     {(["private", "shared_link", "public"] as AlbumVisibility[]).map(v => {
                       const vis = VISIBILITY_MAP[v];
@@ -320,12 +320,12 @@ export default function AlbumesPage() {
                         <button key={v} onClick={() => setNewVisibility(v)}
                           className={`flex-1 flex flex-col items-center gap-1.5 py-3 px-2 border text-center transition-all duration-200 ${
                             newVisibility === v
-                              ? "bg-verde-ebano text-hueso-seda border-verde-ebano"
-                              : "border-verde-ebano/12 text-verde-ebano/40 hover:border-verde-ebano/30"
+                              ? "bg-[#CBB67B] text-[#1F271D] border-[#CBB67B] font-bold"
+                              : "border-white/15 text-white/70 hover:border-white/35"
                           }`}
                         >
-                          <VIcon size={12} strokeWidth={1.5} className={newVisibility === v ? "text-oro-antiguo" : ""} />
-                          <span className="text-[7px] uppercase tracking-[0.3em]">{vis.label}</span>
+                          <VIcon size={12} strokeWidth={1.5} className={newVisibility === v ? "text-[#1F271D]" : "text-[#CBB67B]"} />
+                          <span className="text-[8px] uppercase tracking-[0.25em]">{vis.label}</span>
                         </button>
                       );
                     })}
@@ -335,12 +335,12 @@ export default function AlbumesPage() {
 
               <div className="flex gap-3 pt-2">
                 <button onClick={() => setShowCreateModal(false)}
-                  className="flex-1 border border-verde-ebano/12 text-verde-ebano/40 text-[11px] uppercase tracking-[0.4em] py-3 hover:border-verde-ebano/30 transition-colors"
+                  className="flex-1 border border-white/20 text-white/70 text-[11px] uppercase tracking-[0.4em] py-3 hover:border-white/40 transition-colors"
                 >
                   Cancelar
                 </button>
                 <button onClick={createAlbum} disabled={isCreating || !newTitle.trim()}
-                  className="flex-1 flex items-center justify-center gap-2 bg-oro-antiguo text-verde-ebano text-[11px] uppercase tracking-[0.4em] py-3 hover:bg-verde-ebano hover:text-hueso-seda transition-all duration-300 disabled:opacity-50"
+                  className="flex-1 flex items-center justify-center gap-2 bg-[#CBB67B] text-[#1F271D] text-[11px] uppercase tracking-[0.4em] py-3 hover:bg-white transition-all duration-300 font-bold disabled:opacity-50 shadow-md"
                 >
                   {isCreating ? <Loader2 size={12} className="animate-spin" /> : <><Check size={12} /> Crear</>}
                 </button>
