@@ -31,16 +31,15 @@ function formatDate(dateStr: string): string {
   });
 }
 
-function getStatusColor(status: string) {
+function getStatusBadge(status: string) {
   switch (status) {
-    case "pending": return "bg-yellow-900/30 border-yellow-500/30 text-yellow-500";
-    case "paid": return "bg-green-900/30 border-green-500/30 text-green-500";
-    case "processing": return "bg-blue-900/30 border-blue-500/30 text-blue-400";
-    case "shipped": return "bg-[#CBB67B]/20 border-[#CBB67B]/40 text-[#CBB67B]";
-    case "delivered": return "bg-emerald-900/30 border-emerald-500/30 text-emerald-400";
-    case "cancelled": return "bg-red-900/30 border-red-500/30 text-red-500";
-    case "refunded": return "bg-gray-800 border-gray-600 text-gray-400";
-    default: return "bg-gray-800 border-gray-600 text-gray-400";
+    case "paid": return { label: "✓ Liquidado", color: "bg-emerald-900/30 border-emerald-500/30 text-emerald-400" };
+    case "processing": return { label: "🔨 En Taller", color: "bg-blue-900/30 border-blue-500/30 text-blue-400" };
+    case "shipped": return { label: "📦 En Camino", color: "bg-[#CBB67B]/20 border-[#CBB67B]/40 text-[#CBB67B]" };
+    case "delivered": return { label: "💎 Entregado", color: "bg-emerald-900/50 border-emerald-400 text-emerald-300 font-bold" };
+    case "pending": return { label: "⏳ Pendiente", color: "bg-amber-900/30 border-amber-500/30 text-amber-400" };
+    case "cancelled": return { label: "✖ Cancelado", color: "bg-red-900/30 border-red-500/30 text-red-500" };
+    default: return { label: status, color: "bg-gray-800 border-gray-600 text-gray-400" };
   }
 }
 
@@ -193,13 +192,14 @@ export default function AdminOrders() {
                       </td>
 
                       <td className="py-4 px-6 text-center">
-                        <span
-                          className={`inline-block text-[10px] uppercase tracking-widest px-3 py-1 font-bold border ${getStatusColor(
-                            o.status
-                          )}`}
-                        >
-                          {o.status}
-                        </span>
+                        {(() => {
+                          const b = getStatusBadge(o.status);
+                          return (
+                            <span className={`inline-block text-[10px] uppercase tracking-widest px-3 py-1 font-bold border ${b.color}`}>
+                              {b.label}
+                            </span>
+                          );
+                        })()}
                       </td>
 
                       <td className="py-4 px-6 text-center">

@@ -90,35 +90,39 @@ export async function POST(req: NextRequest) {
     }
     const shippingCents = shippingCostMxn * 100;
     
-    // IVA is 16% on top of the product price ONLY (after discounts are applied)
+    // In Mexico (PROFECO) and Minerva Alcaraz catalog, prices already include 16% IVA.
+    // We break down the tax for accounting/receipts, but DO NOT add it on top of the total.
     const taxableAmount = subtotalCents - discountCents;
-    const taxCents = Math.round(taxableAmount * 0.16);
+    const taxCents = Math.round(taxableAmount - (taxableAmount / 1.16));
     
-    const totalCents = taxableAmount + taxCents + shippingCents;
+    // Total is subtotal (with discount) + shipping
+    const totalCents = taxableAmount + shippingCents;
 
     // 3. Create Draft Order in Database
     const orderNumber = `MA-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
-    const { data: order, error: orderError } = await supabaseAdmin
+    const orderInsertData: Record<string, any> = {
+      order_number: orderNumber,
+      user_id: userId || null,
+      status: "pending",
+      payment_method: "card",
+      subtotal_cents: subtotalCents,
+      discount_cents: discountCents,
+      shipping_cents: shippingCents,
+      tax_cents: taxCents,
+      total_cents: totalCents,
+      currency: "MXN",
+      shipping_name: shippingDetails?.name || "",
+      shipping_phone: shippingDetails?.phone || "",
+      shipping_street: shippingDetails?.address || "",
+      shipping_city: shippingDetails?.city || "",
+      shipping_postal_code: shippingDetails?.postal || "",
+      shipping_country: "México",
+      customer_notes: customerNotes || "",
+    };
+
+    let { data: order, error: orderError } = await supabaseAdmin
       .from("orders")
-      .insert({
-        order_number: orderNumber,
-        user_id: userId || null,
-        status: "pending",
-        payment_method: "card",
-        subtotal_cents: subtotalCents,
-        discount_cents: discountCents,
-        shipping_cents: shippingCents,
-        tax_cents: taxCents,
-        total_cents: totalCents,
-        currency: "MXN",
-        shipping_name: shippingDetails?.name || "",
-        shipping_phone: shippingDetails?.phone || "",
-        shipping_street: shippingDetails?.address || "",
-        shipping_city: shippingDetails?.city || "",
-        shipping_postal_code: shippingDetails?.postal || "",
-        shipping_country: "México",
-        customer_notes: customerNotes || "",
-      })
+      .insert(orderInsertData)
       .select()
       .single();
 
@@ -132,16 +136,23 @@ export async function POST(req: NextRequest) {
     }
     await supabaseAdmin.from("order_items").insert(orderItemsToInsert);
 
-    // 4. Create Stripe PaymentIntent
+    // 4. Create Stripe PaymentIntent with customer metadata for resilient email receipt
+    const customerEmail = shippingDetails?.email || "";
+    const customerName = shippingDetails?.name || "";
+
     const paymentIntent = await stripe.paymentIntents.create({
       amount: totalCents,
       currency: "mxn",
+      receipt_email: customerEmail || undefined,
       automatic_payment_methods: {
         enabled: true,
       },
       metadata: {
         orderId: order.id,
+        orderNumber: order.order_number,
         isTheCircleMember: String(!!isTheCircleMember),
+        customer_email: customerEmail,
+        customer_name: customerName,
       },
     });
 
@@ -165,6 +176,15 @@ export async function POST(req: NextRequest) {
   } catch (err: unknown) {
     console.error("[Stripe PaymentIntent Error]:", err);
     const message = err instanceof Error ? err.message : "Error interno del servidor";
+
+    try {
+      const { sendAnomalyAlert } = await import("../../../../lib/monitoring/alerts");
+      await sendAnomalyAlert({
+        type: "ORDER_ERROR",
+        error: message,
+      });
+    } catch (_) {}
+
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

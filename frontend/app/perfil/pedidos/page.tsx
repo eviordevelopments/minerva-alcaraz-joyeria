@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "../../../components/Header";
 import { Footer } from "../../../components/Footer";
 import { ProfileSidebar } from "../../../components/ProfileSidebar";
@@ -9,36 +9,69 @@ import { useAuthStore } from "../../../lib/store/useAuthStore";
 import { supabase, formatPrice } from "../../../lib/supabase";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Package, Clock, CheckCircle2, Truck, XCircle, ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
-
-const STATUS_MAP: Record<string, { label: string; icon: React.ElementType; color: string }> = {
-  pending:    { label: "Pendiente",    icon: Clock,         color: "text-amber-500 bg-amber-50 border-amber-100" },
-  paid:       { label: "Confirmada",   icon: CheckCircle2,  color: "text-green-600 bg-green-50 border-green-100" },
-  processing: { label: "En Proceso",   icon: Package,       color: "text-blue-500 bg-blue-50 border-blue-100" },
-  shipped:    { label: "Enviado",      icon: Truck,         color: "text-purple-500 bg-purple-50 border-purple-100" },
-  delivered:  { label: "Entregado",    icon: CheckCircle2,  color: "text-verde-ebano bg-verde-ebano/5 border-verde-ebano/10" },
-  cancelled:  { label: "Cancelado",    icon: XCircle,       color: "text-red-400 bg-red-50 border-red-100" },
-};
+import { 
+  Package, Clock, CheckCircle2, Truck, XCircle, ChevronDown, ChevronUp, 
+  ExternalLink, MessageCircle, Sparkles, Star, ShieldCheck, Check, Send, X
+} from "lucide-react";
 
 interface OrderItem {
+  id: string;
+  product_id?: string;
   product_name: string;
+  product_sku: string;
   product_image: string | null;
   quantity: number;
   unit_price_cents: number;
-  collection_name: string | null;
+  collection_name?: string | null;
+  subtotal_cents?: number;
 }
 
 interface Order {
-  order_id: string;
+  id: string;
   order_number: string;
   status: string;
   total_cents: number;
   currency: string;
   placed_at: string;
+  payment_confirmed_at?: string | null;
+  payment_reference?: string | null;
   tracking_number: string | null;
   carrier: string | null;
-  item_count: number;
-  items: OrderItem[];
+  delivered_at?: string | null;
+  order_items: OrderItem[];
+}
+
+const STEP_DEFINITIONS = [
+  {
+    key: "paid",
+    title: "1. Pago Liquidado & Recibido",
+    subtitle: "Transacción confirmada por pasarela bancaria. El encargo ha sido formalizado en nuestro registro.",
+  },
+  {
+    key: "processing",
+    title: "2. En Preparación en el Atelier",
+    subtitle: "Nuestros maestros orfebres preparan tu joya, certifican gemas e insumos y colocan sellos de seguridad.",
+  },
+  {
+    key: "shipped",
+    title: "3. En Camino / Custodia de Valores",
+    subtitle: "Tu paquete viaja con póliza de seguro y custodia especializada hacia tu domicilio.",
+  },
+  {
+    key: "delivered",
+    title: "4. Entregado",
+    subtitle: "La joya ha llegado a su destino y se encuentra en tus manos para perpetuar su legado.",
+  },
+];
+
+function getStepIndex(status: string): number {
+  switch (status) {
+    case "paid": return 0;
+    case "processing": return 1;
+    case "shipped": return 2;
+    case "delivered": return 3;
+    default: return 0;
+  }
 }
 
 export default function PedidosPage() {
@@ -48,6 +81,20 @@ export default function PedidosPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
+  // Tracking Modal State
+  const [trackingOrder, setTrackingOrder] = useState<Order | null>(null);
+
+  // Delivery confirmation & Survey state
+  const [showSurvey, setShowSurvey] = useState(false);
+  const [rating, setRating] = useState(5);
+  const [selectedAspects, setSelectedAspects] = useState<string[]>([
+    "Joya impecable",
+    "Empaque de alta seguridad",
+  ]);
+  const [feedbackText, setFeedbackText] = useState("");
+  const [isSubmittingSurvey, setIsSubmittingSurvey] = useState(false);
+  const [surveySubmitted, setSurveySubmitted] = useState(false);
+
   useEffect(() => {
     if (!isAuthenticated) { router.push("/auth"); return; }
     fetchOrders();
@@ -55,13 +102,67 @@ export default function PedidosPage() {
 
   const fetchOrders = async () => {
     if (!user) return;
-    const { data } = await supabase
-      .from("v_order_history")
-      .select("*")
-      .eq("user_id", user.id)
-      .order("placed_at", { ascending: false });
-    setOrders(data || []);
-    setIsLoading(false);
+    try {
+      const { data, error } = await supabase
+        .from("orders")
+        .select("*, order_items(*)")
+        .eq("user_id", user.id)
+        .order("placed_at", { ascending: false });
+
+      if (!error && data) {
+        setOrders(data);
+      }
+    } catch (err) {
+      console.error("Error fetching orders:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const openTracking = (order: Order) => {
+    setTrackingOrder(order);
+    setShowSurvey(false);
+    setSurveySubmitted(!!order.delivered_at);
+  };
+
+  const handleToggleAspect = (aspect: string) => {
+    if (selectedAspects.includes(aspect)) {
+      setSelectedAspects(selectedAspects.filter((a) => a !== aspect));
+    } else {
+      setSelectedAspects([...selectedAspects, aspect]);
+    }
+  };
+
+  const handleConfirmDelivery = async () => {
+    if (!trackingOrder) return;
+    setIsSubmittingSurvey(true);
+    try {
+      const res = await fetch(`/api/perfil/orders/${trackingOrder.id}/confirm-delivery`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          rating,
+          feedback: feedbackText,
+          aspects: selectedAspects,
+        }),
+      });
+
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Error al registrar confirmación");
+
+      setSurveySubmitted(true);
+      setShowSurvey(false);
+      
+      // Update local state
+      setOrders((prev) =>
+        prev.map((o) => (o.id === trackingOrder.id ? { ...o, status: "delivered", delivered_at: new Date().toISOString() } : o))
+      );
+      setTrackingOrder((prev) => (prev ? { ...prev, status: "delivered", delivered_at: new Date().toISOString() } : null));
+    } catch (err: any) {
+      alert("Error: " + err.message);
+    } finally {
+      setIsSubmittingSurvey(false);
+    }
   };
 
   if (!user) return null;
@@ -75,15 +176,15 @@ export default function PedidosPage() {
 
           <div className="flex-1 flex flex-col gap-6">
             <div className="flex flex-col gap-1">
-              <p className="text-[11px] uppercase tracking-[0.7em] text-oro-antiguo">Historial</p>
-              <h1 className="text-3xl font-display text-verde-ebano">Mis Pedidos</h1>
+              <p className="text-[11px] uppercase tracking-[0.7em] text-oro-antiguo">Suite del Cliente</p>
+              <h1 className="text-3xl font-display text-verde-ebano">Mis Adquisiciones & Pedidos</h1>
             </div>
 
             {isLoading ? (
               <div className="flex items-center justify-center py-24">
                 <div className="flex flex-col items-center gap-4">
                   <div className="w-8 h-8 border-2 border-oro-antiguo/20 border-t-oro-antiguo rounded-full animate-spin" />
-                  <p className="text-[11px] uppercase tracking-[0.5em] text-verde-ebano/30">Cargando pedidos...</p>
+                  <p className="text-[11px] uppercase tracking-[0.5em] text-verde-ebano/30">Consultando Atelier...</p>
                 </div>
               </div>
             ) : orders.length === 0 ? (
@@ -92,84 +193,147 @@ export default function PedidosPage() {
                   <Package size={24} strokeWidth={0.8} className="text-verde-ebano/20" />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <p className="text-base text-verde-ebano/40 uppercase tracking-[0.3em]">Sin pedidos aún</p>
-                  <p className="text-xs text-verde-ebano/25 font-light">Tu primer joya te está esperando</p>
+                  <p className="text-base text-verde-ebano/40 uppercase tracking-[0.3em]">Sin compras registradas</p>
+                  <p className="text-xs text-verde-ebano/25 font-light">Tu primera joya de autor te está esperando</p>
                 </div>
                 <a href="/shop" className="text-[11px] uppercase tracking-[0.5em] text-oro-antiguo border-b border-oro-antiguo/30 pb-0.5 hover:border-oro-antiguo transition-colors">
                   Explorar Catálogo →
                 </a>
               </div>
             ) : (
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-5">
                 {orders.map((order) => {
-                  const statusInfo = STATUS_MAP[order.status] || STATUS_MAP.pending;
-                  const StatusIcon = statusInfo.icon;
-                  const isExpanded = expandedId === order.order_id;
+                  const isPaid = order.status !== "pending" && order.status !== "cancelled";
+                  const isExpanded = expandedId === order.id;
+
+                  // Pre-filled WhatsApp message for transaction questions
+                  const waMessage = [
+                    "Hola Minerva Alcaraz Joyería, tengo una consulta sobre mi adquisición:",
+                    `• Pedido: ${order.order_number}`,
+                    `• Total: $${(order.total_cents / 100).toLocaleString("es-MX", { minimumFractionDigits: 2 })} MXN`,
+                    order.payment_reference ? `• Ref. de Pago: ${order.payment_reference}` : "",
+                    "¿Me podrían brindar asesoría personalizada por favor?",
+                  ].filter(Boolean).join("\n");
+
+                  const waUrl = `https://wa.me/524623071972?text=${encodeURIComponent(waMessage)}`;
 
                   return (
                     <motion.div
-                      key={order.order_id}
+                      key={order.id}
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="bg-white border border-verde-ebano/8 overflow-hidden"
+                      className="bg-white border border-verde-ebano/10 overflow-hidden shadow-sm"
                     >
-                      {/* Order header */}
-                      <button
-                        onClick={() => setExpandedId(isExpanded ? null : order.order_id)}
-                        className="w-full flex items-center gap-4 p-6 text-left hover:bg-verde-ebano/1 transition-colors"
-                      >
-                        <div className={`flex items-center gap-1.5 text-[10px] uppercase tracking-[0.3em] border px-2.5 py-1.5 ${statusInfo.color}`}>
-                          <StatusIcon size={10} strokeWidth={2} />
-                          {statusInfo.label}
-                        </div>
-                        <div className="flex-1 flex flex-col gap-0.5">
-                          <p className="text-xs uppercase tracking-[0.3em] text-verde-ebano font-medium">
-                            Pedido {order.order_number}
-                          </p>
-                          <p className="text-[11px] text-verde-ebano/30">
+                      {/* Top Header Card */}
+                      <div className="p-6 border-b border-verde-ebano/8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div className="flex flex-wrap items-center gap-3">
+                          <span className="font-mono text-xs uppercase tracking-widest text-verde-ebano font-bold">
+                            Orden {order.order_number}
+                          </span>
+
+                          {/* Transaction status badge */}
+                          {isPaid ? (
+                            <span className="px-2.5 py-1 text-[10px] uppercase tracking-widest font-mono text-emerald-700 bg-emerald-50 border border-emerald-200 flex items-center gap-1.5 font-bold">
+                              <ShieldCheck size={12} className="text-emerald-600" /> Transacción Liquidada
+                            </span>
+                          ) : (
+                            <span className="px-2.5 py-1 text-[10px] uppercase tracking-widest font-mono text-amber-700 bg-amber-50 border border-amber-200">
+                              Pendiente de Pago
+                            </span>
+                          )}
+
+                          <span className="text-[11px] text-verde-ebano/40">
                             {new Date(order.placed_at).toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" })}
-                            {" · "}{order.item_count} {order.item_count === 1 ? "pieza" : "piezas"}
-                          </p>
+                          </span>
                         </div>
-                        <p className="text-base font-medium text-verde-ebano">{formatPrice(order.total_cents)}</p>
-                        {isExpanded ? <ChevronUp size={14} strokeWidth={1} className="text-verde-ebano/30 flex-shrink-0" /> : <ChevronDown size={14} strokeWidth={1} className="text-verde-ebano/30 flex-shrink-0" />}
-                      </button>
 
-                      {/* Expanded items */}
-                      {isExpanded && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          className="border-t border-verde-ebano/6"
-                        >
-                          <div className="p-6 flex flex-col gap-4">
-                            {Array.isArray(order.items) && order.items.map((item, i) => (
-                              <div key={i} className="flex items-center gap-4">
-                                <div className="w-14 h-14 bg-verde-ebano/4 overflow-hidden flex-shrink-0">
-                                  {item.product_image && (
-                                    <Image src={item.product_image} alt={item.product_name} width={56} height={56} className="object-cover w-full h-full" />
-                                  )}
-                                </div>
-                                <div className="flex-1">
-                                  <p className="text-xs uppercase tracking-[0.2em] text-verde-ebano">{item.product_name}</p>
-                                  <p className="text-[11px] text-verde-ebano/40">{item.collection_name} · ×{item.quantity}</p>
-                                </div>
-                                <p className="text-xs text-verde-ebano/60">{formatPrice(item.unit_price_cents * item.quantity)}</p>
-                              </div>
-                            ))}
+                        <div className="flex items-center gap-4">
+                          <span className="text-lg font-display text-verde-ebano font-bold">
+                            {formatPrice(order.total_cents)}
+                          </span>
 
-                            {order.tracking_number && (
-                              <div className="flex items-center gap-3 pt-3 border-t border-verde-ebano/6">
-                                <Truck size={12} strokeWidth={1.2} className="text-oro-antiguo" />
-                                <span className="text-[11px] uppercase tracking-[0.3em] text-verde-ebano/50">
-                                  Rastreo: {order.carrier} — {order.tracking_number}
-                                </span>
-                                <ExternalLink size={10} strokeWidth={1} className="text-verde-ebano/20" />
-                              </div>
-                            )}
+                          <button
+                            onClick={() => setExpandedId(isExpanded ? null : order.id)}
+                            className="text-verde-ebano/40 hover:text-verde-ebano transition-colors p-1"
+                            title={isExpanded ? "Ocultar detalles" : "Ver detalles"}
+                          >
+                            {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Action Bar (WhatsApp & Live Tracking) */}
+                      <div className="bg-[#FAF7F5] px-6 py-3.5 border-b border-verde-ebano/8 flex flex-wrap items-center justify-between gap-3">
+                        <div className="flex items-center gap-2 text-xs text-verde-ebano/70">
+                          <Truck size={14} className="text-oro-antiguo" />
+                          <span>
+                            Estado actual: <strong className="text-verde-ebano capitalize">{order.status === "paid" ? "En preparación" : order.status}</strong>
+                          </span>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-3">
+                          {/* Botón exclusivo WhatsApp */}
+                          <a
+                            href={waUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-emerald-600/30 text-emerald-800 hover:bg-emerald-600 hover:text-white transition-all text-[11px] uppercase tracking-wider font-medium"
+                          >
+                            <MessageCircle size={13} />
+                            Dudas sobre mi Transacción
+                          </a>
+
+                          {/* Botón de Rastreo Elegante */}
+                          <button
+                            onClick={() => openTracking(order)}
+                            className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-[#2C3729] hover:bg-[#3D4C3A] text-[#E5DBD6] transition-all text-[11px] uppercase tracking-widest font-bold shadow-sm"
+                          >
+                            <Sparkles size={12} className="text-oro-antiguo" />
+                            Rastrear Joya & Estado
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Items Preview */}
+                      <div className="p-6 space-y-4">
+                        {(order.order_items || []).map((item, idx) => (
+                          <div key={idx} className="flex items-center gap-4">
+                            <div className="w-16 h-16 bg-verde-ebano/5 border border-verde-ebano/10 overflow-hidden flex-shrink-0 relative">
+                              {item.product_image ? (
+                                <Image src={item.product_image} alt={item.product_name} fill className="object-cover" />
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center text-verde-ebano/20">
+                                  <Package size={18} />
+                                </div>
+                              )}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className="text-sm font-display text-verde-ebano truncate font-bold">{item.product_name}</h4>
+                              <p className="text-[11px] font-mono text-oro-antiguo tracking-widest mt-0.5">SKU: {item.product_sku}</p>
+                              <p className="text-[11px] text-verde-ebano/50 mt-1">Cantidad: {item.quantity}</p>
+                            </div>
+                            <div className="text-right">
+                              <span className="font-mono text-sm text-verde-ebano font-bold">
+                                {formatPrice((item.unit_price_cents || 0) * (item.quantity || 1))}
+                              </span>
+                            </div>
                           </div>
-                        </motion.div>
+                        ))}
+                      </div>
+
+                      {/* Expanded Section */}
+                      {isExpanded && (
+                        <div className="border-t border-verde-ebano/8 p-6 bg-verde-ebano/[0.02] text-xs space-y-2 font-mono text-verde-ebano/60">
+                          {order.payment_reference && (
+                            <p>Referencia de Pasarela: <strong className="text-verde-ebano">{order.payment_reference}</strong></p>
+                          )}
+                          {order.tracking_number && (
+                            <p>Guía de Rastreo Asignada: <strong className="text-oro-antiguo">{order.tracking_number} ({order.carrier || "Mensajería de Seguridad"})</strong></p>
+                          )}
+                          {order.delivered_at && (
+                            <p className="text-emerald-700 font-bold">✓ Entrega confirmada el: {new Date(order.delivered_at).toLocaleString("es-MX")}</p>
+                          )}
+                        </div>
                       )}
                     </motion.div>
                   );
@@ -179,6 +343,244 @@ export default function PedidosPage() {
           </div>
         </div>
       </div>
+
+      {/* ── MODAL ELEGANTE DE RASTREO Y ENCUESTA EN LA SUITE ───────────────────────── */}
+      <AnimatePresence>
+        {trackingOrder && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-verde-ebano/70 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="bg-[#FAF7F5] border-2 border-oro-antiguo/30 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl relative"
+            >
+              {/* Modal Header */}
+              <div className="bg-[#2C3729] text-[#E5DBD6] p-6 sm:p-8 flex items-start justify-between border-b border-oro-antiguo/30">
+                <div>
+                  <span className="text-[10px] uppercase tracking-[0.4em] text-oro-antiguo block font-bold mb-1">
+                    Atelier Minerva Alcaraz · San Miguel de Allende
+                  </span>
+                  <h2 className="text-2xl font-display font-bold">
+                    Rastreo de Joya de Autor
+                  </h2>
+                  <p className="text-xs font-mono text-[#8E9A8B] mt-1">
+                    Orden: {trackingOrder.order_number} · Ref: {trackingOrder.payment_reference || "Liquidada"}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setTrackingOrder(null)}
+                  className="text-[#E5DBD6]/60 hover:text-white p-1 transition-colors"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div className="p-6 sm:p-8 space-y-8">
+                {/* Desglose del Producto Principal */}
+                {trackingOrder.order_items?.[0] && (
+                  <div className="bg-white border border-verde-ebano/10 p-4 flex items-center gap-4 shadow-sm">
+                    <div className="w-20 h-20 bg-verde-ebano/5 border border-oro-antiguo/30 relative flex-shrink-0 overflow-hidden">
+                      {trackingOrder.order_items[0].product_image ? (
+                        <Image src={trackingOrder.order_items[0].product_image} alt="" fill className="object-cover" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-verde-ebano/30">
+                          <Package size={24} />
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <span className="text-[9px] uppercase tracking-[0.3em] text-oro-antiguo font-bold block">
+                        Pieza en Custodia
+                      </span>
+                      <h3 className="text-base font-display text-verde-ebano font-bold truncate">
+                        {trackingOrder.order_items[0].product_name}
+                      </h3>
+                      <p className="text-xs font-mono text-verde-ebano/60 mt-1">
+                        SKU Serializado: <strong className="text-verde-ebano">{trackingOrder.order_items[0].product_sku}</strong>
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* ANIMACIÓN Y STEPPER DEL ESTADO DE ENVÍO */}
+                <div className="space-y-6">
+                  <h3 className="text-xs uppercase tracking-[0.25em] text-verde-ebano font-bold border-b border-verde-ebano/10 pb-2">
+                    Progreso de Creación y Entrega
+                  </h3>
+
+                  <div className="relative pl-6 space-y-8 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-verde-ebano/15">
+                    {STEP_DEFINITIONS.map((step, idx) => {
+                      const currentIdx = getStepIndex(trackingOrder.status);
+                      const isCompleted = idx <= currentIdx;
+                      const isCurrent = idx === currentIdx;
+
+                      return (
+                        <div key={step.key} className="relative flex items-start gap-4">
+                          <motion.div
+                            initial={false}
+                            animate={{
+                              scale: isCurrent ? [1, 1.15, 1] : 1,
+                              backgroundColor: isCompleted ? "#2C3729" : "#E5DBD6",
+                              borderColor: isCompleted ? "#CBB67B" : "#B0A59F",
+                            }}
+                            transition={{ repeat: isCurrent ? Infinity : 0, duration: 2.5 }}
+                            className={`w-6 h-6 rounded-full border-2 flex items-center justify-center text-[10px] -ml-[31px] z-10 flex-shrink-0 ${
+                              isCompleted ? "text-oro-antiguo shadow-md" : "text-verde-ebano/40"
+                            }`}
+                          >
+                            {isCompleted ? <Check size={12} strokeWidth={3} /> : idx + 1}
+                          </motion.div>
+
+                          <div className="flex-1">
+                            <h4 className={`text-sm font-bold ${isCurrent ? "text-verde-ebano" : isCompleted ? "text-verde-ebano/80" : "text-verde-ebano/40"}`}>
+                              {step.title}
+                            </h4>
+                            <p className="text-xs text-verde-ebano/60 mt-0.5 leading-relaxed font-light">
+                              {step.subtitle}
+                            </p>
+                            {step.key === "shipped" && trackingOrder.tracking_number && (
+                              <div className="mt-2 p-2.5 bg-oro-antiguo/10 border border-oro-antiguo/30 text-xs font-mono text-verde-ebano">
+                                Guía de Custodia: <strong>{trackingOrder.tracking_number}</strong> ({trackingOrder.carrier || "DHL Express"})
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* CONFIRMACIÓN DE ENTREGA Y ENCUESTA */}
+                <div className="pt-6 border-t border-verde-ebano/15 space-y-4">
+                  {surveySubmitted ? (
+                    <div className="p-4 bg-emerald-50 border border-emerald-200 text-center space-y-1">
+                      <CheckCircle2 size={24} className="text-emerald-600 mx-auto" />
+                      <p className="text-xs font-bold uppercase tracking-wider text-emerald-800">
+                        Entrega Confirmada & Calificada
+                      </p>
+                      <p className="text-[11px] text-emerald-700">
+                        Agradecemos tu retroalimentación. Tu evaluación ha sido registrada en el Atelier.
+                      </p>
+                    </div>
+                  ) : !showSurvey ? (
+                    <div className="bg-[#2C3729] text-[#E5DBD6] p-6 text-center space-y-3 shadow-md">
+                      <Sparkles size={20} className="text-oro-antiguo mx-auto" />
+                      <h4 className="text-base font-display font-bold">¿Ya recibiste tu pieza?</h4>
+                      <p className="text-xs text-[#E5DBD6]/70 max-w-md mx-auto leading-relaxed">
+                        Confirma que tu paquete ha llegado a tus manos de forma íntegra para certificar el cierre de custodia y calificar tu experiencia.
+                      </p>
+                      <button
+                        onClick={() => setShowSurvey(true)}
+                        className="px-6 py-2.5 bg-oro-antiguo hover:bg-[#E4D5A4] text-verde-ebano text-xs uppercase tracking-widest font-bold transition-all shadow-md inline-flex items-center gap-2"
+                      >
+                        <CheckCircle2 size={14} />
+                        Confirmar Entrega y Calificar
+                      </button>
+                    </div>
+                  ) : (
+                    /* FORMULARIO DE LA ENCUESTA POST-ENTREGA */
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="bg-white border-2 border-oro-antiguo/40 p-6 space-y-5 shadow-lg"
+                    >
+                      <div className="text-center space-y-1">
+                        <span className="text-[10px] uppercase tracking-[0.3em] text-oro-antiguo font-bold">
+                          Encuesta de Excelencia Minerva Alcaraz
+                        </span>
+                        <h4 className="text-lg font-display text-verde-ebano font-bold">
+                          Califica tu Experiencia
+                        </h4>
+                      </div>
+
+                      {/* Selección de Estrellas */}
+                      <div className="flex justify-center gap-2">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <button
+                            key={star}
+                            type="button"
+                            onClick={() => setRating(star)}
+                            className="p-1 hover:scale-110 transition-transform"
+                          >
+                            <Star
+                              size={28}
+                              className={star <= rating ? "text-oro-antiguo fill-oro-antiguo" : "text-verde-ebano/20"}
+                            />
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Aspectos destacados */}
+                      <div className="space-y-2">
+                        <label className="text-[11px] uppercase tracking-wider text-verde-ebano/60 font-bold block text-center">
+                          ¿Qué aspectos destacarías de tu entrega?
+                        </label>
+                        <div className="flex flex-wrap justify-center gap-2">
+                          {[
+                            "Joya impecable",
+                            "Empaque de alta seguridad",
+                            "Atención del Concierge",
+                            "Entrega puntual",
+                            "Certificado de autenticidad",
+                          ].map((aspect) => {
+                            const isSelected = selectedAspects.includes(aspect);
+                            return (
+                              <button
+                                key={aspect}
+                                type="button"
+                                onClick={() => handleToggleAspect(aspect)}
+                                className={`text-[10px] uppercase tracking-wider px-3 py-1.5 border transition-all ${
+                                  isSelected
+                                    ? "bg-verde-ebano text-oro-antiguo border-verde-ebano"
+                                    : "bg-transparent text-verde-ebano/70 border-verde-ebano/20 hover:border-verde-ebano"
+                                }`}
+                              >
+                                {isSelected ? "✓ " : ""}{aspect}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Comentario */}
+                      <div>
+                        <textarea
+                          placeholder="Mensaje opcional para Minerva Alcaraz y su equipo de orfebres..."
+                          value={feedbackText}
+                          onChange={(e) => setFeedbackText(e.target.value)}
+                          rows={3}
+                          className="w-full bg-[#FAF7F5] border border-verde-ebano/20 p-3 text-xs text-verde-ebano placeholder-verde-ebano/40 focus:border-oro-antiguo outline-none resize-none"
+                        />
+                      </div>
+
+                      {/* Botones de Envío */}
+                      <div className="flex gap-3">
+                        <button
+                          type="button"
+                          onClick={() => setShowSurvey(false)}
+                          className="flex-1 py-2.5 border border-verde-ebano/20 text-verde-ebano text-xs uppercase tracking-wider hover:bg-verde-ebano/5 transition-colors"
+                        >
+                          Cancelar
+                        </button>
+                        <button
+                          type="button"
+                          disabled={isSubmittingSurvey}
+                          onClick={handleConfirmDelivery}
+                          className="flex-1 py-2.5 bg-verde-ebano text-oro-antiguo hover:bg-[#3D4C3A] text-xs uppercase tracking-widest font-bold transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                        >
+                          {isSubmittingSurvey ? "Guardando..." : "Enviar y Confirmar Entrega"}
+                          <Send size={12} />
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       <Footer />
     </main>
   );

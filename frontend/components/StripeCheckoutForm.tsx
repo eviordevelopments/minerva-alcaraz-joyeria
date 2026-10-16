@@ -39,6 +39,19 @@ export default function StripeCheckoutForm({
       setMessage(error.message ?? "Ocurrió un error inesperado.");
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
       setMessage("¡Pago realizado con éxito!");
+      
+      // Resilient immediate fulfillment fallback: ensures emails and stock deduction
+      // run immediately without depending solely on webhook availability
+      try {
+        await fetch("/api/checkout/confirm", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ paymentIntentId: paymentIntent.id }),
+        });
+      } catch (confirmErr) {
+        console.warn("Client confirmation fallback warning:", confirmErr);
+      }
+
       onSuccess();
     } else {
       setMessage("Ocurrió un error inesperado.");

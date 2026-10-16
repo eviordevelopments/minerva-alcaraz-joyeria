@@ -44,9 +44,9 @@ export default function CheckoutPage() {
   const discount = isFirstPurchase ? rawTotal * 0.10 : 0;
   const total = rawTotal - discount;
   
-  // Totals already include IVA. We just break it down for display.
-  const iva = total * 0.16;
-  const subtotalSinIva = total * 0.84;
+  // Totals already include IVA (16% en México). Desglose para visualización contable.
+  const iva = Math.round((total - (total / 1.16)) * 100) / 100;
+  const subtotalSinIva = Math.round((total - iva) * 100) / 100;
 
   // Pre-fill form with user data
   const [shippingEmail, setShippingEmail] = useState(user?.email ?? "");
