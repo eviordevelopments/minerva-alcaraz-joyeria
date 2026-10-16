@@ -97,11 +97,16 @@ export async function PUT(
         : String(seo_keywords).split(",").map((k: string) => k.trim()).filter(Boolean);
     }
     if (body.payment_link !== undefined) updateData.payment_link = body.payment_link || null;
+    if (body.requires_shipping !== undefined) {
+      updateData.requires_shipping = Boolean(body.requires_shipping);
+    } else if (body.disableShipping !== undefined) {
+      updateData.requires_shipping = !body.disableShipping;
+    }
 
     updateData.updated_at = new Date().toISOString();
 
     // Safely query existing row without UUID syntax errors
-    let existingQuery = supabaseAdmin.from("products").select("id");
+    let existingQuery = supabaseAdmin.from("products").select("id, dimensions_mm");
     const skuVal = sku || id;
 
     if (isUUID(id)) {
@@ -112,6 +117,11 @@ export async function PUT(
 
     const { data: existing } = await existingQuery.maybeSingle();
 
+    if (updateData.requires_shipping !== undefined) {
+      const prevDims = (existing?.dimensions_mm && typeof existing.dimensions_mm === "object") ? existing.dimensions_mm : {};
+      updateData.dimensions_mm = { ...prevDims, requires_shipping: updateData.requires_shipping };
+    }
+
     if (existing) {
       let { data, error } = await supabaseAdmin
         .from("products")
@@ -120,8 +130,13 @@ export async function PUT(
         .select()
         .single();
 
-      if (error && (error.message?.includes("payment_link") || error.code === "PGRST204")) {
-        delete updateData.payment_link;
+      if (error && (
+        error.message?.includes("payment_link") ||
+        error.message?.includes("requires_shipping") ||
+        error.code === "PGRST204"
+      )) {
+        if (error.message?.includes("payment_link")) delete updateData.payment_link;
+        if (error.message?.includes("requires_shipping")) delete updateData.requires_shipping;
         const retry = await supabaseAdmin
           .from("products")
           .update(updateData)
@@ -157,8 +172,13 @@ export async function PUT(
         .select()
         .single();
 
-      if (error && (error.message?.includes("payment_link") || error.code === "PGRST204")) {
-        delete insertData.payment_link;
+      if (error && (
+        error.message?.includes("payment_link") ||
+        error.message?.includes("requires_shipping") ||
+        error.code === "PGRST204"
+      )) {
+        if (error.message?.includes("payment_link")) delete insertData.payment_link;
+        if (error.message?.includes("requires_shipping")) delete insertData.requires_shipping;
         const retry = await supabaseAdmin
           .from("products")
           .insert(insertData)

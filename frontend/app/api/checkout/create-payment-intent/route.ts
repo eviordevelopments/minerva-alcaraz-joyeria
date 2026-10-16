@@ -23,13 +23,25 @@ export async function POST(req: NextRequest) {
 
     // 1. Fetch real prices from Supabase
     const productIds = items.map((i: any) => i.productId);
-    const { data: dbProducts, error: prodError } = await supabaseAdmin
+    let dbProducts: any[] = [];
+    const { data: initialProds, error: prodError } = await supabaseAdmin
       .from("products")
-      .select("id, name, sku, price_cents, images, collection_name, materials")
+      .select("id, name, sku, price_cents, images, collection_name, materials, requires_shipping, dimensions_mm")
       .in("id", productIds);
 
-    if (prodError || !dbProducts || dbProducts.length === 0) {
+    if (prodError && prodError.message?.includes("requires_shipping")) {
+      const { data: fallbackProds, error: fallbackErr } = await supabaseAdmin
+        .from("products")
+        .select("id, name, sku, price_cents, images, collection_name, materials, dimensions_mm")
+        .in("id", productIds);
+      if (fallbackErr || !fallbackProds || fallbackProds.length === 0) {
+        return NextResponse.json({ error: "Error al verificar productos" }, { status: 404 });
+      }
+      dbProducts = fallbackProds;
+    } else if (prodError || !initialProds || initialProds.length === 0) {
       return NextResponse.json({ error: "Error al verificar productos" }, { status: 404 });
+    } else {
+      dbProducts = initialProds;
     }
 
     let subtotalCents = 0;
@@ -81,9 +93,24 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Calculate Shipping & IVA
+    // Check if shipping is deactivated manually on all products in cart
+    const allShippingDisabled =
+      dbProducts.length > 0 &&
+      dbProducts.every((p: any) => {
+        const req =
+          p.requires_shipping !== undefined && p.requires_shipping !== null
+            ? p.requires_shipping
+            : p.dimensions_mm?.requires_shipping !== undefined
+            ? p.dimensions_mm.requires_shipping
+            : true;
+        return req === false;
+      });
+
     const rawSubtotalMxn = subtotalCents / 100;
     let shippingCostMxn = 200;
-    if (isTheCircleMember && rawSubtotalMxn >= 2000) {
+    if (allShippingDisabled) {
+      shippingCostMxn = 0;
+    } else if (isTheCircleMember && rawSubtotalMxn >= 2000) {
       shippingCostMxn = 0;
     } else if (!isTheCircleMember && rawSubtotalMxn >= 5000) {
       shippingCostMxn = 0;

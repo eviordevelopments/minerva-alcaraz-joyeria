@@ -28,13 +28,16 @@ export default function CheckoutPage() {
   const { user, isAuthenticated, isLoading: authLoading } = useAuthStore();
   const { items, subtotal, clearCart, updateQuantity, removeItem } = useCartStore();
   const [isFirstPurchase, setIsFirstPurchase] = useState(false);
+  const [shippingDisabledByProducts, setShippingDisabledByProducts] = useState(false);
   
   // Totals calculations
   const rawSubtotal = subtotal();
   const isCircleMember = user?.isCircleMember || false;
   
   let shippingCost = 200;
-  if (isCircleMember && rawSubtotal >= 2000) {
+  if (shippingDisabledByProducts) {
+    shippingCost = 0;
+  } else if (isCircleMember && rawSubtotal >= 2000) {
     shippingCost = 0;
   } else if (!isCircleMember && rawSubtotal >= 5000) {
     shippingCost = 0;
@@ -107,6 +110,39 @@ export default function CheckoutPage() {
     };
     checkFirstPurchase();
   }, [user, shippingEmail, shippingName, shippingPhone]);
+
+  // Check if items in cart have shipping disabled
+  useEffect(() => {
+    async function checkProductsShipping() {
+      if (!items || items.length === 0) {
+        setShippingDisabledByProducts(false);
+        return;
+      }
+      try {
+        const productIds = items.map((i) => i.productId);
+        const { data, error } = await supabase
+          .from("products")
+          .select("id, requires_shipping, dimensions_mm")
+          .in("id", productIds);
+
+        if (!error && data && data.length > 0) {
+          const allDisabled = data.every((p: any) => {
+            const req =
+              p.requires_shipping !== undefined && p.requires_shipping !== null
+                ? p.requires_shipping
+                : p.dimensions_mm?.requires_shipping !== undefined
+                ? p.dimensions_mm.requires_shipping
+                : true;
+            return req === false;
+          });
+          setShippingDisabledByProducts(allDisabled);
+        }
+      } catch (err) {
+        console.error("Error checking products shipping flag:", err);
+      }
+    }
+    checkProductsShipping();
+  }, [items]);
 
   const handleGoToPayment = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -645,9 +681,17 @@ export default function CheckoutPage() {
                 )}
                 
                 <div className="flex justify-between text-xs uppercase tracking-widest text-hueso-seda/60">
-                  <span>Envío Asegurado {isCircleMember ? '(THE CIRCLE)' : ''}</span>
-                  <span className={shippingCost === 0 ? "text-oro-antiguo" : ""}>
-                    {shippingCost === 0 ? "Cortesía" : `$${shippingCost.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                  <span>
+                    {shippingDisabledByProducts
+                      ? "Envío Desactivado (Sin Flete)"
+                      : `Envío Asegurado ${isCircleMember ? "(THE CIRCLE)" : ""}`}
+                  </span>
+                  <span className={shippingCost === 0 ? "text-oro-antiguo font-bold" : ""}>
+                    {shippingCost === 0
+                      ? shippingDisabledByProducts
+                        ? "Desactivado ($0.00)"
+                        : "Cortesía ($0.00)"
+                      : `$${shippingCost.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                   </span>
                 </div>
                 

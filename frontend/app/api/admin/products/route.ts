@@ -93,6 +93,11 @@ export async function GET() {
         is_limited_edition: row.is_limited_edition ?? false,
         is_unique_piece: row.is_unique_piece ?? false,
         is_circle_exclusive: row.is_circle_exclusive ?? false,
+        requires_shipping: row.requires_shipping !== undefined && row.requires_shipping !== null
+          ? Boolean(row.requires_shipping)
+          : row.dimensions_mm?.requires_shipping !== undefined
+          ? Boolean(row.dimensions_mm.requires_shipping)
+          : true,
         seo_keywords: row.seo_keywords ?? [],
         payment_link: row.payment_link ?? null,
         created_at: row.created_at ?? new Date().toISOString(),

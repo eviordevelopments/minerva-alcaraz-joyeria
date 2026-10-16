@@ -50,6 +50,7 @@ interface AdminProduct {
   created_at: string;
   updated_at: string;
   payment_link: string | null;
+  requires_shipping?: boolean;
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -133,6 +134,7 @@ interface NewProductForm {
   materiales: string[];
   imagenes: { url: string; localPreview: string; uploading?: boolean; error?: string }[];
   isExclusive: boolean;
+  disableShipping: boolean;
   seoKeywords: string;
   paymentLink: string;
 }
@@ -141,7 +143,7 @@ const EMPTY_FORM: NewProductForm = {
   nombre: "", baseSku: "0001", sku: "", precio: "",
   tipo: "Collares", coleccion: "Serpientes", preferencia: "Piezas Únicas",
   narrativa: "", detalles: "", materiales: [], imagenes: [],
-  isExclusive: false, seoKeywords: "", paymentLink: "",
+  isExclusive: false, disableShipping: false, seoKeywords: "", paymentLink: "",
 };
 
 // ─── Luxury Custom UI Dropdown Component ─────────────────────────────────────
@@ -588,6 +590,7 @@ export default function AdminInventario() {
           stock: editForm.stock,
           long_description: editForm.long_description,
           images: editForm.images ?? [],
+          requires_shipping: editForm.requires_shipping !== undefined ? editForm.requires_shipping : true,
         }),
       });
       const json = await res.json();
@@ -727,6 +730,8 @@ export default function AdminInventario() {
           imagenes: form.imagenes.filter((i) => i.url).map((i) => i.url),
           isExclusive: form.isExclusive, seoKeywords: form.seoKeywords,
           paymentLink: form.paymentLink,
+          disableShipping: form.disableShipping,
+          requires_shipping: !form.disableShipping,
         }),
       });
       const json = await res.json();
@@ -907,7 +912,14 @@ export default function AdminInventario() {
 
                     {/* Name + category */}
                     <td className="py-3 pr-4">
-                      <p className="text-sm font-medium text-[#E5DBD6] leading-snug">{p.name}</p>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <p className="text-sm font-medium text-[#E5DBD6] leading-snug">{p.name}</p>
+                        {p.requires_shipping === false && (
+                          <span className="text-[9px] uppercase tracking-wider px-1.5 py-0.5 bg-[#CBB67B]/15 text-[#CBB67B] border border-[#CBB67B]/30 font-bold">
+                            Sin Envío ($0)
+                          </span>
+                        )}
+                      </div>
                       <span className="text-[10px] uppercase tracking-widest text-[#8E9A8B]">{p.category}</span>
                     </td>
 
@@ -1192,6 +1204,38 @@ export default function AdminInventario() {
                     <button type="button" onClick={() => setForm((f) => ({ ...f, isExclusive: !f.isExclusive }))}
                       className={`w-12 h-6 flex items-center p-0.5 transition-all ${form.isExclusive ? "bg-[#CBB67B]" : "bg-[#2C3729] border border-[#CBB67B]/20"}`}>
                       <div className={`w-5 h-5 transition-transform duration-300 ${form.isExclusive ? "translate-x-6 bg-[#1F271D]" : "bg-[#CBB67B]"}`} />
+                    </button>
+                  </div>
+
+                  {/* Switch para desactivar envío */}
+                  <div className="flex items-center justify-between border-t border-[#CBB67B]/10 pt-3">
+                    <div className="flex flex-col pr-4">
+                      <span className="text-sm font-semibold text-[#E5DBD6] flex items-center gap-1.5">
+                        Desactivar Envío
+                        {form.disableShipping && (
+                          <span className="text-[9px] bg-[#CBB67B]/20 text-[#CBB67B] px-1.5 py-0.2 border border-[#CBB67B]/40 uppercase tracking-widest">
+                            Sin Cargo ($0)
+                          </span>
+                        )}
+                      </span>
+                      <span className="text-[10px] text-[#8E9A8B] leading-tight mt-0.5">
+                        {form.disableShipping
+                          ? "Envío desactivado · No se cobrará flete ($0 MXN en checkout)"
+                          : "Envío estándar activo ($200 MXN o cortesía según monto)"}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setForm((f) => ({ ...f, disableShipping: !f.disableShipping }))}
+                      className={`w-12 h-6 flex-shrink-0 flex items-center p-0.5 transition-all ${
+                        form.disableShipping ? "bg-[#CBB67B]" : "bg-[#2C3729] border border-[#CBB67B]/20"
+                      }`}
+                    >
+                      <div
+                        className={`w-5 h-5 transition-transform duration-300 ${
+                          form.disableShipping ? "translate-x-6 bg-[#1F271D]" : "bg-[#CBB67B]"
+                        }`}
+                      />
                     </button>
                   </div>
                   <div className="flex flex-col gap-1.5">
@@ -1545,14 +1589,14 @@ export default function AdminInventario() {
           </div>
 
           {/* Flags row */}
-          <div className="sm:col-span-2 flex flex-wrap gap-4">
+          <div className="sm:col-span-2 flex flex-wrap gap-4 items-center">
             {([
               ["is_active", "Activo"],
               ["is_featured", "Destacado"],
               ["is_circle_exclusive", "Exclusivo Circle"],
               ["is_limited_edition", "Ed. Limitada"],
             ] as const).map(([field, label]) => (
-              <label key={field} className="flex items-center gap-2 cursor-pointer">
+              <label key={field} className="flex items-center gap-2 cursor-pointer bg-[#2C3729]/30 border border-[#CBB67B]/10 px-3 py-1.5">
                 <button type="button"
                   onClick={() => setEditForm((f) => ({ ...f, [field]: !f[field as keyof typeof f] }))}
                   className="text-[#CBB67B]">
@@ -1563,6 +1607,36 @@ export default function AdminInventario() {
                 <span className="text-xs uppercase tracking-wider text-[#E5DBD6]">{label}</span>
               </label>
             ))}
+
+            {/* Switch manual para desactivar envío en el producto editado */}
+            <label className="flex items-center gap-2.5 cursor-pointer bg-[#2C3729]/70 border border-[#CBB67B]/30 px-3 py-1.5">
+              <button
+                type="button"
+                onClick={() =>
+                  setEditForm((f) => ({
+                    ...f,
+                    requires_shipping: f.requires_shipping === false ? true : false,
+                  }))
+                }
+                className="text-[#CBB67B]"
+              >
+                {editForm.requires_shipping === false ? (
+                  <ToggleRight size={22} className="text-[#CBB67B]" />
+                ) : (
+                  <ToggleLeft size={22} className="text-[#8E9A8B]" />
+                )}
+              </button>
+              <div className="flex flex-col text-left">
+                <span className="text-xs uppercase tracking-wider text-[#E5DBD6] font-semibold">
+                  Desactivar Envío
+                </span>
+                <span className="text-[9px] text-[#8E9A8B]">
+                  {editForm.requires_shipping === false
+                    ? "Envío Desactivado ($0 MXN flete)"
+                    : "Envío Activo ($200 MXN o cortesía)"}
+                </span>
+              </div>
+            </label>
           </div>
         </div>
 

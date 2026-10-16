@@ -38,6 +38,8 @@ export async function POST(req: NextRequest) {
       isExclusive, // → is_circle_exclusive
       seoKeywords, // string → TEXT[]
       paymentLink, // → payment_link URL
+      disableShipping,
+      requires_shipping,
     } = body;
 
     if (!nombre || !sku || !precio || !tipo) {
@@ -46,6 +48,14 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+
+    // Determine requires_shipping (if disableShipping is true, requires_shipping is false)
+    const requiresShipping =
+      requires_shipping !== undefined
+        ? Boolean(requires_shipping)
+        : disableShipping !== undefined
+        ? !disableShipping
+        : true;
 
     // Build slug — ensure uniqueness by appending timestamp if needed
     const slug = toSlug(nombre, sku);
@@ -66,7 +76,7 @@ export async function POST(req: NextRequest) {
           .filter(Boolean)
       : [];
 
-    const productRow = {
+    const productRow: Record<string, any> = {
       name:               nombre,
       sku:                sku,
       slug:               slug,
@@ -89,9 +99,11 @@ export async function POST(req: NextRequest) {
       seo_keywords:       seoArr,
       stock:              1,
       payment_link:       paymentLink ?? null,
+      requires_shipping:  requiresShipping,
+      dimensions_mm:      { requires_shipping: requiresShipping },
     };
 
-    const { data, error } = await supabaseAdmin
+    let { data, error } = await supabaseAdmin
       .from("products")
       .insert(productRow)
       .select()
@@ -99,23 +111,34 @@ export async function POST(req: NextRequest) {
 
     if (error) {
       console.error("Supabase insert error:", error);
-      // Fallback 1: If payment_link column is missing in DB schema cache
-      if (error.message?.includes("payment_link") || error.code === "PGRST204") {
-        console.warn("Retrying insert without payment_link column...");
-        const { payment_link, ...rowWithoutPaymentLink } = productRow;
+      // Fallback 1: If requires_shipping or payment_link column is missing in DB schema cache
+      if (
+        error.message?.includes("requires_shipping") ||
+        error.message?.includes("payment_link") ||
+        error.code === "PGRST204"
+      ) {
+        console.warn("Retrying insert without newer columns...");
+        const rowRetry = { ...productRow };
+        if (error.message?.includes("requires_shipping")) {
+          delete rowRetry.requires_shipping;
+        }
+        if (error.message?.includes("payment_link")) {
+          delete rowRetry.payment_link;
+        }
         const { data: retryData, error: retryError } = await supabaseAdmin
           .from("products")
-          .insert(rowWithoutPaymentLink)
+          .insert(rowRetry)
           .select()
           .single();
 
         if (!retryError) {
           return NextResponse.json({ success: true, product: retryData });
         }
+        error = retryError;
       }
 
       // Fallback 2: If slug conflict, retry with a unique suffix
-      if (error.code === "23505" && error.message?.includes("slug")) {
+      if (error && error.code === "23505" && error.message?.includes("slug")) {
         const uniqueSlug = `${slug}-${Date.now()}`;
         const { data: data2, error: error2 } = await supabaseAdmin
           .from("products")
@@ -127,7 +150,7 @@ export async function POST(req: NextRequest) {
         }
         return NextResponse.json({ success: true, product: data2 });
       }
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return NextResponse.json({ error: error?.message || "Error al guardar producto" }, { status: 500 });
     }
 
     return NextResponse.json({ success: true, product: data });
