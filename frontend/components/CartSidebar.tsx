@@ -14,27 +14,39 @@ export const CartSidebar: React.FC = () => {
   const rawSubtotal = subtotal();
   const isCircleMember = user?.isCircleMember || false;
 
-  // Auto-sync requires_shipping for any items currently missing the flag (e.g., from prior cart cache)
+  // Auto-sync requires_shipping against current DB product settings (matching by ID, SKU, or Name)
   React.useEffect(() => {
-    const unverified = items.filter((i) => i.requires_shipping === undefined);
-    if (unverified.length === 0) return;
+    if (items.length === 0) return;
 
     let isMounted = true;
     async function syncShippingFlags() {
       try {
-        const res = await fetch("/api/products");
+        const res = await fetch("/api/products?t=" + Date.now(), { cache: "no-store" });
         if (!res.ok) return;
         const data = await res.json();
         const prods: any[] = data.products || [];
         if (!isMounted) return;
 
+        const cleanStr = (s?: string) =>
+          (s || "")
+            .trim()
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+
         let hasUpdates = false;
         const updated = items.map((it) => {
-          if (it.requires_shipping !== undefined) return it;
-          const match = prods.find((p) => p.id === it.productId || p.sku === it.sku);
+          const match = prods.find(
+            (p: any) =>
+              (p.id && it.productId && p.id === it.productId) ||
+              (p.sku && it.sku && cleanStr(p.sku) === cleanStr(it.sku)) ||
+              (p.name && it.name && cleanStr(p.name) === cleanStr(it.name))
+          );
           if (match && match.requires_shipping !== undefined) {
-            hasUpdates = true;
-            return { ...it, requires_shipping: match.requires_shipping };
+            if (it.requires_shipping !== match.requires_shipping) {
+              hasUpdates = true;
+              return { ...it, requires_shipping: match.requires_shipping };
+            }
           }
           return it;
         });
@@ -50,7 +62,7 @@ export const CartSidebar: React.FC = () => {
     return () => {
       isMounted = false;
     };
-  }, [items]);
+  }, [items, isOpen]);
 
   // If all items in cart do not require shipping, shipping is $0 MXN
   const allShippingDisabled =

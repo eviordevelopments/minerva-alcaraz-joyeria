@@ -89,6 +89,7 @@ function toPDPProduct(p: AdminProduct): PDPProduct {
     is_author_design: p.is_author_design,
     is_limited_edition: p.is_limited_edition,
     available_sizes: p.available_sizes,
+    requires_shipping: p.requires_shipping,
   };
 }
 
@@ -118,6 +119,7 @@ function formToPDPProduct(form: NewProductForm): PDPProduct {
     is_author_design: form.preferencia === "Diseño de Autor",
     is_limited_edition: form.preferencia === "Edición Limitada",
     available_sizes: [],
+    requires_shipping: !form.disableShipping,
   };
 }
 

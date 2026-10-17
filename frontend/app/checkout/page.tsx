@@ -136,7 +136,7 @@ export default function CheckoutPage() {
         const skus = items.map((i) => i.sku).filter(Boolean);
 
         // Safe query without selecting unindexed/missing column
-        let query = supabase.from("products").select("id, sku, dimensions_mm");
+        let query = supabase.from("products").select("id, sku, name, dimensions_mm");
         if (validUuids.length > 0 && skus.length > 0) {
           query = query.or(`id.in.(${validUuids.join(",")}),sku.in.(${skus.map((s) => `"${s}"`).join(",")})`);
         } else if (validUuids.length > 0) {
@@ -149,7 +149,12 @@ export default function CheckoutPage() {
 
         if (!error && data && data.length > 0) {
           const allDisabled = items.every((item) => {
-            const dbP = data.find((p: any) => p.id === item.productId || p.sku === item.sku);
+            const dbP = data.find(
+              (p: any) =>
+                p.id === item.productId ||
+                p.sku === item.sku ||
+                (p.name && item.name && p.name.trim().toLowerCase() === item.name.trim().toLowerCase())
+            );
             if (!dbP) {
               return item.requires_shipping === false;
             }

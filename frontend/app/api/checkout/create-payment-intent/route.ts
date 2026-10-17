@@ -72,7 +72,12 @@ export async function POST(req: NextRequest) {
 
     // Calculate subtotal securely
     for (const item of items) {
-      const dbProduct = dbProducts.find((p) => p.id === item.productId);
+      const dbProduct = dbProducts.find(
+        (p) =>
+          p.id === item.productId ||
+          p.sku === item.sku ||
+          (p.name && item.name && p.name.trim().toLowerCase() === item.name.trim().toLowerCase())
+      );
       if (!dbProduct) continue;
 
       const unitPrice = dbProduct.price_cents;
@@ -120,7 +125,12 @@ export async function POST(req: NextRequest) {
     const allShippingDisabled =
       items.length > 0 &&
       items.every((item: any) => {
-        const dbP = dbProducts.find((p: any) => p.id === item.productId || p.sku === item.sku);
+        const dbP = dbProducts.find(
+          (p: any) =>
+            p.id === item.productId ||
+            p.sku === item.sku ||
+            (p.name && item.name && p.name.trim().toLowerCase() === item.name.trim().toLowerCase())
+        );
         if (!dbP) return item.requires_shipping === false;
         const req =
           dbP.requires_shipping !== undefined && dbP.requires_shipping !== null
