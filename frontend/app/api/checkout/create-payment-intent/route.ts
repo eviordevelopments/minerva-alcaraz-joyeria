@@ -161,6 +161,8 @@ export async function POST(req: NextRequest) {
     const totalCents = taxableAmount + shippingCents;
 
     // 3. Create Draft Order in Database
+    const customerEmail = shippingDetails?.email || "";
+    const customerName = shippingDetails?.name || "";
     const orderNumber = `MA-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
     const orderInsertData: Record<string, any> = {
       order_number: orderNumber,
@@ -173,7 +175,8 @@ export async function POST(req: NextRequest) {
       tax_cents: taxCents,
       total_cents: totalCents,
       currency: "MXN",
-      shipping_name: shippingDetails?.name || "",
+      shipping_name: customerName,
+      shipping_email: customerEmail,
       shipping_phone: shippingDetails?.phone || "",
       shipping_street: shippingDetails?.address || "",
       shipping_city: shippingDetails?.city || "",
@@ -199,9 +202,6 @@ export async function POST(req: NextRequest) {
     await supabaseAdmin.from("order_items").insert(orderItemsToInsert);
 
     // 4. Create Stripe PaymentIntent with customer metadata for resilient email receipt
-    const customerEmail = shippingDetails?.email || "";
-    const customerName = shippingDetails?.name || "";
-
     const paymentIntent = await stripe.paymentIntents.create({
       amount: totalCents,
       currency: "mxn",

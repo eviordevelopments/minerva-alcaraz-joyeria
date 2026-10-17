@@ -16,12 +16,34 @@ export async function GET() {
         status,
         payment_method,
         total_cents,
+        subtotal_cents,
+        shipping_cents,
+        discount_cents,
         placed_at,
+        created_at,
+        shipping_name,
+        shipping_email,
+        shipping_phone,
+        shipping_street,
+        shipping_city,
         shipping_state,
+        shipping_postal_code,
         shipping_country,
+        customer_notes,
         profiles (
           full_name,
-          email
+          email,
+          phone
+        ),
+        order_items (
+          id,
+          product_name,
+          product_sku,
+          product_image,
+          quantity,
+          unit_price_cents,
+          subtotal_cents,
+          size_requested
         )
       `)
       .order("placed_at", { ascending: false });

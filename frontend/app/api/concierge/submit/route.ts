@@ -10,7 +10,17 @@ const supabaseAdmin = createClient(
 
 export async function POST(req: NextRequest) {
   try {
-    const { contact_name, contact_email, description, user_id } = await req.json();
+    const {
+      contact_name,
+      contact_email,
+      contact_phone,
+      description,
+      desired_material,
+      desired_stone,
+      desired_size,
+      budget_cents,
+      user_id,
+    } = await req.json();
 
     if (!contact_name || !contact_email || !description) {
       return NextResponse.json(
@@ -30,7 +40,12 @@ export async function POST(req: NextRequest) {
         request_number: requestNumber,
         contact_name,
         contact_email,
+        contact_phone: contact_phone || null,
         description,
+        desired_material: desired_material || null,
+        desired_stone: desired_stone || null,
+        desired_size: desired_size || null,
+        budget_cents: budget_cents || null,
         status: "pending_review",
         request_type: "co_creacion",
         user_id: user_id || null,

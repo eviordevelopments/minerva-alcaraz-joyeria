@@ -14,6 +14,7 @@ import {
   Loader2,
   X,
   SendHorizonal,
+  MessageCircle,
 } from "lucide-react";
 
 interface ConciergeOrder {
@@ -323,10 +324,25 @@ export default function AdminConcierge() {
                     <h2 className="text-xl font-bold tracking-wide mt-0.5 text-[#E5DBD6]">
                       {currentOrder.contact_name}
                     </h2>
-                    <p className="text-[11px] text-[#8E9A8B] font-mono mt-1">
-                      {currentOrder.contact_email}
-                      {currentOrder.contact_phone && ` · ${currentOrder.contact_phone}`}
-                    </p>
+                    <div className="flex flex-wrap items-center gap-2 text-[11px] text-[#8E9A8B] font-mono mt-1">
+                      <a href={`mailto:${currentOrder.contact_email}`} className="hover:text-[#CBB67B] underline underline-offset-2">
+                        {currentOrder.contact_email}
+                      </a>
+                      {currentOrder.contact_phone && (
+                        <>
+                          <span>·</span>
+                          <a
+                            href={`https://wa.me/${currentOrder.contact_phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(`Hola ${currentOrder.contact_name}, te escribo del Atelier de Minerva Alcaraz Joyería sobre tu solicitud ${currentOrder.request_number}...`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-bold"
+                          >
+                            <MessageCircle size={11} />
+                            <span>WhatsApp ({currentOrder.contact_phone})</span>
+                          </a>
+                        </>
+                      )}
+                    </div>
                   </div>
 
                   {/* Status changer */}

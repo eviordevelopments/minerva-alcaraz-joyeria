@@ -18,7 +18,9 @@ import {
   User,
   ExternalLink,
   Accessibility,
-  ShoppingBag
+  ShoppingBag,
+  Smartphone,
+  Share2
 } from "lucide-react";
 import { useAccessibilityStore } from "@/lib/store/useAccessibilityStore";
 
@@ -35,6 +37,48 @@ export default function AdminLayout({
   const [profileName, setProfileName] = useState("Cargando...");
   const [profileLocation, setProfileLocation] = useState("...");
   const [profileRole, setProfileRole] = useState("");
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [canInstall, setCanInstall] = useState(false);
+  const [showIosPrompt, setShowIosPrompt] = useState(false);
+
+  React.useEffect(() => {
+    // PWA beforeinstallprompt handler
+    const handleBeforeInstall = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setCanInstall(true);
+    };
+    window.addEventListener("beforeinstallprompt", handleBeforeInstall);
+
+    // Detect standalone mode
+    const isStandalone = window.matchMedia("(display-mode: standalone)").matches || (window.navigator as any).standalone;
+    if (isStandalone) {
+      setCanInstall(false);
+    }
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handleBeforeInstall);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === "accepted") {
+        setCanInstall(false);
+      }
+      setDeferredPrompt(null);
+    } else {
+      // Check if iOS Safari
+      const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+      if (isIos) {
+        setShowIosPrompt(true);
+      } else {
+        alert("Para agregar a la pantalla de inicio: abre el menú de tu navegador y pulsa 'Agregar a la pantalla principal' o 'Instalar aplicación'.");
+      }
+    }
+  };
 
   React.useEffect(() => {
     async function loadProfile() {
@@ -66,25 +110,25 @@ export default function AdminLayout({
       name: "Dashboard",
       path: "/admin",
       icon: LayoutDashboard,
-      description: "Gráficas y conversiones"
+      description: "Gráficas, visitas y finanzas"
     },
     {
       name: "Inventario",
       path: "/admin/inventario",
       icon: Gem,
-      description: "Gestión y previsualización PDP"
+      description: "Catálogo y previsualización PDP"
+    },
+    {
+      name: "Pedidos",
+      path: "/admin/pedidos",
+      icon: ShoppingBag,
+      description: "Transacciones y carritos"
     },
     {
       name: "Concierge",
       path: "/admin/concierge",
       icon: Sparkles,
-      description: "Pedidos personalizados de lujo"
-    },
-    {
-      name: "Showroom",
-      path: "/admin/showroom",
-      icon: CalendarRange,
-      description: "Agenda y prevención de cruces"
+      description: "Co-creación y pedidos personalizados"
     },
     {
       name: "CRM Members",
@@ -93,15 +137,9 @@ export default function AdminLayout({
       description: "Gestión de The Circle"
     },
     {
-      name: "Pedidos",
-      path: "/admin/pedidos",
-      icon: ShoppingBag,
-      description: "Logística y Envíos"
-    },
-    {
       name: "Contenidos",
       path: "/admin/content",
-      icon: Sparkles, // reusing Sparkles or another icon
+      icon: Sparkles,
       description: "Textos y Narrativas"
     }
   ];
@@ -136,19 +174,29 @@ export default function AdminLayout({
         </div>
 
         {/* User Info / Right Actions */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-3 sm:gap-6">
+          <button
+            onClick={handleInstallClick}
+            className="flex items-center gap-1.5 text-[10px] sm:text-xs uppercase tracking-[0.2em] bg-[#CBB67B]/10 hover:bg-[#CBB67B]/20 text-[#CBB67B] border border-[#CBB67B]/40 px-2.5 sm:px-3 py-1.5 transition-colors font-medium"
+            title="Instalar App en tu teléfono o computadora"
+          >
+            <Smartphone size={13} className="text-[#CBB67B]" />
+            <span className="hidden xs:inline sm:inline">Instalar App</span>
+            <span className="xs:hidden sm:hidden">PWA</span>
+          </button>
+
           <Link 
             href="/" 
             target="_blank"
-            className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#CBB67B] hover:text-[#E4D5A4] transition-colors border border-[#CBB67B]/20 px-3 py-1.5"
+            className="hidden sm:flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#CBB67B] hover:text-[#E4D5A4] transition-colors border border-[#CBB67B]/20 px-3 py-1.5"
           >
             <span>Ver Tienda</span>
             <ExternalLink size={12} />
           </Link>
 
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-none border border-[#CBB67B]/30 flex items-center justify-center bg-[#2C3729]">
-              <User size={16} className="text-[#CBB67B]" />
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-none border border-[#CBB67B]/30 flex items-center justify-center bg-[#2C3729]">
+              <User size={15} className="text-[#CBB67B]" />
             </div>
             <div className="hidden md:flex flex-col text-left">
               <span className="text-sm font-semibold tracking-wider">{profileName}</span>
@@ -289,7 +337,7 @@ export default function AdminLayout({
         </AnimatePresence>
 
         {/* CONTENT WINDOW */}
-        <main className="flex-1 p-6 md:p-10 lg:p-12 overflow-y-auto max-w-full">
+        <main className="flex-1 p-3.5 sm:p-6 md:p-10 lg:p-12 overflow-y-auto max-w-full pb-28 md:pb-12">
           <motion.div 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -300,6 +348,90 @@ export default function AdminLayout({
           </motion.div>
         </main>
       </div>
+
+      {/* MOBILE BOTTOM NAVIGATION BAR (PWA) */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-[#1F271D]/98 backdrop-blur-md border-t border-[#CBB67B]/25 z-40 flex items-center justify-around px-1 shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+        {[
+          { name: "Dashboard", path: "/admin", icon: LayoutDashboard },
+          { name: "Inventario", path: "/admin/inventario", icon: Gem },
+          { name: "Pedidos", path: "/admin/pedidos", icon: ShoppingBag },
+          { name: "Concierge", path: "/admin/concierge", icon: Sparkles },
+          { name: "CRM", path: "/admin/crm", icon: Users },
+        ].map((tab) => {
+          const Active = isActive(tab.path);
+          const Icon = tab.icon;
+          return (
+            <Link
+              key={tab.name}
+              href={tab.path}
+              className={`flex flex-col items-center justify-center flex-1 py-1.5 transition-colors relative ${
+                Active ? "text-[#CBB67B]" : "text-[#8E9A8B] hover:text-[#E5DBD6]"
+              }`}
+            >
+              {Active && (
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-[2px] bg-[#CBB67B]" />
+              )}
+              <Icon size={18} strokeWidth={Active ? 2.2 : 1.5} />
+              <span className={`text-[10px] uppercase tracking-wider mt-1 truncate max-w-[64px] ${Active ? "font-bold text-[#CBB67B]" : "font-normal"}`}>
+                {tab.name}
+              </span>
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* iOS PWA INSTALLATION HELPER MODAL */}
+      <AnimatePresence>
+        {showIosPrompt && (
+          <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 40 }}
+              className="bg-[#1F271D] border border-[#CBB67B]/40 p-6 max-w-sm w-full shadow-2xl relative text-left"
+            >
+              <button
+                onClick={() => setShowIosPrompt(false)}
+                className="absolute top-4 right-4 text-[#8E9A8B] hover:text-[#E5DBD6]"
+              >
+                <X size={18} />
+              </button>
+              
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-[#CBB67B]/10 border border-[#CBB67B]/30 flex items-center justify-center text-[#CBB67B]">
+                  <Smartphone size={20} />
+                </div>
+                <div>
+                  <h3 className="text-base font-display-erp text-[#E5DBD6] font-bold">Agregar a Inicio en iPhone</h3>
+                  <p className="text-[10px] text-[#CBB67B] uppercase tracking-widest">Minerva Alcaraz ERP PWA</p>
+                </div>
+              </div>
+
+              <div className="space-y-3 text-xs text-[#E5DBD6]/90 leading-relaxed border-t border-[#CBB67B]/20 pt-4">
+                <div className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-[#CBB67B]/20 text-[#CBB67B] text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+                  <span>En Safari, pulsa el botón <strong>Compartir</strong> <Share2 size={12} className="inline text-[#CBB67B]" /> en la barra inferior.</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-[#CBB67B]/20 text-[#CBB67B] text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+                  <span>Desliza hacia abajo y selecciona <strong>&quot;Agregar a la pantalla de inicio&quot;</strong>.</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-[#CBB67B]/20 text-[#CBB67B] text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+                  <span>Toca <strong>&quot;Agregar&quot;</strong> en la esquina superior derecha.</span>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setShowIosPrompt(false)}
+                className="w-full mt-6 py-2.5 bg-[#CBB67B] text-[#1F271D] text-xs uppercase tracking-widest font-bold hover:bg-[#E4D5A4] transition-colors"
+              >
+                Entendido
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

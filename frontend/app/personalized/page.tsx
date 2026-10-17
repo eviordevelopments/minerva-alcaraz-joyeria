@@ -11,6 +11,7 @@ export default function PersonalizedPage() {
   const { user } = useAuthStore();
   const [contactName, setContactName] = useState(user?.fullName || "");
   const [contactEmail, setContactEmail] = useState(user?.email || "");
+  const [contactPhone, setContactPhone] = useState(user?.phone || "");
   const [description, setDescription] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedData, setSubmittedData] = useState<{ requestNumber: string } | null>(null);
@@ -33,6 +34,7 @@ export default function PersonalizedPage() {
         body: JSON.stringify({
           contact_name: contactName,
           contact_email: contactEmail,
+          contact_phone: contactPhone,
           description,
           user_id: user?.id || null,
         }),
@@ -150,6 +152,19 @@ export default function PersonalizedPage() {
                     value={contactEmail}
                     onChange={(e) => setContactEmail(e.target.value)}
                     className="bg-transparent border-b border-hueso-seda/40 py-3 text-base md:text-lg text-hueso-seda focus:outline-none focus:ring-0 focus:border-oro-antiguo transition-colors w-full"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  <label className="text-sm md:text-base uppercase tracking-widest opacity-70 text-hueso-seda">
+                    Teléfono / WhatsApp (Opcional)
+                  </label>
+                  <input
+                    type="tel"
+                    placeholder="Ej. +52 462 123 4567"
+                    value={contactPhone}
+                    onChange={(e) => setContactPhone(e.target.value)}
+                    className="bg-transparent border-b border-hueso-seda/40 py-3 text-base md:text-lg text-hueso-seda focus:outline-none focus:ring-0 focus:border-oro-antiguo transition-colors w-full placeholder:text-hueso-seda/30"
                   />
                 </div>
 

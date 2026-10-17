@@ -485,6 +485,51 @@ export async function GET() {
       },
     };
 
+    // 6. Fetch visitor logs and counter
+    let totalVisitors = 0;
+    let recentVisits: any[] = [];
+    let totalPageviews = 0;
+    try {
+      const { data: counterData } = await supabaseAdmin
+        .from("site_content")
+        .select("content")
+        .eq("page", "launch")
+        .eq("section", "counter")
+        .single();
+      totalVisitors = counterData?.content?.total_visitors || 0;
+
+      const { data: logsData } = await supabaseAdmin
+        .from("site_content")
+        .select("content")
+        .eq("page", "analytics")
+        .eq("section", "visitor_logs")
+        .single();
+      recentVisits = logsData?.content?.visits || [];
+      totalPageviews = logsData?.content?.total_pageviews || recentVisits.length;
+    } catch (visErr) {
+      console.warn("Notice fetching visitor telemetry:", visErr);
+    }
+
+    // 7. Calculate Comprehensive Financial Statements (P&L Contable)
+    const liquidatedStatuses = ["paid", "processing", "shipped", "delivered"];
+    const liquidatedOrders = allOrders.filter((o) => liquidatedStatuses.includes(o.status));
+    const grossRevenueCents = liquidatedOrders.reduce((sum, o) => sum + (o.total_cents || 0), 0);
+    const shippingCollectedCents = liquidatedOrders.reduce((sum, o) => sum + (o.shipping_cents || 0), 0);
+    const discountTotalCents = liquidatedOrders.reduce((sum, o) => sum + (o.discount_cents || 0), 0);
+    const subtotalLiquidatedCents = liquidatedOrders.reduce((sum, o) => sum + (o.subtotal_cents || o.total_cents || 0), 0);
+    
+    // In Mexico (PROFECO & SAT), prices already include 16% IVA
+    const netMerchandiseCents = Math.round(grossRevenueCents / 1.16);
+    const ivaTaxCents = grossRevenueCents - netMerchandiseCents;
+    const aovCents = liquidatedOrders.length > 0 ? Math.round(grossRevenueCents / liquidatedOrders.length) : 0;
+
+    const abandonedOrders = allOrders.filter((o) => !liquidatedStatuses.includes(o.status));
+    const abandonedCartTotalCents = abandonedOrders.reduce((sum, o) => sum + (o.total_cents || 0), 0);
+
+    // Device breakdown
+    const mobileVisitsCount = recentVisits.filter((v: any) => v.device?.toLowerCase().includes("mobile") || v.device?.toLowerCase().includes("ios") || v.device?.toLowerCase().includes("android")).length;
+    const desktopVisitsCount = recentVisits.length - mobileVisitsCount;
+
     return NextResponse.json({
       stats: {
         totalProducts: totalProducts ?? 0,
@@ -499,6 +544,27 @@ export async function GET() {
       },
       periods,
       yesterdaySales,
+      visitorAnalytics: {
+        totalVisitors,
+        totalPageviews,
+        recentVisits,
+        devices: {
+          mobile: mobileVisitsCount,
+          desktop: desktopVisitsCount,
+        },
+      },
+      financials: {
+        grossRevenueCents,
+        netMerchandiseCents,
+        ivaTaxCents,
+        shippingCollectedCents,
+        discountTotalCents,
+        subtotalLiquidatedCents,
+        averageOrderValueCents: aovCents,
+        liquidatedCount: liquidatedOrders.length,
+        abandonedCartCount: abandonedOrders.length,
+        abandonedCartTotalCents,
+      },
       recentActivity: allProfiles.slice(0, 8).map((p) => ({
         id: p.id,
         user: p.full_name || p.email?.split("@")[0] || "Usuario",

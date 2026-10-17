@@ -21,6 +21,16 @@ import {
   Calendar,
   CreditCard,
   BarChart3,
+  Eye,
+  Globe,
+  Smartphone,
+  Laptop,
+  FileText,
+  Download,
+  Percent,
+  Truck,
+  CheckCircle2,
+  PieChart
 } from "lucide-react";
 
 type PeriodType = "Hoy" | "Ayer" | "Semanal" | "Mensual" | "Trimestral" | "Anual" | "Total";
@@ -132,7 +142,10 @@ function getOrderStatusBadge(status: string) {
   }
 }
 
+type DashboardView = "resumen" | "visitas" | "finanzas";
+
 export default function AdminDashboard() {
+  const [currentView, setCurrentView] = useState<DashboardView>("resumen");
   const [period, setPeriod] = useState<PeriodType>("Hoy");
   const [salesMetric, setSalesMetric] = useState<"revenue" | "count">("revenue");
   const [salesSearch, setSalesSearch] = useState("");
@@ -140,6 +153,8 @@ export default function AdminDashboard() {
 
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [periodsData, setPeriodsData] = useState<Record<PeriodType, PeriodPayload> | null>(null);
+  const [visitorAnalytics, setVisitorAnalytics] = useState<any>(null);
+  const [financials, setFinancials] = useState<any>(null);
   const [currentDateMexico, setCurrentDateMexico] = useState("");
   const [activity, setActivity] = useState<ActivityEntry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -169,6 +184,8 @@ export default function AdminDashboard() {
       if (!res.ok || json.error) throw new Error(json.error ?? "Error de carga");
       setStats(json.stats);
       setPeriodsData(json.periods ?? null);
+      setVisitorAnalytics(json.visitorAnalytics ?? null);
+      setFinancials(json.financials ?? null);
       setCurrentDateMexico(json.currentDateMexico ?? "");
       setActivity(json.recentActivity ?? []);
       setLastRefresh(new Date());
@@ -255,6 +272,38 @@ export default function AdminDashboard() {
     ];
   }, [currentPeriodPayload, activeSales, stats, period]);
 
+  const handleExportFinancialsCSV = () => {
+    if (!financials) return;
+    const gross = (financials.grossRevenueCents / 100).toFixed(2);
+    const net = (financials.netMerchandiseCents / 100).toFixed(2);
+    const iva = (financials.ivaTaxCents / 100).toFixed(2);
+    const shipping = (financials.shippingCollectedCents / 100).toFixed(2);
+    const discount = (financials.discountTotalCents / 100).toFixed(2);
+    const aov = (financials.averageOrderValueCents / 100).toFixed(2);
+
+    const rows = [
+      ["CONCEPTO CONTABLE", "MONTO MXN", "NOTAS FISCALES"],
+      ["Ingresos Brutos Liquidados", `$${gross}`, "Total procesado con éxito"],
+      ["Ingreso Neto Mercancía (Base Gravable)", `$${net}`, "Importe sin impuestos"],
+      ["IVA Retenido (16%)", `$${iva}`, "Tasa general SAT México (incluida en PVP)"],
+      ["Ingresos por Envíos Asegurados", `$${shipping}`, "Cargos de paquetería"],
+      ["Descuentos Otorgados (The Circle)", `-$${discount}`, "Bonificaciones y cortesías"],
+      ["Ticket Promedio (AOV)", `$${aov}`, "Por orden liquidada"],
+      ["Órdenes Liquidadas", `${financials.liquidatedCount}`, "Transacciones exitosas"],
+      ["Carritos Dejados / Pendientes", `${financials.abandonedCartCount}`, `$${(financials.abandonedCartTotalCents / 100).toFixed(2)} MXN en riesgo`],
+    ];
+
+    const csvContent = "\uFEFF" + rows.map((e) => e.map((cell) => `"${cell}"`).join(",")).join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `Minerva_Alcaraz_Estados_Financieros_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="space-y-12">
       {/* ── HEADER ──────────────────────────────────────────────────────── */}
@@ -273,21 +322,23 @@ export default function AdminDashboard() {
 
         {/* Global Period Selector: Hoy, Ayer, Semanal, Mensual, Trimestral, Anual, Total */}
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex flex-wrap items-center gap-1 bg-[#1F271D] border border-[#CBB67B]/30 p-1">
-            {(["Hoy", "Ayer", "Semanal", "Mensual", "Trimestral", "Anual", "Total"] as PeriodType[]).map((p) => (
-              <button
-                key={p}
-                onClick={() => setPeriod(p)}
-                className={`text-[11px] uppercase tracking-widest px-3 sm:px-4 py-2 transition-all font-semibold ${
-                  period === p
-                    ? "bg-[#CBB67B] text-[#1F271D] font-bold shadow-md"
-                    : "text-[#8E9A8B] hover:text-[#E5DBD6]"
-                }`}
-              >
-                {p}
-              </button>
-            ))}
-          </div>
+          {currentView === "resumen" && (
+            <div className="flex flex-wrap items-center gap-1 bg-[#1F271D] border border-[#CBB67B]/30 p-1">
+              {(["Hoy", "Ayer", "Semanal", "Mensual", "Trimestral", "Anual", "Total"] as PeriodType[]).map((p) => (
+                <button
+                  key={p}
+                  onClick={() => setPeriod(p)}
+                  className={`text-[11px] uppercase tracking-widest px-3 sm:px-4 py-2 transition-all font-semibold ${
+                    period === p
+                      ? "bg-[#CBB67B] text-[#1F271D] font-bold shadow-md"
+                      : "text-[#8E9A8B] hover:text-[#E5DBD6]"
+                  }`}
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Refresh Button */}
           <button
@@ -301,6 +352,48 @@ export default function AdminDashboard() {
         </div>
       </div>
 
+      {/* ── TOP VIEW TABS: RESUMEN, VISITAS EN VIVO, ESTADOS FINANCIEROS ──── */}
+      <div className="flex border-b border-[#CBB67B]/20 overflow-x-auto gap-2">
+        <button
+          onClick={() => setCurrentView("resumen")}
+          className={`flex items-center gap-2 px-4 sm:px-6 py-3 text-xs sm:text-sm uppercase tracking-wider font-semibold border-b-2 transition-all flex-shrink-0 ${
+            currentView === "resumen"
+              ? "border-[#CBB67B] text-[#CBB67B] bg-[#1F271D]"
+              : "border-transparent text-[#8E9A8B] hover:text-[#E5DBD6]"
+          }`}
+        >
+          <BarChart3 size={16} />
+          <span>Resumen &amp; Ventas</span>
+        </button>
+
+        <button
+          onClick={() => setCurrentView("visitas")}
+          className={`flex items-center gap-2 px-4 sm:px-6 py-3 text-xs sm:text-sm uppercase tracking-wider font-semibold border-b-2 transition-all flex-shrink-0 ${
+            currentView === "visitas"
+              ? "border-[#CBB67B] text-[#CBB67B] bg-[#1F271D]"
+              : "border-transparent text-[#8E9A8B] hover:text-[#E5DBD6]"
+          }`}
+        >
+          <Eye size={16} />
+          <span>Tráfico y Visitas en Vivo</span>
+          <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-[#CBB67B]/20 text-[#CBB67B] border border-[#CBB67B]/40">
+            {visitorAnalytics?.totalVisitors ?? 0}
+          </span>
+        </button>
+
+        <button
+          onClick={() => setCurrentView("finanzas")}
+          className={`flex items-center gap-2 px-4 sm:px-6 py-3 text-xs sm:text-sm uppercase tracking-wider font-semibold border-b-2 transition-all flex-shrink-0 ${
+            currentView === "finanzas"
+              ? "border-[#CBB67B] text-[#CBB67B] bg-[#1F271D]"
+              : "border-transparent text-[#8E9A8B] hover:text-[#E5DBD6]"
+          }`}
+        >
+          <FileText size={16} />
+          <span>Estados Financieros (P&amp;L)</span>
+        </button>
+      </div>
+
       {/* ── ERROR BANNER ────────────────────────────────────────────────── */}
       {error && (
         <div className="bg-red-950/60 border border-red-500/30 p-4 flex items-center gap-3 text-red-300">
@@ -312,8 +405,11 @@ export default function AdminDashboard() {
         </div>
       )}
 
-      {/* ── DYNAMIC PERIOD METRIC CARDS ─────────────────────────────────── */}
-      {isLoading || !currentPeriodPayload ? (
+      {/* ── VIEW: RESUMEN & VENTAS ───────────────────────────────────────── */}
+      {currentView === "resumen" && (
+        <>
+          {/* ── DYNAMIC PERIOD METRIC CARDS ─────────────────────────────────── */}
+          {isLoading || !currentPeriodPayload ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-pulse">
           {[...Array(4)].map((_, i) => (
             <div
@@ -1002,6 +1098,459 @@ export default function AdminDashboard() {
           </button>
         </div>
       </div>
+    </>
+  )}
+
+  {/* ── VIEW: TRÁFICO Y VISITAS EN VIVO ─────────────────────────────── */}
+  {currentView === "visitas" && (
+    <section className="space-y-8 text-left">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#CBB67B]/20 pb-6">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+            <span className="text-xs uppercase tracking-[0.3em] text-[#CBB67B] font-semibold">
+              Telemetría de Tráfico · Live
+            </span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-display-erp text-[#E5DBD6] font-bold mt-1">
+            Visitas &amp; Audiencia en Directo
+          </h2>
+          <p className="text-xs text-[#8E9A8B] mt-1">
+            Monitoreo en tiempo real de visitantes en la boutique web Minerva Alcaraz Joyería.
+          </p>
+        </div>
+
+        <button
+          onClick={loadData}
+          disabled={isLoading}
+          className="inline-flex items-center gap-2 px-4 py-2 border border-[#CBB67B]/40 text-[#CBB67B] hover:bg-[#CBB67B] hover:text-[#1F271D] text-xs uppercase tracking-widest font-bold transition-all self-start sm:self-auto"
+        >
+          <RefreshCw size={13} className={isLoading ? "animate-spin" : ""} />
+          <span>Refrescar Telemetría</span>
+        </button>
+      </div>
+
+      {/* KPI Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-[#1F271D] border border-[#CBB67B]/20 p-5 flex flex-col justify-between">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] uppercase tracking-wider text-[#8E9A8B]">
+              Visitantes Únicos Totales
+            </span>
+            <div className="w-8 h-8 border border-[#CBB67B]/30 flex items-center justify-center bg-[#2C3729] text-[#CBB67B]">
+              <Users size={14} />
+            </div>
+          </div>
+          <div className="mt-3">
+            <p className="text-3xl font-mono font-bold text-[#CBB67B]">
+              {visitorAnalytics?.totalVisitors?.toLocaleString("es-MX") ?? 0}
+            </p>
+            <p className="text-[10px] text-[#8E9A8B] mt-1 uppercase tracking-widest">
+              Dispositivos únicos detectados
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-[#1F271D] border border-[#CBB67B]/20 p-5 flex flex-col justify-between">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] uppercase tracking-wider text-[#8E9A8B]">
+              Impresiones de Página (Pageviews)
+            </span>
+            <div className="w-8 h-8 border border-[#CBB67B]/30 flex items-center justify-center bg-[#2C3729] text-[#CBB67B]">
+              <Eye size={14} />
+            </div>
+          </div>
+          <div className="mt-3">
+            <p className="text-3xl font-mono font-bold text-[#E5DBD6]">
+              {visitorAnalytics?.totalPageviews?.toLocaleString("es-MX") ?? 0}
+            </p>
+            <p className="text-[10px] text-[#8E9A8B] mt-1 uppercase tracking-widest">
+              Páginas visualizadas
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-[#1F271D] border border-[#CBB67B]/20 p-5 flex flex-col justify-between">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] uppercase tracking-wider text-[#8E9A8B]">
+              Dispositivos Móviles
+            </span>
+            <div className="w-8 h-8 border border-[#CBB67B]/30 flex items-center justify-center bg-[#2C3729] text-[#CBB67B]">
+              <Smartphone size={14} />
+            </div>
+          </div>
+          <div className="mt-3">
+            <p className="text-3xl font-mono font-bold text-emerald-400">
+              {visitorAnalytics?.devices?.mobile ?? 0}
+            </p>
+            <p className="text-[10px] text-[#8E9A8B] mt-1 uppercase tracking-widest">
+              iPhone &amp; Android
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-[#1F271D] border border-[#CBB67B]/20 p-5 flex flex-col justify-between">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] uppercase tracking-wider text-[#8E9A8B]">
+              Dispositivos Desktop
+            </span>
+            <div className="w-8 h-8 border border-[#CBB67B]/30 flex items-center justify-center bg-[#2C3729] text-[#CBB67B]">
+              <Laptop size={14} />
+            </div>
+          </div>
+          <div className="mt-3">
+            <p className="text-3xl font-mono font-bold text-[#E5DBD6]">
+              {visitorAnalytics?.devices?.desktop ?? 0}
+            </p>
+            <p className="text-[10px] text-[#8E9A8B] mt-1 uppercase tracking-widest">
+              Mac &amp; Windows PCs
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Visitor Log Table & Mobile Cards */}
+      <div className="bg-[#1F271D] border border-[#CBB67B]/25 p-6 sm:p-8 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#CBB67B]/15 pb-4">
+          <div>
+            <span className="text-xs uppercase tracking-[0.3em] text-[#CBB67B] font-semibold">
+              Bitácora de Navegación
+            </span>
+            <h3 className="text-base font-semibold text-[#E5DBD6] tracking-wide mt-0.5">
+              Últimas Sesiones y Páginas Consultadas
+            </h3>
+          </div>
+          <span className="text-[11px] text-[#8E9A8B] uppercase tracking-widest">
+            Registros recientes: {visitorAnalytics?.recentVisits?.length ?? 0}
+          </span>
+        </div>
+
+        {/* Desktop Table View */}
+        <div className="hidden md:block overflow-x-auto">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="border-b border-[#CBB67B]/20 bg-[#2C3729]/50 text-[#8E9A8B] text-[11px] uppercase tracking-widest font-bold">
+                <th className="py-3 px-4 text-left">Hora / Fecha</th>
+                <th className="py-3 px-4 text-left">Página Consultada</th>
+                <th className="py-3 px-4 text-left">Dispositivo / Entorno</th>
+                <th className="py-3 px-4 text-left">Sesión ID</th>
+                <th className="py-3 px-4 text-center">Tipo</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#CBB67B]/10 text-xs">
+              {visitorAnalytics?.recentVisits?.length > 0 ? (
+                visitorAnalytics.recentVisits.map((v: any, idx: number) => (
+                  <tr key={idx} className="hover:bg-[#2C3729]/30 transition-colors">
+                    <td className="py-3 px-4 font-mono text-[#E5DBD6]">
+                      {v.timestamp ? new Date(v.timestamp).toLocaleString("es-MX") : "En vivo"}
+                    </td>
+                    <td className="py-3 px-4">
+                      <span className="font-mono text-[#CBB67B] bg-[#2C3729] px-2 py-0.5 border border-[#CBB67B]/30">
+                        {v.page || "/"}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4 text-[#8E9A8B] flex items-center gap-2">
+                      {v.device?.toLowerCase().includes("mobile") || v.device?.toLowerCase().includes("ios") || v.device?.toLowerCase().includes("android") ? (
+                        <Smartphone size={13} className="text-emerald-400" />
+                      ) : (
+                        <Laptop size={13} className="text-[#CBB67B]" />
+                      )}
+                      <span>{v.device || "Navegador Web"}</span>
+                    </td>
+                    <td className="py-3 px-4 font-mono text-[#8E9A8B] text-[11px]">
+                      {v.sessionId || `session_${idx + 1}`}
+                    </td>
+                    <td className="py-3 px-4 text-center">
+                      <span className={`inline-block text-[10px] uppercase tracking-wider px-2 py-0.5 font-bold border ${
+                        v.isNew !== false
+                          ? "bg-emerald-950/70 border-emerald-500/40 text-emerald-300"
+                          : "bg-blue-950/70 border-blue-500/40 text-blue-300"
+                      }`}>
+                        {v.isNew !== false ? "Nuevo" : "Recurrente"}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={5} className="py-10 text-center text-[#8E9A8B]">
+                    <p className="text-xs uppercase tracking-widest font-bold text-[#E5DBD6]">
+                      Registrando visitas en directo...
+                    </p>
+                    <p className="text-[11px] text-[#8E9A8B] mt-1">
+                      Cada cliente que navega en la boutique queda reflejado en esta telemetría.
+                    </p>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Mobile Cards View */}
+        <div className="md:hidden space-y-3">
+          {visitorAnalytics?.recentVisits?.length > 0 ? (
+            visitorAnalytics.recentVisits.map((v: any, idx: number) => (
+              <div key={idx} className="bg-[#2C3729]/50 border border-[#CBB67B]/20 p-4 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs text-[#CBB67B] bg-[#1F271D] px-2 py-0.5 border border-[#CBB67B]/30">
+                    {v.page || "/"}
+                  </span>
+                  <span className={`text-[9px] uppercase tracking-wider px-2 py-0.5 font-bold border ${
+                    v.isNew !== false
+                      ? "bg-emerald-950/70 border-emerald-500/40 text-emerald-300"
+                      : "bg-blue-950/70 border-blue-500/40 text-blue-300"
+                  }`}>
+                    {v.isNew !== false ? "Nuevo" : "Recurrente"}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-[11px] text-[#8E9A8B]">
+                  <span className="flex items-center gap-1.5">
+                    {v.device?.toLowerCase().includes("mobile") || v.device?.toLowerCase().includes("ios") || v.device?.toLowerCase().includes("android") ? (
+                      <Smartphone size={12} className="text-emerald-400" />
+                    ) : (
+                      <Laptop size={12} className="text-[#CBB67B]" />
+                    )}
+                    {v.device || "Navegador Web"}
+                  </span>
+                  <span className="font-mono">
+                    {v.timestamp ? new Date(v.timestamp).toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" }) : "En vivo"}
+                  </span>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="bg-[#2C3729]/40 border border-[#CBB67B]/15 p-6 text-center text-xs text-[#8E9A8B]">
+              Sin registros recientes de visitas
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* ── VIEW: ESTADOS FINANCIEROS (P&L) ─────────────────────────────── */}
+  {currentView === "finanzas" && (
+    <section className="space-y-8 text-left">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#CBB67B]/20 pb-6">
+        <div>
+          <span className="text-xs uppercase tracking-[0.3em] text-[#CBB67B] font-semibold">
+            Contabilidad &amp; Cumplimiento SAT México
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-display-erp text-[#E5DBD6] font-bold mt-1">
+            Estados Financieros &amp; P&amp;L
+          </h2>
+          <p className="text-xs text-[#8E9A8B] mt-1">
+            Desglose contable de ventas reales liquidadas, base gravable e IVA 16% trasladado.
+          </p>
+        </div>
+
+        <button
+          onClick={handleExportFinancialsCSV}
+          disabled={!financials}
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#CBB67B] hover:bg-[#E4D5A4] text-[#1F271D] text-xs uppercase tracking-widest font-bold transition-all shadow-md self-start sm:self-auto"
+        >
+          <Download size={14} />
+          <span>Descargar Reporte CSV</span>
+        </button>
+      </div>
+
+      {/* 4 Financial KPI Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-[#1F271D] border border-[#CBB67B]/25 p-5 flex flex-col justify-between shadow-lg">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] uppercase tracking-wider text-[#8E9A8B]">
+              Ingresos Brutos Liquidados
+            </span>
+            <div className="w-8 h-8 border border-[#CBB67B]/30 flex items-center justify-center bg-[#2C3729] text-[#CBB67B]">
+              <DollarSign size={14} />
+            </div>
+          </div>
+          <div className="mt-3">
+            <p className="text-2xl sm:text-3xl font-mono font-bold text-[#CBB67B]">
+              {formatCurrency(financials?.grossRevenueCents ?? 0)}
+            </p>
+            <p className="text-[10px] text-[#8E9A8B] mt-1 uppercase tracking-widest">
+              {financials?.liquidatedCount ?? 0} transacciones pagadas
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-[#1F271D] border border-[#CBB67B]/20 p-5 flex flex-col justify-between">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] uppercase tracking-wider text-[#8E9A8B]">
+              Base Gravable (Sin IVA)
+            </span>
+            <div className="w-8 h-8 border border-[#CBB67B]/30 flex items-center justify-center bg-[#2C3729] text-[#CBB67B]">
+              <PieChart size={14} />
+            </div>
+          </div>
+          <div className="mt-3">
+            <p className="text-2xl sm:text-3xl font-mono font-bold text-[#E5DBD6]">
+              {formatCurrency(financials?.netMerchandiseCents ?? 0)}
+            </p>
+            <p className="text-[10px] text-[#8E9A8B] mt-1 uppercase tracking-widest">
+              Ingreso neto mercancía
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-[#1F271D] border border-[#CBB67B]/20 p-5 flex flex-col justify-between">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] uppercase tracking-wider text-[#8E9A8B]">
+              IVA 16% Trasladado (SAT)
+            </span>
+            <div className="w-8 h-8 border border-[#CBB67B]/30 flex items-center justify-center bg-[#2C3729] text-[#CBB67B]">
+              <Percent size={14} />
+            </div>
+          </div>
+          <div className="mt-3">
+            <p className="text-2xl sm:text-3xl font-mono font-bold text-amber-300">
+              {formatCurrency(financials?.ivaTaxCents ?? 0)}
+            </p>
+            <p className="text-[10px] text-[#8E9A8B] mt-1 uppercase tracking-widest">
+              Impuesto incluido en PVP
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-[#1F271D] border border-[#CBB67B]/20 p-5 flex flex-col justify-between">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] uppercase tracking-wider text-[#8E9A8B]">
+              Ticket Promedio (AOV)
+            </span>
+            <div className="w-8 h-8 border border-[#CBB67B]/30 flex items-center justify-center bg-[#2C3729] text-[#CBB67B]">
+              <TrendingUp size={14} />
+            </div>
+          </div>
+          <div className="mt-3">
+            <p className="text-2xl sm:text-3xl font-mono font-bold text-emerald-400">
+              {formatCurrency(financials?.averageOrderValueCents ?? 0)}
+            </p>
+            <p className="text-[10px] text-[#8E9A8B] mt-1 uppercase tracking-widest">
+              Por transacción liquidada
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Detailed Accounting Statement Table */}
+      <div className="bg-[#1F271D] border border-[#CBB67B]/25 p-6 sm:p-8 space-y-6">
+        <div className="border-b border-[#CBB67B]/15 pb-4">
+          <span className="text-xs uppercase tracking-[0.3em] text-[#CBB67B] font-semibold">
+            Estado de Resultados Integral (P&amp;L)
+          </span>
+          <h3 className="text-base font-semibold text-[#E5DBD6] tracking-wide mt-0.5">
+            Desglose Analítico de Ingresos y Cargas Impositivas
+          </h3>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="border-b border-[#CBB67B]/20 bg-[#2C3729]/50 text-[#8E9A8B] text-[11px] uppercase tracking-widest font-bold">
+                <th className="py-3.5 px-5 text-left">Rubro Contable</th>
+                <th className="py-3.5 px-5 text-left">Fundamento / Tratamiento</th>
+                <th className="py-3.5 px-5 text-right">Porcentaje</th>
+                <th className="py-3.5 px-5 text-right">Monto Total</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#CBB67B]/10 text-sm">
+              <tr className="hover:bg-[#2C3729]/30 transition-colors">
+                <td className="py-4 px-5 font-bold text-[#E5DBD6] flex items-center gap-2">
+                  <CheckCircle2 size={14} className="text-emerald-400" />
+                  Ingresos Brutos Liquidados
+                </td>
+                <td className="py-4 px-5 text-xs text-[#8E9A8B]">
+                  Total facturable efectivamente cobrado mediante pasarela Stripe
+                </td>
+                <td className="py-4 px-5 text-right font-mono text-[#8E9A8B]">100.0%</td>
+                <td className="py-4 px-5 text-right font-mono font-bold text-[#CBB67B] text-base">
+                  {formatCurrency(financials?.grossRevenueCents ?? 0)}
+                </td>
+              </tr>
+
+              <tr className="hover:bg-[#2C3729]/30 transition-colors">
+                <td className="py-4 px-5 font-medium text-[#E5DBD6]">
+                  ↳ Base Gravable (Mercancía Neta)
+                </td>
+                <td className="py-4 px-5 text-xs text-[#8E9A8B]">
+                  Subtotal sin impuesto trasladado (PVP / 1.16 según Art. 1 LIVA)
+                </td>
+                <td className="py-4 px-5 text-right font-mono text-[#8E9A8B]">86.21%</td>
+                <td className="py-4 px-5 text-right font-mono text-[#E5DBD6]">
+                  {formatCurrency(financials?.netMerchandiseCents ?? 0)}
+                </td>
+              </tr>
+
+              <tr className="hover:bg-[#2C3729]/30 transition-colors">
+                <td className="py-4 px-5 font-medium text-amber-300">
+                  ↳ IVA 16% Retenido para SAT
+                </td>
+                <td className="py-4 px-5 text-xs text-[#8E9A8B]">
+                  Impuesto al Valor Agregado trasladado y reportable a la Secretaría de Hacienda
+                </td>
+                <td className="py-4 px-5 text-right font-mono text-[#8E9A8B]">13.79%</td>
+                <td className="py-4 px-5 text-right font-mono text-amber-300">
+                  {formatCurrency(financials?.ivaTaxCents ?? 0)}
+                </td>
+              </tr>
+
+              <tr className="hover:bg-[#2C3729]/30 transition-colors">
+                <td className="py-4 px-5 font-medium text-[#8E9A8B]">
+                  ↳ Fletes y Envíos Asegurados Cobrados
+                </td>
+                <td className="py-4 px-5 text-xs text-[#8E9A8B]">
+                  Cargos de paquetería de alta seguridad en órdenes menores a $3,500 MXN
+                </td>
+                <td className="py-4 px-5 text-right font-mono text-[#8E9A8B]">Tarifa Plana</td>
+                <td className="py-4 px-5 text-right font-mono text-[#8E9A8B]">
+                  {formatCurrency(financials?.shippingCollectedCents ?? 0)}
+                </td>
+              </tr>
+
+              <tr className="hover:bg-[#2C3729]/30 transition-colors">
+                <td className="py-4 px-5 font-medium text-blue-300">
+                  ↳ Descuentos &amp; Beneficios The Circle
+                </td>
+                <td className="py-4 px-5 text-xs text-[#8E9A8B]">
+                  Deducciones y cortesías de membresía aplicadas en checkout
+                </td>
+                <td className="py-4 px-5 text-right font-mono text-[#8E9A8B]">Bonificación</td>
+                <td className="py-4 px-5 text-right font-mono text-blue-300">
+                  -{formatCurrency(financials?.discountTotalCents ?? 0)}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        {/* Abandoned Cart Exposure Callout */}
+        <div className="bg-[#2C3729]/50 border border-amber-500/30 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-6">
+          <div className="space-y-1">
+            <span className="text-[10px] uppercase tracking-widest text-amber-400 font-bold flex items-center gap-1.5">
+              <AlertCircle size={12} />
+              Oportunidad de Recuperación de Carritos Dejados
+            </span>
+            <p className="text-xs text-[#E5DBD6]">
+              Existen <strong className="font-mono text-amber-300">{financials?.abandonedCartCount ?? 0} carritos no liquidados</strong> que suman{" "}
+              <strong className="font-mono text-[#CBB67B]">{formatCurrency(financials?.abandonedCartTotalCents ?? 0)}</strong> en ventas potenciales.
+            </p>
+          </div>
+
+          <Link
+            href="/admin/pedidos?tab=carritos"
+            className="inline-flex items-center gap-2 px-4 py-2 border border-[#CBB67B] text-[#CBB67B] hover:bg-[#CBB67B] hover:text-[#1F271D] text-[11px] uppercase tracking-widest font-bold transition-all whitespace-nowrap self-start sm:self-auto"
+          >
+            <span>Ver Carritos Dejados</span>
+            <ArrowRight size={12} />
+          </Link>
+        </div>
+      </div>
+    </section>
+  )}
     </div>
   );
 }
