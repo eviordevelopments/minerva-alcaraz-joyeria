@@ -187,7 +187,7 @@ export default function EnviosPage() {
                         </div>
 
                         <Link
-                          href="/perfil/pedidos"
+                          href={`/perfil/pedidos?orderId=${encodeURIComponent(order.id)}`}
                           className="flex items-center gap-2 self-start md:self-auto text-xs uppercase tracking-widest font-bold px-4 py-2.5 bg-[#CBB67B] text-[#1F271D] hover:bg-[#E5DBD6] transition-all shadow-sm"
                         >
                           Rastrear Joya <ArrowRight size={13} />

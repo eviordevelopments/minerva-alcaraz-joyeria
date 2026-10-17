@@ -371,8 +371,12 @@ export const AIConcierge = () => {
               // Parse <recommend>ID1, ID2</recommend>
               const recMatch = responseText.match(/<recommend>(.*?)<\/recommend>/i);
               if (recMatch) {
-                const ids = recMatch[1].split(",").map((id: string) => id.trim());
-                const recommendedProds = allProducts.filter(p => ids.includes(p.id));
+                const ids = recMatch[1]
+                  .split(",")
+                  .map((id: string) => id.replace(/^ID:\s*/i, "").replace(/[.\s]+$/, "").trim());
+                const recommendedProds = allProducts.filter(
+                  (p) => ids.includes(p.id) || ids.includes(p.sku) || ids.includes((p as { slug?: string }).slug || "")
+                );
                 if (recommendedProds.length > 0) {
                   setRecommended(recommendedProds);
                   setActiveTab("products"); // Switch to products tab if mobile

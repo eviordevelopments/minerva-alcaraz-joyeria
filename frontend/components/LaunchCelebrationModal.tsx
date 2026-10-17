@@ -200,7 +200,7 @@ export function LaunchCelebrationModal() {
                 transition={{ delay: 0.35, duration: 0.6 }}
                 className="text-[11px] uppercase tracking-[0.35em] text-[#CBB67B]/90 font-serif mb-6"
               >
-                El Arte de Habitar en la Eternidad
+                Tu Esencia, Hecha Joya
               </motion.p>
 
               {/* Caja de Conteo Especial: Número de usuario que ha entrado a la página */}

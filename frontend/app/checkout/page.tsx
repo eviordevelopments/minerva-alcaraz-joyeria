@@ -287,8 +287,12 @@ export default function CheckoutPage() {
           className="text-center flex flex-col items-center gap-8 max-w-2xl"
         >
           <CheckCircle size={64} className="text-oro-antiguo" strokeWidth={0.5} />
-          <h1 className="text-5xl font-display text-hueso-seda leading-tight">
-            Gracias por tu Adquisición, {shippingName.split(" ")[0] || "Miembro"}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-display text-hueso-seda leading-tight [word-break:keep-all]">
+            <span>Gracias por tu </span>
+            <span className="whitespace-nowrap font-serif italic text-white drop-shadow-[0_2px_15px_rgba(203,182,123,0.3)]">
+              Adquisición
+            </span>
+            <span>, {shippingName.split(" ")[0] || "Miembro"}</span>
           </h1>
           <p className="text-base text-hueso-seda/60 tracking-widest leading-loose uppercase max-w-md">
             El pago ha sido procesado exitosamente y pronto recibirás un correo de confirmación. Tu legado está siendo preparado en nuestro Atelier.

@@ -72,11 +72,11 @@ export default function DevolucionesPage() {
               }`}>
                 {user?.isCircleMember ? (
                   <>
-                    Como miembro de <strong className="text-oro-antiguo font-bold">THE CIRCLE</strong>, cuentas con un periodo extendido exclusivo de <strong className="text-white font-bold bg-black/20 px-1.5 py-0.5 border border-[#CBB67B]/40">30 días naturales</strong> desde la recepción de tu pedido para solicitar una devolución o cambio (frente a los 10 días para clientes generales). Las piezas únicas y personalizadas no son reembolsables, pero ofrecemos cambio de talla sin costo.
+                    Como miembro de <strong className="text-oro-antiguo font-bold">THE CIRCLE</strong>, cuentas con un periodo extendido exclusivo de <strong className="text-white font-bold bg-black/20 px-1.5 py-0.5 border border-[#CBB67B]/40">30 días naturales</strong> desde la recepción de tu pedido para solicitar una devolución o cambio (frente a los 10 días para clientes generales). Las piezas únicas y personalizadas en co-creación no son reembolsables.
                   </>
                 ) : (
                   <>
-                    Tienes <strong className="text-verde-ebano font-bold bg-verde-ebano/5 px-1.5 py-0.5 border border-verde-ebano/20">10 días naturales</strong> desde la recepción de tu pedido para solicitar una devolución o cambio. Como beneficio exclusivo, los miembros de <strong className="text-oro-antiguo font-bold">THE CIRCLE</strong> disponen de un plazo extendido de <strong className="text-oro-antiguo font-bold">30 días naturales</strong>. Las piezas únicas y personalizadas no son reembolsables, pero ofrecemos cambio de talla sin costo.
+                    Tienes <strong className="text-verde-ebano font-bold bg-verde-ebano/5 px-1.5 py-0.5 border border-verde-ebano/20">10 días naturales</strong> desde la recepción de tu pedido para solicitar una devolución o cambio. Como beneficio exclusivo, los miembros de <strong className="text-oro-antiguo font-bold">THE CIRCLE</strong> disponen de un plazo extendido de <strong className="text-oro-antiguo font-bold">30 días naturales</strong>. Las piezas únicas y personalizadas en co-creación no son reembolsables.
                   </>
                 )}
               </p>

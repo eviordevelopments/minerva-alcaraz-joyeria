@@ -344,7 +344,7 @@ export function getPurchaseConfirmationTemplate({
     </div>
 
     <div style="text-align: center; margin-top: 30px;">
-      <a href="https://minervaalcarazjoyeria.mx/perfil/pedidos" class="btn">Rastrear Mi Pedido</a>
+      <a href="https://minervaalcarazjoyeria.mx/perfil/pedidos?orderId=${encodeURIComponent(orderId)}" class="btn">Rastrear Mi Pedido</a>
     </div>
 
     ${BRAND_SIGNATURE}
@@ -529,7 +529,7 @@ export function getOrderTrackingNotificationTemplate({
         CONSULTAR EN MIS ENVÍOS
       </a>
       <div style="margin-top: 12px;">
-        <a href="https://minervaalcarazjoyeria.mx/perfil/pedidos" style="font-size: 11px; color: #CBB67B; text-decoration: underline; letter-spacing: 0.15em; text-transform: uppercase;">
+        <a href="https://minervaalcarazjoyeria.mx/perfil/pedidos?orderId=${encodeURIComponent(orderNumber)}" style="font-size: 11px; color: #CBB67B; text-decoration: underline; letter-spacing: 0.15em; text-transform: uppercase;">
           O ver detalle en Mis Pedidos
         </a>
       </div>

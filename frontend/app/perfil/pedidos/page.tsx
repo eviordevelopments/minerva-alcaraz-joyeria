@@ -111,6 +111,31 @@ export default function PedidosPage() {
 
       if (!error && data) {
         setOrders(data);
+
+        // Auto-expand and open tracking if deep-linked via email or external link
+        if (typeof window !== "undefined") {
+          const params = new URLSearchParams(window.location.search);
+          const target = params.get("orderId") || params.get("id") || params.get("order");
+          if (target) {
+            const matched = data.find(
+              (o) =>
+                o.id === target ||
+                o.order_number?.toLowerCase() === target.toLowerCase() ||
+                o.tracking_number?.toLowerCase() === target.toLowerCase()
+            );
+            if (matched) {
+              setExpandedId(matched.id);
+              setTrackingOrder(matched);
+              setShowSurvey(false);
+              setSurveySubmitted(!!matched.delivered_at);
+
+              setTimeout(() => {
+                const el = document.getElementById(`order-${matched.id}`);
+                if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+              }, 400);
+            }
+          }
+        }
       }
     } catch (err) {
       console.error("Error fetching orders:", err);
@@ -220,6 +245,7 @@ export default function PedidosPage() {
                   return (
                     <motion.div
                       key={order.id}
+                      id={`order-${order.id}`}
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       className="bg-white border border-verde-ebano/10 overflow-hidden shadow-sm"
