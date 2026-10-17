@@ -416,6 +416,161 @@ export function getAdminPurchaseNotificationTemplate({
   });
 }
 
+function getCarrierDirectTrackingUrl(trackingNumber: string, carrier?: string): string {
+  const c = (carrier || "").toLowerCase();
+  const cleanTracking = trackingNumber.trim();
+  if (c.includes("dhl")) {
+    return `https://www.dhl.com/mx-es/home/tracking/tracking-express.html?submit=1&tracking-id=${encodeURIComponent(cleanTracking)}`;
+  }
+  if (c.includes("fedex")) {
+    return `https://www.fedex.com/fedextrack/?trknbr=${encodeURIComponent(cleanTracking)}`;
+  }
+  if (c.includes("estafeta")) {
+    return `https://www.estafeta.com/Rastreo?waybill=${encodeURIComponent(cleanTracking)}`;
+  }
+  if (c.includes("paquetexpress")) {
+    return `https://www.paquetexpress.com.mx/rastreo-de-guias?tracking_number=${encodeURIComponent(cleanTracking)}`;
+  }
+  return "https://minervaalcarazjoyeria.mx/perfil/envios";
+}
+
+/**
+ * 6b. Order Shipped / Tracking Assigned & Updated Notification
+ */
+export function getOrderTrackingNotificationTemplate({
+  customerName,
+  orderNumber,
+  trackingNumber,
+  carrier = "DHL Express",
+  items = [],
+  shippingAddress,
+}: {
+  customerName: string;
+  orderNumber: string;
+  trackingNumber: string;
+  carrier?: string;
+  items?: { name: string; price: number; quantity: number; image?: string; sku?: string }[];
+  shippingAddress?: string;
+}) {
+  const directTrackingUrl = getCarrierDirectTrackingUrl(trackingNumber, carrier);
+
+  const itemsListHtml = items.length > 0
+    ? items
+        .map(
+          (item) => `
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: rgba(31, 39, 29, 0.7); border: 1px solid rgba(203, 182, 123, 0.35); margin-bottom: 10px;">
+          <tr>
+            <td width="22%" style="padding: 10px; vertical-align: middle;">
+              ${item.image ? `<img src="${item.image}" alt="${item.name}" width="100%" style="display: block; border: 1px solid rgba(203, 182, 123, 0.3); max-width: 65px; height: auto;" />` : ''}
+            </td>
+            <td width="78%" style="padding: 10px; vertical-align: middle;">
+              <h4 style="font-size: 13px; color: #E5DBD6; font-family: 'Cormorant Garamond', Georgia, serif; margin: 0 0 4px 0; font-weight: 500;">${item.name} (x${item.quantity})</h4>
+              ${item.sku ? `<span style="font-size: 10px; color: #8E9A8B; font-family: monospace; display: block; margin-bottom: 2px;">SKU: ${item.sku}</span>` : ''}
+              <span style="font-size: 11px; color: #CBB67B; font-weight: 600; font-family: monospace;">$${(item.price * item.quantity).toLocaleString("es-MX")} MXN</span>
+            </td>
+          </tr>
+        </table>
+      `
+        )
+        .join("")
+    : "";
+
+  const contentHtml = `
+    <div style="text-align: center; margin-bottom: 25px;">
+      <span style="font-size: 9px; letter-spacing: 0.4em; color: #CBB67B; text-transform: uppercase;">Custodia de Valores &amp; Alta Seguridad</span>
+      <h2 style="font-size: 26px; color: #E5DBD6; font-style: italic; font-weight: 300; margin: 10px 0; font-family: 'Cormorant Garamond', Georgia, serif;">Tu Joya Está en Camino</h2>
+      <div style="font-family: monospace; font-size: 11px; color: #CBB67B; letter-spacing: 0.2em;">Orden: ${orderNumber}</div>
+    </div>
+
+    <p style="font-size: 14px; line-height: 1.8; color: #E5DBD6;">
+      Estimado(a) <strong>${customerName}</strong>,
+    </p>
+
+    <p style="font-size: 13px; line-height: 1.8; color: rgba(229, 219, 214, 0.9); font-weight: 300; font-style: italic; font-family: 'Cormorant Garamond', Georgia, serif; border-left: 2px solid #CBB67B; padding-left: 15px; margin: 20px 0;">
+      &ldquo;Cada joya forjada en nuestro taller emprende un viaje para encontrarse con quien la portará y comenzar a escribir su legado.&rdquo;
+    </p>
+
+    <p style="font-size: 12px; line-height: 1.8; color: rgba(229, 219, 214, 0.85); font-weight: 300;">
+      Nos complace informarte que tu pedido <strong>${orderNumber}</strong> ha concluido satisfactoriamente su fase de preparación artesanal, certificación y empaque con sellos de seguridad en nuestro Atelier. Ha sido entregado bajo custodia especializada a <strong>${carrier}</strong>.
+    </p>
+
+    <!-- Prominent Gold Tracking Box -->
+    <div style="background-color: #1F271D; border: 1px solid #CBB67B; padding: 22px; margin: 25px 0; text-align: center;">
+      <span style="font-size: 9px; letter-spacing: 0.35em; color: #CBB67B; text-transform: uppercase; display: block; margin-bottom: 8px;">Número de Guía de Rastreo</span>
+      <div style="font-family: 'Courier New', Courier, monospace; font-size: 22px; font-weight: bold; color: #E5DBD6; letter-spacing: 0.12em; margin: 8px 0; padding: 10px 0; border-top: 1px solid rgba(203,182,123,0.3); border-bottom: 1px solid rgba(203,182,123,0.3);">
+        ${trackingNumber}
+      </div>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 10px;">
+        <tr>
+          <td width="50%" style="text-align: left; font-size: 11px; color: rgba(229,219,214,0.7); text-transform: uppercase; letter-spacing: 0.1em;">
+            Paquetería: <strong style="color: #E5DBD6;">${carrier}</strong>
+          </td>
+          <td width="50%" style="text-align: right; font-size: 11px; color: #CBB67B; text-transform: uppercase; letter-spacing: 0.1em;">
+            Custodia: <strong style="color: #4ade80;">En Tránsito Seguro</strong>
+          </td>
+        </tr>
+      </table>
+      ${directTrackingUrl !== "https://minervaalcarazjoyeria.mx/perfil/envios" ? `
+        <div style="margin-top: 16px;">
+          <a href="${directTrackingUrl}" target="_blank" style="display: inline-block; font-size: 11px; color: #CBB67B; text-decoration: underline; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 600;">
+            Rastrear en Portal de ${carrier} &rarr;
+          </a>
+        </div>
+      ` : ''}
+    </div>
+
+    <!-- Customer Suite Access -->
+    <p style="font-size: 12px; line-height: 1.8; color: rgba(229, 219, 214, 0.85); font-weight: 300; text-align: center;">
+      Puedes consultar en todo momento el avance en vivo de tu envío y los detalles de tu orden desde tu perfil privado en nuestra boutique:
+    </p>
+
+    <div style="text-align: center; margin: 26px 0;">
+      <a href="https://minervaalcarazjoyeria.mx/perfil/envios" class="btn">
+        CONSULTAR EN MIS ENVÍOS
+      </a>
+      <div style="margin-top: 12px;">
+        <a href="https://minervaalcarazjoyeria.mx/perfil/pedidos" style="font-size: 11px; color: #CBB67B; text-decoration: underline; letter-spacing: 0.15em; text-transform: uppercase;">
+          O ver detalle en Mis Pedidos
+        </a>
+      </div>
+    </div>
+
+    <!-- Shipping Address Confirmation -->
+    ${shippingAddress ? `
+      <div style="background-color: rgba(31, 39, 29, 0.4); border: 1px solid rgba(203, 182, 123, 0.2); padding: 14px 18px; margin: 22px 0;">
+        <div style="font-size: 9px; letter-spacing: 0.3em; color: #CBB67B; text-transform: uppercase; margin-bottom: 6px;">Dirección de Entrega Registrada</div>
+        <p style="font-size: 12px; line-height: 1.6; color: #E5DBD6; margin: 0; font-weight: 300;">
+          ${shippingAddress}
+        </p>
+      </div>
+    ` : ''}
+
+    <!-- Items Summary -->
+    ${itemsListHtml ? `
+      <div style="background-color: rgba(31, 39, 29, 0.5); border: 1px solid rgba(203, 182, 123, 0.2); padding: 18px; margin: 22px 0;">
+        <div style="font-size: 9px; letter-spacing: 0.3em; color: #CBB67B; text-transform: uppercase; margin-bottom: 12px;">Piezas en Este Envío:</div>
+        ${itemsListHtml}
+      </div>
+    ` : ''}
+
+    <!-- Security Protocol Reminder -->
+    <div style="margin-top: 25px; padding: 15px; border: 1px dashed rgba(203, 182, 123, 0.3); text-align: center;">
+      <h4 style="font-size: 11px; color: #CBB67B; text-transform: uppercase; letter-spacing: 0.2em; margin: 0 0 8px 0;">Protocolo de Recepción Segura</h4>
+      <p style="font-size: 10px; line-height: 1.6; color: rgba(229, 219, 214, 0.7); margin: 0;">
+        Tu paquete viaja protegido con sello holográfico de inviolabilidad y póliza de seguro contra robo o extravío. Por favor, asegúrate de que el paquete y los sellos de seguridad se encuentren intactos antes de firmar de recibido.
+      </p>
+    </div>
+
+    ${BRAND_SIGNATURE}
+  `;
+
+  return wrapBaseEmailTemplate({
+    title: `💎 Tu Joya Minerva Alcaraz Está en Camino · Guía ${trackingNumber} 📦`,
+    preheader: `Tu pedido ${orderNumber} ha sido despachado con la guía ${trackingNumber} (${carrier}). Consúltala en tu perfil.`,
+    contentHtml,
+  });
+}
+
 export function getOrderDeliveredTemplate({
   customerName,
   orderId,

@@ -328,7 +328,28 @@ export default function PedidosPage() {
                             <p>Referencia de Pasarela: <strong className="text-verde-ebano">{order.payment_reference}</strong></p>
                           )}
                           {order.tracking_number && (
-                            <p>Guía de Rastreo Asignada: <strong className="text-oro-antiguo">{order.tracking_number} ({order.carrier || "Mensajería de Seguridad"})</strong></p>
+                            <div className="flex flex-wrap items-center justify-between gap-2">
+                              <p>Guía de Rastreo Asignada: <strong className="text-oro-antiguo">{order.tracking_number} ({order.carrier || "DHL Express"})</strong></p>
+                              <a
+                                href={
+                                  (order.carrier || "").toLowerCase().includes("dhl")
+                                    ? `https://www.dhl.com/mx-es/home/tracking/tracking-express.html?submit=1&tracking-id=${encodeURIComponent(order.tracking_number)}`
+                                    : (order.carrier || "").toLowerCase().includes("fedex")
+                                    ? `https://www.fedex.com/fedextrack/?trknbr=${encodeURIComponent(order.tracking_number)}`
+                                    : (order.carrier || "").toLowerCase().includes("estafeta")
+                                    ? `https://www.estafeta.com/Rastreo?waybill=${encodeURIComponent(order.tracking_number)}`
+                                    : (order.carrier || "").toLowerCase().includes("paquetexpress")
+                                    ? `https://www.paquetexpress.com.mx/rastreo-de-guias?tracking_number=${encodeURIComponent(order.tracking_number)}`
+                                    : "#"
+                                }
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[10px] uppercase font-bold text-oro-antiguo underline hover:text-verde-ebano inline-flex items-center gap-1"
+                              >
+                                <span>Rastrear en Portal Oficial</span>
+                                <ExternalLink size={10} />
+                              </a>
+                            </div>
                           )}
                           {order.delivered_at && (
                             <p className="text-emerald-700 font-bold">✓ Entrega confirmada el: {new Date(order.delivered_at).toLocaleString("es-MX")}</p>
@@ -439,8 +460,29 @@ export default function PedidosPage() {
                               {step.subtitle}
                             </p>
                             {step.key === "shipped" && trackingOrder.tracking_number && (
-                              <div className="mt-2 p-2.5 bg-oro-antiguo/15 border border-oro-antiguo/40 text-xs font-mono text-[#2C3729]">
-                                Guía de Custodia: <strong>{trackingOrder.tracking_number}</strong> ({trackingOrder.carrier || "DHL Express"})
+                              <div className="mt-2.5 p-3 bg-oro-antiguo/15 border border-oro-antiguo/40 text-xs font-mono text-[#2C3729] flex flex-wrap items-center justify-between gap-2">
+                                <div>
+                                  Guía de Custodia: <strong>{trackingOrder.tracking_number}</strong> ({trackingOrder.carrier || "DHL Express"})
+                                </div>
+                                <a
+                                  href={
+                                    (trackingOrder.carrier || "").toLowerCase().includes("dhl")
+                                      ? `https://www.dhl.com/mx-es/home/tracking/tracking-express.html?submit=1&tracking-id=${encodeURIComponent(trackingOrder.tracking_number)}`
+                                      : (trackingOrder.carrier || "").toLowerCase().includes("fedex")
+                                      ? `https://www.fedex.com/fedextrack/?trknbr=${encodeURIComponent(trackingOrder.tracking_number)}`
+                                      : (trackingOrder.carrier || "").toLowerCase().includes("estafeta")
+                                      ? `https://www.estafeta.com/Rastreo?waybill=${encodeURIComponent(trackingOrder.tracking_number)}`
+                                      : (trackingOrder.carrier || "").toLowerCase().includes("paquetexpress")
+                                      ? `https://www.paquetexpress.com.mx/rastreo-de-guias?tracking_number=${encodeURIComponent(trackingOrder.tracking_number)}`
+                                      : "#"
+                                  }
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-[10px] uppercase font-bold text-verde-ebano underline inline-flex items-center gap-1"
+                                >
+                                  <span>Rastrear en Portal Oficial</span>
+                                  <ExternalLink size={10} />
+                                </a>
                               </div>
                             )}
                           </div>

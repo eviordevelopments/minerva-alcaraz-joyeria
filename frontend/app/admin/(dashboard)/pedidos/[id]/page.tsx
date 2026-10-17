@@ -48,6 +48,9 @@ export default function AdminOrderDetail() {
   const [isUpdating, setIsUpdating] = useState(false);
   const [newStatus, setNewStatus] = useState("");
   const [newTracking, setNewTracking] = useState("");
+  const [newCarrier, setNewCarrier] = useState("DHL Express");
+  const [sendNotification, setSendNotification] = useState(true);
+  const [updateFeedback, setUpdateFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   async function loadData() {
@@ -61,6 +64,7 @@ export default function AdminOrderDetail() {
       setStripeTelemetry(json.stripeTelemetry || null);
       setNewStatus(json.order.status);
       setNewTracking(json.order.tracking_number || "");
+      setNewCarrier(json.order.carrier || "DHL Express");
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -81,18 +85,31 @@ export default function AdminOrderDetail() {
   async function handleUpdate(e: React.FormEvent) {
     e.preventDefault();
     setIsUpdating(true);
+    setUpdateFeedback(null);
     try {
       const res = await fetch(`/api/admin/orders/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: newStatus, tracking_number: newTracking }),
+        body: JSON.stringify({
+          status: newStatus,
+          tracking_number: newTracking,
+          carrier: newCarrier,
+          send_notification: sendNotification,
+        }),
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || "Error al actualizar");
       setOrder(json.order);
-      alert("Pedido actualizado exitosamente.");
+      
+      let msg = "Pedido actualizado exitosamente.";
+      if (json.trackingEmailSent) {
+        msg = `✓ Pedido actualizado y correo de rastreo enviado exitosamente a ${json.customerEmail || "cliente"} vía Resend.`;
+      } else if (json.deliveredEmailSent) {
+        msg = `✓ Pedido marcado como entregado y correo de entrega enviado a ${json.customerEmail || "cliente"} vía Resend.`;
+      }
+      setUpdateFeedback({ type: "success", message: msg });
     } catch (err: any) {
-      alert("Error: " + err.message);
+      setUpdateFeedback({ type: "error", message: err.message || "Error al actualizar" });
     } finally {
       setIsUpdating(false);
     }
@@ -348,13 +365,30 @@ export default function AdminOrderDetail() {
           </section>
 
           {/* GESTIÓN DE STATUS Y GUÍA (SOLO LOGÍSTICA) */}
-          <section className="bg-[#2C3729] border border-[#CBB67B]/40 p-6 shadow-xl">
-            <div className="flex items-center gap-2 text-[#CBB67B] border-b border-[#CBB67B]/20 pb-4 mb-6">
+          <section className="bg-[#2C3729] border border-[#CBB67B]/40 p-6 shadow-xl space-y-4">
+            <div className="flex items-center gap-2 text-[#CBB67B] border-b border-[#CBB67B]/20 pb-4 mb-2">
               <Truck size={16} />
               <h2 className="text-xs uppercase tracking-[0.2em] font-bold">Gestión Logística y Guía</h2>
             </div>
+
+            {updateFeedback && (
+              <div
+                className={`p-4 border text-xs leading-relaxed flex items-start gap-2.5 ${
+                  updateFeedback.type === "success"
+                    ? "bg-emerald-950/80 border-emerald-500/50 text-emerald-300"
+                    : "bg-red-950/80 border-red-500/50 text-red-300"
+                }`}
+              >
+                {updateFeedback.type === "success" ? (
+                  <CheckCircle size={15} className="flex-shrink-0 mt-0.5 text-emerald-400" />
+                ) : (
+                  <AlertCircle size={15} className="flex-shrink-0 mt-0.5 text-red-400" />
+                )}
+                <span>{updateFeedback.message}</span>
+              </div>
+            )}
             
-            <form onSubmit={handleUpdate} className="space-y-4">
+            <form onSubmit={handleUpdate} className="space-y-4 text-left">
               <div>
                 <label className="block text-[11px] uppercase tracking-widest text-[#8E9A8B] mb-2 font-bold">
                   Estado de Envío (Taller / Logística)
@@ -377,6 +411,23 @@ export default function AdminOrderDetail() {
 
               <div>
                 <label className="block text-[11px] uppercase tracking-widest text-[#8E9A8B] mb-2 font-bold">
+                  Empresa de Paquetería / Custodia
+                </label>
+                <select
+                  value={newCarrier}
+                  onChange={(e) => setNewCarrier(e.target.value)}
+                  className="w-full bg-[#1F271D] border border-[#CBB67B]/30 text-[#E5DBD6] p-2.5 text-sm focus:border-[#CBB67B] outline-none rounded-none"
+                >
+                  <option value="DHL Express">DHL Express (Nacional e Internacional)</option>
+                  <option value="FedEx Express">FedEx Express</option>
+                  <option value="Estafeta Mexicana">Estafeta Mexicana</option>
+                  <option value="Paquetexpress">Paquetexpress</option>
+                  <option value="Custodia Especial / Mensajería Privada">Custodia Especial / Mensajería Privada</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-[11px] uppercase tracking-widest text-[#8E9A8B] mb-2 font-bold">
                   Número de Guía (Tracking de Seguridad)
                 </label>
                 <input 
@@ -387,16 +438,61 @@ export default function AdminOrderDetail() {
                   className="w-full bg-[#1F271D] border border-[#CBB67B]/30 text-[#E5DBD6] p-2.5 text-sm font-mono placeholder-[#8E9A8B]/50 focus:border-[#CBB67B] outline-none rounded-none"
                 />
                 <p className="text-[10px] text-[#8E9A8B] mt-1.5 leading-relaxed">
-                  Al ingresar la guía y pasar a "En Camino", el cliente podrá rastrear su paquete en tiempo real en su suite privada.
+                  Al ingresar o modificar la guía, el sistema actualizará el pedido en el perfil del cliente y enviará un correo corporativo de notificación vía Resend.
+                </p>
+              </div>
+
+              {/* Direct Carrier Link Preview */}
+              {newTracking.trim() && (
+                <div className="bg-[#1F271D] border border-[#CBB67B]/20 p-3 flex items-center justify-between gap-3 text-xs">
+                  <div className="flex items-center gap-2 text-[#CBB67B] font-mono truncate">
+                    <span>Guía:</span>
+                    <strong>{newTracking.trim()}</strong>
+                  </div>
+                  <a
+                    href={
+                      newCarrier.toLowerCase().includes("dhl")
+                        ? `https://www.dhl.com/mx-es/home/tracking/tracking-express.html?submit=1&tracking-id=${encodeURIComponent(newTracking.trim())}`
+                        : newCarrier.toLowerCase().includes("fedex")
+                        ? `https://www.fedex.com/fedextrack/?trknbr=${encodeURIComponent(newTracking.trim())}`
+                        : newCarrier.toLowerCase().includes("estafeta")
+                        ? `https://www.estafeta.com/Rastreo?waybill=${encodeURIComponent(newTracking.trim())}`
+                        : newCarrier.toLowerCase().includes("paquetexpress")
+                        ? `https://www.paquetexpress.com.mx/rastreo-de-guias?tracking_number=${encodeURIComponent(newTracking.trim())}`
+                        : "#"
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#CBB67B] hover:text-white underline inline-flex items-center gap-1 font-semibold flex-shrink-0"
+                  >
+                    <span>Probar Enlace de Rastreo</span>
+                    <ExternalLink size={11} />
+                  </a>
+                </div>
+              )}
+
+              {/* Notification toggle */}
+              <div className="pt-2 border-t border-[#CBB67B]/15">
+                <label className="flex items-center gap-2.5 text-xs text-[#E5DBD6] cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={sendNotification}
+                    onChange={(e) => setSendNotification(e.target.checked)}
+                    className="accent-[#CBB67B] w-4 h-4 cursor-pointer"
+                  />
+                  <span>Enviar correo corporativo elegante de notificación al cliente vía Resend</span>
+                </label>
+                <p className="text-[10px] text-[#8E9A8B] ml-6 mt-0.5">
+                  Destinatario: <span className="font-mono text-[#CBB67B]">{order.shipping_email || order.profiles?.email || "Sin correo"}</span>
                 </p>
               </div>
 
               <button 
                 type="submit"
                 disabled={isUpdating}
-                className="w-full mt-2 py-3 bg-[#CBB67B] text-[#1F271D] hover:bg-[#E4D5A4] transition-colors text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full mt-3 py-3.5 bg-[#CBB67B] text-[#1F271D] hover:bg-[#E4D5A4] transition-colors text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-2 disabled:opacity-50 shadow-md"
               >
-                {isUpdating ? "Guardando..." : "Actualizar Avance Logístico"}
+                {isUpdating ? "Guardando y Notificando..." : "Guardar Guía & Notificar Cliente"}
                 {!isUpdating && <CheckCircle size={14} />}
               </button>
             </form>

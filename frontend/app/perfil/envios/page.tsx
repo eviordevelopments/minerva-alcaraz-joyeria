@@ -7,7 +7,7 @@ import { ProfileSidebar } from "../../../components/ProfileSidebar";
 import { useAuthStore } from "../../../lib/store/useAuthStore";
 import { supabase } from "../../../lib/supabase";
 import { useRouter } from "next/navigation";
-import { Truck, Crown, Clock, Shield, MapPin, Package, ArrowRight, Loader2 } from "lucide-react";
+import { Truck, Crown, Clock, Shield, MapPin, Package, ArrowRight, Loader2, ExternalLink } from "lucide-react";
 
 export default function EnviosPage() {
   const { user, isAuthenticated } = useAuthStore();
@@ -21,14 +21,36 @@ export default function EnviosPage() {
 
   useEffect(() => {
     async function loadActiveShipments() {
-      if (!user?.id) return;
+      if (!user) return;
       try {
-        const { data, error } = await supabase
-          .from("v_order_history")
-          .select("*")
-          .eq("user_id", user.id)
-          .in("status", ["paid", "processing", "shipped"])
+        let query = supabase
+          .from("orders")
+          .select(`
+            id,
+            order_number,
+            status,
+            tracking_number,
+            carrier,
+            placed_at,
+            order_items (
+              id,
+              product_name,
+              quantity,
+              product_image
+            )
+          `)
+          .in("status", ["paid", "processing", "shipped", "delivered"])
           .order("placed_at", { ascending: false });
+
+        if (user.id && user.email) {
+          query = query.or(`user_id.eq.${user.id},shipping_email.ilike.${user.email}`);
+        } else if (user.id) {
+          query = query.eq("user_id", user.id);
+        } else if (user.email) {
+          query = query.ilike("shipping_email", user.email);
+        }
+
+        const { data, error } = await query;
 
         if (!error && data) {
           setActiveOrders(data);
@@ -137,9 +159,30 @@ export default function EnviosPage() {
                             </p>
                           )}
                           {order.tracking_number && (
-                            <p className="text-[11px] font-mono text-[#CBB67B]">
-                              Guía: {order.tracking_number} ({order.carrier || "DHL Express"})
-                            </p>
+                            <div className="flex flex-wrap items-center gap-2 pt-1 text-left">
+                              <p className="text-xs font-mono text-[#CBB67B]">
+                                Guía: <strong>{order.tracking_number}</strong> ({order.carrier || "DHL Express"})
+                              </p>
+                              <a
+                                href={
+                                  (order.carrier || "").toLowerCase().includes("dhl")
+                                    ? `https://www.dhl.com/mx-es/home/tracking/tracking-express.html?submit=1&tracking-id=${encodeURIComponent(order.tracking_number)}`
+                                    : (order.carrier || "").toLowerCase().includes("fedex")
+                                    ? `https://www.fedex.com/fedextrack/?trknbr=${encodeURIComponent(order.tracking_number)}`
+                                    : (order.carrier || "").toLowerCase().includes("estafeta")
+                                    ? `https://www.estafeta.com/Rastreo?waybill=${encodeURIComponent(order.tracking_number)}`
+                                    : (order.carrier || "").toLowerCase().includes("paquetexpress")
+                                    ? `https://www.paquetexpress.com.mx/rastreo-de-guias?tracking_number=${encodeURIComponent(order.tracking_number)}`
+                                    : "/perfil/pedidos"
+                                }
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[10px] uppercase tracking-wider text-[#CBB67B] underline hover:text-white inline-flex items-center gap-1 font-semibold"
+                              >
+                                <span>Rastrear en {order.carrier || "Paquetería"}</span>
+                                <ExternalLink size={10} />
+                              </a>
+                            </div>
                           )}
                         </div>
 
