@@ -115,11 +115,12 @@ export async function POST(req: NextRequest) {
       if (
         error.message?.includes("requires_shipping") ||
         error.message?.includes("payment_link") ||
-        error.code === "PGRST204"
+        error.code === "PGRST204" ||
+        error.code === "42703"
       ) {
         console.warn("Retrying insert without newer columns...");
         const rowRetry = { ...productRow };
-        if (error.message?.includes("requires_shipping")) {
+        if (error.message?.includes("requires_shipping") || error.code === "42703") {
           delete rowRetry.requires_shipping;
         }
         if (error.message?.includes("payment_link")) {

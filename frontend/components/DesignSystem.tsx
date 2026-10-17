@@ -85,6 +85,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       image: imageFront ?? "",
       price,
       currency,
+      paymentLink: product.payment_link ?? null,
+      requires_shipping: product.requires_shipping !== undefined ? Boolean(product.requires_shipping) : true,
     });
     setAddedFeedback(true);
     setTimeout(() => setAddedFeedback(false), 1500);

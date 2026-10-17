@@ -15,6 +15,7 @@ export interface CartItem {
   quantity: number;
   size?: string;
   paymentLink?: string | null;
+  requires_shipping?: boolean;
 }
 
 interface CartState {

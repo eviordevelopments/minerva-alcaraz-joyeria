@@ -25,6 +25,7 @@ export function WelcomePopup() {
     }
 
     const timer = setTimeout(() => {
+      if (sessionStorage.getItem("ma_launch_is_open") === "true") return;
       setIsVisible(true);
       const now = Date.now();
       localStorage.setItem("ma_welcome_shown_at", now.toString());

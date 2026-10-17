@@ -31,6 +31,8 @@ export interface Product {
     style?: string;
     isAuthorDesign?: boolean;
   };
+  requires_shipping?: boolean;
+  payment_link?: string | null;
 }
 
 // Helper: construir URL Cloudinary optimizada con transformaciones

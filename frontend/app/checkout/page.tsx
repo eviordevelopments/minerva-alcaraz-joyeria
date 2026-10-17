@@ -28,7 +28,9 @@ export default function CheckoutPage() {
   const { user, isAuthenticated, isLoading: authLoading } = useAuthStore();
   const { items, subtotal, clearCart, updateQuantity, removeItem } = useCartStore();
   const [isFirstPurchase, setIsFirstPurchase] = useState(false);
-  const [shippingDisabledByProducts, setShippingDisabledByProducts] = useState(false);
+  const [shippingDisabledByProducts, setShippingDisabledByProducts] = useState(
+    () => items.length > 0 && items.every((i) => i.requires_shipping === false)
+  );
   
   // Totals calculations
   const rawSubtotal = subtotal();
@@ -118,27 +120,57 @@ export default function CheckoutPage() {
         setShippingDisabledByProducts(false);
         return;
       }
+
+      // Fast sync from cart items
+      const allDisabledInCart =
+        items.length > 0 && items.every((i) => i.requires_shipping === false);
+      if (allDisabledInCart) {
+        setShippingDisabledByProducts(true);
+      }
+
       try {
-        const productIds = items.map((i) => i.productId);
-        const { data, error } = await supabase
-          .from("products")
-          .select("id, requires_shipping, dimensions_mm")
-          .in("id", productIds);
+        const isUUID = (str: string) =>
+          /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(str);
+
+        const validUuids = items.map((i) => i.productId).filter(isUUID);
+        const skus = items.map((i) => i.sku).filter(Boolean);
+
+        // Safe query without selecting unindexed/missing column
+        let query = supabase.from("products").select("id, sku, dimensions_mm");
+        if (validUuids.length > 0 && skus.length > 0) {
+          query = query.or(`id.in.(${validUuids.join(",")}),sku.in.(${skus.map((s) => `"${s}"`).join(",")})`);
+        } else if (validUuids.length > 0) {
+          query = query.in("id", validUuids);
+        } else if (skus.length > 0) {
+          query = query.in("sku", skus);
+        }
+
+        const { data, error } = await query;
 
         if (!error && data && data.length > 0) {
-          const allDisabled = data.every((p: any) => {
+          const allDisabled = items.every((item) => {
+            const dbP = data.find((p: any) => p.id === item.productId || p.sku === item.sku);
+            if (!dbP) {
+              return item.requires_shipping === false;
+            }
+            const pAny = dbP as any;
             const req =
-              p.requires_shipping !== undefined && p.requires_shipping !== null
-                ? p.requires_shipping
-                : p.dimensions_mm?.requires_shipping !== undefined
-                ? p.dimensions_mm.requires_shipping
+              pAny.requires_shipping !== undefined && pAny.requires_shipping !== null
+                ? pAny.requires_shipping
+                : pAny.dimensions_mm?.requires_shipping !== undefined
+                ? pAny.dimensions_mm.requires_shipping
                 : true;
             return req === false;
           });
           setShippingDisabledByProducts(allDisabled);
+        } else if (allDisabledInCart) {
+          setShippingDisabledByProducts(true);
         }
       } catch (err) {
         console.error("Error checking products shipping flag:", err);
+        if (allDisabledInCart) {
+          setShippingDisabledByProducts(true);
+        }
       }
     }
     checkProductsShipping();

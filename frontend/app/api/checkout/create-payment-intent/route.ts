@@ -23,17 +23,40 @@ export async function POST(req: NextRequest) {
 
     // 1. Fetch real prices from Supabase
     const productIds = items.map((i: any) => i.productId);
-    let dbProducts: any[] = [];
-    const { data: initialProds, error: prodError } = await supabaseAdmin
-      .from("products")
-      .select("id, name, sku, price_cents, images, collection_name, materials, requires_shipping, dimensions_mm")
-      .in("id", productIds);
+    const isUUID = (str: string) =>
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(str);
+    const validUuids = productIds.filter(isUUID);
+    const skus = items.map((i: any) => i.sku).filter(Boolean);
 
-    if (prodError && prodError.message?.includes("requires_shipping")) {
-      const { data: fallbackProds, error: fallbackErr } = await supabaseAdmin
+    let dbProducts: any[] = [];
+    let initialQuery = supabaseAdmin
+      .from("products")
+      .select("id, name, sku, price_cents, images, collection_name, materials, requires_shipping, dimensions_mm");
+
+    if (validUuids.length > 0 && skus.length > 0) {
+      initialQuery = initialQuery.or(`id.in.(${validUuids.join(",")}),sku.in.(${skus.map((s: string) => `"${s}"`).join(",")})`);
+    } else if (validUuids.length > 0) {
+      initialQuery = initialQuery.in("id", validUuids);
+    } else if (skus.length > 0) {
+      initialQuery = initialQuery.in("sku", skus);
+    }
+
+    const { data: initialProds, error: prodError } = await initialQuery;
+
+    if (prodError && (prodError.message?.includes("requires_shipping") || prodError.code === "42703" || prodError.code === "PGRST204")) {
+      let fallbackQuery = supabaseAdmin
         .from("products")
-        .select("id, name, sku, price_cents, images, collection_name, materials, dimensions_mm")
-        .in("id", productIds);
+        .select("id, name, sku, price_cents, images, collection_name, materials, dimensions_mm");
+
+      if (validUuids.length > 0 && skus.length > 0) {
+        fallbackQuery = fallbackQuery.or(`id.in.(${validUuids.join(",")}),sku.in.(${skus.map((s: string) => `"${s}"`).join(",")})`);
+      } else if (validUuids.length > 0) {
+        fallbackQuery = fallbackQuery.in("id", validUuids);
+      } else if (skus.length > 0) {
+        fallbackQuery = fallbackQuery.in("sku", skus);
+      }
+
+      const { data: fallbackProds, error: fallbackErr } = await fallbackQuery;
       if (fallbackErr || !fallbackProds || fallbackProds.length === 0) {
         return NextResponse.json({ error: "Error al verificar productos" }, { status: 404 });
       }
@@ -95,13 +118,15 @@ export async function POST(req: NextRequest) {
     // 2. Calculate Shipping & IVA
     // Check if shipping is deactivated manually on all products in cart
     const allShippingDisabled =
-      dbProducts.length > 0 &&
-      dbProducts.every((p: any) => {
+      items.length > 0 &&
+      items.every((item: any) => {
+        const dbP = dbProducts.find((p: any) => p.id === item.productId || p.sku === item.sku);
+        if (!dbP) return item.requires_shipping === false;
         const req =
-          p.requires_shipping !== undefined && p.requires_shipping !== null
-            ? p.requires_shipping
-            : p.dimensions_mm?.requires_shipping !== undefined
-            ? p.dimensions_mm.requires_shipping
+          dbP.requires_shipping !== undefined && dbP.requires_shipping !== null
+            ? dbP.requires_shipping
+            : dbP.dimensions_mm?.requires_shipping !== undefined
+            ? dbP.dimensions_mm.requires_shipping
             : true;
         return req === false;
       });

@@ -1207,21 +1207,21 @@ export default function AdminInventario() {
                     </button>
                   </div>
 
-                  {/* Switch para desactivar envío */}
+                  {/* Switch para omitir costo de envío */}
                   <div className="flex items-center justify-between border-t border-[#CBB67B]/10 pt-3">
                     <div className="flex flex-col pr-4">
                       <span className="text-sm font-semibold text-[#E5DBD6] flex items-center gap-1.5">
-                        Desactivar Envío
+                        Omitir Costo de Envío
                         {form.disableShipping && (
-                          <span className="text-[9px] bg-[#CBB67B]/20 text-[#CBB67B] px-1.5 py-0.2 border border-[#CBB67B]/40 uppercase tracking-widest">
-                            Sin Cargo ($0)
+                          <span className="text-[9px] bg-[#CBB67B]/20 text-[#CBB67B] px-1.5 py-0.2 border border-[#CBB67B]/40 uppercase tracking-widest font-mono">
+                            Envío Gratis ($0)
                           </span>
                         )}
                       </span>
                       <span className="text-[10px] text-[#8E9A8B] leading-tight mt-0.5">
                         {form.disableShipping
-                          ? "Envío desactivado · No se cobrará flete ($0 MXN en checkout)"
-                          : "Envío estándar activo ($200 MXN o cortesía según monto)"}
+                          ? "Envío omitido · No se cobrará flete ($0 MXN en bolsa y checkout)"
+                          : "Cobrar envío estándar ($200 MXN o cortesía según monto)"}
                       </span>
                     </div>
                     <button
@@ -1628,12 +1628,12 @@ export default function AdminInventario() {
               </button>
               <div className="flex flex-col text-left">
                 <span className="text-xs uppercase tracking-wider text-[#E5DBD6] font-semibold">
-                  Desactivar Envío
+                  Omitir Costo de Envío
                 </span>
                 <span className="text-[9px] text-[#8E9A8B]">
                   {editForm.requires_shipping === false
-                    ? "Envío Desactivado ($0 MXN flete)"
-                    : "Envío Activo ($200 MXN o cortesía)"}
+                    ? "Envío Omitido ($0 MXN flete / Envío Gratis)"
+                    : "Cobrar Envío Estándar ($200 MXN o cortesía)"}
                 </span>
               </div>
             </label>

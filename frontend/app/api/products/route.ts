@@ -78,6 +78,12 @@ export async function GET(req: Request) {
         is_author_design: row.is_author_design ?? false,
         is_limited_edition: row.is_limited_edition ?? false,
         payment_link: row.payment_link ?? null,
+        requires_shipping:
+          row.requires_shipping !== undefined && row.requires_shipping !== null
+            ? Boolean(row.requires_shipping)
+            : row.dimensions_mm?.requires_shipping !== undefined
+            ? Boolean(row.dimensions_mm.requires_shipping)
+            : true,
         _source: "db" as const,
       }));
 

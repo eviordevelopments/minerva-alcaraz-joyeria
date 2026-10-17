@@ -56,6 +56,7 @@ export interface PDPProduct {
   is_limited_edition?: boolean;
   available_sizes?: string[];
   payment_link?: string | null;
+  requires_shipping?: boolean;
 }
 
 interface ProductPDPPreviewProps {
@@ -132,7 +133,8 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
       image: product.images[0] || "",
       price: product.price,
       currency: product.currency,
-      paymentLink: product.payment_link
+      paymentLink: product.payment_link,
+      requires_shipping: product.requires_shipping !== undefined ? Boolean(product.requires_shipping) : true,
     });
     openCart();
   };
@@ -512,7 +514,13 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
             <div className="grid grid-cols-2 gap-4">
               {[
                 { icon: ClipboardCheck, title: "Certificado", desc: "Documento seriado que avala el material, quilataje y carácter único." },
-                { icon: Truck, title: "Envíos Asegurados", desc: "Logística de alta seguridad con rastreo en tiempo real." },
+                {
+                  icon: Truck,
+                  title: product.requires_shipping === false ? "Envío Bonificado ($0 MXN)" : "Envíos Asegurados",
+                  desc: product.requires_shipping === false
+                    ? "Esta pieza incluye flete 100% bonificado de cortesía ($0 MXN en checkout)."
+                    : "Logística de alta seguridad con rastreo en tiempo real."
+                },
               ].map(({ icon: Icon, title, desc }) => (
                 <div
                   key={title}

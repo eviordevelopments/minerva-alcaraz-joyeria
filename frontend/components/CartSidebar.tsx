@@ -14,8 +14,52 @@ export const CartSidebar: React.FC = () => {
   const rawSubtotal = subtotal();
   const isCircleMember = user?.isCircleMember || false;
 
+  // Auto-sync requires_shipping for any items currently missing the flag (e.g., from prior cart cache)
+  React.useEffect(() => {
+    const unverified = items.filter((i) => i.requires_shipping === undefined);
+    if (unverified.length === 0) return;
+
+    let isMounted = true;
+    async function syncShippingFlags() {
+      try {
+        const res = await fetch("/api/products");
+        if (!res.ok) return;
+        const data = await res.json();
+        const prods: any[] = data.products || [];
+        if (!isMounted) return;
+
+        let hasUpdates = false;
+        const updated = items.map((it) => {
+          if (it.requires_shipping !== undefined) return it;
+          const match = prods.find((p) => p.id === it.productId || p.sku === it.sku);
+          if (match && match.requires_shipping !== undefined) {
+            hasUpdates = true;
+            return { ...it, requires_shipping: match.requires_shipping };
+          }
+          return it;
+        });
+
+        if (hasUpdates) {
+          useCartStore.setState({ items: updated });
+        }
+      } catch (err) {
+        console.warn("Error syncing cart shipping flags:", err);
+      }
+    }
+    syncShippingFlags();
+    return () => {
+      isMounted = false;
+    };
+  }, [items]);
+
+  // If all items in cart do not require shipping, shipping is $0 MXN
+  const allShippingDisabled =
+    items.length > 0 && items.every((i) => i.requires_shipping === false);
+
   let shippingCost = 200;
-  if (isCircleMember && rawSubtotal >= 2000) {
+  if (allShippingDisabled) {
+    shippingCost = 0;
+  } else if (isCircleMember && rawSubtotal >= 2000) {
     shippingCost = 0;
   } else if (!isCircleMember && rawSubtotal >= 5000) {
     shippingCost = 0;
@@ -139,6 +183,11 @@ export const CartSidebar: React.FC = () => {
                       <span className="text-sm text-verde-ebano mt-1 font-mono">
                         ${item.price.toLocaleString("es-MX")} {item.currency}
                       </span>
+                      {item.requires_shipping === false && (
+                        <span className="text-[10px] text-oro-antiguo uppercase tracking-wider font-medium mt-0.5">
+                          ✦ Envío Bonificado ($0)
+                        </span>
+                      )}
 
                       {/* Qty controls */}
                       <div className="flex items-center gap-3 mt-3">
@@ -191,9 +240,17 @@ export const CartSidebar: React.FC = () => {
                     <span>${rawSubtotal.toLocaleString("es-MX")} MXN</span>
                   </div>
                   <div className="flex justify-between text-xs uppercase tracking-widest text-oro-antiguo">
-                    <span>Envío Asegurado {isCircleMember ? "(THE CIRCLE)" : ""}</span>
                     <span>
-                      {shippingCost === 0 ? "Cortesía" : `$${shippingCost.toLocaleString("es-MX")} MXN`}
+                      {allShippingDisabled
+                        ? "Envío Bonificado / Omitido"
+                        : `Envío Asegurado ${isCircleMember ? "(THE CIRCLE)" : ""}`}
+                    </span>
+                    <span>
+                      {shippingCost === 0
+                        ? allShippingDisabled
+                          ? "Gratis ($0 MXN)"
+                          : "Cortesía ($0 MXN)"
+                        : `$${shippingCost.toLocaleString("es-MX")} MXN`}
                     </span>
                   </div>
                   <div className="h-px bg-hueso-seda/10 my-1" />

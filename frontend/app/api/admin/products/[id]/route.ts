@@ -133,10 +133,11 @@ export async function PUT(
       if (error && (
         error.message?.includes("payment_link") ||
         error.message?.includes("requires_shipping") ||
-        error.code === "PGRST204"
+        error.code === "PGRST204" ||
+        error.code === "42703"
       )) {
         if (error.message?.includes("payment_link")) delete updateData.payment_link;
-        if (error.message?.includes("requires_shipping")) delete updateData.requires_shipping;
+        if (error.message?.includes("requires_shipping") || error.code === "42703") delete updateData.requires_shipping;
         const retry = await supabaseAdmin
           .from("products")
           .update(updateData)
@@ -175,10 +176,11 @@ export async function PUT(
       if (error && (
         error.message?.includes("payment_link") ||
         error.message?.includes("requires_shipping") ||
-        error.code === "PGRST204"
+        error.code === "PGRST204" ||
+        error.code === "42703"
       )) {
         if (error.message?.includes("payment_link")) delete insertData.payment_link;
-        if (error.message?.includes("requires_shipping")) delete insertData.requires_shipping;
+        if (error.message?.includes("requires_shipping") || error.code === "42703") delete insertData.requires_shipping;
         const retry = await supabaseAdmin
           .from("products")
           .insert(insertData)

@@ -11,7 +11,9 @@ import { WelcomePopup } from "../components/WelcomePopup";
 import { AccessibilityProvider } from "../components/AccessibilityProvider";
 import { AccessibilityFAB } from "../components/AccessibilityFAB";
 import { AccessibilityPanel } from "../components/AccessibilityPanel";
+import { Suspense } from "react";
 import { AdminEditWrapper } from "../components/AdminEditWrapper";
+import { LaunchCelebrationModal } from "../components/LaunchCelebrationModal";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://minervaalcarazjoyeria.mx'),
@@ -71,6 +73,9 @@ export default function RootLayout({
                 <AIConcierge />
                 <TheCircleBanner />
                 <WelcomePopup />
+                <Suspense fallback={null}>
+                  <LaunchCelebrationModal />
+                </Suspense>
                 <AccessibilityFAB />
                 <AccessibilityPanel />
               </AdminEditWrapper>

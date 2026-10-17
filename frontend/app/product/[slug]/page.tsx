@@ -36,6 +36,12 @@ function dbRowToPDP(row: Record<string, unknown>): PDPProduct {
     is_author_design: (row.is_author_design as boolean) ?? false,
     is_limited_edition: (row.is_limited_edition as boolean) ?? false,
     available_sizes: (row.available_sizes as string[]) ?? [],
+    requires_shipping:
+      row.requires_shipping !== undefined && row.requires_shipping !== null
+        ? Boolean(row.requires_shipping)
+        : (row.dimensions_mm as any)?.requires_shipping !== undefined
+        ? Boolean((row.dimensions_mm as any).requires_shipping)
+        : true,
   };
 }
 
