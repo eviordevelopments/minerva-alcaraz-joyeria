@@ -123,13 +123,26 @@ export async function PATCH(
 
     const updates: any = {};
     if (status) updates.status = status;
-    if (tracking_number !== undefined) updates.tracking_number = tracking_number ? tracking_number.trim() : null;
-    if (carrier !== undefined) updates.carrier = carrier;
+    if (tracking_number !== undefined) {
+      const cleanTrack = tracking_number ? tracking_number.trim() : null;
+      updates.tracking_number = cleanTrack;
+      // Default carrier to DHL Express if not specified or empty
+      if (cleanTrack && (!carrier || !carrier.trim())) {
+        updates.carrier = "DHL Express";
+      }
+    }
+    if (carrier !== undefined && carrier) {
+      updates.carrier = carrier.trim();
+    }
     updates.updated_at = new Date().toISOString();
 
-    // Automatically set delivered/shipped timestamps if applicable
-    if (status === "shipped") updates.updated_at = new Date().toISOString();
-    if (status === "delivered") {
+    // Automatically transition to 'shipped' if tracking number is provided and status is paid or processing
+    if (updates.tracking_number && (!status || status === "paid" || status === "processing")) {
+      updates.status = "shipped";
+    }
+
+    if (updates.status === "shipped") updates.updated_at = new Date().toISOString();
+    if (updates.status === "delivered" || status === "delivered") {
       updates.delivered_at = new Date().toISOString();
       updates.updated_at = new Date().toISOString();
     }
@@ -206,7 +219,7 @@ export async function PATCH(
 
     // 3. Send tracking email notification if tracking number is set/updated
     const trackingChanged = updates.tracking_number !== undefined && updates.tracking_number !== (currentOrder?.tracking_number || null);
-    const statusTransitionedToShipped = status === "shipped" && currentOrder?.status !== "shipped";
+    const statusTransitionedToShipped = (updates.status === "shipped" || status === "shipped") && currentOrder?.status !== "shipped";
     const hasTracking = Boolean(updatedOrder.tracking_number);
 
     if (hasTracking && (trackingChanged || statusTransitionedToShipped || send_notification === true)) {

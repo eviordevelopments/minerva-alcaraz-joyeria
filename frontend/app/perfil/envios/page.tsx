@@ -165,21 +165,19 @@ export default function EnviosPage() {
                               </p>
                               <a
                                 href={
-                                  (order.carrier || "").toLowerCase().includes("dhl")
-                                    ? `https://www.dhl.com/mx-es/home/tracking/tracking-express.html?submit=1&tracking-id=${encodeURIComponent(order.tracking_number)}`
-                                    : (order.carrier || "").toLowerCase().includes("fedex")
+                                  (order.carrier || "DHL Express").toLowerCase().includes("fedex")
                                     ? `https://www.fedex.com/fedextrack/?trknbr=${encodeURIComponent(order.tracking_number)}`
-                                    : (order.carrier || "").toLowerCase().includes("estafeta")
+                                    : (order.carrier || "DHL Express").toLowerCase().includes("estafeta")
                                     ? `https://www.estafeta.com/Rastreo?waybill=${encodeURIComponent(order.tracking_number)}`
-                                    : (order.carrier || "").toLowerCase().includes("paquetexpress")
+                                    : (order.carrier || "DHL Express").toLowerCase().includes("paquetexpress")
                                     ? `https://www.paquetexpress.com.mx/rastreo-de-guias?tracking_number=${encodeURIComponent(order.tracking_number)}`
-                                    : "/perfil/pedidos"
+                                    : `https://www.dhl.com/mx-es/home/tracking/tracking-express.html?submit=1&tracking-id=${encodeURIComponent(order.tracking_number)}`
                                 }
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-[10px] uppercase tracking-wider text-[#CBB67B] underline hover:text-white inline-flex items-center gap-1 font-semibold"
                               >
-                                <span>Rastrear en {order.carrier || "Paquetería"}</span>
+                                <span>Rastrear en {order.carrier || "DHL Express"}</span>
                                 <ExternalLink size={10} />
                               </a>
                             </div>

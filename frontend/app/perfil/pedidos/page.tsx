@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { 
   Package, Clock, CheckCircle2, Truck, XCircle, ChevronDown, ChevronUp, 
-  ExternalLink, MessageCircle, Sparkles, Star, ShieldCheck, Check, Send, X
+  ExternalLink, MessageCircle, Sparkles, Star, ShieldCheck, Check, Send, X, Copy
 } from "lucide-react";
 
 interface OrderItem {
@@ -94,6 +94,21 @@ export default function PedidosPage() {
   const [feedbackText, setFeedbackText] = useState("");
   const [isSubmittingSurvey, setIsSubmittingSurvey] = useState(false);
   const [surveySubmitted, setSurveySubmitted] = useState(false);
+  const [copiedTracking, setCopiedTracking] = useState(false);
+
+  function getTrackingUrl(trackingNumber: string, carrier?: string | null) {
+    const c = (carrier || "DHL Express").toLowerCase();
+    if (c.includes("fedex")) {
+      return `https://www.fedex.com/fedextrack/?trknbr=${encodeURIComponent(trackingNumber)}`;
+    }
+    if (c.includes("estafeta")) {
+      return `https://www.estafeta.com/Rastreo?waybill=${encodeURIComponent(trackingNumber)}`;
+    }
+    if (c.includes("paquetexpress")) {
+      return `https://www.paquetexpress.com.mx/rastreo-de-guias?tracking_number=${encodeURIComponent(trackingNumber)}`;
+    }
+    return `https://www.dhl.com/mx-es/home/tracking/tracking-express.html?submit=1&tracking-id=${encodeURIComponent(trackingNumber)}`;
+  }
 
   useEffect(() => {
     if (!isAuthenticated) { router.push("/auth"); return; }
@@ -354,26 +369,23 @@ export default function PedidosPage() {
                             <p>Referencia de Pasarela: <strong className="text-verde-ebano">{order.payment_reference}</strong></p>
                           )}
                           {order.tracking_number && (
-                            <div className="flex flex-wrap items-center justify-between gap-2">
-                              <p>Guía de Rastreo Asignada: <strong className="text-oro-antiguo">{order.tracking_number} ({order.carrier || "DHL Express"})</strong></p>
+                            <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 bg-[#1F271D] border border-oro-antiguo/30 text-white shadow-sm">
+                              <div>
+                                <span className="text-[10px] uppercase tracking-wider text-oro-antiguo font-semibold block">
+                                  Guía de Rastreo Asignada ({order.carrier || "DHL Express"})
+                                </span>
+                                <span className="text-sm font-mono font-bold text-[#E5DBD6] tracking-wider">
+                                  {order.tracking_number}
+                                </span>
+                              </div>
                               <a
-                                href={
-                                  (order.carrier || "").toLowerCase().includes("dhl")
-                                    ? `https://www.dhl.com/mx-es/home/tracking/tracking-express.html?submit=1&tracking-id=${encodeURIComponent(order.tracking_number)}`
-                                    : (order.carrier || "").toLowerCase().includes("fedex")
-                                    ? `https://www.fedex.com/fedextrack/?trknbr=${encodeURIComponent(order.tracking_number)}`
-                                    : (order.carrier || "").toLowerCase().includes("estafeta")
-                                    ? `https://www.estafeta.com/Rastreo?waybill=${encodeURIComponent(order.tracking_number)}`
-                                    : (order.carrier || "").toLowerCase().includes("paquetexpress")
-                                    ? `https://www.paquetexpress.com.mx/rastreo-de-guias?tracking_number=${encodeURIComponent(order.tracking_number)}`
-                                    : "#"
-                                }
+                                href={getTrackingUrl(order.tracking_number, order.carrier)}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[10px] uppercase font-bold text-oro-antiguo underline hover:text-verde-ebano inline-flex items-center gap-1"
+                                className="px-3.5 py-1.5 bg-oro-antiguo hover:bg-[#E4D5A4] text-verde-ebano text-[11px] uppercase font-bold tracking-wider inline-flex items-center gap-1.5 transition-colors shadow-sm"
                               >
-                                <span>Rastrear en Portal Oficial</span>
-                                <ExternalLink size={10} />
+                                <span>Rastrear en {order.carrier || "DHL Express"}</span>
+                                <ExternalLink size={11} />
                               </a>
                             </div>
                           )}
@@ -449,6 +461,57 @@ export default function PedidosPage() {
                   </div>
                 )}
 
+                {/* PROMINENT TRACKING NUMBER CARD IN MODAL */}
+                {trackingOrder.tracking_number && (
+                  <div className="bg-[#1F271D] border-2 border-oro-antiguo p-5 text-white shadow-md space-y-3">
+                    <div className="flex items-center justify-between gap-2 border-b border-oro-antiguo/30 pb-2">
+                      <span className="text-[10px] uppercase tracking-[0.3em] text-oro-antiguo font-bold flex items-center gap-1.5">
+                        <Truck size={14} /> Guía de Rastreo Asignada
+                      </span>
+                      <span className="text-[10px] uppercase font-mono text-[#E5DBD6]/90 font-bold px-2 py-0.5 bg-black/40 border border-oro-antiguo/40">
+                        {trackingOrder.carrier || "DHL Express"}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                      <div>
+                        <span className="text-[10px] text-[#8E9A8B] block uppercase tracking-wider">Número de Guía</span>
+                        <div className="font-mono text-xl sm:text-2xl font-bold tracking-widest text-[#E5DBD6]">
+                          {trackingOrder.tracking_number}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (trackingOrder.tracking_number) {
+                              navigator.clipboard.writeText(trackingOrder.tracking_number);
+                              setCopiedTracking(true);
+                              setTimeout(() => setCopiedTracking(false), 2000);
+                            }
+                          }}
+                          className="px-3 py-2 bg-black/40 hover:bg-black/60 border border-white/20 text-xs font-mono text-white flex items-center gap-1.5 transition-colors"
+                          title="Copiar guía"
+                        >
+                          {copiedTracking ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
+                          <span>{copiedTracking ? "Copiado" : "Copiar"}</span>
+                        </button>
+
+                        <a
+                          href={getTrackingUrl(trackingOrder.tracking_number, trackingOrder.carrier)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-4 py-2 bg-oro-antiguo hover:bg-[#E4D5A4] text-verde-ebano text-xs uppercase tracking-widest font-bold transition-all shadow-md inline-flex items-center gap-1.5"
+                        >
+                          <span>Rastrear en {trackingOrder.carrier || "DHL Express"}</span>
+                          <ExternalLink size={12} />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* ANIMACIÓN Y STEPPER DEL ESTADO DE ENVÍO */}
                 <div className="space-y-6">
                   <h3 className="text-xs uppercase tracking-[0.25em] text-[#2C3729] font-bold border-b border-[#2C3729]/15 pb-2">
@@ -491,22 +554,12 @@ export default function PedidosPage() {
                                   Guía de Custodia: <strong>{trackingOrder.tracking_number}</strong> ({trackingOrder.carrier || "DHL Express"})
                                 </div>
                                 <a
-                                  href={
-                                    (trackingOrder.carrier || "").toLowerCase().includes("dhl")
-                                      ? `https://www.dhl.com/mx-es/home/tracking/tracking-express.html?submit=1&tracking-id=${encodeURIComponent(trackingOrder.tracking_number)}`
-                                      : (trackingOrder.carrier || "").toLowerCase().includes("fedex")
-                                      ? `https://www.fedex.com/fedextrack/?trknbr=${encodeURIComponent(trackingOrder.tracking_number)}`
-                                      : (trackingOrder.carrier || "").toLowerCase().includes("estafeta")
-                                      ? `https://www.estafeta.com/Rastreo?waybill=${encodeURIComponent(trackingOrder.tracking_number)}`
-                                      : (trackingOrder.carrier || "").toLowerCase().includes("paquetexpress")
-                                      ? `https://www.paquetexpress.com.mx/rastreo-de-guias?tracking_number=${encodeURIComponent(trackingOrder.tracking_number)}`
-                                      : "#"
-                                  }
+                                  href={getTrackingUrl(trackingOrder.tracking_number, trackingOrder.carrier)}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="text-[10px] uppercase font-bold text-verde-ebano underline inline-flex items-center gap-1"
                                 >
-                                  <span>Rastrear en Portal Oficial</span>
+                                  <span>Rastrear en Portal de {trackingOrder.carrier || "DHL Express"}</span>
                                   <ExternalLink size={10} />
                                 </a>
                               </div>
