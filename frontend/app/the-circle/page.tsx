@@ -55,8 +55,8 @@ const benefits = [
   {
     icon: RotateCcw,
     title: "Devoluciones Extendidas",
-    description: "Tiempo extendido a 30 días de garantía en cambios. *Sujeto a términos y condiciones descritos en la página*",
-    accent: "30 días"
+    description: "Periodo extendido a 30 días naturales para devoluciones y cambios (frente a los 10 días estándar). *Sujeto a términos y condiciones descritos en la página*",
+    accent: "30 días exclusivos"
   },
   {
     icon: Palette,
@@ -241,7 +241,7 @@ export default function TheCirclePage() {
             <Crown size={10} /> Miembro Legacy
           </span>
           <div className="flex items-center gap-10 overflow-x-auto no-scrollbar">
-            {["Concierge Dedicado", "Envíos Gratuitos", "90 Días de Devolución", "Co-Creación", "Acceso Reservado"].map((t) => (
+            {["Concierge Dedicado", "Envíos Gratuitos", "30 Días de Devolución", "Co-Creación", "Acceso Reservado"].map((t) => (
               <span key={t} className="text-[11px] uppercase tracking-[0.4em] text-hueso-seda/30 whitespace-nowrap">{t}</span>
             ))}
           </div>

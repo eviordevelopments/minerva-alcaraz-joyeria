@@ -535,7 +535,7 @@ export default function CheckoutPage() {
                         className="mt-0.5 accent-oro-antiguo"
                       />
                       <label htmlFor="policy" className="text-[11px] uppercase tracking-widest text-verde-ebano/80 leading-relaxed cursor-pointer">
-                        He leído y acepto la <a href="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/politica-de-devoluciones.pdf" target="_blank" rel="noopener noreferrer" className="text-oro-antiguo hover:underline font-semibold">Política de Devoluciones</a> de Minerva Alcaraz.
+                        He leído y acepto la <a href="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/politica-de-devoluciones.pdf" target="_blank" rel="noopener noreferrer" className="text-oro-antiguo hover:underline font-semibold">Política de Devoluciones</a> (10 días naturales para compras generales / 30 días exclusivos THE CIRCLE) de Minerva Alcaraz.
                       </label>
                     </div>
 

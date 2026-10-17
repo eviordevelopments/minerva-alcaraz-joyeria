@@ -150,7 +150,7 @@ export const FAQSection = () => {
           question: "¿Cuál es la política de devoluciones?",
           answer: (
             <span>
-              Las piezas pueden ser devueltas en un plazo de 10 días naturales, siempre que conserven sus sellos de seguridad y empaque original. Para piezas personalizadas, consulte nuestros <a href="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/politica-de-devoluciones.pdf" target="_blank" rel="noopener noreferrer" className="text-oro-antiguo hover:underline">términos de devoluciones</a>.
+              Las piezas pueden ser devueltas en un plazo de 10 días naturales para clientes generales y 30 días naturales extendidos para miembros de THE CIRCLE, siempre que conserven sus sellos de seguridad intactos, empaque original y certificados de autenticidad. Para piezas personalizadas y excepciones, consulte nuestros <a href="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/politica-de-devoluciones.pdf" target="_blank" rel="noopener noreferrer" className="text-oro-antiguo hover:underline">términos de devoluciones</a>.
             </span>
           )
         },

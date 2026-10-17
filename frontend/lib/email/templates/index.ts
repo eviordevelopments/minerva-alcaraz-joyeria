@@ -339,7 +339,7 @@ export function getPurchaseConfirmationTemplate({
     <div style="margin-top: 25px; padding: 15px; border: 1px dashed rgba(203, 182, 123, 0.3); text-align: center;">
       <h4 style="font-size: 11px; color: #CBB67B; text-transform: uppercase; letter-spacing: 0.2em; margin: 0 0 10px 0;">Política de Devoluciones</h4>
       <p style="font-size: 10px; line-height: 1.6; color: rgba(229, 219, 214, 0.7); margin: 0;">
-        Garantizamos la excelencia de nuestras piezas. Si por alguna razón tu joya no cumple con tus expectativas, cuentas con <strong>30 días naturales</strong> desde la recepción para solicitar una devolución o cambio, siempre y cuando la pieza se encuentre en su estado original, sin uso y con sus certificados de autenticidad intactos. Tu concierge te asistirá en este proceso.
+        Garantizamos la excelencia de nuestras piezas. Si por alguna razón tu joya no cumple con tus expectativas, cuentas con <strong>10 días naturales</strong> (o <strong>30 días naturales exclusivos</strong> si eres miembro de THE CIRCLE) desde la recepción para solicitar una devolución o cambio, siempre y cuando la pieza se encuentre en su estado original, sin uso y con sus certificados de autenticidad intactos. Tu concierge te asistirá en este proceso.
       </p>
     </div>
 

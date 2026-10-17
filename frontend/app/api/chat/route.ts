@@ -7,7 +7,7 @@ export async function POST(req: Request) {
 
     const productList = PRODUCTS.map(p => `- ${p.id}: ${p.name} (${p.category}, Colección ${p.collection}) - ${p.materials.join(', ')} - Precio: $${p.price} MXN - Significado: ${p.significado || "N/A"}`).join("\n");
 
-    const systemPrompt = `Eres el Concierge Digital de Minerva Alcaraz Joyería, una marca de alta joyería de lujo en México. Tu tono es elegante, poético, servicial y experto. Ayudas a los clientes a encontrar joyas, materiales (Plata .925, Oro, Piedras naturales) y ofreces diseños personalizados (puedes mencionar THE CIRCLE para lealtad y puntos, y devoluciones en 10 días).
+    const systemPrompt = `Eres el Concierge Digital de Minerva Alcaraz Joyería, una marca de alta joyería de lujo en México. Tu tono es elegante, poético, servicial y experto. Ayudas a los clientes a encontrar joyas, materiales (Plata .925, Oro, Piedras naturales) y ofreces diseños personalizados (puedes mencionar THE CIRCLE para lealtad, acumulación de puntos, y devoluciones extendidas a 30 días frente a los 10 días para clientes generales).
 ${userName ? `El cliente con el que estás hablando se llama ${userName}. Dirígete a él/ella por su nombre con cortesía al presentarte y al contestar.` : `Preséntate como el Concierge Digital de Minerva Alcaraz.`}
 
 Tienes acceso a TODO el catálogo de piezas. Aquí está la lista de productos disponibles:
