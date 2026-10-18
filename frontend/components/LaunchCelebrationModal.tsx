@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Sparkles, Gem, ArrowRight } from "lucide-react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { LuxuryGoldConfetti } from "./LuxuryGoldConfetti";
+import { safeLocalStorage, safeSessionStorage } from "../lib/safeStorage";
 
 // Hora oficial de lanzamiento: Viernes 16 de Octubre de 2026 a las 5:00 PM (Hora Centro de México, UTC-6)
 const LAUNCH_DATE_ISO = "2026-10-16T17:00:00-06:00";
@@ -35,26 +36,26 @@ export function LaunchCelebrationModal() {
     if (!isAfterLaunch && !previewParam) return;
 
     // 3. Verificar si el usuario ya vio la bienvenida en su sesión actual (a menos que fuerce preview)
-    const hasSeenInSession = sessionStorage.getItem("ma_launch_celebration_shown");
+    const hasSeenInSession = safeSessionStorage.getItem("ma_launch_celebration_shown");
     if (hasSeenInSession === "true" && !previewParam) return;
 
     // 4. Iniciar experiencia de lanzamiento con una entrada suave
-    sessionStorage.setItem("ma_launch_is_open", "true");
+    safeSessionStorage.setItem("ma_launch_is_open", "true");
     setIsOpen(true);
     setShowConfetti(true);
 
     // 5. Consultar y registrar el número de visitante en Supabase
     const fetchVisitorNumber = async () => {
       try {
-        let visitorId = localStorage.getItem("ma_visitor_uuid");
+        let visitorId = safeLocalStorage.getItem("ma_visitor_uuid");
         if (!visitorId) {
           visitorId = typeof crypto !== "undefined" && crypto.randomUUID
             ? crypto.randomUUID()
             : `vis_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
-          localStorage.setItem("ma_visitor_uuid", visitorId);
+          safeLocalStorage.setItem("ma_visitor_uuid", visitorId);
         }
 
-        const storedNumber = localStorage.getItem("ma_visitor_number");
+        const storedNumber = safeLocalStorage.getItem("ma_visitor_number");
         const existingNumber = storedNumber ? parseInt(storedNumber, 10) : undefined;
 
         const res = await fetch("/api/launch/visitor-counter", {
@@ -115,9 +116,9 @@ export function LaunchCelebrationModal() {
   const handleClose = () => {
     setIsOpen(false);
     setShowConfetti(false);
-    sessionStorage.setItem("ma_launch_celebration_shown", "true");
-    sessionStorage.setItem("ma_launch_is_open", "false");
-    localStorage.setItem("ma_launch_dismissed_at", Date.now().toString());
+    safeSessionStorage.setItem("ma_launch_celebration_shown", "true");
+    safeSessionStorage.setItem("ma_launch_is_open", "false");
+    safeLocalStorage.setItem("ma_launch_dismissed_at", Date.now().toString());
   };
 
   // Formato acolchado con ceros sutiles (ej: 000,042)

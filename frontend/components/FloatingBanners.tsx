@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Mail, ArrowRight, ShieldCheck, Gem, Sparkles, Crown } from "lucide-react";
 import { useAuthStore } from "../lib/store/useAuthStore";
+import { safeLocalStorage, safeSessionStorage } from "../lib/safeStorage";
 
 const THREE_MINUTES_MS = 3 * 60 * 1000; // 180,000 ms (3 minutos exactos)
 
@@ -34,20 +35,20 @@ export const TheCircleBanner = () => {
     if (isAuthenticated && user?.isCircleMember) return;
 
     // Si el usuario ya descartó o ya se suscribió previamente, respetar su decisión
-    const dismissed = localStorage.getItem("ma_circle_dismissed");
-    const subscribed = localStorage.getItem("ma_circle_subscribed");
+    const dismissed = safeLocalStorage.getItem("ma_circle_dismissed");
+    const subscribed = safeLocalStorage.getItem("ma_circle_subscribed");
     if (dismissed === "true" || subscribed === "true") return;
 
     // Obtener marcas de tiempo de visita y del pop-up de 10%
-    let visitStart = Number(localStorage.getItem("ma_first_visit_time"));
+    let visitStart = Number(safeLocalStorage.getItem("ma_first_visit_time"));
     if (!visitStart) {
       visitStart = Date.now();
-      localStorage.setItem("ma_first_visit_time", visitStart.toString());
+      safeLocalStorage.setItem("ma_first_visit_time", visitStart.toString());
     }
 
-    const hasSeenWelcome = localStorage.getItem("minerva-has-seen-welcome");
-    const welcomeShownAt = Number(localStorage.getItem("ma_welcome_shown_at") || 0);
-    const welcomeClosedAt = Number(localStorage.getItem("ma_welcome_closed_at") || 0);
+    const hasSeenWelcome = safeLocalStorage.getItem("minerva-has-seen-welcome");
+    const welcomeShownAt = Number(safeLocalStorage.getItem("ma_welcome_shown_at") || 0);
+    const welcomeClosedAt = Number(safeLocalStorage.getItem("ma_welcome_closed_at") || 0);
 
     let targetDelay: number;
 
@@ -62,10 +63,10 @@ export const TheCircleBanner = () => {
       targetDelay = Math.max(0, THREE_MINUTES_MS - elapsed);
     } else {
       // Visita recurrente que ya había visto el 10% antes: esperar 3 minutos de navegación en esta sesión
-      let sessionStart = Number(sessionStorage.getItem("ma_session_start"));
+      let sessionStart = Number(safeSessionStorage.getItem("ma_session_start"));
       if (!sessionStart) {
         sessionStart = Date.now();
-        sessionStorage.setItem("ma_session_start", sessionStart.toString());
+        safeSessionStorage.setItem("ma_session_start", sessionStart.toString());
       }
       const elapsed = Date.now() - sessionStart;
       targetDelay = Math.max(0, THREE_MINUTES_MS - elapsed);
@@ -75,20 +76,20 @@ export const TheCircleBanner = () => {
 
     const checkAndShow = () => {
       // Si el pop-up de 10% sigue abierto en pantalla, esperar 5 segundos y reintentar
-      const isWelcomeOpen = sessionStorage.getItem("ma_welcome_is_open") === "true";
+      const isWelcomeOpen = safeSessionStorage.getItem("ma_welcome_is_open") === "true";
       if (isWelcomeOpen) {
         retryTimeout = setTimeout(checkAndShow, 5000);
         return;
       }
 
       // Comprobar nuevamente si fue descartado durante la espera
-      if (localStorage.getItem("ma_circle_dismissed") === "true" || localStorage.getItem("ma_circle_subscribed") === "true") {
+      if (safeLocalStorage.getItem("ma_circle_dismissed") === "true" || safeLocalStorage.getItem("ma_circle_subscribed") === "true") {
         return;
       }
 
       setIsVisible(true);
-      localStorage.setItem("ma_last_popup_time", Date.now().toString());
-      localStorage.setItem("ma_circle_shown_at", Date.now().toString());
+      safeLocalStorage.setItem("ma_last_popup_time", Date.now().toString());
+      safeLocalStorage.setItem("ma_circle_shown_at", Date.now().toString());
     };
 
     const timer = setTimeout(checkAndShow, targetDelay);
@@ -100,8 +101,8 @@ export const TheCircleBanner = () => {
 
   const handleDismiss = () => {
     setIsVisible(false);
-    localStorage.setItem("ma_circle_dismissed", "true");
-    localStorage.setItem("ma_last_popup_time", Date.now().toString());
+    safeLocalStorage.setItem("ma_circle_dismissed", "true");
+    safeLocalStorage.setItem("ma_last_popup_time", Date.now().toString());
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -121,16 +122,16 @@ export const TheCircleBanner = () => {
         body: JSON.stringify({ email }),
       });
       setSubmitted(true);
-      localStorage.setItem("ma_circle_dismissed", "true");
-      localStorage.setItem("ma_circle_subscribed", "true");
-      localStorage.setItem("ma_last_popup_time", Date.now().toString());
+      safeLocalStorage.setItem("ma_circle_dismissed", "true");
+      safeLocalStorage.setItem("ma_circle_subscribed", "true");
+      safeLocalStorage.setItem("ma_last_popup_time", Date.now().toString());
       setTimeout(() => {
         setIsVisible(false);
       }, 3500);
     } catch {
       setSubmitted(true);
-      localStorage.setItem("ma_circle_dismissed", "true");
-      localStorage.setItem("ma_circle_subscribed", "true");
+      safeLocalStorage.setItem("ma_circle_dismissed", "true");
+      safeLocalStorage.setItem("ma_circle_subscribed", "true");
       setTimeout(() => {
         setIsVisible(false);
       }, 3500);

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { LuxuryButton } from "./DesignSystem";
+import { safeLocalStorage, safeSessionStorage } from "../lib/safeStorage";
 
 const WELCOME_DELAY_MS = 2500; // 2.5 segundos para entrada suave en primera visita
 
@@ -12,25 +13,25 @@ export function WelcomePopup() {
 
   useEffect(() => {
     // Check if user has already seen the popup or completed a purchase
-    const hasSeenPopup = localStorage.getItem("minerva-has-seen-welcome");
-    const hasPurchased = localStorage.getItem("minerva-has-purchased");
+    const hasSeenPopup = safeLocalStorage.getItem("minerva-has-seen-welcome");
+    const hasPurchased = safeLocalStorage.getItem("minerva-has-purchased");
 
     if (hasSeenPopup || hasPurchased) return;
 
     // Track when user first visited the site
-    let visitStart = Number(localStorage.getItem("ma_first_visit_time"));
+    let visitStart = Number(safeLocalStorage.getItem("ma_first_visit_time"));
     if (!visitStart) {
       visitStart = Date.now();
-      localStorage.setItem("ma_first_visit_time", visitStart.toString());
+      safeLocalStorage.setItem("ma_first_visit_time", visitStart.toString());
     }
 
     const timer = setTimeout(() => {
-      if (sessionStorage.getItem("ma_launch_is_open") === "true") return;
+      if (safeSessionStorage.getItem("ma_launch_is_open") === "true") return;
       setIsVisible(true);
       const now = Date.now();
-      localStorage.setItem("ma_welcome_shown_at", now.toString());
-      localStorage.setItem("ma_last_popup_time", now.toString());
-      sessionStorage.setItem("ma_welcome_is_open", "true");
+      safeLocalStorage.setItem("ma_welcome_shown_at", now.toString());
+      safeLocalStorage.setItem("ma_last_popup_time", now.toString());
+      safeSessionStorage.setItem("ma_welcome_is_open", "true");
     }, WELCOME_DELAY_MS);
 
     return () => clearTimeout(timer);
@@ -38,10 +39,10 @@ export function WelcomePopup() {
 
   const handleClose = () => {
     setIsVisible(false);
-    sessionStorage.setItem("ma_welcome_is_open", "false");
-    localStorage.setItem("minerva-has-seen-welcome", "true");
-    localStorage.setItem("ma_welcome_closed_at", Date.now().toString());
-    localStorage.setItem("ma_last_popup_time", Date.now().toString());
+    safeSessionStorage.setItem("ma_welcome_is_open", "false");
+    safeLocalStorage.setItem("minerva-has-seen-welcome", "true");
+    safeLocalStorage.setItem("ma_welcome_closed_at", Date.now().toString());
+    safeLocalStorage.setItem("ma_last_popup_time", Date.now().toString());
   };
 
   return (
