@@ -99,139 +99,12 @@ export const Footer = () => {
       
       <div className="bg-authority py-16 md:py-24">
         <div className="luxury-container">
-          {/* Main Footer Columns */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-16 md:mb-20">
-            <div className="lg:col-span-5 flex flex-col gap-8">
-              <Link href="/">
-                <img 
-                  src="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/logo.png" 
-                  alt="Minerva Alcaraz" 
-                  className="w-[160px] h-auto brightness-0 invert opacity-90"
-                />
-              </Link>
-
-              <div className="flex flex-col gap-6">
-                <p className="text-base opacity-60 font-light leading-loose max-w-sm italic">
-                  &quot;Donde el tiempo se detiene para forjar la belleza eterna. THE CIRCLE lleva conexión en cada pieza.&quot;
-                </p>
-
-                {/* Social media presence */}
-                <div className="flex flex-col gap-3 pt-2">
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-oro-antiguo font-mono">
-                    Redes Sociales Oficiales
-                  </span>
-                  <div className="flex items-center gap-3">
-                    <a 
-                      href="https://www.instagram.com/minerva.alcaraz.joyeria?obrf=bHA3ejZkN29tYTYw" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      aria-label="Instagram de Minerva Alcaraz Joyería"
-                      className="flex items-center gap-2.5 px-4 py-2 border border-oro-antiguo/30 bg-verde-ebano/30 text-hueso-seda/80 hover:text-oro-antiguo hover:border-oro-antiguo hover:bg-oro-antiguo/10 transition-all duration-300 group"
-                    >
-                      <Instagram size={16} strokeWidth={1.5} className="group-hover:scale-110 transition-transform" />
-                      <span className="text-[11px] uppercase tracking-[0.2em] font-medium">Instagram</span>
-                    </a>
-                    <a 
-                      href="https://www.facebook.com/minerva.alcaraz.joyeria" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      aria-label="Facebook de Minerva Alcaraz Joyería"
-                      className="flex items-center gap-2.5 px-4 py-2 border border-oro-antiguo/30 bg-verde-ebano/30 text-hueso-seda/80 hover:text-oro-antiguo hover:border-oro-antiguo hover:bg-oro-antiguo/10 transition-all duration-300 group"
-                    >
-                      <Facebook size={16} strokeWidth={1.5} className="group-hover:scale-110 transition-transform" />
-                      <span className="text-[11px] uppercase tracking-[0.2em] font-medium">Facebook</span>
-                    </a>
-                  </div>
-                </div>
-                
-                {/* Legacy Inline Newsletter */}
-                <div className="flex flex-col gap-4 mt-2">
-                  <h4 className="text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.4em] text-oro-antiguo">FORMA PARTE DE NUESTRO UNIVERSO</h4>
-                  <p className="text-xs sm:text-sm opacity-50 font-light leading-relaxed max-w-xs">
-                    Recibe invitaciones exclusivas a lanzamientos y rituales privados.
-                  </p>
-                  
-                  {status === "success" ? (
-                    <div className="text-oro-antiguo text-xs uppercase tracking-widest border border-oro-antiguo/30 p-3 text-center max-w-xs">
-                      ¡Gracias por unirte!
-                    </div>
-                  ) : (
-                    <form onSubmit={handleSubscribe} className="flex flex-col gap-2 max-w-xs">
-                      <div className="flex border-b border-hueso-seda/20 pb-3 group transition-colors focus-within:border-oro-antiguo">
-                        <input 
-                          type="email" 
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          disabled={status === "loading"}
-                          required
-                          placeholder="TU CORREO ELECTRÓNICO" 
-                          className="bg-transparent flex-1 text-[11px] sm:text-xs uppercase tracking-[0.1em] sm:tracking-widest outline-none placeholder:opacity-20"
-                        />
-                        <button 
-                          type="submit" 
-                          disabled={status === "loading"}
-                          className="text-oro-antiguo hover:translate-x-2 transition-transform disabled:opacity-50 disabled:hover:translate-x-0"
-                          aria-label="Suscribirse al newsletter"
-                        >
-                          <ArrowRight size={14} strokeWidth={1} />
-                        </button>
-                      </div>
-                      {message && status === "error" && (
-                        <p className="text-[10px] text-red-400 opacity-80 mt-1">{message}</p>
-                      )}
-                    </form>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-4 gap-12">
-              <div className="flex flex-col gap-8">
-                <h4 className="text-sm uppercase tracking-[0.4em] text-oro-antiguo font-medium">Joyas</h4>
-                <ul className="flex flex-col gap-5 text-sm opacity-60 tracking-[0.15em] font-light uppercase">
-                  <li><Link href="/shop" className="hover:text-oro-antiguo animated-underline transition-colors">Todas las Joyas</Link></li>
-                  <li><Link href="/shop/anillos" className="hover:text-oro-antiguo animated-underline transition-colors">Anillos</Link></li>
-                  <li><Link href="/shop/collares" className="hover:text-oro-antiguo animated-underline transition-colors">Collares</Link></li>
-                  <li><Link href="/shop/pulseras" className="hover:text-oro-antiguo animated-underline transition-colors">Pulseras</Link></li>
-                  <li><Link href="/shop/sets" className="hover:text-oro-antiguo animated-underline transition-colors">Sets de Legado</Link></li>
-                </ul>
-              </div>
-              <div className="flex flex-col gap-8">
-                <h4 className="text-sm uppercase tracking-[0.4em] text-oro-antiguo font-medium">Servicio</h4>
-                <ul className="flex flex-col gap-5 text-sm opacity-60 tracking-[0.15em] font-light uppercase">
-                  <li><Link href="/personalized" className="hover:text-oro-antiguo animated-underline transition-colors">Concierge Digital</Link></li>
-                  <li><Link href="/care-ritual" className="hover:text-oro-antiguo animated-underline transition-colors">Cuidado Eterno</Link></li>
-                  <li><Link href="/size-guide" className="hover:text-oro-antiguo animated-underline transition-colors">Guía de Tallas</Link></li>
-                  <li><Link href="/atelier" className="hover:text-oro-antiguo animated-underline transition-colors">Citas de Atelier</Link></li>
-                </ul>
-              </div>
-              <div className="flex flex-col gap-8">
-                <h4 className="text-sm uppercase tracking-[0.4em] text-oro-antiguo font-medium">Tu Cuenta</h4>
-                <ul className="flex flex-col gap-5 text-sm opacity-60 tracking-[0.15em] font-light uppercase">
-                  <li><Link href="/the-circle/dashboard" className="hover:text-oro-antiguo animated-underline transition-colors">Mi Perfil</Link></li>
-                  <li><Link href="/favorites" className="hover:text-oro-antiguo animated-underline transition-colors">Favoritos</Link></li>
-                  <li><Link href="/shop" className="hover:text-oro-antiguo animated-underline transition-colors">Mi Bolsa</Link></li>
-                  <li><Link href="/the-circle" className="hover:text-oro-antiguo animated-underline transition-colors">The Circle</Link></li>
-                </ul>
-              </div>
-              <div className="flex flex-col gap-8">
-                <h4 className="text-sm uppercase tracking-[0.4em] text-oro-antiguo font-medium">Legado</h4>
-                <ul className="flex flex-col gap-5 text-sm opacity-60 tracking-[0.15em] font-light uppercase">
-                  <li><Link href="/shop?collection=herencia" className="hover:text-oro-antiguo animated-underline transition-colors">Colecciones</Link></li>
-                  <li><Link href="/nuestra-historia" className="hover:text-oro-antiguo animated-underline transition-colors">Nuestra Historia</Link></li>
-                  <li><Link href="/terminos-y-privacidad" className="hover:text-oro-antiguo animated-underline transition-colors">Términos y Privacidad</Link></li>
-                  <li><a href="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/politica-de-devoluciones.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-oro-antiguo animated-underline transition-colors">Devoluciones</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* ─── Puntos de Venta & Mapa Interactivo ───────────────────────── */}
-          <div className="pt-16 pb-8 border-t border-hueso-seda/10 mb-14">
+          {/* ─── Puntos de Venta & Mapa Interactivo (Arriba del Footer) ─── */}
+          <div className="pb-16 md:pb-20 border-b border-hueso-seda/10 mb-16 md:mb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10">
               <div className="flex flex-col gap-2 max-w-xl">
                 <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.4em] text-oro-antiguo font-mono">
-                  Santuarios Físicos & Boutiques
+                  Santuarios Físicos &amp; Boutiques
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-display text-hueso-seda italic">
                   Puntos de Venta
@@ -361,6 +234,133 @@ export const Footer = () => {
                   title={`Ubicación de ${currentLoc.name}`}
                   className="w-full h-full opacity-90 hover:opacity-100 transition-opacity"
                 />
+              </div>
+            </div>
+          </div>
+
+          {/* Main Footer Columns */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-16 md:mb-20">
+            <div className="lg:col-span-5 flex flex-col gap-8">
+              <Link href="/">
+                <img 
+                  src="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/logo.png" 
+                  alt="Minerva Alcaraz" 
+                  className="w-[160px] h-auto brightness-0 invert opacity-90"
+                />
+              </Link>
+
+              <div className="flex flex-col gap-6">
+                <p className="text-base opacity-60 font-light leading-loose max-w-sm italic">
+                  &quot;Donde el tiempo se detiene para forjar la belleza eterna. THE CIRCLE lleva conexión en cada pieza.&quot;
+                </p>
+
+                {/* Social media presence */}
+                <div className="flex flex-col gap-3 pt-2">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-oro-antiguo font-mono">
+                    Redes Sociales Oficiales
+                  </span>
+                  <div className="flex items-center gap-3">
+                    <a 
+                      href="https://www.instagram.com/minerva.alcaraz.joyeria?obrf=bHA3ejZkN29tYTYw" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      aria-label="Instagram de Minerva Alcaraz Joyería"
+                      className="flex items-center gap-2.5 px-4 py-2 border border-oro-antiguo/30 bg-verde-ebano/30 text-hueso-seda/80 hover:text-oro-antiguo hover:border-oro-antiguo hover:bg-oro-antiguo/10 transition-all duration-300 group"
+                    >
+                      <Instagram size={16} strokeWidth={1.5} className="group-hover:scale-110 transition-transform" />
+                      <span className="text-[11px] uppercase tracking-[0.2em] font-medium">Instagram</span>
+                    </a>
+                    <a 
+                      href="https://www.facebook.com/minerva.alcaraz.joyeria" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      aria-label="Facebook de Minerva Alcaraz Joyería"
+                      className="flex items-center gap-2.5 px-4 py-2 border border-oro-antiguo/30 bg-verde-ebano/30 text-hueso-seda/80 hover:text-oro-antiguo hover:border-oro-antiguo hover:bg-oro-antiguo/10 transition-all duration-300 group"
+                    >
+                      <Facebook size={16} strokeWidth={1.5} className="group-hover:scale-110 transition-transform" />
+                      <span className="text-[11px] uppercase tracking-[0.2em] font-medium">Facebook</span>
+                    </a>
+                  </div>
+                </div>
+                
+                {/* Legacy Inline Newsletter */}
+                <div className="flex flex-col gap-4 mt-2">
+                  <h4 className="text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.4em] text-oro-antiguo">FORMA PARTE DE NUESTRO UNIVERSO</h4>
+                  <p className="text-xs sm:text-sm opacity-50 font-light leading-relaxed max-w-xs">
+                    Recibe invitaciones exclusivas a lanzamientos y rituales privados.
+                  </p>
+                  
+                  {status === "success" ? (
+                    <div className="text-oro-antiguo text-xs uppercase tracking-widest border border-oro-antiguo/30 p-3 text-center max-w-xs">
+                      ¡Gracias por unirte!
+                    </div>
+                  ) : (
+                    <form onSubmit={handleSubscribe} className="flex flex-col gap-2 max-w-xs">
+                      <div className="flex border-b border-hueso-seda/20 pb-3 group transition-colors focus-within:border-oro-antiguo">
+                        <input 
+                          type="email" 
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          disabled={status === "loading"}
+                          required
+                          placeholder="TU CORREO ELECTRÓNICO" 
+                          className="bg-transparent flex-1 text-[11px] sm:text-xs uppercase tracking-[0.1em] sm:tracking-widest outline-none placeholder:opacity-20"
+                        />
+                        <button 
+                          type="submit" 
+                          disabled={status === "loading"}
+                          className="text-oro-antiguo hover:translate-x-2 transition-transform disabled:opacity-50 disabled:hover:translate-x-0"
+                          aria-label="Suscribirse al newsletter"
+                        >
+                          <ArrowRight size={14} strokeWidth={1} />
+                        </button>
+                      </div>
+                      {message && status === "error" && (
+                        <p className="text-[10px] text-red-400 opacity-80 mt-1">{message}</p>
+                      )}
+                    </form>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-4 gap-12">
+              <div className="flex flex-col gap-8">
+                <h4 className="text-sm uppercase tracking-[0.4em] text-oro-antiguo font-medium">Joyas</h4>
+                <ul className="flex flex-col gap-5 text-sm opacity-60 tracking-[0.15em] font-light uppercase">
+                  <li><Link href="/shop" className="hover:text-oro-antiguo animated-underline transition-colors">Todas las Joyas</Link></li>
+                  <li><Link href="/shop/anillos" className="hover:text-oro-antiguo animated-underline transition-colors">Anillos</Link></li>
+                  <li><Link href="/shop/collares" className="hover:text-oro-antiguo animated-underline transition-colors">Collares</Link></li>
+                  <li><Link href="/shop/pulseras" className="hover:text-oro-antiguo animated-underline transition-colors">Pulseras</Link></li>
+                  <li><Link href="/shop/sets" className="hover:text-oro-antiguo animated-underline transition-colors">Sets de Legado</Link></li>
+                </ul>
+              </div>
+              <div className="flex flex-col gap-8">
+                <h4 className="text-sm uppercase tracking-[0.4em] text-oro-antiguo font-medium">Servicio</h4>
+                <ul className="flex flex-col gap-5 text-sm opacity-60 tracking-[0.15em] font-light uppercase">
+                  <li><Link href="/personalized" className="hover:text-oro-antiguo animated-underline transition-colors">Concierge Digital</Link></li>
+                  <li><Link href="/care-ritual" className="hover:text-oro-antiguo animated-underline transition-colors">Cuidado Eterno</Link></li>
+                  <li><Link href="/size-guide" className="hover:text-oro-antiguo animated-underline transition-colors">Guía de Tallas</Link></li>
+                  <li><Link href="/atelier" className="hover:text-oro-antiguo animated-underline transition-colors">Citas de Atelier</Link></li>
+                </ul>
+              </div>
+              <div className="flex flex-col gap-8">
+                <h4 className="text-sm uppercase tracking-[0.4em] text-oro-antiguo font-medium">Tu Cuenta</h4>
+                <ul className="flex flex-col gap-5 text-sm opacity-60 tracking-[0.15em] font-light uppercase">
+                  <li><Link href="/the-circle/dashboard" className="hover:text-oro-antiguo animated-underline transition-colors">Mi Perfil</Link></li>
+                  <li><Link href="/favorites" className="hover:text-oro-antiguo animated-underline transition-colors">Favoritos</Link></li>
+                  <li><Link href="/shop" className="hover:text-oro-antiguo animated-underline transition-colors">Mi Bolsa</Link></li>
+                  <li><Link href="/the-circle" className="hover:text-oro-antiguo animated-underline transition-colors">The Circle</Link></li>
+                </ul>
+              </div>
+              <div className="flex flex-col gap-8">
+                <h4 className="text-sm uppercase tracking-[0.4em] text-oro-antiguo font-medium">Legado</h4>
+                <ul className="flex flex-col gap-5 text-sm opacity-60 tracking-[0.15em] font-light uppercase">
+                  <li><Link href="/shop?collection=herencia" className="hover:text-oro-antiguo animated-underline transition-colors">Colecciones</Link></li>
+                  <li><Link href="/nuestra-historia" className="hover:text-oro-antiguo animated-underline transition-colors">Nuestra Historia</Link></li>
+                  <li><Link href="/terminos-y-privacidad" className="hover:text-oro-antiguo animated-underline transition-colors">Términos y Privacidad</Link></li>
+                  <li><a href="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/politica-de-devoluciones.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-oro-antiguo animated-underline transition-colors">Devoluciones</a></li>
+                </ul>
               </div>
             </div>
           </div>

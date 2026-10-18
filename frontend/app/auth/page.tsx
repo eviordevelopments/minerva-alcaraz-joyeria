@@ -8,7 +8,7 @@ import { useAuthStore } from "../../lib/store/useAuthStore";
 import { supabase } from "../../lib/supabase";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Eye, EyeOff, ArrowRight, Crown, Loader2, Mail, Lock, User, ShieldCheck, Sparkles } from "lucide-react";
+import { Eye, EyeOff, ArrowRight, Crown, Loader2, Mail, Lock, User, ShieldCheck, Sparkles, X } from "lucide-react";
 import ReCAPTCHA from "react-google-recaptcha";
 
 type AuthMode = "login" | "register";
@@ -23,6 +23,7 @@ function AuthForm() {
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [showSecurityModal, setShowSecurityModal] = useState(true);
   const recaptchaRef = React.useRef<ReCAPTCHA>(null);
 
   const { refreshProfile, isAuthenticated } = useAuthStore();
@@ -30,6 +31,19 @@ function AuthForm() {
   const searchParams = useSearchParams();
   const nextUrl = searchParams.get("next") || "/perfil";
   const isForCheckout = nextUrl.includes("checkout") || searchParams.get("reason") === "checkout";
+
+  useEffect(() => {
+    // Show pop up upon entering auth page
+    setShowSecurityModal(true);
+  }, []);
+
+  useEffect(() => {
+    const requestedMode = searchParams.get("mode") || searchParams.get("tab");
+    if (requestedMode === "register") {
+      setMode("register");
+      setShowSecurityModal(true);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (isAuthenticated) router.push(nextUrl);
@@ -103,7 +117,15 @@ function AuthForm() {
         {(["login", "register"] as AuthMode[]).map((m) => (
           <button
             key={m}
-            onClick={() => { setMode(m); setError(null); setSuccessMsg(null); }}
+            type="button"
+            onClick={() => {
+              setMode(m);
+              setError(null);
+              setSuccessMsg(null);
+              if (m === "register") {
+                setShowSecurityModal(true);
+              }
+            }}
             className={`flex-1 py-3 text-[11px] uppercase tracking-[0.5em] transition-all duration-300 ${
               mode === m
                 ? "text-verde-ebano border-b-2 border-oro-antiguo -mb-px font-medium"
@@ -237,12 +259,26 @@ function AuthForm() {
             </button>
 
             {mode === "login" && (
-              <p className="text-center text-[11px] text-verde-ebano/40 uppercase tracking-widest">
-                ¿Olvidaste tu contraseña?{" "}
-                <Link href="/auth/reset" className="text-oro-antiguo hover:underline">
-                  Recuperar
-                </Link>
-              </p>
+              <div className="flex flex-col items-center gap-2.5">
+                <p className="text-center text-[11px] text-verde-ebano/40 uppercase tracking-widest">
+                  ¿Olvidaste tu contraseña?{" "}
+                  <Link href="/auth/reset" className="text-oro-antiguo hover:underline">
+                    Recuperar
+                  </Link>
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMode("register");
+                    setError(null);
+                    setSuccessMsg(null);
+                    setShowSecurityModal(true);
+                  }}
+                  className="text-[11px] uppercase tracking-widest text-verde-ebano/60 hover:text-verde-ebano transition-colors"
+                >
+                  ¿No tienes cuenta? <span className="text-oro-antiguo font-semibold underline decoration-oro-antiguo/50 hover:decoration-oro-antiguo">Crear Cuenta</span>
+                </button>
+              </div>
             )}
           </motion.form>
         )}
@@ -263,6 +299,112 @@ function AuthForm() {
           Descubrir beneficios exclusivos →
         </Link>
       </div>
+
+      {/* Pop-up: Compras Aseguradas & Atención Personalizada al Entrar / Registrarse */}
+      <AnimatePresence>
+        {showSecurityModal && (
+          <div className="fixed inset-0 z-[100030] flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowSecurityModal(false)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"
+            />
+
+            {/* Modal Card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 20 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              style={{ backgroundColor: "#2C3729", color: "#E5DBD6" }}
+              className="relative w-full max-w-lg bg-[#2C3729] text-[#E5DBD6] border-2 border-[#CBB67B]/50 p-6 sm:p-8 shadow-2xl z-10 overflow-hidden max-h-[92dvh] overflow-y-auto"
+            >
+              {/* Luxury gold top accent */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#CBB67B] to-transparent" />
+
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setShowSecurityModal(false)}
+                className="absolute top-4 right-4 w-9 h-9 border border-[#CBB67B]/40 hover:border-[#CBB67B] flex items-center justify-center text-[#CBB67B] hover:text-[#E5DBD6] transition-colors bg-black/20"
+                aria-label="Cerrar ventana informativa"
+              >
+                <X size={16} />
+              </button>
+
+              {/* Header Badge */}
+              <div className="flex items-center gap-3 mb-4 pr-10">
+                <div className="w-10 h-10 border border-[#CBB67B]/50 flex items-center justify-center bg-black/40 flex-shrink-0">
+                  <ShieldCheck size={20} className="text-[#CBB67B]" strokeWidth={1.5} />
+                </div>
+                <div>
+                  <span className="text-[10px] uppercase tracking-[0.35em] text-[#CBB67B] font-bold block">
+                    Seguridad &amp; Exclusividad de Autor
+                  </span>
+                  <h3 className="text-base sm:text-lg font-display uppercase tracking-wider text-white mt-0.5">
+                    Compras Aseguradas &amp; Atención Personalizada
+                  </h3>
+                </div>
+              </div>
+
+              <p className="text-xs sm:text-sm text-[#E5DBD6]/90 font-light leading-relaxed mb-5">
+                Para mantener tus compras debidamente aseguradas con custodia legal, trazabilidad de autor y poder ofrecerte atención personalizada durante todo tu proceso de compra, es necesario crear tu cuenta o iniciar sesión antes de proceder al pago.
+              </p>
+
+              {/* Pillars / Checklist */}
+              <div className="flex flex-col gap-3.5 py-4 border-y border-[#CBB67B]/20 text-xs text-[#E5DBD6]/85 font-light">
+                <div className="flex items-start gap-3">
+                  <span className="text-[#CBB67B] font-bold text-sm flex-shrink-0 mt-0.5">✓</span>
+                  <span className="leading-relaxed">
+                    <strong className="text-white font-medium">Compras Aseguradas:</strong> Cada pieza de autor se vincula formalmente a tu nombre con certificado de autenticidad, garantía vitalicia de manufactura y póliza de envío seguro con custodia completa.
+                  </span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-[#CBB67B] font-bold text-sm flex-shrink-0 mt-0.5">✓</span>
+                  <span className="leading-relaxed">
+                    <strong className="text-white font-medium">Atención Personalizada:</strong> Nuestro Concierge y maestros artesanos te asisten directamente con tus medidas, detalles especiales y seguimiento prioritario.
+                  </span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-[#CBB67B] font-bold text-sm flex-shrink-0 mt-0.5">✓</span>
+                  <span className="leading-relaxed">
+                    <strong className="text-white font-medium">Trazabilidad &amp; The Circle:</strong> Historial permanente de tus joyas, rastreo de guías en tiempo real y acceso preferencial a colecciones privadas.
+                  </span>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMode("login");
+                    setShowSecurityModal(false);
+                  }}
+                  className="w-full sm:w-auto text-[11px] uppercase tracking-[0.25em] text-[#E5DBD6]/70 hover:text-white transition-colors py-2 text-center"
+                >
+                  Ya tengo cuenta · Iniciar Sesión
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMode("register");
+                    setShowSecurityModal(false);
+                  }}
+                  className="w-full sm:w-auto px-6 py-3.5 bg-[#CBB67B] hover:bg-[#E5DBD6] text-[#2C3729] text-xs uppercase tracking-widest font-bold transition-all shadow-lg flex items-center justify-center gap-2 group cursor-pointer"
+                >
+                  <span>Crear Mi Cuenta</span>
+                  <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
