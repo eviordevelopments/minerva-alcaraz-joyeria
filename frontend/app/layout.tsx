@@ -73,15 +73,16 @@ export default function RootLayout({
             <AuthProvider>
               <AdminEditWrapper>
                 {children}
-                <MentalStateOverlay />
+                {/* ── POPUPS Y ANIMACIONES TEMPORALMENTE DESACTIVADOS PARA DIAGNÓSTICO ── */}
+                {/* <MentalStateOverlay /> */}
                 <WhatsAppFAB />
-                <CookieBanner />
+                {/* <CookieBanner /> */}
                 <AIConcierge />
-                <TheCircleBanner />
-                <WelcomePopup />
-                <Suspense fallback={null}>
+                {/* <TheCircleBanner /> */}
+                {/* <WelcomePopup /> */}
+                {/* <Suspense fallback={null}>
                   <LaunchCelebrationModal />
-                </Suspense>
+                </Suspense> */}
                 <AccessibilityFAB />
                 <AccessibilityPanel />
               </AdminEditWrapper>
