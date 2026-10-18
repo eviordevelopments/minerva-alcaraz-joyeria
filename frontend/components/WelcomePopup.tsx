@@ -5,8 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { LuxuryButton } from "./DesignSystem";
 import { safeLocalStorage, safeSessionStorage } from "../lib/safeStorage";
+import { isRestrictedMobileWebView } from "../lib/deviceDetect";
 
-const WELCOME_DELAY_MS = 2500; // 2.5 segundos para entrada suave en primera visita
+const WELCOME_DELAY_MS = 2500; // 2.5 segundos para entrada suave en desktop
+const MOBILE_RESTRICTED_DELAY_MS = 6000; // 6 segundos en Android WebView para permitir carga fluida
 
 export function WelcomePopup() {
   const [isVisible, setIsVisible] = useState(false);
@@ -25,6 +27,8 @@ export function WelcomePopup() {
       safeLocalStorage.setItem("ma_first_visit_time", visitStart.toString());
     }
 
+    const delay = isRestrictedMobileWebView() ? MOBILE_RESTRICTED_DELAY_MS : WELCOME_DELAY_MS;
+
     const timer = setTimeout(() => {
       if (safeSessionStorage.getItem("ma_launch_is_open") === "true") return;
       setIsVisible(true);
@@ -32,7 +36,7 @@ export function WelcomePopup() {
       safeLocalStorage.setItem("ma_welcome_shown_at", now.toString());
       safeLocalStorage.setItem("ma_last_popup_time", now.toString());
       safeSessionStorage.setItem("ma_welcome_is_open", "true");
-    }, WELCOME_DELAY_MS);
+    }, delay);
 
     return () => clearTimeout(timer);
   }, []);
@@ -53,7 +57,7 @@ export function WelcomePopup() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handleClose}
-          className="fixed inset-0 z-[100050] flex items-center justify-center bg-verde-ebano/80 backdrop-blur-sm p-4 cursor-pointer"
+          className="fixed inset-0 z-[100050] flex items-center justify-center bg-verde-ebano/90 p-4 cursor-pointer"
         >
           <motion.div
             initial={{ opacity: 0, y: 50, scale: 0.95 }}

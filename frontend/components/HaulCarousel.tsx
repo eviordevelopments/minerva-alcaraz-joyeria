@@ -7,6 +7,8 @@ import Link from "next/link";
 import { ArrowRight, Sparkles, Eye, RefreshCw } from "lucide-react";
 import { Product } from "../constants/products";
 
+import { getCachedProducts } from "../lib/productCache";
+
 export const HaulCarousel: React.FC = () => {
   const [haulItems, setHaulItems] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -14,11 +16,11 @@ export const HaulCarousel: React.FC = () => {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    let isMounted = true;
     async function fetchProducts() {
       try {
-        const res = await fetch("/api/products");
-        if (res.ok) {
-          const { products } = await res.json();
+        const products = await getCachedProducts();
+        if (isMounted) {
           const items = (products || [])
             .filter((p: Product) => p.featured || ["Chai", "Escencia", "Diseños de Autor", "Etérea", "Serpientes"].includes(p.collection))
             .slice(0, 6);
@@ -27,10 +29,15 @@ export const HaulCarousel: React.FC = () => {
       } catch (err) {
         console.error("Error fetching haul products", err);
       } finally {
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     }
     fetchProducts();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // Always auto-advance continuously every 5 seconds (5000ms)

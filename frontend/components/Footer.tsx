@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
   ArrowRight, 
@@ -12,6 +12,7 @@ import {
   Clock 
 } from "lucide-react";
 import { Newsletter } from "./Newsletter";
+import { isRestrictedMobileWebView } from "../lib/deviceDetect";
 
 interface LocationData {
   id: "floroteca" | "san-miguel";
@@ -60,6 +61,14 @@ export const Footer = () => {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [activeLocation, setActiveLocation] = useState<"floroteca" | "san-miguel">("floroteca");
+  const [isMapActive, setIsMapActive] = useState(false);
+
+  useEffect(() => {
+    // Desktop and standard mobile browsers load automatically
+    if (!isRestrictedMobileWebView()) {
+      setIsMapActive(true);
+    }
+  }, []);
 
   const currentLoc = LOCATIONS[activeLocation];
 
@@ -222,18 +231,40 @@ export const Footer = () => {
                   </a>
                 </div>
 
-                <iframe
-                  key={currentLoc.id}
-                  src={`https://maps.google.com/maps?q=${encodeURIComponent(currentLoc.embedQuery)}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0, minHeight: "320px", flex: 1 }}
-                  allowFullScreen={false}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title={`Ubicación de ${currentLoc.name}`}
-                  className="w-full h-full opacity-90 hover:opacity-100 transition-opacity"
-                />
+                {isMapActive ? (
+                  <iframe
+                    key={currentLoc.id}
+                    src={`https://maps.google.com/maps?q=${encodeURIComponent(currentLoc.embedQuery)}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0, minHeight: "320px", flex: 1 }}
+                    allowFullScreen={false}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title={`Ubicación de ${currentLoc.name}`}
+                    className="w-full h-full opacity-90 hover:opacity-100 transition-opacity"
+                  />
+                ) : (
+                  <div className="flex-1 flex flex-col items-center justify-center p-8 text-center bg-verde-ebano/80 gap-4 min-h-[320px]">
+                    <div className="w-12 h-12 rounded-full border border-oro-antiguo/40 flex items-center justify-center text-oro-antiguo">
+                      <MapPin size={22} strokeWidth={1.5} />
+                    </div>
+                    <div className="flex flex-col gap-1 max-w-xs">
+                      <span className="text-xs font-display text-hueso-seda uppercase tracking-widest">
+                        {currentLoc.name}
+                      </span>
+                      <span className="text-[11px] text-hueso-seda/60 font-light">
+                        {currentLoc.address}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => setIsMapActive(true)}
+                      className="px-6 py-2.5 bg-oro-antiguo text-verde-ebano text-[10px] uppercase tracking-[0.25em] font-semibold hover:bg-hueso-seda transition-all shadow-md"
+                    >
+                      Activar Mapa Interactivo
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

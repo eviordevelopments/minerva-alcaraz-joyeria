@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shield, X } from "lucide-react";
 import Link from "next/link";
-import { safeLocalStorage } from "../lib/safeStorage";
+import { safeLocalStorage, safeSessionStorage } from "../lib/safeStorage";
 
 export const CookieBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -12,8 +12,20 @@ export const CookieBanner = () => {
   useEffect(() => {
     const hasAccepted = safeLocalStorage.getItem("cookiesAccepted");
     if (!hasAccepted) {
-      const timer = setTimeout(() => setIsVisible(true), 2000);
-      return () => clearTimeout(timer);
+      let retryTimer: NodeJS.Timeout | null = null;
+      const checkAndShow = () => {
+        if (safeSessionStorage.getItem("ma_launch_is_open") === "true") {
+          retryTimer = setTimeout(checkAndShow, 3000);
+          return;
+        }
+        setIsVisible(true);
+      };
+
+      const timer = setTimeout(checkAndShow, 4000);
+      return () => {
+        clearTimeout(timer);
+        if (retryTimer) clearTimeout(retryTimer);
+      };
     }
   }, []);
 

@@ -58,22 +58,26 @@ export function LaunchCelebrationModal() {
         const storedNumber = safeLocalStorage.getItem("ma_visitor_number");
         const existingNumber = storedNumber ? parseInt(storedNumber, 10) : undefined;
 
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3500);
+
         const res = await fetch("/api/launch/visitor-counter", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ visitorId, existingNumber }),
+          signal: controller.signal,
         });
+        clearTimeout(timeoutId);
 
         if (res.ok) {
           const data = await res.json();
           const targetNum = Number(data.visitorNumber) || 1;
           setVisitorNumber(targetNum);
-          localStorage.setItem("ma_visitor_number", targetNum.toString());
+          safeLocalStorage.setItem("ma_visitor_number", targetNum.toString());
         } else {
           setVisitorNumber(1);
         }
-      } catch (err) {
-        console.error("Error al obtener número de visitante:", err);
+      } catch {
         setVisitorNumber(1);
       }
     };
@@ -131,7 +135,7 @@ export function LaunchCelebrationModal() {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100060] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md">
+        <div className="fixed inset-0 z-[100060] flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/90">
           {/* Confetti Elegante de Oro y Diamantes */}
           {showConfetti && <LuxuryGoldConfetti durationMs={10000} particleCount={85} />}
 

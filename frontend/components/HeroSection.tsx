@@ -51,11 +51,17 @@ export const HeroSection = () => {
           style={{ scale: imageScale }}
           className="absolute inset-0 z-0 w-full h-full"
         >
-          <img 
-            src="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/hero-section_image.JPG" 
-            alt="Minerva Alcaraz Joyería" 
-            className="absolute inset-0 w-full h-full object-cover object-center"
-          />
+          <picture className="absolute inset-0 w-full h-full">
+            <source media="(max-width: 768px)" srcSet="/hero-mobile.webp" type="image/webp" />
+            <source media="(min-width: 769px)" srcSet="/hero-section_image.webp" type="image/webp" />
+            <img 
+              src="/hero-section_image.webp" 
+              alt="Minerva Alcaraz Joyería" 
+              className="absolute inset-0 w-full h-full object-cover object-center"
+              loading="eager"
+              decoding="async"
+            />
+          </picture>
         </motion.div>
 
         {/* Dynamic Dark Vignette Overlay */}

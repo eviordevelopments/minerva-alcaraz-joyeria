@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { getRecommendedDpr, isRestrictedMobileWebView } from "../lib/deviceDetect";
 
 interface LuxuryGoldConfettiProps {
   durationMs?: number;
@@ -53,10 +54,12 @@ export function LuxuryGoldConfetti({
     let animationFrameId: number;
     let isRunning = true;
     const startTime = performance.now();
+    const isRestricted = isRestrictedMobileWebView();
+    const activeDuration = isRestricted ? Math.min(durationMs, 5000) : durationMs;
 
-    // Resize canvas with device pixel ratio for retina sharpness
+    // Resize canvas with safe device pixel ratio to prevent OOM crashes on Android
     const updateSize = () => {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = getRecommendedDpr();
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
       ctx.scale(dpr, dpr);
@@ -67,7 +70,7 @@ export function LuxuryGoldConfetti({
 
     // Helper to generate irregular gold flake polygons
     const generatePolygon = (size: number) => {
-      const numPoints = 5 + Math.floor(Math.random() * 3);
+      const numPoints = isRestricted ? 4 : 5 + Math.floor(Math.random() * 3);
       const points = [];
       for (let i = 0; i < numPoints; i++) {
         const angle = (i / numPoints) * Math.PI * 2;
@@ -84,8 +87,11 @@ export function LuxuryGoldConfetti({
     const particles: Particle[] = [];
     const width = window.innerWidth;
     const height = window.innerHeight;
+    const effectiveCount = isRestricted
+      ? Math.min(particleCount, 22)
+      : (width < 768 ? Math.min(particleCount, 35) : particleCount);
 
-    for (let i = 0; i < particleCount; i++) {
+    for (let i = 0; i < effectiveCount; i++) {
       const randType = Math.random();
       const type: "foil" | "flake" | "sparkle" =
         randType < 0.5 ? "foil" : randType < 0.82 ? "flake" : "sparkle";
@@ -123,7 +129,7 @@ export function LuxuryGoldConfetti({
       if (!isRunning) return;
 
       const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / durationMs, 1);
+      const progress = Math.min(elapsed / activeDuration, 1);
 
       // Global fade towards end of duration
       let globalAlpha = 1;

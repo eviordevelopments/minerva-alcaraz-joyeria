@@ -1,34 +1,42 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 export type MentalState = "LOW_AROUSAL" | "HIGH_AROUSAL";
 
 export const useMentalState = () => {
   // Start in HIGH_AROUSAL by default so modal NEVER shows on initial page load
   const [mentalState, setMentalState] = useState<MentalState>("HIGH_AROUSAL");
-  const [lastScrollPos, setLastScrollPos] = useState(0);
-  const [lastInteractionTime, setLastInteractionTime] = useState(Date.now());
+  const lastScrollPosRef = useRef(0);
+  const lastInteractionTimeRef = useRef(Date.now());
 
   const handleInteraction = useCallback(() => {
-    setLastInteractionTime(Date.now());
+    lastInteractionTimeRef.current = Date.now();
   }, []);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const currentScrollPos = window.scrollY;
-      const scrollDelta = Math.abs(currentScrollPos - lastScrollPos);
-      
-      if (scrollDelta > 50) {
-        setMentalState("HIGH_AROUSAL");
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollPos = window.scrollY;
+          const scrollDelta = Math.abs(currentScrollPos - lastScrollPosRef.current);
+          
+          if (scrollDelta > 50) {
+            setMentalState("HIGH_AROUSAL");
+          }
+          
+          lastScrollPosRef.current = currentScrollPos;
+          lastInteractionTimeRef.current = Date.now();
+          ticking = false;
+        });
+        ticking = true;
       }
-      
-      setLastScrollPos(currentScrollPos);
-      handleInteraction();
     };
 
     const handleIdle = () => {
-      const timeSinceLastInteraction = Date.now() - lastInteractionTime;
+      const timeSinceLastInteraction = Date.now() - lastInteractionTimeRef.current;
       
       // Trigger LOW_AROUSAL modal ONLY after 20 minutes (1,200,000 ms) of total inactivity
       if (timeSinceLastInteraction > 1200000) {
@@ -36,13 +44,13 @@ export const useMentalState = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("mousemove", handleInteraction);
-    window.addEventListener("click", handleInteraction);
-    window.addEventListener("touchstart", handleInteraction);
-    window.addEventListener("keydown", handleInteraction);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("mousemove", handleInteraction, { passive: true });
+    window.addEventListener("click", handleInteraction, { passive: true });
+    window.addEventListener("touchstart", handleInteraction, { passive: true });
+    window.addEventListener("keydown", handleInteraction, { passive: true });
     
-    const idleInterval = setInterval(handleIdle, 1000);
+    const idleInterval = setInterval(handleIdle, 10000); // Check every 10s instead of every 1s
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -52,7 +60,7 @@ export const useMentalState = () => {
       window.removeEventListener("keydown", handleInteraction);
       clearInterval(idleInterval);
     };
-  }, [lastScrollPos, lastInteractionTime, handleInteraction]);
+  }, [handleInteraction]);
 
   return { mentalState, setMentalState, handleInteraction };
 };

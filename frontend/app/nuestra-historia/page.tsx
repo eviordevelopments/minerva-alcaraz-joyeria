@@ -14,7 +14,7 @@ export default function StoryPage() {
       {/* Hero: El Origen de la Luz */}
       <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-verde-ebano">
         <div className="absolute inset-0 opacity-40">
-          <div className="w-full h-full bg-[url('/taller/1.jpg')] bg-cover bg-center grayscale mix-blend-overlay scale-105 animate-slow-zoom" />
+          <div className="w-full h-full bg-[url('/taller/1.webp')] bg-cover bg-center grayscale mix-blend-overlay scale-105 animate-slow-zoom" />
         </div>
         <div className="relative z-10 text-center px-8 pt-32">
           <motion.span 
@@ -47,7 +47,7 @@ export default function StoryPage() {
           viewport={{ once: true }}
           className="relative aspect-[4/5] bg-plata-niebla/10 overflow-hidden"
         >
-          <Image src="/taller/2.jpg" alt="Raíces" fill className="object-cover" />
+          <Image src="/taller/2.webp" alt="Raíces" fill className="object-cover" />
         </motion.div>
         <div className="flex flex-col gap-12">
           <span className="text-oro-antiguo text-xs uppercase tracking-[0.6em]">El Origen</span>
@@ -141,7 +141,7 @@ export default function StoryPage() {
             className="relative aspect-square bg-plata-niebla/10 overflow-hidden group border border-verde-ebano/5"
           >
             <Image 
-              src={`/taller/${i}.jpg`} 
+              src={`/taller/${i}.webp`} 
               alt={`Detalle de Taller ${i}`} 
               fill 
               className="object-cover group-hover:scale-105 transition-transform duration-700" 

@@ -69,25 +69,32 @@ const LongPhilosophySection = () => (
   </section>
 );
 
+import { getCachedProducts } from "../lib/productCache";
+
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = React.useState<any[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
+    let isMounted = true;
     async function fetchFeatured() {
       try {
-        const res = await fetch("/api/products");
-        if (res.ok) {
-          const { products } = await res.json();
+        const products = await getCachedProducts();
+        if (isMounted) {
           setFeaturedProducts((products || []).slice(0, 4));
         }
       } catch (err) {
         console.error(err);
       } finally {
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     }
     fetchFeatured();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
