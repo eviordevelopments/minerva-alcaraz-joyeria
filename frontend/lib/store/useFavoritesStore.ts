@@ -1,6 +1,7 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { supabase } from "../supabase";
+import { zustandSafeStorage } from "../safeStorage";
 
 export interface FavoriteItem {
   productId: string;
@@ -105,6 +106,9 @@ export const useFavoritesStore = create<FavoritesState>()(
 
       clearLocal: () => set({ items: [] }),
     }),
-    { name: "minerva-favorites-storage" }
+    {
+      name: "minerva-favorites-storage",
+      storage: createJSONStorage(() => zustandSafeStorage),
+    }
   )
 );

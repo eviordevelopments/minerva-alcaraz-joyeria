@@ -73,3 +73,16 @@ export const safeSessionStorage = {
     delete memoryStorage[key];
   },
 };
+
+// Zustand persist StateStorage adapter (immune to iOS / Android WebView SecurityErrors)
+export const zustandSafeStorage = {
+  getItem: (key: string): string | null => {
+    return safeLocalStorage.getItem(key);
+  },
+  setItem: (key: string, value: string): void => {
+    safeLocalStorage.setItem(key, value);
+  },
+  removeItem: (key: string): void => {
+    safeLocalStorage.removeItem(key);
+  },
+};

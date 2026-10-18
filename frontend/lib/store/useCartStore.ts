@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
+import { zustandSafeStorage } from "../safeStorage";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 export interface CartItem {
@@ -89,6 +90,7 @@ export const useCartStore = create<CartState>()(
     }),
     {
       name: "minerva-cart-storage",
+      storage: createJSONStorage(() => zustandSafeStorage),
       // Only persist items, not isOpen (cart should start closed)
       partialize: (state) => ({ items: state.items }),
     }

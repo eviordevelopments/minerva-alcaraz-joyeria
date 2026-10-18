@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { zustandSafeStorage } from '../safeStorage';
 
 interface AccessibilityState {
   theme: 'light' | 'dark';
@@ -33,6 +34,7 @@ export const useAccessibilityStore = create<AccessibilityState>()(
     }),
     {
       name: 'accessibility-storage',
+      storage: createJSONStorage(() => zustandSafeStorage),
       // No we do not persist `isPanelOpen` so it doesn't open randomly on reload
       partialize: (state) => ({
         theme: state.theme,

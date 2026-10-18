@@ -9,8 +9,27 @@
 [build.environment]
   NEXT_USE_NETLIFY_EDGE = "true"
 
+[[redirects]]
+  from = "http://minervaalcarazjoyeria.mx/*"
+  to = "https://minervaalcarazjoyeria.mx/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.minervaalcarazjoyeria.mx/*"
+  to = "https://minervaalcarazjoyeria.mx/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.minervaalcarazjoyeria.mx/*"
+  to = "https://minervaalcarazjoyeria.mx/:splat"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"

@@ -32,29 +32,22 @@ interface AuthState {
 }
 
 import { createJSONStorage, StateStorage } from 'zustand/middleware';
+import { safeLocalStorage, safeSessionStorage } from '../safeStorage';
 
 const consentAwareStorage: StateStorage = {
   getItem: (name) => {
-    // Try sessionStorage first, fallback to localStorage
-    if (typeof window !== 'undefined') {
-      return sessionStorage.getItem(name) || localStorage.getItem(name);
-    }
-    return null;
+    return safeSessionStorage.getItem(name) || safeLocalStorage.getItem(name);
   },
   setItem: (name, value) => {
-    if (typeof window !== 'undefined') {
-      if (localStorage.getItem('cookiesAccepted') === 'true') {
-        localStorage.setItem(name, value);
-      } else {
-        sessionStorage.setItem(name, value);
-      }
+    if (safeLocalStorage.getItem('cookiesAccepted') === 'true') {
+      safeLocalStorage.setItem(name, value);
+    } else {
+      safeSessionStorage.setItem(name, value);
     }
   },
   removeItem: (name) => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem(name);
-      sessionStorage.removeItem(name);
-    }
+    safeLocalStorage.removeItem(name);
+    safeSessionStorage.removeItem(name);
   },
 };
 
@@ -73,10 +66,8 @@ export const useAuthStore = create<AuthState>()(
         // Clear in-memory state
         set({ user: null, isAuthenticated: false });
         // Clear persisted storage so stale data isn't rehydrated
-        if (typeof window !== 'undefined') {
-          localStorage.removeItem('minerva-auth-storage');
-          sessionStorage.removeItem('minerva-auth-storage');
-        }
+        safeLocalStorage.removeItem('minerva-auth-storage');
+        safeSessionStorage.removeItem('minerva-auth-storage');
       },
 
       refreshProfile: async () => {

@@ -26,7 +26,21 @@ export async function middleware(request: NextRequest) {
   const localAdminHost = 'admin.localhost';
   const isAdminDomain = hostname === adminHost || hostname === localAdminHost;
 
-  // Supabase SSR Client for Middleware
+  // Determine actual path logic depending on subdomain vs normal path
+  let effectivePath = url.pathname;
+  let isInternalRewrite = false;
+
+  if (isAdminDomain && !url.pathname.startsWith('/admin')) {
+    effectivePath = `/admin${url.pathname}`;
+    isInternalRewrite = true;
+  }
+
+  // Fast-path: Si es tráfico público del storefront, retornar inmediatamente sin tocar cookies ni Supabase
+  if (!isAdminDomain && !effectivePath.startsWith('/admin')) {
+    return NextResponse.next();
+  }
+
+  // Supabase SSR Client for Admin Middleware only
   let supabaseResponse = NextResponse.next({
     request: {
       headers: request.headers,
@@ -53,15 +67,6 @@ export async function middleware(request: NextRequest) {
       },
     }
   );
-
-  // Determine actual path logic depending on subdomain vs normal path
-  let effectivePath = url.pathname;
-  let isInternalRewrite = false;
-
-  if (isAdminDomain && !url.pathname.startsWith('/admin')) {
-    effectivePath = `/admin${url.pathname}`;
-    isInternalRewrite = true;
-  }
 
   // --- AUTHENTICATION & MULTI-PROFILE LOGIC ---
   if (effectivePath.startsWith('/admin')) {

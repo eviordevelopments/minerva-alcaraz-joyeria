@@ -36,8 +36,73 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/index',
+        destination: '/',
+        permanent: true,
+      },
+      {
         source: '/index.html',
         destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/tienda',
+        destination: '/shop',
+        permanent: true,
+      },
+      {
+        source: '/catalogo',
+        destination: '/shop',
+        permanent: true,
+      },
+      {
+        source: '/productos',
+        destination: '/shop',
+        permanent: true,
+      },
+      {
+        source: '/joyeria',
+        destination: '/shop',
+        permanent: true,
+      },
+      {
+        source: '/joyas',
+        destination: '/shop',
+        permanent: true,
+      },
+      {
+        source: '/piezas',
+        destination: '/shop',
+        permanent: true,
+      },
+      {
+        source: '/boutique',
+        destination: '/#boutiques',
+        permanent: true,
+      },
+      {
+        source: '/boutiques',
+        destination: '/#boutiques',
+        permanent: true,
+      },
+      {
+        source: '/puntos-de-venta',
+        destination: '/#boutiques',
+        permanent: true,
+      },
+      {
+        source: '/historia',
+        destination: '/nuestra-historia',
+        permanent: true,
+      },
+      {
+        source: '/circle',
+        destination: '/the-circle',
+        permanent: true,
+      },
+      {
+        source: '/tallas',
+        destination: '/guia-de-tallas',
         permanent: true,
       },
     ];
