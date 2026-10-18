@@ -127,12 +127,12 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
         {/* ── Standardized PDP ─────────────────────────────────────────────── */}
         <ProductPDPPreview product={product} isAdminPreview={false} />
 
-        {/* ── Complementar el Ritual ───────────────────────────────────────── */}
+        {/* ── Complementa tu Joya ───────────────────────────────────────── */}
         {relatedProducts.length > 0 && (
           <section className="mt-24 border-t border-plata-niebla/10 pt-20">
             <div className="flex flex-col items-center mb-12 text-center gap-3">
-              <h2 className="text-4xl font-display text-verde-ebano italic">
-                Complementar el Ritual
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display text-verde-ebano italic whitespace-nowrap px-2">
+                Complementa tu Joya
               </h2>
               <p className="text-xs uppercase tracking-[0.4em] text-plata-niebla max-w-md">
                 Piezas seleccionadas por el atelier basándose en armonía de proporciones.

@@ -66,6 +66,26 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var ua = navigator.userAgent || navigator.vendor || (window.opera ? window.opera.toString() : '');
+                  var isAndroid = /android/i.test(ua);
+                  var isInstagram = /Instagram/i.test(ua) || /FBAN/i.test(ua) || /FBAV/i.test(ua);
+
+                  if (isAndroid && isInstagram) {
+                    var path = window.location.pathname || '/';
+                    var search = window.location.search || '';
+                    var targetUrl = 'minervaalcarazjoyeria.mx' + (path.startsWith('/') ? path : '/' + path) + search;
+                    window.location.href = 'intent://' + targetUrl + '#Intent;scheme=https;package=com.android.chrome;end';
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
       </head>
       <body>
         <AccessibilityProvider>
