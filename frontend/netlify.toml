@@ -1,0 +1,26 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+  base = "frontend"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NEXT_USE_NETLIFY_EDGE = "true"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  condition = "Role = admin"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "frame-ancestors 'self' https://*.instagram.com https://*.facebook.com https://*.fb.com;"
+
