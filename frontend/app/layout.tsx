@@ -18,30 +18,32 @@ import { LaunchCelebrationModal } from "../components/LaunchCelebrationModal";
 export const metadata: Metadata = {
   metadataBase: new URL('https://minervaalcarazjoyeria.mx'),
   title: {
-    default: "Minerva Alcaraz Joyería | El Arte de Habitar en la Eternidad",
+    default: "Minerva Alcaraz Joyería | Tu Esencia, Hecha Joya",
     template: "Minerva Alcaraz | %s"
   },
-  description: "La preservación del arte joyero a través de técnicas ancestrales. Joyería de autor, piezas únicas y colecciones de legado forjadas con maestría en México.",
-  keywords: ["joyería artesanal", "diseño de autor", "oro 18k", "plata .925", "piezas únicas", "Minerva Alcaraz", "lujo mexicano"],
+  description: "La preservación del arte joyero a través de técnicas artesanales. Joyería de autor, piezas únicas y colecciones de legado forjadas con maestría en México. Tu esencia, hecha joya.",
+  keywords: ["joyería artesanal", "diseño de autor", "oro 18k", "plata .925", "piezas únicas", "Minerva Alcaraz", "lujo mexicano", "tu esencia hecha joya"],
   authors: [{ name: "Minerva Alcaraz" }],
   openGraph: {
     type: 'website',
     locale: 'es_MX',
     url: 'https://minervaalcarazjoyeria.mx',
     siteName: 'Minerva Alcaraz Joyería',
+    title: 'Minerva Alcaraz Joyería | Tu Esencia, Hecha Joya',
+    description: 'La preservación del arte joyero a través de técnicas artesanales. Joyería de autor, piezas únicas y colecciones de legado forjadas con maestría en México. Tu esencia, hecha joya.',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Minerva Alcaraz Joyería - Legado y Maestría'
+        alt: 'Minerva Alcaraz Joyería | Tu Esencia, Hecha Joya'
       }
     ]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Minerva Alcaraz Joyería',
-    description: 'El arte de la joyería ancestral y contemporánea.',
+    title: 'Minerva Alcaraz Joyería | Tu Esencia, Hecha Joya',
+    description: 'El arte de la joyería artesanal y contemporánea. Tu esencia, hecha joya.',
     images: ['/og-image.jpg'],
   },
   alternates: {

@@ -275,7 +275,7 @@ export const Footer = () => {
               <Link href="/">
                 <img 
                   src="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/logo.png" 
-                  alt="Minerva Alcaraz" 
+                  alt="Minerva Alcaraz Joyería | Tu Esencia, Hecha Joya" 
                   className="w-[160px] h-auto brightness-0 invert opacity-90"
                 />
               </Link>

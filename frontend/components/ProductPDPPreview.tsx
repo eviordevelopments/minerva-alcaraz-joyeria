@@ -364,7 +364,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
 
           {/* Narrative quote */}
           <p className="text-base italic text-[#2C3729]/70 font-light border-l-2 border-[#CBB67B] pl-4 py-1 leading-relaxed">
-            &quot;{product.description || "Una pieza diseñada para habitar en la eternidad."}&quot;
+            &quot;{product.description || "Tu esencia, hecha joya."}&quot;
           </p>
 
           {/* Technical Details & Specifications */}
@@ -469,7 +469,7 @@ export const ProductPDPPreview: React.FC<ProductPDPPreviewProps> = ({
               </div>
               <p className="text-base leading-relaxed text-[#2C3729]/75 font-light">
                 {product.significado ||
-                  "Una pieza diseñada para habitar en la eternidad, capturando la esencia de la herencia y el arte joyero."}
+                  "Tu esencia, hecha joya, capturando la devoción, herencia y maestría del arte joyero artesanal."}
               </p>
             </div>
 

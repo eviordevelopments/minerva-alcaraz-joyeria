@@ -166,7 +166,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
               }`}>
                 <img 
                   src="https://avpmuuihbxginosffhuf.supabase.co/storage/v1/object/public/public-bucket/logo.png" 
-                  alt="Minerva Alcaraz" 
+                  alt="Minerva Alcaraz Joyería | Tu Esencia, Hecha Joya" 
                   className={`w-full h-full object-contain transition-all duration-700`}
                   style={{ 
                     filter: isScrolled 

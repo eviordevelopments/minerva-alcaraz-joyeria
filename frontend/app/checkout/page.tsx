@@ -765,7 +765,7 @@ export default function CheckoutPage() {
                   Certificación Minerva Alcaraz
                 </span>
                 <p className="text-[11px] text-hueso-seda/40 font-light italic leading-relaxed">
-                  "Cada pieza es un testimonio de devoción y maestría, forjada para habitar en la eternidad."
+                  "Cada pieza es un testimonio de devoción y maestría artesanal: tu esencia, hecha joya."
                 </p>
               </div>
             </div>

@@ -56,7 +56,7 @@ export const HeroSection = () => {
             <source media="(min-width: 769px)" srcSet="/hero-section_image.webp" type="image/webp" />
             <img 
               src="/hero-section_image.webp" 
-              alt="Minerva Alcaraz Joyería" 
+              alt="Minerva Alcaraz Joyería | Tu Esencia, Hecha Joya" 
               className="absolute inset-0 w-full h-full object-cover object-center"
               loading="eager"
               decoding="async"
