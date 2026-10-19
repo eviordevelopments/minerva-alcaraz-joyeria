@@ -42,6 +42,7 @@ SERPIENTES/
 
 *.zip
 *.png
+!frontend/public/*.png
 Colección nueva imagen/
 empaques/
 

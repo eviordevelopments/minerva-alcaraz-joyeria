@@ -4,19 +4,19 @@
   "description": "Sistema de Gestión y Orfebrería de Lujo - Minerva Alcaraz Joyería",
   "start_url": "/admin",
   "display": "standalone",
-  "background_color": "#1F271D",
-  "theme_color": "#1F271D",
+  "background_color": "#2C3729",
+  "theme_color": "#2C3729",
   "orientation": "portrait-primary",
   "scope": "/admin",
   "icons": [
     {
-      "src": "/logo.png",
+      "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/logo.png",
+      "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
