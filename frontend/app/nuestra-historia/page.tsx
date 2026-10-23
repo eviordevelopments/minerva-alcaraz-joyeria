@@ -116,7 +116,7 @@ export default function StoryPage() {
         </div>
       </section>
 
-      {/* Section 3: El Manifiesto de la Eternidad */}
+      {/* Section 3: El Manifiesto: Tu Esencia, Hecha Joya */}
       <section className="py-48 luxury-container">
         <div className="max-w-4xl mx-auto text-center flex flex-col gap-12">
            <span className="text-oro-antiguo text-xs uppercase tracking-[0.6em]">Nuestra Visión</span>

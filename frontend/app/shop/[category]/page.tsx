@@ -15,9 +15,9 @@ interface CategoryData {
 
 const CATEGORY_MAP: Record<string, CategoryData> = {
   anillos: {
-    title: "Círculos de Eternidad",
+    title: "Círculos de Esencia",
     subtitle: "Anillos",
-    narrative: "Símbolos de compromiso con el presente y promesas que trascienden el tiempo. Cada anillo es una escultura minúscula diseñada para abrazar la mano con autoridad y gracia."
+    narrative: "Símbolos de devoción y expresión que enmarcan tu identidad. Cada anillo es una escultura minúscula diseñada para portar tu esencia con autoridad y gracia."
   },
   collares: {
     title: "Caídas de Luz",

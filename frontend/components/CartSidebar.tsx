@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, Package, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useCartStore } from "../lib/store/useCartStore";
+import { useCartStore, isTestOrInvalidProduct } from "../lib/store/useCartStore";
 import { useAuthStore } from "../lib/store/useAuthStore";
 
 export const CartSidebar: React.FC = () => {
@@ -13,6 +13,14 @@ export const CartSidebar: React.FC = () => {
   const { isAuthenticated, user } = useAuthStore();
   const rawSubtotal = subtotal();
   const isCircleMember = user?.isCircleMember || false;
+
+  // Immediate purge of any ghost or test products
+  React.useEffect(() => {
+    const sanitized = items.filter((it) => !isTestOrInvalidProduct(it));
+    if (sanitized.length !== items.length) {
+      useCartStore.setState({ items: sanitized });
+    }
+  }, [items]);
 
   // Auto-sync requires_shipping against current DB product settings (matching by ID, SKU, or Name)
   React.useEffect(() => {
@@ -34,8 +42,11 @@ export const CartSidebar: React.FC = () => {
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "");
 
-        let hasUpdates = false;
-        const updated = items.map((it) => {
+        // Remove test items or items that were removed/inactive in DB
+        const validItems = items.filter((it) => !isTestOrInvalidProduct(it));
+
+        let hasUpdates = validItems.length !== items.length;
+        const updated = validItems.map((it) => {
           const match = prods.find(
             (p: any) =>
               (p.id && it.productId && p.id === it.productId) ||

@@ -282,7 +282,7 @@ export const Footer = () => {
 
               <div className="flex flex-col gap-6">
                 <p className="text-base opacity-60 font-light leading-loose max-w-sm italic">
-                  &quot;Donde el tiempo se detiene para forjar la belleza eterna. THE CIRCLE lleva conexión en cada pieza.&quot;
+                  &quot;Tu esencia, hecha joya. Minerva Alcaraz forja piezas de orfebrería artesanal diseñadas para conectar y trascender con tu historia.&quot;
                 </p>
 
                 {/* Social media presence */}

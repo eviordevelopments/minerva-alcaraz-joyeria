@@ -17,7 +17,7 @@ interface HeaderProps {
 
 import { useCircleTheme } from "../lib/context/CircleThemeContext";
 
-import { useCartStore } from "../lib/store/useCartStore";
+import { useCartStore, isTestOrInvalidProduct } from "../lib/store/useCartStore";
 import { useFavoritesStore } from "../lib/store/useFavoritesStore";
 
 export const Header = ({ theme = "light" }: HeaderProps) => {
@@ -46,7 +46,8 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const cartCount = mounted ? cartItems.reduce((acc, item) => acc + item.quantity, 0) : 0;
+  const validCartItems = mounted ? cartItems.filter((item) => !isTestOrInvalidProduct(item)) : [];
+  const cartCount = validCartItems.reduce((acc, item) => acc + item.quantity, 0);
   const favCount = mounted ? favItems.length : 0;
 
   let textColor = "text-verde-ebano";

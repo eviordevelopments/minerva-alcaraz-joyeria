@@ -12,7 +12,7 @@ import {
   Minus, Plus, Trash2, Sparkles
 } from "lucide-react";
 import { useAuthStore } from "../../lib/store/useAuthStore";
-import { useCartStore } from "../../lib/store/useCartStore";
+import { useCartStore, isTestOrInvalidProduct } from "../../lib/store/useCartStore";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import StripeCheckoutForm from "../../components/StripeCheckoutForm";
@@ -28,6 +28,14 @@ export default function CheckoutPage() {
   const { user, isAuthenticated, isLoading: authLoading } = useAuthStore();
   const { items, subtotal, clearCart, updateQuantity, removeItem } = useCartStore();
   const [isFirstPurchase, setIsFirstPurchase] = useState(false);
+
+  // Auto-clean any test or ghost items from cart
+  useEffect(() => {
+    const cleanItems = items.filter((it) => !isTestOrInvalidProduct(it));
+    if (cleanItems.length !== items.length) {
+      useCartStore.setState({ items: cleanItems });
+    }
+  }, [items]);
   const [shippingDisabledByProducts, setShippingDisabledByProducts] = useState(
     () => items.length > 0 && items.every((i) => i.requires_shipping === false)
   );

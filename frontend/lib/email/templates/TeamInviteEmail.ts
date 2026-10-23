@@ -61,7 +61,7 @@ export function generateTeamInviteEmail(token: string) {
                 <td align="center" style="padding: 30px 20px; background-color: #1F271D; border-top: 1px solid rgba(203, 182, 123, 0.2);">
                   <p style="margin: 0; font-size: 10px; color: #8E9A8B; text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.5;">
                     Minerva Alcaraz Joyería<br/>
-                    El Ritual de la Eternidad
+                    Tu Esencia, Hecha Joya
                   </p>
                   <p style="margin: 15px 0 0 0; font-size: 9px; color: rgba(142, 154, 139, 0.6);">
                     Este enlace expirará en 24 horas.<br/>

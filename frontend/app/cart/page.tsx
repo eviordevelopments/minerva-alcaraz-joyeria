@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useCartStore } from "../../lib/store/useCartStore";
+import { useCartStore, isTestOrInvalidProduct } from "../../lib/store/useCartStore";
 import { useAuthStore } from "../../lib/store/useAuthStore";
 
 export default function CartPage() {
@@ -27,7 +27,11 @@ export default function CartPage() {
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    const sanitized = items.filter((it) => !isTestOrInvalidProduct(it));
+    if (sanitized.length !== items.length) {
+      useCartStore.setState({ items: sanitized });
+    }
+  }, [items]);
 
   const rawSubtotal = mounted ? subtotal() : 0;
   const isCircleMember = user?.isCircleMember || false;
