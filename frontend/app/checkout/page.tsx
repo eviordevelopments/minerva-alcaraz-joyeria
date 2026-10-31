@@ -262,29 +262,6 @@ export default function CheckoutPage() {
     }
   };
 
-  const handleWhatsApp = () => {
-    const lines = [
-      "Hola Minerva, me gustaría confirmar mi pedido:",
-      "",
-      ...items.map(
-        (i) =>
-          `• ${i.name} (x${i.quantity}) — $${(i.price * i.quantity).toLocaleString("es-MX")} MXN${i.size ? ` | Talla: ${i.size}` : ""}`
-      ),
-      "",
-      `Total: $${total.toLocaleString("es-MX")} MXN`,
-      "",
-      shippingName ? `Nombre: ${shippingName}` : "",
-      shippingAddress ? `Dirección: ${shippingAddress}, ${shippingCity} ${shippingPostal}` : "",
-      shippingPhone ? `Teléfono: ${shippingPhone}` : "",
-      customerNotes ? `Notas: ${customerNotes}` : "",
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    const encoded = encodeURIComponent(lines);
-    window.open(`https://wa.me/525555555555?text=${encoded}`, "_blank");
-  };
-
   // ── Success screen ──────────────────────────────────────────────────────────
   if (isFinished) {
     return (
@@ -306,13 +283,13 @@ export default function CheckoutPage() {
             El pago ha sido procesado exitosamente y pronto recibirás un correo de confirmación. Tu legado está siendo preparado en nuestro Atelier.
           </p>
 
-          <button
-            onClick={handleWhatsApp}
+          <Link
+            href="/atencion-al-cliente"
             className="flex items-center gap-3 border border-oro-antiguo text-oro-antiguo px-8 py-4 text-xs uppercase tracking-widest hover:bg-oro-antiguo hover:text-verde-ebano transition-all"
           >
-            Soporte por WhatsApp
-            <ExternalLink size={14} />
-          </button>
+            Atención al Cliente
+            <ArrowRight size={14} />
+          </Link>
 
           <div className="h-px w-16 bg-oro-antiguo/30" />
           <LuxuryButton

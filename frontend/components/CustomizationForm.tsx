@@ -79,7 +79,7 @@ export const CustomizationForm = () => {
         </form>
 
         <p className="text-[10px] uppercase tracking-[0.3em] text-hueso-seda/30 text-center">
-          Al enviar este formulario, un maestro joyero se pondrá en contacto con usted vía WhatsApp para iniciar el proceso creativo.
+          Al enviar este formulario, un maestro joyero se pondrá en contacto con usted a la brevedad para iniciar el proceso creativo.
         </p>
       </div>
     </section>

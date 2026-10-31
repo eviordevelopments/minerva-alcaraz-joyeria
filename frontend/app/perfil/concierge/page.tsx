@@ -19,6 +19,7 @@ import {
   FileText,
   AlertCircle,
   RefreshCw,
+  HeadphonesIcon,
 } from "lucide-react";
 
 interface CustomizationRequest {
@@ -162,16 +163,14 @@ export default function ConciergePage() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href="https://wa.me/524626217960?text=Hola%20Minerva,%20soy%20miembro%20de%20The%20Circle..."
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/atencion-al-cliente"
                   className="flex items-center justify-center gap-3 bg-oro-antiguo text-verde-ebano text-xs uppercase tracking-[0.5em] px-8 py-4 hover:bg-hueso-seda font-bold transition-colors group shadow-md"
                 >
-                  <MessageCircle size={14} strokeWidth={1.5} />
-                  Abrir WhatsApp (+52 462 621 7960)
+                  <HeadphonesIcon size={14} strokeWidth={1.5} />
+                  Atención al Cliente
                   <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
-                </a>
+                </Link>
                 <a
                   href="mailto:concierge@minervaalcarazjoyeria.mx"
                   className="flex items-center justify-center gap-3 border border-white/20 text-white text-xs uppercase tracking-[0.4em] px-8 py-4 hover:border-oro-antiguo hover:text-oro-antiguo transition-colors"
@@ -337,17 +336,15 @@ export default function ConciergePage() {
                           </div>
                         )}
 
-                        {/* Action WhatsApp */}
+                        {/* Action Atención al Cliente */}
                         <div className="flex justify-end pt-2">
-                          <a
-                            href={`https://wa.me/524626217960?text=${encodeURIComponent(`Hola Minerva, deseo consultar el estado de mi solicitud de co-creación ${req.request_number}...`)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                          <Link
+                            href="/atencion-al-cliente"
                             className="inline-flex items-center gap-2 px-4 py-2 bg-[#2C3729] hover:bg-oro-antiguo hover:text-verde-ebano text-oro-antiguo border border-[#CBB67B]/40 text-[11px] uppercase tracking-widest font-bold transition-all"
                           >
-                            <MessageCircle size={13} />
-                            <span>Consultar con Minerva por WhatsApp</span>
-                          </a>
+                            <HeadphonesIcon size={13} />
+                            <span>Consultar Atención al Cliente</span>
+                          </Link>
                         </div>
                       </div>
                     );

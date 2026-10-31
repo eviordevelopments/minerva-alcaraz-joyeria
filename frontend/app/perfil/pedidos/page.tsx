@@ -8,10 +8,11 @@ import { ProfileSidebar } from "../../../components/ProfileSidebar";
 import { useAuthStore } from "../../../lib/store/useAuthStore";
 import { supabase, formatPrice } from "../../../lib/supabase";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
 import { 
   Package, Clock, CheckCircle2, Truck, XCircle, ChevronDown, ChevronUp, 
-  ExternalLink, MessageCircle, Sparkles, Star, ShieldCheck, Check, Send, X, Copy
+  ExternalLink, MessageCircle, Sparkles, Star, ShieldCheck, Check, Send, X, Copy, HeadphonesIcon
 } from "lucide-react";
 
 interface OrderItem {
@@ -246,17 +247,6 @@ export default function PedidosPage() {
                   const isPaid = order.status !== "pending" && order.status !== "cancelled";
                   const isExpanded = expandedId === order.id;
 
-                  // Pre-filled WhatsApp message for transaction questions
-                  const waMessage = [
-                    "Hola Minerva Alcaraz Joyería, tengo una consulta sobre mi adquisición:",
-                    `• Pedido: ${order.order_number}`,
-                    `• Total: $${(order.total_cents / 100).toLocaleString("es-MX", { minimumFractionDigits: 2 })} MXN`,
-                    order.payment_reference ? `• Ref. de Pago: ${order.payment_reference}` : "",
-                    "¿Me podrían brindar asesoría personalizada por favor?",
-                  ].filter(Boolean).join("\n");
-
-                  const waUrl = `https://wa.me/524623071972?text=${encodeURIComponent(waMessage)}`;
-
                   return (
                     <motion.div
                       key={order.id}
@@ -313,16 +303,14 @@ export default function PedidosPage() {
                         </div>
 
                         <div className="flex flex-wrap items-center gap-3">
-                          {/* Botón exclusivo WhatsApp */}
-                          <a
-                            href={waUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-emerald-600/30 text-emerald-800 hover:bg-emerald-600 hover:text-white transition-all text-[11px] uppercase tracking-wider font-medium"
+                          {/* Botón de Atención al Cliente */}
+                          <Link
+                            href="/atencion-al-cliente"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-[#CBB67B]/40 text-verde-ebano hover:bg-oro-antiguo hover:text-verde-ebano transition-all text-[11px] uppercase tracking-wider font-medium"
                           >
-                            <MessageCircle size={13} />
+                            <HeadphonesIcon size={13} />
                             Dudas sobre mi Transacción
-                          </a>
+                          </Link>
 
                           {/* Botón de Rastreo Elegante */}
                           <button

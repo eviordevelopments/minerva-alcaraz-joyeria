@@ -105,6 +105,41 @@ const nextConfig: NextConfig = {
         destination: '/guia-de-tallas',
         permanent: true,
       },
+      {
+        source: '/contacto',
+        destination: '/atencion-al-cliente',
+        permanent: true,
+      },
+      {
+        source: '/linea-telefonica',
+        destination: '/atencion-al-cliente',
+        permanent: true,
+      },
+      {
+        source: '/atencion-telefonica',
+        destination: '/atencion-al-cliente',
+        permanent: true,
+      },
+      {
+        source: '/aviso-telefono',
+        destination: '/atencion-al-cliente',
+        permanent: true,
+      },
+      {
+        source: '/telefono',
+        destination: '/atencion-al-cliente',
+        permanent: true,
+      },
+      {
+        source: '/whatsapp',
+        destination: '/atencion-al-cliente',
+        permanent: true,
+      },
+      {
+        source: '/atencion-cliente',
+        destination: '/atencion-al-cliente',
+        permanent: true,
+      },
     ];
   },
   async headers() {
