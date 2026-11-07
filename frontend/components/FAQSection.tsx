@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus, MessageCircle, HeadphonesIcon } from "lucide-react";
 import { LuxuryButton } from "./DesignSystem";
 import Link from "next/link";
+import { CONTACT_PHONE_DISPLAY, WHATSAPP_LINK } from "../lib/contact";
 
 interface FAQItemProps {
   question: string;
@@ -188,7 +189,7 @@ export const FAQSection = () => {
           question: "¿Puedo diseñar una pieza desde cero?",
           answer: (
             <span>
-              Absolutamente. La cocreación es parte de nuestro ADN. Contáctenos desde nuestro <Link href="/atencion-al-cliente" className="text-oro-antiguo hover:underline">servicio de atención</Link> para agendar una cita de diseño con nuestros maestros joyeros o desde nuestra sección de <Link href="/personalized" className="text-oro-antiguo hover:underline">Personalizados</Link>.
+              Absolutamente. La cocreación es parte de nuestro ADN. Contáctenos vía WhatsApp al <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-oro-antiguo underline font-medium">{CONTACT_PHONE_DISPLAY}</a> para agendar una cita de diseño con nuestros maestros joyeros o desde nuestra sección de <Link href="/personalized" className="text-oro-antiguo hover:underline">Personalizados</Link>.
             </span>
           )
         }
@@ -229,9 +230,9 @@ export const FAQSection = () => {
           <LuxuryButton 
             variant="gold" 
             className="!py-2.5 !px-5 flex items-center justify-center gap-2.5 text-xs uppercase tracking-[0.2em] w-full sm:w-auto flex-shrink-0"
-            onClick={() => window.location.href = '/atencion-al-cliente'}
+            onClick={() => window.open(WHATSAPP_LINK, '_blank')}
           >
-            <HeadphonesIcon size={15} className="flex-shrink-0" /> Contactar a Concierge
+            <MessageCircle size={15} className="flex-shrink-0" /> WhatsApp ({CONTACT_PHONE_DISPLAY})
           </LuxuryButton>
         </div>
 

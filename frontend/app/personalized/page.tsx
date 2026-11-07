@@ -6,6 +6,7 @@ import { Footer } from "../../components/Footer";
 import { LuxuryButton } from "../../components/DesignSystem";
 import { MessageCircle, MapPin, Clock, CheckCircle2, Loader2 } from "lucide-react";
 import { useAuthStore } from "../../lib/store/useAuthStore";
+import { CONTACT_PHONE_INTL } from "../../lib/contact";
 
 export default function PersonalizedPage() {
   const { user } = useAuthStore();
@@ -109,17 +110,28 @@ export default function PersonalizedPage() {
                   <h4 className="text-2xl font-display text-hueso-seda">Solicitud Recibida</h4>
                 </div>
                 <p className="text-sm sm:text-base text-hueso-seda/80 font-light leading-relaxed max-w-sm italic">
-                  Hemos enviado una copia a tu correo electrónico. Nuestro equipo del Atelier revisará tu proyecto y se pondrá en contacto en un máximo de 24 horas hábiles.
+                  Hemos enviado una copia a tu correo electrónico. Nuestro equipo artesanal revisará tu proyecto y se pondrá en contacto en un máximo de 24 horas hábiles.
                 </p>
-                <button
-                  onClick={() => {
-                    setSubmittedData(null);
-                    setDescription("");
-                  }}
-                  className="px-6 py-3 border border-oro-antiguo text-oro-antiguo text-sm uppercase tracking-widest hover:bg-oro-antiguo hover:text-verde-ebano transition-all mt-4"
-                >
-                  Enviar Otra Solicitud
-                </button>
+                <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                  <a
+                    href={`https://wa.me/${CONTACT_PHONE_INTL}?text=${encodeURIComponent(`Hola Minerva Alcaraz Joyería, acabo de enviar mi solicitud de co-creación ${submittedData.requestNumber} y deseo conversar con un asesor de diseño.`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-oro-antiguo text-verde-ebano text-sm uppercase tracking-widest font-bold hover:bg-hueso-seda transition-all flex items-center justify-center gap-2 shadow-md"
+                  >
+                    <MessageCircle size={15} />
+                    WhatsApp Directo
+                  </a>
+                  <button
+                    onClick={() => {
+                      setSubmittedData(null);
+                      setDescription("");
+                    }}
+                    className="px-6 py-3 border border-oro-antiguo text-oro-antiguo text-sm uppercase tracking-widest hover:bg-oro-antiguo hover:text-verde-ebano transition-all"
+                  >
+                    Enviar Otra Solicitud
+                  </button>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-8">

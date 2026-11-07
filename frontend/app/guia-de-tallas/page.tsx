@@ -52,7 +52,7 @@ export default function GuiaDeTallasPage() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
           <div className="max-w-2xl space-y-6 text-center md:text-left">
             <span className="text-xs sm:text-sm uppercase tracking-[0.4em] text-oro-antiguo font-medium">
-              Atelier & Ritual de Medición
+              Concierge & Ritual de Medición
             </span>
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-display leading-tight">
               Guía de Medidas Oficiales

@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
         break;
 
       case "abandoned_cart":
-        subject = "🛒 Tus Piezas en el Atelier te Esperan · Minerva Alcaraz ✨";
+        subject = "🛒 Tus Piezas te Esperan · Minerva Alcaraz ✨";
         html = getAbandonedCartTemplate({
           customerName: payload.name || "Cliente",
           items: payload.items,
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
         break;
 
       case "saved_favorites":
-        subject = "💖 Tus Piezas Favoritas Guardadas en el Atelier · Minerva Alcaraz ✨";
+        subject = "💖 Tus Piezas Favoritas · Minerva Alcaraz ✨";
         html = getSavedFavoritesTemplate({
           customerName: payload.name || "Cliente",
           items: payload.items,

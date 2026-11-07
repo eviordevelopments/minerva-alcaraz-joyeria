@@ -19,7 +19,7 @@ const benefits = [
   {
     icon: Crown,
     title: "Concierge Dedicado",
-    description: "Atención personalizada. Respuesta en menos de 4 horas. Disponible por WhatsApp, correo y cita online / presencial en punto de venta.",
+    description: "Atención personalizada. Respuesta en menos de 4 horas. Disponible por WhatsApp (+52 462 621 7960), correo y cita online / presencial en punto de venta.",
     accent: "Exclusivo para Miembros"
   },
   {
@@ -316,12 +316,12 @@ export default function TheCirclePage() {
               Tu Concierge<br />Dedicado
             </h2>
             <p className="text-hueso-seda/60 text-base md:text-lg font-light leading-loose text-justify">
-              No soy un bot ni una línea de atención. Soy una persona que conoce tus preferencias, tu historial y tu visión estética. Estoy a tu entera disposición para resolver tus consultas, organizar tus visitas al atelier, agendar tus co-creaciones y coordinar cada detalle de tu experiencia.
+              No soy un bot ni una línea de atención. Soy una persona que conoce tus preferencias, tu historial y tu visión estética. Estoy a tu entera disposición para resolver tus consultas, organizar tus citas presenciales en punto de venta, agendar tus co-creaciones y coordinar cada detalle de tu experiencia.
             </p>
             <div className="flex flex-col gap-4">
               {[
                 "Responderé a tus mensajes en menos de 4 horas en días hábiles",
-                "Me comunicaré directamente contigo por WhatsApp o correo",
+                "Me comunicaré directamente contigo por WhatsApp (+52 462 621 7960) o correo",
                 "Te acompañaré en cada paso del proceso de co-creación",
                 "Coordinaré personalmente tus envíos y el mantenimiento de tus joyas",
               ].map((item) => (
@@ -335,7 +335,7 @@ export default function TheCirclePage() {
               href="/personalized"
               className="flex items-center gap-3 text-xs uppercase tracking-[0.4em] text-oro-antiguo border-b border-oro-antiguo/30 pb-1 w-fit hover:border-oro-antiguo transition-colors group"
             >
-              Conocer el Atelier
+              Conocer Concierge
               <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>

@@ -80,12 +80,12 @@ export async function POST(req: NextRequest) {
       html: emailHtml,
     });
 
-    // Send copy notification to Atelier
+    // Send copy notification to Concierge / Admin
     await sendEmail({
-      to: "concierge@minervaalcarazjoyeria.mx",
-      subject: `[ATELIER] Nueva Solicitud Concierge · ${contact_name} (${requestNumber})`,
+      to: "minerva.alcaraz.joyeria@gmail.com",
+      subject: `[CONCIERGE] Nueva Solicitud Concierge · ${contact_name} (${requestNumber})`,
       html: emailHtml,
-    }).catch((e) => console.log("Atelier copy notice:", e.message));
+    }).catch((e) => console.log("Concierge copy notice:", e.message));
 
     return NextResponse.json({
       success: true,

@@ -115,7 +115,7 @@ const KB: KBEntry[] = [
   {
     pattern: /personal|dise[ñn]|medida|crea[cr]|co[-\u2010]?crea/i,
     response:
-      "La co-creación es parte esencial de Minerva Alcaraz. Trabajamos contigo desde el boceto: eliges el tipo de pieza, metal, piedras y detalles. Para iniciar, agenda una consulta en el Atelier. Aquí algunas piezas que pueden inspirarte:",
+      "La co-creación es parte esencial de Minerva Alcaraz. Trabajamos contigo desde el boceto: eliges el tipo de pieza, metal, piedras y detalles. Para iniciar, contacta a tu Concierge por WhatsApp. Aquí algunas piezas que pueden inspirarte:",
     filter: (p) => !!p.featured || !!p.tags?.includes("Atelier"),
   },
   {

@@ -81,7 +81,7 @@ export const ProductFilters = () => {
               <div className="mt-8 p-6 bg-authority flex flex-col gap-4">
                 <div className="flex items-center gap-2 text-oro-antiguo">
                   <Sparkles size={14} />
-                  <span className="text-[11px] uppercase tracking-widest">Atelier IA</span>
+                  <span className="text-[11px] uppercase tracking-widest">Concierge IA</span>
                 </div>
                 <p className="text-[11px] text-hueso-seda/50 leading-relaxed uppercase tracking-tighter">
                   Describa su visión para una recomendación única.

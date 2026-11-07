@@ -9,8 +9,9 @@ import { LuxuryButton } from "../../components/DesignSystem";
 import {
   ShieldCheck, Lock, Globe, ArrowRight, CheckCircle,
   Package, ExternalLink, ShoppingBag, CreditCard, ChevronLeft,
-  Minus, Plus, Trash2, Sparkles
+  Minus, Plus, Trash2, Sparkles, MessageCircle
 } from "lucide-react";
+import { CONTACT_PHONE_INTL, CONTACT_PHONE_DISPLAY } from "../../lib/contact";
 import { useAuthStore } from "../../lib/store/useAuthStore";
 import { useCartStore, isTestOrInvalidProduct } from "../../lib/store/useCartStore";
 import { loadStripe } from "@stripe/stripe-js";
@@ -262,6 +263,29 @@ export default function CheckoutPage() {
     }
   };
 
+  const handleWhatsApp = () => {
+    const lines = [
+      "Hola Minerva Alcaraz Joyería, me gustaría confirmar mi pedido:",
+      "",
+      ...items.map(
+        (i) =>
+          `• ${i.name} (x${i.quantity}) — $${(i.price * i.quantity).toLocaleString("es-MX")} MXN${i.size ? ` | Talla: ${i.size}` : ""}`
+      ),
+      "",
+      `Total: $${total.toLocaleString("es-MX")} MXN`,
+      "",
+      shippingName ? `Nombre: ${shippingName}` : "",
+      shippingAddress ? `Dirección: ${shippingAddress}, ${shippingCity} ${shippingPostal}` : "",
+      shippingPhone ? `Teléfono: ${shippingPhone}` : "",
+      customerNotes ? `Notas: ${customerNotes}` : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    const encoded = encodeURIComponent(lines);
+    window.open(`https://wa.me/${CONTACT_PHONE_INTL}?text=${encoded}`, "_blank");
+  };
+
   // ── Success screen ──────────────────────────────────────────────────────────
   if (isFinished) {
     return (
@@ -280,16 +304,26 @@ export default function CheckoutPage() {
             <span>, {shippingName.split(" ")[0] || "Miembro"}</span>
           </h1>
           <p className="text-base text-hueso-seda/60 tracking-widest leading-loose uppercase max-w-md">
-            El pago ha sido procesado exitosamente y pronto recibirás un correo de confirmación. Tu legado está siendo preparado en nuestro Atelier.
+            El pago ha sido procesado exitosamente y pronto recibirás un correo de confirmación. Tu legado está siendo preparado artesanalmente con la mayor dedicación.
           </p>
 
-          <Link
-            href="/atencion-al-cliente"
-            className="flex items-center gap-3 border border-oro-antiguo text-oro-antiguo px-8 py-4 text-xs uppercase tracking-widest hover:bg-oro-antiguo hover:text-verde-ebano transition-all"
-          >
-            Atención al Cliente
-            <ArrowRight size={14} />
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <button
+              onClick={handleWhatsApp}
+              className="flex items-center gap-3 bg-oro-antiguo text-verde-ebano px-8 py-4 text-xs uppercase tracking-widest hover:bg-hueso-seda font-bold transition-all shadow-md"
+            >
+              <MessageCircle size={15} />
+              Soporte por WhatsApp ({CONTACT_PHONE_DISPLAY})
+            </button>
+
+            <Link
+              href="/atencion-al-cliente"
+              className="flex items-center gap-3 border border-oro-antiguo/50 text-oro-antiguo px-8 py-4 text-xs uppercase tracking-widest hover:bg-oro-antiguo hover:text-verde-ebano transition-all"
+            >
+              Atención al Cliente
+              <ArrowRight size={14} />
+            </Link>
+          </div>
 
           <div className="h-px w-16 bg-oro-antiguo/30" />
           <LuxuryButton
@@ -299,7 +333,7 @@ export default function CheckoutPage() {
               window.location.href = "/";
             }}
           >
-            Regresar al Atelier
+            Regresar a la Tienda
           </LuxuryButton>
         </motion.div>
       </main>
@@ -366,7 +400,7 @@ export default function CheckoutPage() {
             Añade piezas a tu bolsa antes de proceder al pago.
           </p>
           <Link href="/shop">
-            <LuxuryButton>Explorar el Atelier</LuxuryButton>
+            <LuxuryButton>Explorar Colecciones</LuxuryButton>
           </Link>
         </div>
       </main>

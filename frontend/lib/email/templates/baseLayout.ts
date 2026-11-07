@@ -157,7 +157,7 @@ export function wrapBaseEmailTemplate({
       <!-- FOOTER WITH SAN MIGUEL DE ALLENDE LOCATION -->
       <div class="footer">
         <p style="margin:0 0 8px 0; color:#CBB67B; font-weight:bold; font-family:'Cormorant Garamond', Georgia, serif; font-size:13px; letter-spacing:0.2em;">MINERVA ALCARAZ JOYERÍA</p>
-        <p style="margin:0 0 12px 0; font-size:8px; text-transform:none; color:#8E9A8B; letter-spacing:0.15em;">San Miguel de Allende, Guanajuato, México · Atelier Privado</p>
+        <p style="margin:0 0 12px 0; font-size:8px; text-transform:none; color:#8E9A8B; letter-spacing:0.15em;">San Miguel de Allende, Guanajuato, México</p>
         <div style="width:36px; height:1px; background-color:rgba(203, 182, 123, 0.35); margin:14px auto;"></div>
         <p style="margin:0; font-size:8px; opacity:0.6; letter-spacing:0.2em;">© 2026 Minerva Alcaraz. Todos los derechos reservados.</p>
       </div>

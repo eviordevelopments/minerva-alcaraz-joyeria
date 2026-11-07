@@ -9,10 +9,16 @@ import {
   MapPin, 
   Navigation, 
   ExternalLink, 
-  Clock 
+  Clock,
+  MessageCircle 
 } from "lucide-react";
 import { Newsletter } from "./Newsletter";
 import { isRestrictedMobileWebView } from "../lib/deviceDetect";
+import { 
+  CONTACT_PHONE_DISPLAY, 
+  WHATSAPP_LINK,
+  SAN_MIGUEL_WHATSAPP_LINK 
+} from "../lib/contact";
 
 interface LocationData {
   id: "floroteca" | "san-miguel";
@@ -25,7 +31,8 @@ interface LocationData {
   embedQuery: string;
   actionLabel: string;
   schedule: string;
-  atelierLink?: string;
+  citaLink?: string;
+  citaLabel?: string;
 }
 
 const LOCATIONS: Record<"floroteca" | "san-miguel", LocationData> = {
@@ -45,14 +52,15 @@ const LOCATIONS: Record<"floroteca" | "san-miguel", LocationData> = {
     id: "san-miguel",
     name: "San Miguel de Allende",
     city: "San Miguel de Allende, Gto.",
-    tag: "Atelier Insignia · Citas Privadas",
-    address: "Calle Real de Correo #18, Zona Centro, 37700 San Miguel de Allende, Gto.",
-    reference: "Santuario colonial del siglo XVIII para diseño personalizado de alta joyería y entregas privadas.",
-    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Calle+Real+de+Correo+18,+Zona+Centro,+San+Miguel+de+Allende,+Gto.",
-    embedQuery: "Calle Real de Correo 18, Zona Centro, San Miguel de Allende, Gto.",
+    tag: "Punto de Venta Autorizado · Cita Previa",
+    address: "Mesones Número 74 Colonia Centro dentro de Fina Catrina",
+    reference: "Para ir ahí será a través de citas por mensaje según disponibilidad. Favor de contactar a tu concierge por WhatsApp para reservar cita en la agenda.",
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Mesones+74,+Zona+Centro,+San+Miguel+de+Allende,+Gto.",
+    embedQuery: "Mesones 74, Centro, San Miguel de Allende, Gto.",
     actionLabel: "Ver en Google Maps",
-    schedule: "Lunes a Sábado: 11:00 AM — 07:00 PM",
-    atelierLink: "/atelier",
+    schedule: "Atención Exclusiva con Cita Previa",
+    citaLink: SAN_MIGUEL_WHATSAPP_LINK,
+    citaLabel: "Agendar Cita en Agenda",
   },
 };
 
@@ -201,13 +209,16 @@ export const Footer = () => {
                     <ExternalLink size={12} className="opacity-70" />
                   </a>
 
-                  {currentLoc.atelierLink && (
-                    <Link
-                      href={currentLoc.atelierLink}
+                  {currentLoc.citaLink && (
+                    <a
+                      href={currentLoc.citaLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="border border-oro-antiguo/40 text-oro-antiguo hover:bg-oro-antiguo/10 py-3.5 px-5 text-[11px] uppercase tracking-[0.25em] font-medium flex items-center justify-center gap-2 transition-all duration-300 text-center"
                     >
-                      <span>Agendar Cita</span>
-                    </Link>
+                      <MessageCircle size={13} />
+                      <span>{currentLoc.citaLabel || "Agendar Cita"}</span>
+                    </a>
                   )}
                 </div>
               </div>
@@ -288,9 +299,19 @@ export const Footer = () => {
                 {/* Social media presence */}
                 <div className="flex flex-col gap-3 pt-2">
                   <span className="text-[10px] uppercase tracking-[0.3em] text-oro-antiguo font-mono">
-                    Redes Sociales Oficiales
+                    Canales Oficiales
                   </span>
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <a 
+                      href={WHATSAPP_LINK}
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      aria-label="WhatsApp Oficial de Minerva Alcaraz Joyería"
+                      className="flex items-center gap-2.5 px-4 py-2 border border-oro-antiguo/40 bg-emerald-950/20 text-hueso-seda/90 hover:text-oro-antiguo hover:border-oro-antiguo hover:bg-oro-antiguo/10 transition-all duration-300 group"
+                    >
+                      <MessageCircle size={16} strokeWidth={1.5} className="text-emerald-400 group-hover:scale-110 transition-transform" />
+                      <span className="text-[11px] uppercase tracking-[0.2em] font-medium">WhatsApp</span>
+                    </a>
                     <a 
                       href="https://www.instagram.com/minerva.alcaraz.joyeria?obrf=bHA3ejZkN29tYTYw" 
                       target="_blank" 
@@ -369,10 +390,12 @@ export const Footer = () => {
               <div className="flex flex-col gap-8">
                 <h4 className="text-sm uppercase tracking-[0.4em] text-oro-antiguo font-medium">Servicio</h4>
                 <ul className="flex flex-col gap-5 text-sm opacity-60 tracking-[0.15em] font-light uppercase">
+                  <li><Link href="/atencion-al-cliente" className="hover:text-oro-antiguo animated-underline transition-colors">Atención al Cliente</Link></li>
+                  <li><a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="hover:text-oro-antiguo animated-underline transition-colors flex items-center gap-1.5"><MessageCircle size={13} className="text-emerald-400" /> WhatsApp ({CONTACT_PHONE_DISPLAY})</a></li>
                   <li><Link href="/personalized" className="hover:text-oro-antiguo animated-underline transition-colors">Concierge Digital</Link></li>
                   <li><Link href="/care-ritual" className="hover:text-oro-antiguo animated-underline transition-colors">Cuidado Eterno</Link></li>
                   <li><Link href="/size-guide" className="hover:text-oro-antiguo animated-underline transition-colors">Guía de Tallas</Link></li>
-                  <li><Link href="/atelier" className="hover:text-oro-antiguo animated-underline transition-colors">Citas de Atelier</Link></li>
+                  <li><Link href="/perfil/concierge" className="hover:text-oro-antiguo animated-underline transition-colors">Citas &amp; Concierge</Link></li>
                 </ul>
               </div>
               <div className="flex flex-col gap-8">
@@ -402,6 +425,17 @@ export const Footer = () => {
               MINERVA ALCARAZ JOYERÍA © 2026 | TU ESENCIA HECHA JOYA
             </p>
             <div className="flex items-center gap-6 text-hueso-seda/60">
+              <a 
+                href={WHATSAPP_LINK}
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="WhatsApp Oficial"
+                className="hover:text-oro-antiguo transition-colors flex items-center gap-2 text-xs uppercase tracking-widest text-emerald-400"
+              >
+                <MessageCircle size={15} strokeWidth={1.5} />
+                <span>WhatsApp ({CONTACT_PHONE_DISPLAY})</span>
+              </a>
+              <span className="opacity-20">•</span>
               <a 
                 href="https://www.instagram.com/minerva.alcaraz.joyeria?obrf=bHA3ejZkN29tYTYw" 
                 target="_blank" 

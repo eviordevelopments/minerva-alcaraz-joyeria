@@ -112,7 +112,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
         <Header />
         <div className="pt-40 md:pt-56 px-8 md:px-16 pb-32 flex flex-col items-center gap-6 min-h-[60vh]">
           <h1 className="text-4xl font-display text-verde-ebano">Pieza no encontrada</h1>
-          <p className="text-base text-plata-niebla">Esta pieza no existe en nuestro atelier.</p>
+          <p className="text-base text-plata-niebla">Esta pieza no existe en nuestro catálogo.</p>
         </div>
         <Footer />
       </main>
@@ -135,7 +135,7 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                 Complementa tu Joya
               </h2>
               <p className="text-xs uppercase tracking-[0.4em] text-plata-niebla max-w-md">
-                Piezas seleccionadas por el atelier basándose en armonía de proporciones.
+                Piezas seleccionadas basándose en armonía de proporciones.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">

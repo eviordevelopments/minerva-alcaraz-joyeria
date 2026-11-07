@@ -8,9 +8,9 @@ import { useRouter } from "next/navigation";
 import { CalendarDays, Crown, MapPin, Clock } from "lucide-react";
 
 const MOCK_EVENTS = [
-  { id: "1", title: "Vista Privada — Colección Etérea", type: "Vista Privada", date: "2025-06-15", time: "6:00 PM", location: "Atelier Minerva Alcaraz, Polanco CDMX", spots: 8, available: 3 },
+  { id: "1", title: "Vista Privada — Colección Etérea", type: "Vista Privada", date: "2025-06-15", time: "6:00 PM", location: "Punto de Venta San Miguel de Allende (Mesones 74, dentro de Fina Catrina)", spots: 8, available: 3 },
   { id: "2", title: "Trunk Show — Ecos de la Tierra", type: "Trunk Show", date: "2025-07-02", time: "4:00 PM", location: "Casa Lamm, Colonia Roma Norte", spots: 12, available: 7 },
-  { id: "3", title: "Taller de Co-Creación", type: "Taller Exclusivo", date: "2025-07-18", time: "10:00 AM", location: "Atelier Minerva Alcaraz, Polanco CDMX", spots: 4, available: 2 },
+  { id: "3", title: "Taller de Co-Creación", type: "Taller Exclusivo", date: "2025-07-18", time: "10:00 AM", location: "Punto de Venta San Miguel de Allende (Mesones 74, dentro de Fina Catrina)", spots: 4, available: 2 },
 ];
 
 export default function EventosPage() {
@@ -28,7 +28,7 @@ export default function EventosPage() {
           <div className="flex-1 flex flex-col gap-6">
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-2"><Crown size={10} className="text-oro-antiguo" /><p className="text-[11px] uppercase tracking-[0.7em] text-oro-antiguo">The Circle</p></div>
-              <h1 className="text-3xl font-display text-verde-ebano">Eventos Atelier</h1>
+              <h1 className="text-3xl font-display text-verde-ebano">Eventos Exclusivos</h1>
             </div>
             <div className="flex flex-col gap-4">
               {MOCK_EVENTS.map(event => (

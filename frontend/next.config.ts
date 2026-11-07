@@ -132,8 +132,8 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/whatsapp',
-        destination: '/atencion-al-cliente',
-        permanent: true,
+        destination: 'https://wa.me/524626217960?text=Hola%20Minerva%20Alcaraz,%20deseo%20asesor%C3%ADa%20personalizada.',
+        permanent: false,
       },
       {
         source: '/atencion-cliente',

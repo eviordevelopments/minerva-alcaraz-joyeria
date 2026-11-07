@@ -40,13 +40,13 @@ const TIER_DETAILS = {
     label: "Guardiana",
     nextTier: "Eterna",
     pointsNeeded: 20000,
-    desc: "Custodia de las piezas más exclusivas. Invitaciones a eventos de Atelier.",
+    desc: "Custodia de las piezas más exclusivas. Invitaciones a eventos exclusivos.",
   },
   Eternal: {
     label: "Eterna",
     nextTier: "Máximo Legado",
     pointsNeeded: 20000,
-    desc: "Vínculo sagrado con la marca. Acceso ilimitado a piezas únicas del Atelier.",
+    desc: "Vínculo sagrado con la marca. Acceso ilimitado a piezas únicas y ediciones especiales.",
   },
 };
 
@@ -488,7 +488,7 @@ export default function PerfilPage() {
                       href="/shop"
                       className="text-[11px] uppercase tracking-[0.4em] text-[#CBB67B] border-b border-[#CBB67B]/30 pb-0.5 hover:border-[#CBB67B] transition-colors"
                     >
-                      Explorar el Atelier
+                      Explorar Colecciones
                     </Link>
                   </div>
                 ) : (

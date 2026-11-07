@@ -77,7 +77,7 @@ export default function EnviosPage() {
       case "paid":
         return { text: "1. Pago Liquidado & Recibido", color: "text-emerald-400 border-emerald-500/30 bg-emerald-950/40" };
       case "processing":
-        return { text: "2. En Preparación en el Atelier", color: "text-[#CBB67B] border-[#CBB67B]/40 bg-[#CBB67B]/10" };
+        return { text: "2. En Preparación Artesanal", color: "text-[#CBB67B] border-[#CBB67B]/40 bg-[#CBB67B]/10" };
       case "shipped":
         return { text: "3. En Camino / Custodia de Valores", color: "text-blue-300 border-blue-400/40 bg-blue-950/40" };
       default:

@@ -153,7 +153,7 @@ export const CartSidebar: React.FC = () => {
                     onClick={closeCart}
                     className="text-xs uppercase tracking-widest border-b border-oro-antiguo/40 text-oro-antiguo pb-0.5 hover:border-oro-antiguo transition-colors"
                   >
-                    Explorar el Atelier
+                    Explorar Colecciones
                   </Link>
                 </div>
               ) : (

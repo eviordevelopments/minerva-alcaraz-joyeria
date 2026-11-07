@@ -14,6 +14,7 @@ import {
   Package, Clock, CheckCircle2, Truck, XCircle, ChevronDown, ChevronUp, 
   ExternalLink, MessageCircle, Sparkles, Star, ShieldCheck, Check, Send, X, Copy, HeadphonesIcon
 } from "lucide-react";
+import { CONTACT_PHONE_INTL, CONTACT_PHONE_DISPLAY } from "../../../lib/contact";
 
 interface OrderItem {
   id: string;
@@ -50,7 +51,7 @@ const STEP_DEFINITIONS = [
   },
   {
     key: "processing",
-    title: "2. En Preparación en el Atelier",
+    title: "2. En Preparación Artesanal",
     subtitle: "Nuestros maestros orfebres preparan tu joya, certifican gemas e insumos y colocan sellos de seguridad.",
   },
   {
@@ -225,7 +226,7 @@ export default function PedidosPage() {
               <div className="flex items-center justify-center py-24">
                 <div className="flex flex-col items-center gap-4">
                   <div className="w-8 h-8 border-2 border-oro-antiguo/20 border-t-oro-antiguo rounded-full animate-spin" />
-                  <p className="text-[11px] uppercase tracking-[0.5em] text-verde-ebano/30">Consultando Atelier...</p>
+                  <p className="text-[11px] uppercase tracking-[0.5em] text-verde-ebano/30">Consultando Pedidos...</p>
                 </div>
               </div>
             ) : orders.length === 0 ? (
@@ -246,6 +247,16 @@ export default function PedidosPage() {
                 {orders.map((order) => {
                   const isPaid = order.status !== "pending" && order.status !== "cancelled";
                   const isExpanded = expandedId === order.id;
+
+                  const waMessage = [
+                    "Hola Minerva Alcaraz Joyería, tengo una consulta sobre mi adquisición:",
+                    `• Pedido: ${order.order_number}`,
+                    `• Total: $${(order.total_cents / 100).toLocaleString("es-MX", { minimumFractionDigits: 2 })} MXN`,
+                    order.payment_reference ? `• Ref. de Pago: ${order.payment_reference}` : "",
+                    "¿Me podrían brindar asesoría personalizada por favor?",
+                  ].filter(Boolean).join("\n");
+
+                  const waUrl = `https://wa.me/${CONTACT_PHONE_INTL}?text=${encodeURIComponent(waMessage)}`;
 
                   return (
                     <motion.div
@@ -303,14 +314,16 @@ export default function PedidosPage() {
                         </div>
 
                         <div className="flex flex-wrap items-center gap-3">
-                          {/* Botón de Atención al Cliente */}
-                          <Link
-                            href="/atencion-al-cliente"
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-[#CBB67B]/40 text-verde-ebano hover:bg-oro-antiguo hover:text-verde-ebano transition-all text-[11px] uppercase tracking-wider font-medium"
+                          {/* Botón WhatsApp */}
+                          <a
+                            href={waUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-emerald-600/30 text-emerald-800 hover:bg-emerald-600 hover:text-white transition-all text-[11px] uppercase tracking-wider font-medium"
                           >
-                            <HeadphonesIcon size={13} />
-                            Dudas sobre mi Transacción
-                          </Link>
+                            <MessageCircle size={13} />
+                            WhatsApp ({CONTACT_PHONE_DISPLAY})
+                          </a>
 
                           {/* Botón de Rastreo Elegante */}
                           <button
@@ -405,7 +418,7 @@ export default function PedidosPage() {
               <div className="bg-[#2C3729] text-[#E5DBD6] p-6 sm:p-8 flex items-start justify-between border-b border-oro-antiguo/30">
                 <div>
                   <span className="text-[10px] uppercase tracking-[0.4em] text-oro-antiguo block font-bold mb-1">
-                    Atelier Minerva Alcaraz
+                    Minerva Alcaraz Joyería
                   </span>
                   <h2 className="text-2xl font-display font-bold">
                     Rastreo de Joya de Autor
@@ -568,7 +581,7 @@ export default function PedidosPage() {
                         Entrega Confirmada & Calificada
                       </p>
                       <p className="text-[11px] text-emerald-700">
-                        Agradecemos tu retroalimentación. Tu evaluación ha sido registrada en el Atelier.
+                        Agradecemos tu retroalimentación. Tu evaluación ha sido registrada exitosamente.
                       </p>
                     </div>
                   ) : !showSurvey ? (

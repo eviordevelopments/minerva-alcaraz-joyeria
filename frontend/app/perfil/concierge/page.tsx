@@ -20,7 +20,16 @@ import {
   AlertCircle,
   RefreshCw,
   HeadphonesIcon,
+  Calendar,
+  MapPin,
 } from "lucide-react";
+import { 
+  CONTACT_PHONE_DISPLAY, 
+  CONTACT_PHONE_INTL, 
+  CONTACT_EMAIL_MAILTO,
+  SAN_MIGUEL_WHATSAPP_LINK,
+  SAN_MIGUEL_FULL_ADDRESS
+} from "../../../lib/contact";
 
 interface CustomizationRequest {
   id: string;
@@ -159,20 +168,22 @@ export default function ConciergePage() {
               <div className="flex flex-col gap-3">
                 <h2 className="text-2xl font-display text-white font-bold">Minerva te atiende personalmente</h2>
                 <p className="text-[#E5DBD6]/80 text-base font-light leading-loose max-w-lg">
-                  Tu concierge dedicada está disponible para consultas de estilo, visitas al atelier, co-creación de piezas personalizadas y cualquier detalle de tu experiencia como miembro de The Circle.
+                  Tu concierge dedicada está disponible para consultas de estilo, citas presenciales en punto de venta, co-creación de piezas personalizadas y cualquier detalle de tu experiencia como miembro de The Circle.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/atencion-al-cliente"
+                <a
+                  href={`https://wa.me/${CONTACT_PHONE_INTL}?text=${encodeURIComponent("Hola Minerva, soy miembro de The Circle y deseo asesoría personalizada...")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center gap-3 bg-oro-antiguo text-verde-ebano text-xs uppercase tracking-[0.5em] px-8 py-4 hover:bg-hueso-seda font-bold transition-colors group shadow-md"
                 >
-                  <HeadphonesIcon size={14} strokeWidth={1.5} />
-                  Atención al Cliente
+                  <MessageCircle size={14} strokeWidth={1.5} />
+                  Abrir WhatsApp ({CONTACT_PHONE_DISPLAY})
                   <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
-                </Link>
+                </a>
                 <a
-                  href="mailto:concierge@minervaalcarazjoyeria.mx"
+                  href={CONTACT_EMAIL_MAILTO}
                   className="flex items-center justify-center gap-3 border border-white/20 text-white text-xs uppercase tracking-[0.4em] px-8 py-4 hover:border-oro-antiguo hover:text-oro-antiguo transition-colors"
                 >
                   Enviar Correo
@@ -181,6 +192,37 @@ export default function ConciergePage() {
               <p className="text-xs uppercase tracking-[0.3em] text-white font-semibold">
                 Respuesta garantizada en menos de 4 horas en días hábiles
               </p>
+            </div>
+
+            {/* ── CITA EN PUNTO DE VENTA (SAN MIGUEL DE ALLENDE) ────────────── */}
+            <div className="bg-[#1E261C] border-2 border-[#CBB67B]/40 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-xl relative overflow-hidden">
+              <div className="flex flex-col gap-2 max-w-xl">
+                <div className="flex items-center gap-2 text-oro-antiguo text-xs uppercase tracking-[0.3em] font-mono">
+                  <Calendar size={14} />
+                  <span>Agenda de Citas Presenciales</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-display text-white">
+                  Punto de Venta · San Miguel de Allende
+                </h3>
+                <div className="flex items-start gap-2 text-xs text-[#E5DBD6]/80 font-light mt-1">
+                  <MapPin size={14} className="text-oro-antiguo flex-shrink-0 mt-0.5" />
+                  <span>{SAN_MIGUEL_FULL_ADDRESS}</span>
+                </div>
+                <p className="text-xs text-oro-antiguo/90 font-light leading-relaxed mt-2 bg-black/20 p-3 border border-[#CBB67B]/20">
+                  Para ir ahí será a través de citas por mensaje según disponibilidad. Favor de contactar a tu concierge por WhatsApp para reservar tu cita en la agenda.
+                </p>
+              </div>
+
+              <a
+                href={SAN_MIGUEL_WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto flex-shrink-0 bg-oro-antiguo text-verde-ebano hover:bg-hueso-seda font-bold px-6 py-4 text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2.5 transition-all shadow-lg group"
+              >
+                <MessageCircle size={15} />
+                <span>Reservar Cita en la Agenda</span>
+                <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+              </a>
             </div>
 
             {/* ── CLIENT BESPOKE REQUESTS TRACKER ───────────────────────── */}
@@ -313,18 +355,18 @@ export default function ConciergePage() {
                           </div>
                         )}
 
-                        {/* Communication Log / Notes from Atelier */}
+                        {/* Communication Log / Notes from Craftsmen */}
                         {req.communication_log && req.communication_log.length > 0 && (
                           <div className="space-y-2 border-t border-[#CBB67B]/15 pt-4">
                             <span className="text-[10px] uppercase tracking-[0.25em] text-[#8E9A8B] font-bold block">
-                              Bitácora de Avance del Atelier
+                              Bitácora de Avance Artesanal
                             </span>
                             <div className="space-y-2 pl-3 border-l-2 border-[#CBB67B]/40">
                               {req.communication_log.map((log, idx) => (
                                 <div key={idx} className="text-xs space-y-0.5">
                                   <div className="flex items-center gap-2 text-[10px] text-[#8E9A8B]">
                                     <span className="text-oro-antiguo font-bold uppercase tracking-wider">
-                                      {log.role === "admin" ? "Atelier Minerva" : "Sistema"}
+                                      {log.role === "admin" ? "Equipo Minerva" : "Sistema"}
                                     </span>
                                     <span>·</span>
                                     <span>{new Date(log.timestamp).toLocaleDateString("es-MX")}</span>
@@ -336,15 +378,17 @@ export default function ConciergePage() {
                           </div>
                         )}
 
-                        {/* Action Atención al Cliente */}
+                        {/* Action WhatsApp */}
                         <div className="flex justify-end pt-2">
-                          <Link
-                            href="/atencion-al-cliente"
+                          <a
+                            href={`https://wa.me/${CONTACT_PHONE_INTL}?text=${encodeURIComponent(`Hola Minerva, deseo consultar el estado de mi solicitud de co-creación ${req.request_number}...`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-4 py-2 bg-[#2C3729] hover:bg-oro-antiguo hover:text-verde-ebano text-oro-antiguo border border-[#CBB67B]/40 text-[11px] uppercase tracking-widest font-bold transition-all"
                           >
-                            <HeadphonesIcon size={13} />
-                            <span>Consultar Atención al Cliente</span>
-                          </Link>
+                            <MessageCircle size={13} />
+                            <span>Consultar por WhatsApp</span>
+                          </a>
                         </div>
                       </div>
                     );
@@ -357,7 +401,7 @@ export default function ConciergePage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
                 { title: "Consulta de Estilo", desc: "Selección personalizada de piezas según tu gusto y ocasión" },
-                { title: "Visita al Atelier", desc: "Agenda una visita privada para conocer el proceso artesanal" },
+                { title: "Cita en Punto de Venta", desc: "Visita San Miguel de Allende (Mesones 74) con cita previa por WhatsApp según disponibilidad" },
                 { title: "Co-Creación", desc: "Diseña con Minerva tu pieza completamente única" },
               ].map((s) => (
                 <div key={s.title} className="bg-[#1E261C] border border-[#CBB67B]/25 p-6 flex flex-col gap-2 shadow-md text-left">

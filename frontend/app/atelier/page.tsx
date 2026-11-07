@@ -10,8 +10,12 @@ import { useAuthStore } from "../../lib/store/useAuthStore";
 import Link from "next/link";
 import { 
   Crown, Lock, Calendar, MapPin, Clock, Sparkles, 
-  Check, ArrowRight, Compass, ShieldCheck 
+  Check, ArrowRight, Compass, ShieldCheck, MessageCircle 
 } from "lucide-react";
+import { 
+  SAN_MIGUEL_WHATSAPP_LINK, 
+  SAN_MIGUEL_FULL_ADDRESS 
+} from "../../lib/contact";
 
 // Mock pending special deliveries for the Circle member
 const MOCK_DELIVERIES = [
@@ -166,11 +170,11 @@ export default function AtelierPage() {
             
             <div className="flex flex-col gap-2 md:gap-3">
               <span className="text-[10px] sm:text-xs uppercase tracking-[0.4em] sm:tracking-[0.8em] text-oro-antiguo">ACCEDER A TU CUENTA</span>
-              <h1 className="text-xl sm:text-3xl md:text-5xl font-display text-hueso-seda leading-tight hero-title-no-hyphens">Atelier Minerva Alcaraz</h1>
+              <h1 className="text-xl sm:text-3xl md:text-5xl font-display text-hueso-seda leading-tight hero-title-no-hyphens">Citas en Punto de Venta</h1>
             </div>
 
             <p className="text-sm sm:text-base leading-relaxed text-hueso-seda/70 font-light">
-              El Atelier es un espacio dedicado a la entrega de piezas especiales, la muestra de colecciones exclusivas y la co-creación personalizada con Minerva Alcaraz.
+              Espacio dedicado a la entrega de piezas especiales, la muestra de colecciones exclusivas y la atención personalizada de Minerva Alcaraz Joyería.
             </p>
             
             <p className="text-xs sm:text-sm text-oro-antiguo/90 font-light max-w-md">
@@ -212,11 +216,11 @@ export default function AtelierPage() {
             <Crown size={12} className="text-oro-antiguo animate-pulse" />
             <span className="text-xs uppercase tracking-[0.8em] text-oro-antiguo">Espacio Exclusivo The Circle</span>
           </div>
-          <h1 className="text-5xl md:text-8xl font-display text-verde-ebano leading-none">
-            El Atelier
+          <h1 className="text-4xl md:text-7xl font-display text-verde-ebano leading-none">
+            Citas &amp; Puntos de Venta
           </h1>
           <p className="text-base md:text-base text-verde-ebano/70 max-w-2xl leading-relaxed font-light mt-2">
-            Bienvenido al espacio exclusivo de entrega y muestra del Atelier. Aquí encontrarás tus piezas en custodia, colecciones especiales y la posibilidad de agendar tu próxima visita.
+            Bienvenido al espacio de atención exclusiva. Aquí encontrarás tus piezas en custodia, colecciones especiales y la posibilidad de solicitar tu próxima cita presencial en punto de venta.
           </p>
         </div>
       </section>
@@ -232,7 +236,7 @@ export default function AtelierPage() {
                 <span className="text-[11px] uppercase tracking-widest text-oro-antiguo">Adquisiciones de Autor</span>
                 <h2 className="text-3xl font-display text-verde-ebano">Piezas Especiales en Custodia</h2>
                 <p className="text-sm text-verde-ebano/60 font-light mt-1">
-                  A continuación se enlistan las piezas que actualmente están en nuestro Atelier, listas para ser recolectadas bajo cita presencial.
+                  A continuación se enlistan las piezas que actualmente están listas para ser recolectadas bajo cita presencial con tu Concierge.
                 </p>
               </div>
 
@@ -275,9 +279,9 @@ export default function AtelierPage() {
             <div className="lg:col-span-6 bg-white border border-verde-ebano/15 p-8 md:p-12 flex flex-col gap-8 shadow-sm">
               <div className="flex flex-col gap-2">
                 <span className="text-[11px] uppercase tracking-widest text-oro-antiguo">El Ritual de Recolección</span>
-                <h2 className="text-2xl font-display text-verde-ebano">Agendar Cita en Atelier</h2>
-                <p className="text-xs text-verde-ebano/50 leading-relaxed">
-                  Evite superposiciones en nuestras mesas de exhibición. Cada cita cuenta con la atención exclusiva de un maestro joyero. Ubicación: San Miguel de Allende, Gto.
+                <h2 className="text-2xl font-display text-verde-ebano">Agendar Cita en Punto de Venta</h2>
+                <p className="text-xs text-verde-ebano/70 leading-relaxed">
+                  Para ir a San Miguel de Allende será a través de citas por mensaje según disponibilidad; favor de contactar a tu concierge por WhatsApp para reservar cita en la agenda.
                 </p>
               </div>
 
@@ -359,10 +363,25 @@ export default function AtelierPage() {
 
                     <div className="flex items-start gap-3 bg-hueso-seda/30 p-4 border border-verde-ebano/5 mt-2">
                       <MapPin size={14} className="text-oro-antiguo flex-shrink-0 mt-0.5" />
-                      <p className="text-[11px] text-verde-ebano/60 leading-relaxed uppercase tracking-tighter">
-                        Flagship Atelier Boutique: Calle Real de Correo #18, Zona Centro, San Miguel de Allende, México.
-                      </p>
+                      <div className="flex flex-col gap-1">
+                        <p className="text-[11px] text-verde-ebano font-medium uppercase tracking-tight">
+                          Punto de Venta Autorizado: Mesones Número 74 Colonia Centro dentro de Fina Catrina, San Miguel de Allende, Gto.
+                        </p>
+                        <p className="text-[10px] text-oro-antiguo font-light">
+                          Atención exclusivamente bajo cita previa según disponibilidad.
+                        </p>
+                      </div>
                     </div>
+
+                    <a
+                      href={SAN_MIGUEL_WHATSAPP_LINK}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full bg-oro-antiguo text-verde-ebano hover:bg-hueso-seda font-bold text-xs uppercase tracking-widest py-3.5 transition-all flex items-center justify-center gap-2 shadow-md"
+                    >
+                      <MessageCircle size={15} />
+                      <span>Agendar Cita en Agenda vía WhatsApp</span>
+                    </a>
 
                     <button 
                       type="submit"
@@ -372,7 +391,7 @@ export default function AtelierPage() {
                       {bookingLoading ? (
                         <div className="w-4 h-4 border-2 border-hueso-seda border-t-transparent rounded-full animate-spin" />
                       ) : (
-                        <>Confirmar Cita & Bloquear Mesa</>
+                        <>Confirmar Cita &amp; Registrar</>
                       )}
                     </button>
                   </motion.form>
@@ -414,13 +433,13 @@ export default function AtelierPage() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-verde-ebano/10 pb-8">
             <div className="flex flex-col gap-2 max-w-xl">
               <span className="text-[11px] uppercase tracking-widest text-oro-antiguo">Curaduría Especial</span>
-              <h2 className="text-3xl md:text-4xl font-display text-verde-ebano">Muestra de Atelier</h2>
+              <h2 className="text-3xl md:text-4xl font-display text-verde-ebano">Colecciones Selectas</h2>
               <p className="text-sm text-verde-ebano/60 leading-relaxed font-light mt-1">
-                Catálogo exclusivo de piezas de autor y colecciones limitadas disponibles en exhibición privada dentro de nuestro Atelier.
+                Catálogo exclusivo de piezas de autor y colecciones limitadas disponibles en exhibición privada dentro de nuestros puntos de venta.
               </p>
             </div>
             <span className="text-xs uppercase tracking-widest font-medium border border-oro-antiguo/30 px-3 py-1.5 text-oro-antiguo">
-              {atelierProducts.length} Piezas en Atelier
+              {atelierProducts.length} Piezas de Autor
             </span>
           </div>
 
@@ -438,24 +457,34 @@ export default function AtelierPage() {
         
         <div className="luxury-container relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           <div className="lg:col-span-5 flex flex-col gap-8">
-            <span className="text-[11px] uppercase tracking-[0.8em] text-oro-antiguo">Santuario Físico</span>
+            <span className="text-[11px] uppercase tracking-[0.8em] text-oro-antiguo">Punto de Venta Autorizado</span>
             <h2 className="text-3xl md:text-5xl font-display text-hueso-seda leading-tight">San Miguel de Allende</h2>
             <p className="text-sm leading-relaxed text-hueso-seda/70 font-light">
-              Nuestra sede se aloja en una casona colonial del siglo XVIII, donde el diseño digital interactivo se funde con los muros de cantera y los árboles de olivo. Un espacio de silencio acústico y visual diseñado para que su atención repose únicamente en la armonía geométrica del metal y las gemas preciosas.
+              Nuestro punto de venta en San Miguel de Allende se ubica dentro del espacio boutique de Fina Catrina, en Mesones Número 74, en el Centro Histórico. Para acudir es indispensable coordinar cita previa por mensaje según disponibilidad; favor de contactar a tu concierge por WhatsApp para reservar tu cita en la agenda.
             </p>
             <div className="flex flex-col gap-4 text-[11px] uppercase tracking-widest text-oro-antiguo/90 font-light">
               <div className="flex items-center gap-3">
-                <MapPin size={12} /> San Miguel de Allende, Centro Histórico
+                <MapPin size={12} /> Mesones #74, Centro (dentro de Fina Catrina)
               </div>
               <div className="flex items-center gap-3">
-                <Clock size={12} /> Lunes a Sábado: 11:00 AM — 07:00 PM
+                <Clock size={12} /> Atención previa cita por WhatsApp
               </div>
             </div>
+
+            <a
+              href={SAN_MIGUEL_WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-fit bg-oro-antiguo text-verde-ebano hover:bg-hueso-seda font-bold text-xs uppercase tracking-widest py-3 px-6 transition-all flex items-center gap-2 shadow-md"
+            >
+              <MessageCircle size={14} />
+              <span>Agendar Cita en Agenda</span>
+            </a>
           </div>
           <div className="lg:col-span-7 aspect-video relative bg-[#121811] border border-oro-antiguo/10 flex items-center justify-center overflow-hidden">
             <div className="text-center flex flex-col items-center gap-3 p-8">
               <Compass size={32} strokeWidth={0.8} className="text-oro-antiguo/40 animate-pulse" />
-              <span className="text-[10px] uppercase tracking-[0.4em] text-hueso-seda/50">Cinemática del Atelier en Vivo</span>
+              <span className="text-[10px] uppercase tracking-[0.4em] text-hueso-seda/50">San Miguel de Allende · Fina Catrina</span>
             </div>
           </div>
         </div>

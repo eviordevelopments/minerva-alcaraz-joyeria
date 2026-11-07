@@ -86,7 +86,7 @@ export const BraceletSizeGuideModal: React.FC<BraceletSizeGuideModalProps> = ({
 
           {/* Footer */}
           <div className="border-t border-[#2C3729]/15 bg-[#2C3729]/5 px-6 py-3 flex items-center justify-between text-sm text-[#2C3729]/70 shrink-0">
-            <span>Si tienes dudas con tu medida, nuestro Atelier te asesora personalmente.</span>
+            <span>Si tienes dudas con tu medida, nuestro Concierge te asesora personalmente por WhatsApp.</span>
             <button
               onClick={onClose}
               className="px-5 py-2 bg-[#2C3729] text-[#E5DBD6] uppercase text-xs tracking-widest hover:bg-[#CBB67B] hover:text-[#2C3729] transition-colors"

@@ -51,7 +51,7 @@ export default function ColeccionesPrivadasPage() {
             <div className="bg-[#1E261C] border border-[#CBB67B]/25 p-5 flex items-start gap-3 shadow-md">
               <Gem size={16} strokeWidth={1.5} className="text-[#CBB67B] flex-shrink-0 mt-0.5" />
               <p className="text-xs text-[#E5DBD6]/80 leading-loose">
-                Piezas únicas e irrepetibles disponibles exclusivamente para miembros de The Circle. Estas joyas se muestran únicamente cuando la dirección artística del Atelier activa su acceso exclusivo en inventario.
+                Piezas únicas e irrepetibles disponibles exclusivamente para miembros de The Circle. Estas joyas se muestran únicamente cuando la dirección artística de la marca activa su acceso exclusivo en inventario.
               </p>
             </div>
 
@@ -69,7 +69,7 @@ export default function ColeccionesPrivadasPage() {
                     Sin Piezas Privadas Activas
                   </h3>
                   <p className="text-xs text-[#E5DBD6]/70 leading-relaxed font-light">
-                    En este momento no hay piezas exclusivas activadas por el administrador para The Circle. Las nuevas creaciones reservadas aparecerán aquí tan pronto como sean liberadas por el Atelier.
+                    En este momento no hay piezas exclusivas activadas por el administrador para The Circle. Las nuevas creaciones reservadas aparecerán aquí tan pronto como sean liberadas por el equipo editorial.
                   </p>
                 </div>
               </div>

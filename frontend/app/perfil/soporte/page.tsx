@@ -6,9 +6,15 @@ import { Footer } from "../../../components/Footer";
 import { ProfileSidebar } from "../../../components/ProfileSidebar";
 import { useAuthStore } from "../../../lib/store/useAuthStore";
 import { supabase } from "../../../lib/supabase";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { HeadphonesIcon, MessageCircle, Mail, CheckCircle2, Loader2, ArrowRight } from "lucide-react";
+import { HeadphonesIcon, MessageCircle, Mail, Phone, CheckCircle2, Loader2, ArrowRight } from "lucide-react";
+import { 
+  CONTACT_PHONE_DISPLAY, 
+  CONTACT_PHONE_TEL, 
+  WHATSAPP_LINK, 
+  CONTACT_EMAIL, 
+  CONTACT_EMAIL_MAILTO 
+} from "../../../lib/contact";
 
 export default function SoportePage() {
   const { user, isAuthenticated } = useAuthStore();
@@ -39,9 +45,30 @@ export default function SoportePage() {
   if (!user) return null;
 
   const channels = [
-    { icon: HeadphonesIcon, label: "Atención Telefónica", value: "Línea no activa (Aviso)", href: "/atencion-al-cliente", color: "text-[#CBB67B]" },
-    { icon: Mail, label: "Correo Directo", value: "concierge@minervaalcarazjoyeria.mx", href: "mailto:concierge@minervaalcarazjoyeria.mx", color: "text-oro-antiguo" },
-    { icon: MessageCircle, label: "Concierge Digital", value: "Ver canales activos", href: "/atencion-al-cliente", color: "text-green-500" },
+    { 
+      icon: MessageCircle, 
+      label: "WhatsApp Concierge", 
+      value: CONTACT_PHONE_DISPLAY, 
+      href: WHATSAPP_LINK, 
+      color: "text-green-500",
+      external: true 
+    },
+    { 
+      icon: Phone, 
+      label: "Línea Telefónica", 
+      value: CONTACT_PHONE_DISPLAY, 
+      href: CONTACT_PHONE_TEL, 
+      color: "text-[#CBB67B]",
+      external: false 
+    },
+    { 
+      icon: Mail, 
+      label: "Correo Directo", 
+      value: CONTACT_EMAIL, 
+      href: CONTACT_EMAIL_MAILTO, 
+      color: "text-oro-antiguo",
+      external: false 
+    },
   ];
 
   return (
@@ -58,16 +85,20 @@ export default function SoportePage() {
 
             {/* Contact channels */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              {channels.map(({ icon: Icon, label, value, href, color }) => (
-                <Link key={label} href={href}
+              {channels.map(({ icon: Icon, label, value, href, color, external }) => (
+                <a 
+                  key={label} 
+                  href={href}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener noreferrer" : undefined}
                   className="bg-[#1E261C] border border-[#CBB67B]/25 p-5 flex flex-col gap-3 hover:border-[#CBB67B] transition-colors group shadow-md"
                 >
-                  <Icon size={18} strokeWidth={1.5} className={color === "text-green-500" ? "text-emerald-400" : color === "text-oro-antiguo" ? "text-[#CBB67B]" : "text-[#CBB67B]"} />
+                  <Icon size={18} strokeWidth={1.5} className={color === "text-green-500" ? "text-emerald-400" : "text-[#CBB67B]"} />
                   <div className="flex flex-col gap-1">
                     <p className="text-[11px] uppercase tracking-[0.35em] text-[#CBB67B] font-semibold">{label}</p>
                     <p className="text-xs sm:text-sm text-white font-medium tracking-wide group-hover:text-[#CBB67B] transition-colors">{value}</p>
                   </div>
-                </Link>
+                </a>
               ))}
             </div>
 

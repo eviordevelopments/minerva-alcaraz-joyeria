@@ -10,7 +10,7 @@ const BRAND_SIGNATURE = `
 `;
 
 /**
- * 1. Concierge / Co-Creación Form Submission Receipt (Sent to Client & Atelier copy)
+ * 1. Concierge / Co-Creación Form Submission Receipt (Sent to Client & Team copy)
  */
 export function getConciergeConfirmationTemplate({
   contactName,
@@ -25,7 +25,7 @@ export function getConciergeConfirmationTemplate({
 }) {
   const contentHtml = `
     <div style="text-align: center; margin-bottom: 25px;">
-      <span style="font-size: 9px; letter-spacing: 0.4em; color: #CBB67B; text-transform: uppercase;">Co-Creación &amp; Atelier</span>
+      <span style="font-size: 9px; letter-spacing: 0.4em; color: #CBB67B; text-transform: uppercase;">Co-Creación &amp; Joyería Artesanal</span>
       <h2 style="font-size: 26px; color: #E5DBD6; font-style: italic; font-weight: 300; margin: 10px 0; font-family: 'Cormorant Garamond', Georgia, serif;">Solicitud Recibida</h2>
       <div style="font-family: monospace; font-size: 11px; color: #CBB67B; letter-spacing: 0.2em;">${requestNumber}</div>
     </div>
@@ -50,7 +50,7 @@ export function getConciergeConfirmationTemplate({
     </div>
 
     <p style="font-size: 12px; line-height: 1.8; color: rgba(229, 219, 214, 0.8);">
-      Nuestro equipo de maestros joyeros en nuestro Atelier de <strong>San Miguel de Allende</strong> revisará tu visión detalladamente y te contactará en un plazo máximo de <strong>24 horas hábiles</strong> para agendar tu sesión personalizada.
+      Nuestro equipo de maestros joyeros revisará tu visión detalladamente y te contactará en un plazo máximo de <strong>24 horas hábiles</strong> para agendar tu sesión personalizada.
     </p>
 
     <div style="text-align: center; margin-top: 30px;">
@@ -249,7 +249,7 @@ export function getCircleNewCollectionTemplate({
     </p>
 
     <p style="font-size: 12px; line-height: 1.8; color: rgba(229, 219, 214, 0.85); font-weight: 300;">
-      Como distinguido miembro de THE CIRCLE, tienes acceso anticipado de 48 horas antes que la colección sea revelada al público. Te presentamos el catálogo fotográfico de las últimas piezas forjadas en nuestro Atelier de San Miguel de Allende.
+      Como distinguido miembro de THE CIRCLE, tienes acceso anticipado de 48 horas antes que la colección sea revelada al público. Te presentamos el catálogo fotográfico de las últimas piezas forjadas por nuestro equipo artesanal.
     </p>
 
     <!-- PRODUCT PHOTOGRAPHY CARDS -->
@@ -320,7 +320,7 @@ export function getPurchaseConfirmationTemplate({
     </p>
 
     <p style="font-size: 12px; line-height: 1.8; color: rgba(229, 219, 214, 0.85); font-weight: 300;">
-      Hemos registrado tu pago exitosamente. Tus piezas han entrado al proceso de empaque en nuestro Atelier en San Miguel de Allende con todos los sellos de autenticidad.
+      Hemos registrado tu pago exitosamente. Tus piezas han entrado al proceso de empaque con todos los sellos de autenticidad.
     </p>
     
     <p style="font-size: 12px; line-height: 1.8; color: rgba(229, 219, 214, 0.85); font-weight: 300;">
@@ -491,7 +491,7 @@ export function getOrderTrackingNotificationTemplate({
     </p>
 
     <p style="font-size: 12px; line-height: 1.8; color: rgba(229, 219, 214, 0.85); font-weight: 300;">
-      Nos complace informarte que tu pedido <strong>${orderNumber}</strong> ha concluido satisfactoriamente su fase de preparación artesanal, certificación y empaque con sellos de seguridad en nuestro Atelier. Ha sido entregado bajo custodia especializada a <strong>${carrier}</strong>.
+      Nos complace informarte que tu pedido <strong>${orderNumber}</strong> ha concluido satisfactoriamente su fase de preparación artesanal, certificación y empaque con sellos de seguridad. Ha sido entregado bajo custodia especializada a <strong>${carrier}</strong>.
     </p>
 
     <!-- Prominent Gold Tracking Box -->
@@ -750,7 +750,7 @@ export function getAbandonedCartTemplate({
 
   const contentHtml = `
     <div style="text-align: center; margin-bottom: 25px;">
-      <span style="font-size: 9px; letter-spacing: 0.4em; color: #CBB67B; text-transform: uppercase;">Bolsa Reservada en Atelier</span>
+      <span style="font-size: 9px; letter-spacing: 0.4em; color: #CBB67B; text-transform: uppercase;">Bolsa Reservada · Minerva Alcaraz</span>
       <h2 style="font-size: 26px; color: #E5DBD6; font-style: italic; font-weight: 300; margin: 10px 0; font-family: 'Cormorant Garamond', Georgia, serif;">Tus Piezas te Esperan</h2>
     </div>
 
@@ -763,7 +763,7 @@ export function getAbandonedCartTemplate({
     </p>
 
     <p style="font-size: 12px; line-height: 1.8; color: rgba(229, 219, 214, 0.85); font-weight: 300;">
-      Notamos que dejaste piezas únicas guardadas en tu bolsa de compra. Nuestras creaciones son elaboradas en series muy limitadas en nuestro Atelier de San Miguel de Allende. Te invitamos a hacerlas tuyas antes de que sean reservadas por alguien más.
+      Notamos que dejaste piezas únicas guardadas en tu bolsa de compra. Nuestras creaciones son elaboradas en series muy limitadas por nuestros maestros joyeros. Te invitamos a hacerlas tuyas antes de que sean reservadas por alguien más.
     </p>
 
     <div style="margin: 25px 0;">
@@ -779,7 +779,7 @@ export function getAbandonedCartTemplate({
   `;
 
   return wrapBaseEmailTemplate({
-    title: "🛒 Tus Piezas en el Atelier te Esperan · Minerva Alcaraz ✨",
+    title: "🛒 Tus Piezas te Esperan · Minerva Alcaraz ✨",
     preheader: "Tus piezas seleccionadas siguen guardadas en tu bolsa de compra.",
     contentHtml,
   });
@@ -848,7 +848,7 @@ export function getSavedFavoritesTemplate({
     </p>
 
     <p style="font-size: 12px; line-height: 1.8; color: rgba(229, 219, 214, 0.85); font-weight: 300;">
-      Recordamos que has guardado estas hermosas piezas en tu lista de favoritos. Cada una fue concebida en nuestro Atelier de San Miguel de Allende para transmitir historias inolvidables.
+      Recordamos que has guardado estas hermosas piezas en tu lista de favoritos. Cada una fue concebida por nuestros maestros joyeros para transmitir historias inolvidables.
     </p>
 
     <div style="margin: 25px 0;">
@@ -864,7 +864,7 @@ export function getSavedFavoritesTemplate({
   `;
 
   return wrapBaseEmailTemplate({
-    title: "💖 Tus Piezas Favoritas Guardadas en el Atelier · Minerva Alcaraz ✨",
+    title: "💖 Tus Piezas Favoritas · Minerva Alcaraz ✨",
     preheader: "Descubre de nuevo las joyas que guardaste como tus favoritas.",
     contentHtml,
   });

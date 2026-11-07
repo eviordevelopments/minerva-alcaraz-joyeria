@@ -6,18 +6,25 @@ import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { supabase } from "../../lib/supabase";
 import { 
-  AlertCircle, 
   Mail, 
-  Sparkles, 
   MapPin, 
-  Clock, 
   Send, 
   CheckCircle2, 
   Loader2, 
   ArrowRight,
-  ShieldCheck,
-  Compass
+  Compass,
+  MessageCircle,
+  Phone,
+  Clock
 } from "lucide-react";
+import { 
+  CONTACT_PHONE_DISPLAY, 
+  CONTACT_PHONE_TEL, 
+  WHATSAPP_LINK,
+  CONTACT_EMAIL,
+  CONTACT_EMAIL_MAILTO,
+  SAN_MIGUEL_WHATSAPP_LINK
+} from "../../lib/contact";
 
 export default function AtencionClientePage() {
   const [name, setName] = useState("");
@@ -49,7 +56,7 @@ export default function AtencionClientePage() {
 
       if (error) {
         console.error("Error al enviar mensaje:", error);
-        setErrorMessage("Hubo un detalle al enviar el mensaje. También puedes escribirnos a concierge@minervaalcarazjoyeria.mx");
+        setErrorMessage(`Hubo un detalle al enviar el mensaje. También puedes escribirnos a ${CONTACT_EMAIL}`);
       } else {
         setIsSuccess(true);
         setName("");
@@ -77,7 +84,7 @@ export default function AtencionClientePage() {
         <div className="max-w-4xl mx-auto text-center relative z-10 flex flex-col items-center">
           <div className="w-12 h-[1px] bg-oro-antiguo mb-6" />
           <span className="text-[11px] sm:text-xs uppercase tracking-[0.45em] text-oro-antiguo font-medium mb-3">
-            Atelier Minerva Alcaraz · Canales Oficiales
+            Minerva Alcaraz Joyería · Canales Oficiales
           </span>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display leading-tight uppercase tracking-tight">
             Atención al Cliente
@@ -88,31 +95,69 @@ export default function AtencionClientePage() {
         </div>
       </section>
 
-      {/* Main Notice Box */}
+      {/* Main Official Line Box */}
       <section className="relative -mt-8 sm:-mt-12 z-20 px-4 sm:px-8">
-        <div className="max-w-4xl mx-auto bg-[#1C251A] border-2 border-oro-antiguo/40 text-hueso-seda p-6 sm:p-10 md:p-12 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-48 h-48 bg-[radial-gradient(ellipse_at_top_right,rgba(203,182,123,0.18),transparent_70%)] pointer-events-none" />
+        <div className="max-w-4xl mx-auto bg-[#1C251A] border-2 border-oro-antiguo/50 text-hueso-seda p-6 sm:p-10 md:p-12 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[radial-gradient(ellipse_at_top_right,rgba(203,182,123,0.22),transparent_70%)] pointer-events-none" />
           
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 pb-6 border-b border-hueso-seda/10">
-            <div className="w-12 h-12 rounded-full border border-oro-antiguo/50 bg-oro-antiguo/10 flex items-center justify-center text-oro-antiguo flex-shrink-0">
-              <AlertCircle size={24} strokeWidth={1.5} />
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pb-6 border-b border-hueso-seda/10 relative z-10">
+            <div className="flex items-center gap-4 sm:gap-6">
+              <div className="w-14 h-14 rounded-full border border-oro-antiguo/60 bg-oro-antiguo/15 flex items-center justify-center text-oro-antiguo flex-shrink-0 shadow-inner">
+                <MessageCircle size={26} strokeWidth={1.5} />
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-oro-antiguo font-mono">
+                  Canal Oficial de Atención Directa
+                </span>
+                <h2 className="text-xl sm:text-2xl font-display text-white">
+                  Línea Telefónica &amp; WhatsApp Concierge
+                </h2>
+              </div>
             </div>
-            <div className="flex flex-col gap-1">
-              <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-oro-antiguo font-mono">
-                Aviso Importante sobre Nuestro Servicio
-              </span>
-              <h2 className="text-xl sm:text-2xl font-display text-white">
-                Línea de Atención Telefónica
-              </h2>
+
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs font-mono tracking-widest uppercase rounded-full">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              Línea Activa
             </div>
           </div>
 
-          <div className="pt-6 sm:pt-8 flex flex-col gap-5 text-hueso-seda/90 leading-relaxed text-sm sm:text-base font-light">
+          <div className="pt-6 sm:pt-8 flex flex-col gap-6 text-hueso-seda/90 leading-relaxed text-sm sm:text-base font-light relative z-10">
             <p className="text-base sm:text-lg font-normal text-white">
-              Por el momento nuestra línea de atención telefónica no está activa. Agradecemos profundamente tu paciencia y comprensión; nos encontramos trabajando para brindarte una mejor experiencia.
+              Nuestra línea directa y canal de WhatsApp se encuentran completamente activos para brindarte la atención cálida y personalizada que distingue a nuestra joyería de autor.
             </p>
-            <p className="text-xs sm:text-sm text-hueso-seda/70">
-              Nuestro compromiso con la excelencia y la cercanía artesanal sigue intacto. Mientras completamos esta optimización en nuestros canales de voz, puedes comunicarte con nuestro Concierge de manera directa a través de nuestro correo electrónico o mediante el formulario que ponemos a tu disposición a continuación.
+            
+            <div className="bg-black/30 border border-oro-antiguo/30 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <span className="text-[10px] uppercase tracking-[0.25em] text-oro-antiguo font-mono block mb-1">
+                  Número Telefónico &amp; WhatsApp
+                </span>
+                <span className="text-2xl sm:text-3xl font-mono text-white font-bold tracking-wider select-all">
+                  {CONTACT_PHONE_DISPLAY}
+                </span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                <a
+                  href={WHATSAPP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 sm:flex-initial bg-oro-antiguo text-verde-ebano hover:bg-hueso-seda font-bold px-6 py-3.5 text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all shadow-md group"
+                >
+                  <MessageCircle size={15} />
+                  <span>WhatsApp Directo</span>
+                </a>
+                <a
+                  href={CONTACT_PHONE_TEL}
+                  className="flex-1 sm:flex-initial border border-oro-antiguo/50 text-oro-antiguo hover:bg-oro-antiguo/10 px-5 py-3.5 text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all"
+                >
+                  <Phone size={14} />
+                  <span>Llamar</span>
+                </a>
+              </div>
+            </div>
+
+            <p className="text-xs text-hueso-seda/70">
+              Horario de atención personalizada: Lunes a Sábado de 10:00 AM a 08:00 PM. Responderemos tus dudas sobre pedidos, disponibilidad de piezas exclusivas, citas privadas y co-creación artesanal.
             </p>
           </div>
         </div>
@@ -133,10 +178,56 @@ export default function AtencionClientePage() {
             <div className="w-8 h-[1px] bg-oro-antiguo mt-2" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-            {/* Card 1: Email Concierge */}
-            <div className="bg-white border border-verde-ebano/15 p-8 sm:p-10 flex flex-col justify-between gap-6 shadow-sm hover:border-oro-antiguo/60 transition-colors">
-              <div className="flex flex-col gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+            {/* Card 1: WhatsApp y Teléfono */}
+            <div className="bg-white border border-verde-ebano/15 p-6 sm:p-8 flex flex-col justify-between gap-6 shadow-sm hover:border-oro-antiguo/60 transition-colors">
+              <div className="flex flex-col gap-4">
+                <div className="w-12 h-12 bg-emerald-950/10 border border-emerald-600/20 flex items-center justify-center text-emerald-800">
+                  <MessageCircle size={22} strokeWidth={1.5} />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-oro-antiguo font-mono">
+                    Atención Inmediata
+                  </span>
+                  <h4 className="text-xl font-display text-verde-ebano">
+                    WhatsApp &amp; Teléfono
+                  </h4>
+                  <p className="text-xs text-verde-ebano/70 font-light leading-relaxed">
+                    Comunícate directamente con nuestro Concierge para resolver inquietudes al instante.
+                  </p>
+                </div>
+
+                <div className="bg-hueso-seda/40 border border-verde-ebano/10 p-3">
+                  <p className="text-[10px] uppercase tracking-widest text-verde-ebano/60 mb-0.5 font-mono">Línea Oficial</p>
+                  <p className="text-sm font-mono text-verde-ebano font-bold select-all">
+                    {CONTACT_PHONE_DISPLAY}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <a
+                  href={WHATSAPP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-verde-ebano text-hueso-seda hover:bg-oro-antiguo hover:text-verde-ebano py-3 px-4 text-xs uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-all duration-300 text-center shadow-sm"
+                >
+                  <MessageCircle size={14} />
+                  <span>Abrir WhatsApp</span>
+                </a>
+                <a
+                  href={CONTACT_PHONE_TEL}
+                  className="w-full border border-verde-ebano/20 text-verde-ebano hover:bg-verde-ebano/5 py-2.5 px-4 text-xs uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-all duration-300 text-center"
+                >
+                  <Phone size={13} />
+                  <span>Llamar por Teléfono</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Card 2: Email Concierge */}
+            <div className="bg-white border border-verde-ebano/15 p-6 sm:p-8 flex flex-col justify-between gap-6 shadow-sm hover:border-oro-antiguo/60 transition-colors">
+              <div className="flex flex-col gap-4">
                 <div className="w-12 h-12 bg-verde-ebano/5 border border-verde-ebano/15 flex items-center justify-center text-verde-ebano">
                   <Mail size={22} strokeWidth={1.5} />
                 </div>
@@ -144,34 +235,34 @@ export default function AtencionClientePage() {
                   <span className="text-[10px] uppercase tracking-[0.3em] text-oro-antiguo font-mono">
                     Canal Institucional
                   </span>
-                  <h4 className="text-2xl font-display text-verde-ebano">
-                    Correo Directo Concierge
+                  <h4 className="text-xl font-display text-verde-ebano">
+                    Correo Directo
                   </h4>
-                  <p className="text-xs sm:text-sm text-verde-ebano/70 font-light leading-relaxed">
-                    Escribe directamente a nuestro equipo del Atelier para asesoría en adquisiciones, estado de órdenes, personalizaciones o visitas privadas.
+                  <p className="text-xs text-verde-ebano/70 font-light leading-relaxed">
+                    Escribe a nuestro equipo para adquisiciones corporativas, cotizaciones y seguimiento formal.
                   </p>
                 </div>
 
-                <div className="bg-hueso-seda/40 border border-verde-ebano/10 p-4">
-                  <p className="text-[11px] uppercase tracking-widest text-verde-ebano/60 mb-1 font-mono">Dirección Oficial</p>
-                  <p className="text-sm sm:text-base font-mono text-verde-ebano font-semibold break-all select-all">
-                    concierge@minervaalcarazjoyeria.mx
+                <div className="bg-hueso-seda/40 border border-verde-ebano/10 p-3">
+                  <p className="text-[10px] uppercase tracking-widest text-verde-ebano/60 mb-0.5 font-mono">Dirección Oficial</p>
+                  <p className="text-xs font-mono text-verde-ebano font-semibold break-all select-all">
+                    {CONTACT_EMAIL}
                   </p>
                 </div>
               </div>
 
               <a
-                href="mailto:concierge@minervaalcarazjoyeria.mx"
-                className="w-full bg-verde-ebano text-hueso-seda hover:bg-oro-antiguo hover:text-verde-ebano py-4 px-6 text-xs uppercase tracking-[0.25em] font-medium flex items-center justify-center gap-3 transition-all duration-300 text-center shadow-md group"
+                href={CONTACT_EMAIL_MAILTO}
+                className="w-full bg-verde-ebano text-hueso-seda hover:bg-oro-antiguo hover:text-verde-ebano py-3 px-4 text-xs uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-all duration-300 text-center shadow-sm group"
               >
                 <span>Enviar Correo</span>
-                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
 
-            {/* Card 2: Boutiques & Presential */}
-            <div className="bg-white border border-verde-ebano/15 p-8 sm:p-10 flex flex-col justify-between gap-6 shadow-sm hover:border-oro-antiguo/60 transition-colors">
-              <div className="flex flex-col gap-5">
+            {/* Card 3: Puntos de Venta */}
+            <div className="bg-white border border-verde-ebano/15 p-6 sm:p-8 flex flex-col justify-between gap-6 shadow-sm hover:border-oro-antiguo/60 transition-colors">
+              <div className="flex flex-col gap-4">
                 <div className="w-12 h-12 bg-verde-ebano/5 border border-verde-ebano/15 flex items-center justify-center text-verde-ebano">
                   <MapPin size={22} strokeWidth={1.5} />
                 </div>
@@ -179,39 +270,45 @@ export default function AtencionClientePage() {
                   <span className="text-[10px] uppercase tracking-[0.3em] text-oro-antiguo font-mono">
                     Atención Presencial
                   </span>
-                  <h4 className="text-2xl font-display text-verde-ebano">
-                    Santuarios &amp; Boutiques
+                  <h4 className="text-xl font-display text-verde-ebano">
+                    Puntos de Venta
                   </h4>
-                  <p className="text-xs sm:text-sm text-verde-ebano/70 font-light leading-relaxed">
-                    Visita nuestros espacios exclusivos para descubrir colecciones, probarte piezas o recibir asesoría personalizada.
+                  <p className="text-xs text-verde-ebano/70 font-light leading-relaxed">
+                    Espacios exclusivos autorizados para descubrir colecciones y adquirir piezas.
                   </p>
                 </div>
 
-                <div className="flex flex-col gap-3 text-xs text-verde-ebano/80 font-light border-t border-verde-ebano/10 pt-4">
+                <div className="flex flex-col gap-3 text-[11px] text-verde-ebano/80 font-light border-t border-verde-ebano/10 pt-3">
                   <div>
                     <strong className="font-semibold text-verde-ebano block">Floroteca · Irapuato, Gto.</strong>
                     <span>Av. Mariano J. García 1568, San Miguelito</span>
                   </div>
                   <div>
-                    <strong className="font-semibold text-verde-ebano block">Atelier Insignia · San Miguel de Allende, Gto.</strong>
-                    <span>Calle Real de Correo #18, Zona Centro</span>
+                    <strong className="font-semibold text-verde-ebano block">San Miguel de Allende · Cita Previa</strong>
+                    <span>Mesones Número 74 Colonia Centro dentro de Fina Catrina</span>
+                    <p className="text-[10px] text-oro-antiguo/90 font-medium mt-1 leading-snug">
+                      Para ir ahí será a través de citas por mensaje según disponibilidad; favor de contactar a tu concierge por WhatsApp.
+                    </p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col gap-2">
+                <a
+                  href={SAN_MIGUEL_WHATSAPP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-oro-antiguo text-verde-ebano hover:bg-verde-ebano hover:text-hueso-seda py-3 px-4 text-xs uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-all duration-300 text-center shadow-sm"
+                >
+                  <MessageCircle size={13} />
+                  <span>Agendar Cita en Agenda</span>
+                </a>
                 <Link
                   href="/#boutiques"
-                  className="flex-1 bg-oro-antiguo text-verde-ebano hover:bg-verde-ebano hover:text-hueso-seda py-4 px-4 text-xs uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-all duration-300 text-center"
+                  className="w-full border border-verde-ebano/20 text-verde-ebano hover:bg-verde-ebano hover:text-hueso-seda py-2.5 px-4 text-xs uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-all duration-300 text-center"
                 >
-                  <Compass size={14} />
+                  <Compass size={13} />
                   <span>Ver Puntos de Venta</span>
-                </Link>
-                <Link
-                  href="/atelier"
-                  className="border border-verde-ebano/30 text-verde-ebano hover:bg-verde-ebano hover:text-hueso-seda py-4 px-4 text-xs uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-all duration-300 text-center"
-                >
-                  <span>Agendar Cita</span>
                 </Link>
               </div>
             </div>
@@ -228,7 +325,7 @@ export default function AtencionClientePage() {
                   Escríbenos un Mensaje
                 </h3>
                 <p className="text-xs sm:text-sm text-hueso-seda/70 font-light">
-                  Déjanos tus datos e inquietud; un asesor de nuestro Atelier te responderá a la brevedad por correo electrónico.
+                  Déjanos tus datos e inquietud; un asesor de nuestro equipo te responderá a la brevedad por correo electrónico o WhatsApp.
                 </p>
               </div>
 
@@ -237,7 +334,7 @@ export default function AtencionClientePage() {
                   <CheckCircle2 size={36} className="text-emerald-400" />
                   <h4 className="text-xl font-display text-white">Mensaje Recibido</h4>
                   <p className="text-xs sm:text-sm text-hueso-seda/80 max-w-md leading-relaxed">
-                    Agradecemos tu comunicación. Hemos registrado tu consulta y te responderemos a la brevedad posible en tu correo electrónico.
+                    Agradecemos tu comunicación. Hemos registrado tu consulta y te responderemos a la brevedad posible en tu correo electrónico o vía WhatsApp.
                   </p>
                   <button
                     onClick={() => setIsSuccess(false)}
@@ -323,7 +420,7 @@ export default function AtencionClientePage() {
                       </>
                     ) : (
                       <>
-                        <span>Enviar Mensaje al Atelier</span>
+                        <span>Enviar Mensaje</span>
                         <Send size={13} />
                       </>
                     )}
