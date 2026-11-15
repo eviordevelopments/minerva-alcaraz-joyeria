@@ -52,6 +52,7 @@ import { Product } from "../constants/products";
 import { useCartStore } from "../lib/store/useCartStore";
 import { useFavoritesStore } from "../lib/store/useFavoritesStore";
 import { useAuthStore } from "../lib/store/useAuthStore";
+import { isBuenFinActive, applyBuenFinPrice } from "../lib/promotions/buenFin";
 
 interface ProductCardProps {
   product: Product;
@@ -61,6 +62,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   if (!product) return null;
   const [isFlipped, setIsFlipped] = React.useState(false);
   const [addedFeedback, setAddedFeedback] = React.useState(false);
+  const [buenFinActive, setBuenFinActive] = React.useState(false);
+
+  React.useEffect(() => {
+    setBuenFinActive(isBuenFinActive());
+  }, []);
 
   const { addItem } = useCartStore();
   const { isFavorite, toggle } = useFavoritesStore();
@@ -72,6 +78,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const imageFront = validImages[0] || defaultPlaceholder;
   const imageBack = validImages[1] || imageFront;
   const favorite = isFavorite(id);
+  const discountedPrice = buenFinActive ? applyBuenFinPrice(price) : price;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -111,11 +118,36 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <div
-      className="group relative bg-white/5 border border-verde-ebano/5 hover:border-oro-antiguo/20 transition-all duration-700"
+    <motion.div
+      whileHover={buenFinActive ? { y: -4 } : undefined}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+      className={`group relative bg-white/5 border transition-all duration-700 ${
+        buenFinActive
+          ? "border-oro-antiguo/30 hover:border-oro-antiguo hover:shadow-[0_10px_30px_-10px_rgba(203,182,123,0.35)]"
+          : "border-verde-ebano/5 hover:border-oro-antiguo/20"
+      }`}
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
     >
+      {/* Buen Fin 15% OFF Animated Badge */}
+      {buenFinActive && (
+        <motion.div
+          animate={{ scale: [1, 1.04, 1] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-3 left-3 z-20 bg-verde-ebano text-oro-antiguo border border-oro-antiguo/60 px-2.5 py-1 shadow-md pointer-events-none overflow-hidden"
+        >
+          <motion.span
+            aria-hidden
+            animate={{ x: ["-120%", "220%"] }}
+            transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.5 }}
+            className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-oro-antiguo/30 to-transparent skew-x-12"
+          />
+          <span className="relative text-[10px] uppercase tracking-[0.22em] font-semibold block leading-none">
+            15% OFF
+          </span>
+        </motion.div>
+      )}
+
       {/* Favorite button */}
       <button
         onClick={handleFavorite}
@@ -194,12 +226,23 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             <h3 className="text-xs sm:text-sm tracking-[0.1em] sm:tracking-[0.2em] font-display text-verde-ebano uppercase leading-relaxed">
               {name}
             </h3>
-            <span className="text-[11px] sm:text-xs text-oro-profundo tracking-[0.1em] sm:tracking-[0.2em] font-medium">
-              ${price.toLocaleString()} {currency}
-            </span>
+            {buenFinActive ? (
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[11px] sm:text-xs text-verde-ebano/45 line-through tracking-[0.08em]">
+                  ${price.toLocaleString()} {currency}
+                </span>
+                <span className="text-[11px] sm:text-xs text-oro-profundo tracking-[0.1em] sm:tracking-[0.2em] font-semibold">
+                  ${discountedPrice.toLocaleString()} {currency}
+                </span>
+              </div>
+            ) : (
+              <span className="text-[11px] sm:text-xs text-oro-profundo tracking-[0.1em] sm:tracking-[0.2em] font-medium">
+                ${price.toLocaleString()} {currency}
+              </span>
+            )}
           </div>
         </div>
       </Link>
-    </div>
+    </motion.div>
   );
 };

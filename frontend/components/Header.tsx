@@ -19,6 +19,7 @@ import { useCircleTheme } from "../lib/context/CircleThemeContext";
 
 import { useCartStore, isTestOrInvalidProduct } from "../lib/store/useCartStore";
 import { useFavoritesStore } from "../lib/store/useFavoritesStore";
+import { isBuenFinActive } from "../lib/promotions/buenFin";
 
 export const Header = ({ theme = "light" }: HeaderProps) => {
   const { isCircleActive } = useCircleTheme();
@@ -29,6 +30,7 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const buenFinActive = mounted && isBuenFinActive();
   const { isAuthenticated, user } = useAuthStore();
 
   const { items: cartItems } = useCartStore();
@@ -82,6 +84,23 @@ export const Header = ({ theme = "light" }: HeaderProps) => {
             : "py-0 bg-transparent"
         }`}
       >
+        {/* BUEN FIN Top Promotion Banner */}
+        {buenFinActive && (
+          <div className="w-full bg-oro-antiguo text-verde-ebano py-1.5 border-b border-verde-ebano/20 text-center relative z-10 px-4">
+            <Link href="/shop" className="group inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-0.5">
+              <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.28em] font-bold whitespace-nowrap">
+                ✦ BUEN FIN · 15% OFF EN TODA LA TIENDA
+              </span>
+              <span className="hidden md:inline text-[11px] tracking-[0.12em] font-medium">
+                Sobre el total incl. envío · Acumulable 10% 1ª compra +15% · Aplica THE CIRCLE · Hasta el 17 Nov, 11 PM
+              </span>
+              <span className="md:hidden text-[10px] tracking-[0.08em] font-medium">
+                Incl. envío · Acumulable · Hasta 17 Nov 11 PM
+              </span>
+            </Link>
+          </div>
+        )}
+
         {/* THE CIRCLE Announcement Bar */}
         <div className="w-full bg-verde-ebano py-2 border-b border-oro-antiguo/10 text-center relative z-10 px-4">
           <Link href="/the-circle" className="group inline-flex items-center gap-2 md:gap-4">

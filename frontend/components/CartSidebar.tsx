@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCartStore, isTestOrInvalidProduct } from "../lib/store/useCartStore";
 import { useAuthStore } from "../lib/store/useAuthStore";
+import { calculateOrderTotalsMxn, isBuenFinActive } from "../lib/promotions/buenFin";
 
 export const CartSidebar: React.FC = () => {
   const { items, isOpen, closeCart, removeItem, updateQuantity, subtotal } = useCartStore();
@@ -87,7 +88,16 @@ export const CartSidebar: React.FC = () => {
   } else if (!isCircleMember && rawSubtotal >= 5000) {
     shippingCost = 0;
   }
-  const finalTotal = rawSubtotal + shippingCost;
+  const buenFinActive = isBuenFinActive();
+  const {
+    buenFinDiscountMxn: buenFinDiscount,
+    finalTotalMxn: finalTotal,
+  } = calculateOrderTotalsMxn({
+    subtotalMxn: rawSubtotal,
+    shippingCostMxn: shippingCost,
+    isFirstPurchase: false,
+    buenFinActive,
+  });
 
   return (
     <AnimatePresence>
@@ -276,11 +286,22 @@ export const CartSidebar: React.FC = () => {
                         : `$${shippingCost.toLocaleString("es-MX")} MXN`}
                     </span>
                   </div>
+                  {buenFinActive && buenFinDiscount > 0 && (
+                    <div className="flex justify-between text-xs uppercase tracking-widest text-oro-antiguo font-medium">
+                      <span>Buen Fin (-15% Total incl. envío)</span>
+                      <span>-${buenFinDiscount.toLocaleString("es-MX")} MXN</span>
+                    </div>
+                  )}
                   <div className="h-px bg-hueso-seda/10 my-1" />
                   <div className="flex justify-between text-base uppercase tracking-widest text-hueso-seda font-medium">
-                    <span>Total</span>
+                    <span>Total{buenFinActive ? " (Buen Fin)" : ""}</span>
                     <span>${finalTotal.toLocaleString("es-MX")} MXN</span>
                   </div>
+                  {buenFinActive && (
+                    <p className="text-[10px] text-hueso-seda/60 font-light">
+                      Si es tu primera compra, se aplicará 10% adicional antes del 15% de Buen Fin en el checkout.
+                    </p>
+                  )}
                 </div>
 
                 {!isAuthenticated && (

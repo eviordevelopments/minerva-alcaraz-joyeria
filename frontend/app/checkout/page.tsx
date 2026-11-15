@@ -12,6 +12,7 @@ import {
   Minus, Plus, Trash2, Sparkles, MessageCircle
 } from "lucide-react";
 import { CONTACT_PHONE_INTL, CONTACT_PHONE_DISPLAY } from "../../lib/contact";
+import { calculateOrderTotalsMxn, isBuenFinActive } from "../../lib/promotions/buenFin";
 import { useAuthStore } from "../../lib/store/useAuthStore";
 import { useCartStore, isTestOrInvalidProduct } from "../../lib/store/useCartStore";
 import { loadStripe } from "@stripe/stripe-js";
@@ -54,13 +55,19 @@ export default function CheckoutPage() {
     shippingCost = 0;
   }
 
-  const rawTotal = rawSubtotal + shippingCost;
-  const discount = isFirstPurchase ? rawTotal * 0.10 : 0;
-  const total = rawTotal - discount;
-  
-  // Totals already include IVA (16% en México). Desglose para visualización contable.
-  const iva = Math.round((total - (total / 1.16)) * 100) / 100;
-  const subtotalSinIva = Math.round((total - iva) * 100) / 100;
+  const buenFinActive = isBuenFinActive();
+  const {
+    firstPurchaseDiscountMxn: discount,
+    buenFinDiscountMxn: buenFinDiscount,
+    finalTotalMxn: total,
+    ivaMxn: iva,
+    subtotalSinIvaMxn: subtotalSinIva,
+  } = calculateOrderTotalsMxn({
+    subtotalMxn: rawSubtotal,
+    shippingCostMxn: shippingCost,
+    isFirstPurchase,
+    buenFinActive,
+  });
 
   // Pre-fill form with user data
   const [shippingEmail, setShippingEmail] = useState(user?.email ?? "");
@@ -754,6 +761,13 @@ export default function CheckoutPage() {
                       : `$${shippingCost.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                   </span>
                 </div>
+
+                {buenFinActive && buenFinDiscount > 0 && (
+                  <div className="flex justify-between text-xs uppercase tracking-widest text-oro-antiguo font-medium">
+                    <span>Buen Fin (-15% Total incl. envío)</span>
+                    <span>-${buenFinDiscount.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                  </div>
+                )}
                 
                 <div className="flex justify-between text-xs uppercase tracking-widest text-hueso-seda/60">
                   <span>IVA (16%)</span>

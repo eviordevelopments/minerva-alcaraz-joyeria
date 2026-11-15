@@ -7,6 +7,7 @@ import { WhatsAppFAB } from "../components/WhatsAppFAB";
 import { CookieBanner } from "../components/CookieBanner";
 import { AIConcierge } from "../components/AIConcierge";
 import { TheCircleBanner } from "../components/FloatingBanners";
+import { BuenFinPopup } from "../components/BuenFinPopup";
 import { AccessibilityProvider } from "../components/AccessibilityProvider";
 import { AccessibilityFAB } from "../components/AccessibilityFAB";
 import { AccessibilityPanel } from "../components/AccessibilityPanel";
@@ -164,6 +165,7 @@ export default function RootLayout({
                 <CookieBanner />
                 <AIConcierge />
                 <TheCircleBanner />
+                <BuenFinPopup />
                 <AccessibilityFAB />
                 <AccessibilityPanel />
               </AdminEditWrapper>

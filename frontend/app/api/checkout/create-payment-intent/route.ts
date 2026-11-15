@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
+import { calculateOrderTotalsCents, isBuenFinActive } from "../../../../lib/promotions/buenFin";
 
 // Stripe keys checked at runtime
 
@@ -100,7 +101,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    let discountCents = 0;
+    let isFirstPurchase = false;
 
     // Check if it's their first purchase
     if (userId) {
@@ -111,8 +112,8 @@ export async function POST(req: NextRequest) {
         .in("status", ["paid", "completed", "shipped", "delivered"]);
         
       if (!pastOrdersError && (!pastOrders || pastOrders.length === 0)) {
-        // First purchase! Apply 10% discount on the subtotal.
-        discountCents = Math.round(subtotalCents * 0.10);
+        // First purchase! 10% discount on subtotal, then +15% Buen Fin on total with shipping if active.
+        isFirstPurchase = true;
       }
     }
 
@@ -120,7 +121,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "El total es 0" }, { status: 400 });
     }
 
-    // 2. Calculate Shipping & IVA
+    // 2. Calculate Shipping & Promotions
     // Check if shipping is deactivated manually on all products in cart
     const allShippingDisabled =
       items.length > 0 &&
@@ -151,14 +152,20 @@ export async function POST(req: NextRequest) {
       shippingCostMxn = 0;
     }
     const shippingCents = shippingCostMxn * 100;
-    
-    // In Mexico (PROFECO) and Minerva Alcaraz catalog, prices already include 16% IVA.
-    // We break down the tax for accounting/receipts, but DO NOT add it on top of the total.
-    const taxableAmount = subtotalCents - discountCents;
-    const taxCents = Math.round(taxableAmount - (taxableAmount / 1.16));
-    
-    // Total is subtotal (with discount) + shipping
-    const totalCents = taxableAmount + shippingCents;
+
+    const buenFinActive = isBuenFinActive();
+    const {
+      firstPurchaseDiscountCents,
+      buenFinDiscountCents,
+      totalDiscountCents: discountCents,
+      taxCents,
+      totalCents,
+    } = calculateOrderTotalsCents({
+      subtotalCents,
+      shippingCents,
+      isFirstPurchase,
+      buenFinActive,
+    });
 
     // 3. Create Draft Order in Database
     const customerEmail = shippingDetails?.email || "";
@@ -213,6 +220,10 @@ export async function POST(req: NextRequest) {
         orderId: order.id,
         orderNumber: order.order_number,
         isTheCircleMember: String(!!isTheCircleMember),
+        isFirstPurchase: String(isFirstPurchase),
+        buenFinActive: String(buenFinActive),
+        firstPurchaseDiscountCents: String(firstPurchaseDiscountCents),
+        buenFinDiscountCents: String(buenFinDiscountCents),
         customer_email: customerEmail,
         customer_name: customerName,
       },
@@ -228,6 +239,8 @@ export async function POST(req: NextRequest) {
       clientSecret: paymentIntent.client_secret,
       breakdown: {
         subtotalCents,
+        firstPurchaseDiscountCents,
+        buenFinDiscountCents,
         discountCents,
         shippingCents,
         taxCents,
